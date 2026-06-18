@@ -7,6 +7,8 @@ import { ExamSchedule } from '@/components/ExamSchedule'
 import { TestStructure } from '@/components/TestStructure'
 import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
+import {AboutUs} from "@/components/about";
+import {Scholarship} from "@/components/Scholarship";
 
 export default function Page() {
     return (
@@ -16,6 +18,8 @@ export default function Page() {
         <main className="w-full">
             <Navbar />
             <Hero />
+            <AboutUs />
+            <Scholarship />
             <Services />
             <Achievements />
             <ExamSchedule />

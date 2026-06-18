@@ -96,6 +96,38 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.quick_links': 'দ্রুত লিঙ্ক',
     'footer.policies': 'নীতি',
     'footer.copyright': 'সর্বাধিকার সংরক্ষিত',
+
+
+    "about.notification": "বিক্রমপুর মানব সেবা ফাউন্ডেশনের মূল আদর্শ ও দূরদৃষ্টি",
+    "about.quote_start": "জ্ঞানচর্চার প্রসার এবং সুপ্ত মেধার যথাযথ মূল্যায়নের মাধ্যমে একটি",
+    "about.quote_highlight": "দক্ষ ও বিজ্ঞানমনস্ক",
+    "about.quote_end": "ভবিষ্যৎ প্রজন্ম বিনির্মাণই আমাদের প্রধান অঙ্গীকার।",
+    "about.photo_alt": "অনুষ্ঠানের দৃশ্য",
+    "about.para_1": "আমাদের এই অরাজনৈতিক ও অলাভজনক স্বেচ্ছাসেবী সংগঠন বিক্রমপুর মানব সেবা ফাউন্ডেশন বিশ্বাস করে যে শিক্ষাই প্রগতির চাবিকাঠি। সেই লক্ষ্যকে সামনে রেখে মুন্সিগঞ্জ জেলার সর্বস্তরের মেধাবী ছাত্র-ছাত্রীদের মেধার বিকাশে ২০২২ সাল থেকে বৃত্তি পরীক্ষার মাধ্যমে শিক্ষাবৃত্তি, প্রশংসাপত্র ও পুরস্কার প্রদান করে আসছে ।",
+    "about.para_2": "পপ্রতিটি শিক্ষার্থীর লুকানো প্রতিভাকে সমাজের মূল স্রোতধারার সাথে পরিচিত করতে এবং উচ্চ শিক্ষার পথে আর্থিক অন্তরায়গুলোকে দূর করতে এই পরীক্ষা প্ল্যাটফর্মটি একটি মাইলফলক হিসেবে কাজ করছে। আমরা কেবল পরীক্ষা নেওয়ার মাঝেই আমাদের কার্যক্রম সীমাবদ্ধ রাখছি না, বরং প্রতিটি মেধাবীকে উৎসাহিত করার অনন্য প্রয়াস চালিয়ে যাচ্ছি।",
+      "scholarship.tag": "বৃত্তি তথ্য",
+      "scholarship.title": "বিক্রমপুর মানব সেবা ফাউন্ডেশন মেধাবৃত্তি-২০২৬",
+      "scholarship.see_more": "আরও দেখুন",
+
+      "scholarship.exam_guide": "পরীক্ষা নির্দেশিকা",
+      "scholarship.exam_guide_desc": "কক্ষে প্রবেশ ও নিয়মাবলি পড়ুন",
+
+      "scholarship.online_apply": "অনলাইন আবেদন",
+      "scholarship.online_apply_desc": "পরীক্ষায় অংশগ্রহণের জন্য অনলাইনে আবেদন করুন",
+
+      "scholarship.seat_plan": "আসন বিন্যাস",
+      "scholarship.seat_plan_desc": "হলরুম বিভাগ ও কেন্দ্রসূচি",
+
+      "scholarship.final_result": "ফলাফল অনুসন্ধান",
+      "scholarship.final_result_desc": "মেধাতালিকা দেখতে এখানে",
+
+      "scholarship.merit_list": "কৃতি শিক্ষার্থী",
+      "scholarship.merit_list_desc": "বিগত বছরের সেরা কৃতি শিক্ষার্থী",
+
+      "scholarship.achievements": "শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ",
+      "scholarship.achievements_desc": "প্রতিটি শিক্ষা প্রতিষ্ঠানের সাফল্য"
+
+
   },
   en: {
     // Navigation
@@ -180,7 +212,11 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.quick_links': 'Quick Links',
     'footer.policies': 'Policies',
     'footer.copyright': 'All rights reserved',
+
+
   },
+
+
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
