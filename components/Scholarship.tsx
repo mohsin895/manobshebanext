@@ -12,51 +12,57 @@ const items = [
         color: 'bg-pink-100',
         span: 'md:col-span-1 md:row-span-2',
         tall: true,
+        imagePosition: 'top', // exam image on top
     },
     {
         titleKey: 'scholarship.online_apply',
         descKey: 'scholarship.online_apply_desc',
-        topImage: '/images/scholarship/apply-top.jpg',
-        bottomImage: '/images/scholarship/apply-bottom.jpg',
+        topImage: '/images/scholarship/exam2.png',
+        bottomImage: '/images/scholarship/bg2.png',
         color: 'bg-blue-100',
-        span: 'md:col-span-1',
+        span: 'md:col-span-1 md:row-span-2',
         tall: false,
+        imagePosition: 'bottom', // exam image on bottom
     },
     {
         titleKey: 'scholarship.seat_plan',
         descKey: 'scholarship.seat_plan_desc',
-        topImage: '/images/scholarship/seat-top.jpg',
-        bottomImage: '/images/scholarship/seat-bottom.jpg',
+        topImage: '/images/scholarship/exam3.png',
+        bottomImage: '/images/scholarship/bg3.png',
         color: 'bg-green-100',
-        span: 'md:col-span-1',
+        span: 'md:col-span-1 md:row-span-2',
         tall: false,
+        imagePosition: 'top',
     },
     {
         titleKey: 'scholarship.final_result',
         descKey: 'scholarship.final_result_desc',
-        topImage: '/images/scholarship/result-top.jpg',
-        bottomImage: '/images/scholarship/result-bottom.jpg',
+        topImage: '/images/scholarship/exam4.png',
+        bottomImage: '/images/scholarship/bg4.png',
         color: 'bg-pink-100',
         span: 'md:col-span-1 md:row-span-2',
         tall: true,
+        imagePosition: 'top',
     },
     {
         titleKey: 'scholarship.merit_list',
         descKey: 'scholarship.merit_list_desc',
-        topImage: '/images/scholarship/merit-top.jpg',
-        bottomImage: '/images/scholarship/merit-bottom.jpg',
+        topImage: '/images/scholarship/exam5.png',
+        bottomImage: '/images/scholarship/bg5.png',
         color: 'bg-purple-100',
-        span: 'md:col-span-1',
+        span: 'md:col-span-1 md:row-span-2',
         tall: false,
+        imagePosition: 'bottom', // exam image on bottom
     },
     {
         titleKey: 'scholarship.achievements',
         descKey: 'scholarship.achievements_desc',
-        topImage: '/images/scholarship/achievements-top.jpg',
-        bottomImage: '/images/scholarship/achievements-bottom.jpg',
+        topImage: '/images/scholarship/exam6.png',
+        bottomImage: '/images/scholarship/bg6.png',
         color: 'bg-yellow-100',
-        span: 'md:col-span-1',
+        span: 'md:col-span-1 md:row-span-2',
         tall: false,
+        imagePosition: 'top',
     },
 ]
 
@@ -82,48 +88,90 @@ export function Scholarship() {
                     {items.map((item, idx) => (
                         <div
                             key={idx}
-                            className={`${item.span} group flex flex-col overflow-hidden rounded-2xl border border-gray-100`}
+                            className={`${item.span} group flex flex-col overflow-hidden `}
                         >
-                            {/* Top Image */}
-                            <div className={`relative w-full flex-shrink-0 overflow-hidden ${item.tall ? 'h-[58%]' : 'h-[55%]'}`}>
-                                <Image
-                                    src={item.topImage}
-                                    alt={t(item.titleKey)}
-                                    fill
-                                    className=" transition-transform duration-500 group-hover:scale-105"
-                                />
-                            </div>
+                            {item.imagePosition === 'top' ? (
+                                <>
+                                    {/* Top: Exam Image */}
+                                    <div className={`relative w-full flex-shrink-0 overflow-hidden ${item.tall ? 'h-[58%]' : 'h-[55%]'}`}>
+                                        <Image
+                                            src={item.topImage}
+                                            alt={t(item.titleKey)}
+                                            fill
+                                          className="h-[385px] w-[430]"
 
-                            {/* Bottom: colored bg with bottom image + text overlay */}
-                            <div className={` relative flex flex-1 flex-col overflow-hidden`}>
 
-                                {/* Bottom background image */}
-                                <Image
-                                    src={item.bottomImage}
-                                    alt=""
-                                    fill
-                                    className="object-cover opacity-30"
-                                    aria-hidden
-                                />
-
-                                {/* Text content over bottom image */}
-                                <div className="relative z-10 flex flex-1 flex-col justify-between p-4">
-                                    <div>
-                                        <h3 className="mb-1 text-base font-bold text-gray-900">
-                                            {t(item.titleKey)}
-                                        </h3>
-                                        <p className="text-sm text-gray-600 leading-snug">
-                                            {t(item.descKey)}
-                                        </p>
+                                        />
                                     </div>
-                                    <div className="mt-3">
-                                        <button className="inline-flex items-center gap-1 rounded-full bg-teal-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-teal-600 transition-colors">
-                                            {t('scholarship.see_more')} →
-                                        </button>
-                                    </div>
-                                </div>
 
-                            </div>
+                                    {/* Bottom: colored bg with bottom image + text overlay */}
+                                    <div className="relative flex flex-1 flex-col overflow-hidden">
+                                        <Image
+                                            src={item.bottomImage}
+                                            alt=""
+                                            fill
+                                            className="h-[185px] w-[430]"
+                                            aria-hidden
+                                        />
+                                        <div className="relative z-10 flex flex-1 flex-col justify-between p-4">
+                                            <div>
+                                                <h3 className="mb-1 text-base font-bold text-gray-900">
+                                                    {t(item.titleKey)}
+                                                </h3>
+                                                <p className="text-sm text-gray-600 leading-snug">
+                                                    {t(item.descKey)}
+                                                </p>
+                                            </div>
+                                            <div className="text-right mt-10">
+                                                <button className="inline-flex items-center gap-1 rounded-full bg-teal-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-teal-600 transition-colors">
+                                                    {t('scholarship.see_more')} →
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {/* Top: colored bg with bg image + text overlay */}
+                                    <div className="relative flex flex-1 flex-col overflow-hidden">
+                                        <Image
+                                            src={item.bottomImage}
+                                            alt=""
+
+                                            fill
+                                            className="h-[185px] w-[430]"
+
+                                            aria-hidden
+                                        />
+                                        <div className="relative z-10 flex flex-1 flex-col  p-4 ">
+                                            <div>
+                                                <h3 className="mb-1 text-base font-bold text-gray-900">
+                                                    {t(item.titleKey)}
+                                                </h3>
+                                                <p className="text-sm text-gray-600 leading-snug">
+                                                    {t(item.descKey)}
+                                                </p>
+                                            </div>
+                                            <div className="mt-3 text-right">
+                                                <button className="inline-flex items-center gap-1 rounded-full bg-teal-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-teal-600 transition-colors">
+                                                    {t('scholarship.see_more')} →
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Bottom: Exam Image */}
+                                    <div className={`relative w-full flex-shrink-0 overflow-hidden ${item.tall ? 'h-[58%]' : 'h-[55%]'}`}>
+                                        <Image
+                                            src={item.topImage}
+                                            alt={t(item.titleKey)}
+                                            height="384"
+                                            width="427"
+
+                                        />
+                                    </div>
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>
