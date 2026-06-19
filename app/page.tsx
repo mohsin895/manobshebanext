@@ -9,6 +9,7 @@ import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
 import {AboutUs} from "@/components/about";
 import {Scholarship} from "@/components/Scholarship";
+import {NewsTicker} from "@/components/TopNews";
 
 export default function Page() {
     return (
@@ -18,6 +19,7 @@ export default function Page() {
         <main className="w-full">
             <Navbar />
             <Hero />
+        <NewsTicker />
             <AboutUs />
             <Scholarship />
             <Services />

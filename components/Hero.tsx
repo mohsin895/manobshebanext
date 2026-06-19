@@ -26,7 +26,7 @@ export function Hero() {
     const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
 
     return (
-        <section className="bg-slate-100 p-4">
+        <section className=" p-4">
             <div className="mx-auto max-w-6xl">
                 <div className="relative h-[550px]">
 

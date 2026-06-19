@@ -167,3 +167,23 @@
     @apply font-sans;
   }
 }
+
+
+/* Add this to your globals.css (or tailwind.config.js theme.extend) */
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 25s linear infinite;
+}
+
+.ticker-group:hover .ticker-track {
+    animation-play-state: paused;
+}

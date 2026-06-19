@@ -165,8 +165,12 @@ export function Scholarship() {
                                         <Image
                                             src={item.topImage}
                                             alt={t(item.titleKey)}
-                                            height="384"
-                                            width="427"
+                                         height="385"
+                                          width="430"
+                                            className="h-[385px] w-[430] object-cover "
+
+                                            aria-hidden
+
 
                                         />
                                     </div>
