@@ -10,6 +10,9 @@ import { Footer } from '@/components/Footer'
 import {AboutUs} from "@/components/about";
 import {Scholarship} from "@/components/Scholarship";
 import {NewsTicker} from "@/components/TopNews";
+import {ReasonAttendance} from "@/components/ReasoneAttendance";
+import {ImportantSchedule} from "@/components/ImportantSchedule ";
+
 
 export default function Page() {
     return (
@@ -22,6 +25,8 @@ export default function Page() {
         <NewsTicker />
             <AboutUs />
             <Scholarship />
+          <ReasonAttendance />
+            <ImportantSchedule />
             <Services />
             <Achievements />
             <ExamSchedule />
