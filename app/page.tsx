@@ -1,17 +1,23 @@
 import { Navbar } from '@/components/Navbar'
 import { Hero } from '@/components/Hero'
-import { Services } from '@/components/Services'
+
 import { Achievements } from '@/components/Achievements'
 import { FAQ } from '@/components/FAQ'
-import { ExamSchedule } from '@/components/ExamSchedule'
-import { TestStructure } from '@/components/TestStructure'
-import { Contact } from '@/components/Contact'
+
+
 import { Footer } from '@/components/Footer'
 import {AboutUs} from "@/components/about";
 import {Scholarship} from "@/components/Scholarship";
 import {NewsTicker} from "@/components/TopNews";
 import {ReasonAttendance} from "@/components/ReasoneAttendance";
 import {ImportantSchedule} from "@/components/ImportantSchedule ";
+import {ApplicationProcess} from "@/components/ApplicationProcess";
+import {ExamStructure} from "@/components/ExamStructure";
+import {ScholarshipCategories} from "@/components/ScholarshipCategories";
+import {HelpBanner} from "@/components/HelpBanner";
+import {FamousQuotes} from "@/components/FamousQuotes";
+
+
 
 
 export default function Page() {
@@ -27,12 +33,16 @@ export default function Page() {
             <Scholarship />
           <ReasonAttendance />
             <ImportantSchedule />
-            <Services />
-            <Achievements />
-            <ExamSchedule />
+            <ApplicationProcess />
+          <ExamStructure />
+           <ScholarshipCategories />
+            <HelpBanner />
             <FAQ />
-            <TestStructure />
-            <Contact />
+
+            <Achievements />
+            <FamousQuotes />
+
+
             <Footer />
         </main>
     )

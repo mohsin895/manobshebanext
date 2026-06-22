@@ -3,6 +3,7 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
+import Image from "next/image";
 
 export function Hero() {
     const { t } = useLanguage()
@@ -26,7 +27,7 @@ export function Hero() {
     const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
 
     return (
-        <section className=" p-4">
+        <section className=" p-1">
             <div className="mx-auto max-w-6xl">
                 <div className="relative h-[550px]">
 
@@ -67,11 +68,11 @@ export function Hero() {
                                     <Button
                                         className="bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
              hover:opacity-90
-             text-white px-5 py-2 font-bold text-xs rounded-lg shadow-lg">
+             text-white px-5 py-2 font-bold text-xs rounded-lg shadow-lg cursor-pointer">
                                         {isBn ? 'আবেদন করুন' : 'Apply Now'}
                                     </Button>
                                     <Button variant="outline"
-                                            className="bg-[#FFFFFF] text-[#282929]   hover:bg-white/25 font-bold text-xs rounded-lg backdrop-blur-sm">
+                                            className="bg-[#FFFFFF] text-[#282929]  cursor-pointer  hover:bg-white/25 font-bold text-xs rounded-lg backdrop-blur-sm">
                                         {isBn ? 'আরও জানুন →' : 'Learn More →'}
                                     </Button>
                                 </div>
@@ -84,13 +85,13 @@ export function Hero() {
                                 className="inline-flex items-center gap-2 rounded-[7px] bg-white/15  text-white backdrop-blur-md w-fit border border-white/20">
 
                                 <span
-                                className="text-[10px] font-semibold tracking-wide">
+                                className="text-[16px] font-semibold tracking-wide">
                                  <span
-                                     className="bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)] rounded-t-md text-white text-[12px] font-bold px-3 py-1  whitespace-nowrap shrink-0">
+                                     className="bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)] rounded-t-md text-white text-[16px] font-bold px-3 py-1  whitespace-nowrap shrink-0">
                                 {isBn ? 'আবেদন সম্পন্ন করার সর্বশেষ সময় বাকি' : 'Time left until deadline'}
                             </span>
                                      <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-                                <div className="flex items-center justify-center gap-1 w-full text-center pt-[15px] pb-[15px]">
+                                <div className="flex items-center justify-center gap-1 w-full text-center  p-[15px]">
                                     {[
                                         {val: timeLeft.days, label: t('exam.days')},
                                         {val: timeLeft.hours, label: t('exam.hours')},
@@ -99,12 +100,12 @@ export function Hero() {
                                     ].map((item, i) => (
                                         <div key={i} className="flex items-center gap-1">
                                             <div
-                                                className="text-center bg-white/15  border border-slate-600 rounded-[7px] px-2.5 py-1.5 min-w-[44px]">
+                                                className="text-center bg-[#FFFFFF3D]  border border-[#FFFFFF66] rounded-[7px] px-2.5 py-1.5 min-w-[44px]">
                                                 <div className="text-[15px] font-black text-white font-mono leading-none">
                                                     {String(item.val).padStart(2, '0')}
                                                 </div>
                                                 <div
-                                                    className="text-[8px] text-slate-400 font-bold uppercase tracking-wide mt-0.5">
+                                                    className="text-[14px] text-[#FFFFFF] font-[700] uppercase tracking-wide mt-0.5">
                                                     {item.label}
                                                 </div>
                                             </div>
@@ -123,33 +124,52 @@ export function Hero() {
 
                     {/* Floating Card — top right */}
                     <div
-                        className="absolute top-[53%] right-4 z-30 w-[300px] bg-white rounded-2xl shadow-2xl p-5 flex flex-col items-center">
-                        {/* Graduation Cap Icon */}
-                        <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" viewBox="0 0 64 64" fill="none">
-                                <path d="M32 10L6 24l26 14 26-14L32 10z" fill="#2563eb" opacity="0.85"/>
-                                <path d="M16 31v12c0 4 7.2 9 16 9s16-5 16-9V31" stroke="#2563eb" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-                                <path d="M56 24v12" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round"/>
-                                <path d="M26 52 Q32 56 38 52" stroke="#2563eb" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                            </svg>
+                        className="
+            absolute
+            top-[46%]
+            left-[60%]
+            w-[390px]
+            h-[280px]
+            bg-white
+            rounded-[24px]
+            p-[24px]
+            flex flex-col items-center
+            gap-[12px]
+            opacity-100
+            z-30
+            shadow-2xl
+            "
+                    >
+                        {/* Icon - top 50% */}
+                        <div className="w-full h-[50%] mt-[-45px] flex items-end justify-center">
+                            <div className="w-[200px] h-[200px] bg-[#EEF3FF] rounded-full flex items-center justify-center">
+                               <Image src="/hero2.png" height={100} width={100} alt="hero" />
+                            </div>
                         </div>
-                        <h3 className="text-[13px] font-bold text-gray-900 text-center mb-2">
-                            {isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
-                        </h3>
-                        <p className="text-[10.5px] text-gray-500 text-center leading-relaxed mb-3">
-                            {isBn
-                                ? 'স্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।'
-                                : 'We evaluate students through our modern metrics system.'}
-                        </p>
-                        {/* Link-style button matching screenshot */}
-                        <button className="w-full flex items-center justify-center gap-1.5 text-blue-600 text-[11px] font-semibold border border-blue-100 rounded-lg py-2 px-3 hover:bg-blue-50 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-                            </svg>
-                            {isBn ? 'বিস্তারিত জানতে এখানে ক্লিক করুন' : 'Click here to learn more'}
-                        </button>
-                    </div>
+                        {/* Content - bottom 50% */}
+                        <div className="w-full h-[50%] flex flex-col items-center justify-center gap-[12px]">
+                            {/* Title */}
+                            <h3 className="text-[16px] font-bold text-gray-900 text-center">
+                                {isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
+                            </h3>
 
+                            {/* Description */}
+                            <p className="text-[13px] text-gray-500 text-center leading-relaxed">
+                                {isBn
+                                    ? 'স্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।'
+                                    : 'We evaluate students through our modern metrics system.'}
+                            </p>
+
+                            {/* Button */}
+                            <button className="w-full flex items-center justify-center gap-2 text-[#3B3BC7] text-[13px] bg-[#EEF3FF] font-semibold border border-blue-100 rounded-lg py-3 px-4 hover:bg-blue-50 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4l3 3"/>
+                                </svg>
+                                {isBn ? 'বিস্তারিত জানতে এখানে ক্লিক করুন' : 'Click here to learn more'}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

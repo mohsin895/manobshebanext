@@ -1,16 +1,16 @@
 // layout.tsx — Add 'light' class to html to force light mode always
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Noto_Serif_Bengali } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from './context/LanguageContext'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-})
 
+const notoSerifBengali = Noto_Serif_Bengali({
+    subsets: ['bengali'],
+    weight: ['400'],
+    variable: '--font-bengali', // 👈 important
+})
 export const metadata: Metadata = {
     title: 'ShikshaBhandar - শিক্ষা সেবা প্ল্যাটফর্ম',
     description: 'বিশ্বমানের শিক্ষা এবং নির্দেশনা - Online Classes, Test Series, Study Material',
@@ -37,9 +37,9 @@ export default function RootLayout({
                                    }: Readonly<{ children: React.ReactNode }>) {
     return (
         // FIX 1: Add `light` class so globals.css never applies the dark theme block
-        <html lang="bn" className={`${geistSans.variable} ${geistMono.variable} light`}>
+        <html lang="bn" className={`${notoSerifBengali.variable} light`}>
         {/* FIX 2: Remove bg-white from body — let each section own its background */}
-        <body className="font-sans antialiased">
+        <body className=" antialiased">
         <LanguageProvider>
             {children}
             {process.env.NODE_ENV === 'production' && <Analytics />}

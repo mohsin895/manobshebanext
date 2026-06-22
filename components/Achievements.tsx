@@ -3,39 +3,45 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 
 const achievements = [
-  { key: 'achievements.students', value: '৫ বছর', icon: '🔥' },
-  { key: 'achievements.courses', value: '১০ টি', icon: '🏫' },
-  { key: 'achievements.teachers', value: '১০ জন', icon: '✏️' },
-  { key: 'achievements.success', value: '১০০ জন', icon: '🎯' },
+    { key: 'achievements.successEvents', icon: '🎉', bg: 'bg-blue-50', valueColor: 'text-blue-700' },
+    { key: 'achievements.partnerSchools', icon: '🏫', bg: 'bg-orange-50', valueColor: 'text-red-700' },
+    { key: 'achievements.totalParticipants', icon: '📋', bg: 'bg-blue-50', valueColor: 'text-red-700' },
+    { key: 'achievements.scholarshipRecipients', icon: '🎓', bg: 'bg-orange-50', valueColor: 'text-blue-700' },
+    { key: 'achievements.generalGrade', icon: '📝', bg: 'bg-blue-50', valueColor: 'text-blue-700' },
+    { key: 'achievements.certificates', icon: '📜', bg: 'bg-orange-50', valueColor: 'text-red-700' },
 ]
 
 export function Achievements() {
-  const { t } = useLanguage()
+    const { t } = useLanguage()
 
-  return (
-    <section className="bg-gray-50 px-4 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-            ({t('achievements.title')})
-          </h2>
-        </div>
+    return (
+        <section className="bg-white px-4 py-16 md:py-24">
+            <div className="mx-auto max-w-7xl">
+                {/* Header */}
+                <div className="mb-12 text-center">
+                    <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
+                        {t('achievements.title')}
+                    </h2>
+                </div>
 
-        {/* Stats Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {achievements.map((item, idx) => (
-            <div
-              key={idx}
-              className="rounded-lg bg-white p-8 text-center shadow-sm transition-transform hover:shadow-md"
-            >
-              <div className="mb-4 text-4xl">{item.icon}</div>
-              <h3 className="mb-2 text-2xl font-bold text-orange-500">{item.value}</h3>
-              <p className="text-gray-600">{t(item.key)}</p>
+                {/* Stats Grid */}
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {achievements.map((item) => (
+                        <div
+                            key={item.key}
+                            className={`rounded-xl ${item.bg} p-8 text-center transition-transform hover:-translate-y-0.5`}
+                        >
+                            <div className="mb-4 text-4xl">{item.icon}</div>
+                            <p className="mb-2 text-sm text-gray-500">
+                                {t(`${item.key}.label`)}
+                            </p>
+                            <h3 className={`text-2xl font-bold ${item.valueColor}`}>
+                                {t(`${item.key}.value`)}
+                            </h3>
+                        </div>
+                    ))}
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+        </section>
+    )
 }

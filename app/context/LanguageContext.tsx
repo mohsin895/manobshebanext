@@ -48,6 +48,19 @@ const translations: Record<Language, Record<string, string>> = {
         'achievements.teachers': 'শিক্ষক',
         'achievements.success': 'সাফল্যের হার',
 
+        'achievements.successEvents.label': 'সফল আয়োজন',
+        'achievements.successEvents.value': '৫ বার',
+        'achievements.partnerSchools.label': 'সম্পৃক্ত বিদ্যালয়',
+        'achievements.partnerSchools.value': '১০ টি',
+        'achievements.totalParticipants.label': 'পরীক্ষায় মোট শিক্ষার্থী অংশগ্রহণ',
+        'achievements.totalParticipants.value': '১০ জন',
+        'achievements.scholarshipRecipients.label': 'মোট বৃত্তি প্রাপ্ত',
+        'achievements.scholarshipRecipients.value': '৩০০ জন',
+        'achievements.generalGrade.label': 'সাধারণ গ্রেড',
+        'achievements.generalGrade.value': '১০ জন',
+        'achievements.certificates.label': 'উদযাপনপূর্ণ',
+        'achievements.certificates.value': '৩০০ জন',
+
         // Events
         'events.title': 'ইভেন্ট এবং কর্মসূচি',
         'events.view': 'দেখুন',
@@ -171,7 +184,114 @@ const translations: Record<Language, Record<string, string>> = {
         "schedule.countdown_footer_prefix": "পরীক্ষার তারিখ:",
         "schedule.countdown_date": "১৫ জুলাই, ২০২৫",
         "schedule.countdown_footer_time": "সময়: সকাল",
-        "schedule.countdown_time": "১০ টি"
+        "schedule.countdown_time": "১০ টি",
+
+        // Application Process
+        "process.eyebrow": "আবেদন পদ্ধতি",
+        "process.title": "ধাপভেদে অনলাইনে আবেদন প্রক্রিয়া",
+        "process.subtitle": "নিচের ধাপগুলো অনুসরণ করে সহজেই আপনার আবেদন সম্পন্ন করুন",
+
+        "process.register.title": "রেজিস্ট্রেশন বা প্রোফাইল তৈরি",
+        "process.register.desc": "আপনার মৌলিক তথ্য দিয়ে দ্রুত একটি অ্যাকাউন্ট খুলুন এবং প্রোফাইল সম্পন্ন করুন।",
+
+        "process.fillForm.title": "নতুন আবেদন ফর্ম পূরণ",
+        "process.fillForm.desc": "প্রয়োজনীয় তথ্য সহ আবেদন ফর্মটি সঠিকভাবে পূরণ করুন এবং প্রয়োজনীয় কাগজপত্র যুক্ত করুন।",
+
+        "process.verify.title": "তথ্য পূরণ ও সংশোধনী",
+        "process.verify.desc": "প্রদত্ত তথ্য যাচাই করে নিশ্চিত করুন যে সকল তথ্য সঠিক এবং সম্পূর্ণ রয়েছে।",
+
+        "process.confirm.title": "প্রেরণসহ সংরক্ষণ",
+        "process.confirm.desc": "নিশ্চিতকরণ বার্তা পাওয়ার পর আবেদনপত্রের একটি অনুলিপি সংরক্ষণ করুন।",
+
+        "process.details": "বিস্তারিত",
+        "process.videoCaption": "ভিডিওতে এপ্লিকেশন পদ্ধতি দেখুন",
+        "process.playVideo": "ভিডিও চালান",
+
+        // Exam Structure & Marks Distribution
+        "structure.eyebrow": "পরীক্ষার নিয়মাবলী",
+        "structure.title": "বৃত্তি পরীক্ষার কাঠামো ও নম্বর বণ্টন",
+        "structure.subtitle": "৬ষ্ঠ থেকে দশম শ্রেণি পর্যন্ত মাধ্যমিক শ্রেণির শিক্ষার্থীদের জন্য বৃত্তি পরীক্ষার নিয়মাবলী",
+
+        "structure.patternTitle": "অনুপাত ও প্রশ্নের ধরন",
+        "structure.rule1": "মৌলিক (MCQ) পদ্ধতিতে মোট ১০টি প্রশ্ন থাকবে। প্রতিটি প্রশ্নের মান সমপরিমাণ নম্বর।",
+        "structure.rule2": "বৃদ্ধাঙ্গুলে ১০০ নম্বর। বৃদ্ধাঙ্গুলের মধ্যে মিথ্যা করে প্রশ্নপত্র অনুসারে সময় সংযুক্ত করতে হবে।",
+        "structure.rule3": "ভুল উত্তরের জন্য কোনো প্রকার নেগেটিভ মার্ক কাটা হবে না। উত্তরপত্র জমা দেওয়ার সময় সঠিকভাবে (ক, খ, গ, ঘ) থেকে সঠিক উত্তরটি বৃত্ত ভরাট করে (OMR) শিটে কালো কলম দিয়ে চিহ্নিত করতে হবে।",
+
+        "structure.marksTitle": "বিষয়ভিত্তিক নম্বর বণ্টন খতিয়ান",
+        "structure.subject.bengali": "বাংলা (Bengali)",
+        "structure.subject.english": "ইংরেজি (English)",
+        "structure.subject.mathematics": "গণিত (Mathematics)",
+        "structure.subject.ict": "আইসিটি (ICT)",
+        "structure.subject.generalKnowledge": "সাধারণ জ্ঞান (G.K.)",
+        "structure.subject.treePlantation": "বৃক্ষরোপণ (Tree Plantation)",
+        "structure.marks.bengali": "১০ নম্বর",
+        "structure.marks.english": "১০ নম্বর",
+        "structure.marks.mathematics": "১৫ নম্বর",
+        "structure.marks.ict": "১৫ নম্বর",
+        "structure.marks.generalKnowledge": "১০ নম্বর",
+        "structure.marks.treePlantation": "১০ নম্বর",
+        "structure.totalTime": "সময়: ৭৫ মিনিট",
+        "structure.totalMarks": "মোট নম্বর ১০০",
+
+        "structure.ctaTitle": "সম্পূর্ণ ও বিস্তারিত সিলেবাস",
+        "structure.ctaDesc": "প্রতিটি বিষয়ের সিলেবাস পার্ট ও সকল প্রকারের নির্দেশিকা সম্পর্কে জেনে নিতে নিচে ক্লিক করুন।",
+        "structure.ctaButton": "সিলেবাসে দেখুন",
+
+        // Scholarship Categories
+        "categories.eyebrow": "বৃত্তির বিধান",
+        "categories.title": "মেধাবৃত্তি ক্যাটাগরি সমূহ",
+        "categories.subtitle": "শ্রেণিভেদে কত জন শিক্ষার্থী সার্বিক বৃত্তি প্রদান এবং নির্বাচন প্রক্রিয়ার বিস্তারিত তথ্য সম্বলিত করা হয়েছে",
+
+        "categories.tiersTitle": "বৃত্তির শ্রেণি বিভাগ",
+        "categories.tier1.title": "মাধ্যমিক বিদ্যালয় স্তর - ৭ম এবং ৮ম শ্রেণি",
+        "categories.tier1.fee": "নিবন্ধন ফেরত ১,৫০০৳ / বৃত্তিপ্রাপ্ত ৩,৫০০৳",
+        "categories.tier2.title": "মাধ্যমিক বিদ্যালয় স্তর - ৯ম এবং ১০ম শ্রেণি",
+        "categories.tier2.fee": "নিবন্ধন ফেরত ৩,৫০০৳ / বৃত্তিপ্রাপ্ত ৫,০০০৳",
+        "categories.tier3.title": "জেলার সেরা শিক্ষার্থী",
+        "categories.tier3.fee": "প্রতি শ্রেণি থেকে একজন করে মোট ৪ জন শিক্ষার্থী পাবে ৫,০০০৳",
+
+        "categories.rulesTitle": "বৃত্তি প্রদানের নিয়মাবলী",
+        "categories.rule1": "প্রতি শ্রেণি থেকে সর্বোচ্চ নম্বর অর্জনকারী ক্রমানুসারে প্রথম ৩৫ জন করে ৪টি শ্রেণি থেকে সর্বনিম্ন মোট ১৪০ জন শিক্ষার্থীকে বৃত্তি প্রদান।",
+        "categories.rule2": "যদি একাধিক শিক্ষার্থী একই নম্বর অর্জন করে তবে একাধিক শিক্ষার্থী বৃত্তি প্রাপ্তির আওতায় আসবে। এতে বৃত্তির সংখ্যা বাড়বে।",
+        "categories.rule3": "উত্তীর্ণ ও সাধারণ দুইটি বিভাগে শিক্ষার্থীদের সম্মানিত করা হবে।",
+        "categories.rule4": "বৃত্তিপ্রাপ্তদের সম্মাননা স্মারক ও সার্টিফিকেট প্রদান করা হবে।",
+
+        // Help Banner
+        "helpBanner.eyebrow": "সহায়তা দরকার",
+        "helpBanner.title": "আপনার কি কোনো সাহায্যের প্রয়োজন?",
+        "helpBanner.description": "আবেদন করতে গিয়ে কোনো সমস্যা হচ্ছে? অথবা প্রবেশপত্র ডাউনলোড করতে পারছেন না? আমাদের জরুরি হটলাইনে ফোন করুন।",
+        "helpBanner.callButton": "সাপোর্টে যোগাযোগ করুন",
+        "helpBanner.emailButton": "ই-মেইল করুন",
+
+        "helpBanner.call.label": "কল করুন",
+        "helpBanner.call.value": "০১৬৪৪-৮৬৪৪৫৬",
+        "helpBanner.whatsapp.label": "হোয়াটসঅ্যাপ",
+        "helpBanner.whatsapp.value": "০১৬৪৮০৪৪২০১৪",
+        "helpBanner.email.label": "ই-মেইল",
+        "helpBanner.email.value": "org.bmsf@gmail.com",
+        "helpBanner.address.label": "ঠিকানা",
+        "helpBanner.address.value": "কামারখাড়া বাজার, টংগিবাড়ী, মুন্সিগঞ্জ",
+        // ─── Add these keys inside the `bn` translations object ───────────────────────
+
+        "quotes.eyebrow": "গুণিজনদের বাণী",
+        "quotes.title": "যারা আমাদের বিশ্বাস করেন",
+
+// Slide 1
+        "quotes.quote1": "\"এই বুদ্ধিবৃত্তিক ও প্রতিভাবিত প্রজন্মকে প্রকৃত পথে এগিয়ে নিতে এবং সমাজের সেরা শিক্ষার্থীদের যথাযোগ্য মূল্যায়ন দিতে আজও আমরা 'বিক্রমপুর মানব সেবা ফাউন্ডেশন'-এর এই উদ্যোগটি প্রশংসনীয় মনে করি।\"",
+        "quotes.author1": "আলহাজ্ব মজিবুর রহমান সরদার",
+        "quotes.role1": "সভাপতি, বিক্রমপুর মানব সেবা ফাউন্ডেশন · সম্পাদক, জানুয়ারি ২০২৬",
+
+// Slide 2
+        "quotes.quote2": "\"মেধার বিকাশে সংগঠনটির আন্তরিক প্রচেষ্টা দেখে আমি অভিভূত। শিক্ষার্থীদের স্বপ্ন পূরণে এই মেধাবৃত্তি একটি গুরুত্বপূর্ণ ভূমিকা রাখছে।\"",
+        "quotes.author2": "প্রফেসর আবদুল করিম",
+        "quotes.role2": "অধ্যক্ষ, মুন্সিগঞ্জ সরকারি কলেজ",
+
+// Slide 3
+        "quotes.quote3": "\"প্রতিটি মেধাবী শিক্ষার্থীকে উৎসাহিত করার এই প্রয়াস সত্যিই অনুকরণীয়। আমাদের সমাজে এ ধরনের উদ্যোগ আরও বেশি প্রয়োজন।\"",
+        "quotes.author3": "জনাব রফিকুল ইসলাম",
+        "quotes.role3": "প্রধান শিক্ষক, টংগিবাড়ী পাইলট উচ্চ বিদ্যালয়",
+
+
 
     },
     en: {
@@ -208,6 +328,20 @@ const translations: Record<Language, Record<string, string>> = {
         'achievements.courses': 'Courses',
         'achievements.teachers': 'Teachers',
         'achievements.success': 'Success Rate',
+
+        'achievements.successEvents.label': 'Successful events',
+        'achievements.successEvents.value': '5 times',
+        'achievements.partnerSchools.label': 'Partner schools',
+        'achievements.partnerSchools.value': '10',
+        'achievements.totalParticipants.label': 'Total exam participants',
+        'achievements.totalParticipants.value': '10',
+        'achievements.scholarshipRecipients.label': 'Total scholarship recipients',
+        'achievements.scholarshipRecipients.value': '300',
+        'achievements.generalGrade.label': 'General grade',
+        'achievements.generalGrade.value': '10',
+        'achievements.certificates.label': 'Certificates awarded',
+        'achievements.certificates.value': '300',
+
 
         // Events
         'events.title': 'Events & Programs',
@@ -307,6 +441,113 @@ const translations: Record<Language, Record<string, string>> = {
 
         'reasons.future_opportunities': 'Future opportunities',
         'reasons.future_opportunities_desc': 'Scholarship recipients get priority access to special courses, mentoring programs, and higher education support.',
+
+        // Application Process
+        'process.eyebrow': 'Application steps',
+        'process.title': 'Step-by-step online application process',
+        'process.subtitle': 'Follow the steps below to complete your application easily',
+
+        'process.register.title': 'Register or create a profile',
+        'process.register.desc': 'Quickly create an account with your basic information and complete your profile.',
+
+        'process.fillForm.title': 'Fill out the application form',
+        'process.fillForm.desc': 'Complete the application form accurately with the required information and attach the necessary documents.',
+
+        'process.verify.title': 'Review and correct information',
+        'process.verify.desc': 'Check the submitted information to confirm everything is correct and complete.',
+
+        'process.confirm.title': 'Submit and save',
+        'process.confirm.desc': 'After receiving the confirmation message, save a copy of your application.',
+
+        'process.details': 'Details',
+        'process.videoCaption': 'Watch the application process in video',
+        'process.playVideo': 'Play video',
+
+        // Exam Structure & Marks Distribution
+        'structure.eyebrow': 'Exam regulations',
+        'structure.title': 'Scholarship exam structure & marks distribution',
+        'structure.subtitle': 'Exam regulations for secondary level students from class 6 to class 10',
+
+        'structure.patternTitle': 'Question pattern and ratio',
+        'structure.rule1': 'The exam will follow an MCQ format with a total of 10 questions, each carrying equal marks.',
+        'structure.rule2': 'The total exam is out of 100 marks, with time allotted according to the question paper.',
+        'structure.rule3': 'There is no negative marking for wrong answers. Mark the correct answer (a, b, c, d) clearly on the OMR sheet using a black pen.',
+
+        'structure.marksTitle': 'Subject-wise marks distribution',
+        'structure.subject.bengali': 'Bengali',
+        'structure.subject.english': 'English',
+        'structure.subject.mathematics': 'Mathematics',
+        'structure.subject.ict': 'ICT',
+        'structure.subject.generalKnowledge': 'General Knowledge',
+        'structure.subject.treePlantation': 'Tree Plantation',
+        'structure.marks.bengali': '10 marks',
+        'structure.marks.english': '10 marks',
+        'structure.marks.mathematics': '15 marks',
+        'structure.marks.ict': '15 marks',
+        'structure.marks.generalKnowledge': '10 marks',
+        'structure.marks.treePlantation': '10 marks',
+        'structure.totalTime': 'Time: 75 minutes',
+        'structure.totalMarks': 'Total marks 100',
+
+        'structure.ctaTitle': 'Complete and detailed syllabus',
+        'structure.ctaDesc': 'Click below to learn about the syllabus for every subject and all relevant guidelines.',
+        'structure.ctaButton': 'View syllabus',
+
+        // Scholarship Categories
+        'categories.eyebrow': 'Scholarship provisions',
+        'categories.title': 'Scholarship categories',
+        'categories.subtitle': 'Details on how many students receive scholarships per class group and the selection process',
+
+        'categories.tiersTitle': 'Scholarship class groups',
+        'categories.tier1.title': 'Secondary school level - Class 7 and 8',
+        'categories.tier1.fee': 'Registration fee 1,500৳ / Scholarship amount 3,500৳',
+        'categories.tier2.title': 'Secondary school level - Class 9 and 10',
+        'categories.tier2.fee': 'Registration fee 3,500৳ / Scholarship amount 5,000৳',
+        'categories.tier3.title': "District's best student",
+        'categories.tier3.fee': 'One student from each class, 4 students total, will receive 5,000৳',
+
+        'categories.rulesTitle': 'Scholarship distribution rules',
+        'categories.rule1': 'Scholarships will be given to the top 35 highest-scoring students from each class, for a minimum total of 140 students across 4 classes.',
+        'categories.rule2': 'If multiple students achieve the same score, all of them will receive a scholarship, which may increase the total number of scholarships awarded.',
+        'categories.rule3': 'Students will be honored under two categories: passed and general.',
+        'categories.rule4': 'Scholarship recipients will be given a certificate and a memento of honor.',
+
+        // Help Banner
+        'helpBanner.eyebrow': 'Need help',
+        'helpBanner.title': 'Do you need any help?',
+        'helpBanner.description': "Having trouble applying? Or can't download your admit card? Call our urgent hotline.",
+        'helpBanner.callButton': 'Contact support',
+        'helpBanner.emailButton': 'Send an email',
+
+        'helpBanner.call.label': 'Call us',
+        'helpBanner.call.value': '01644-864456',
+        'helpBanner.whatsapp.label': 'WhatsApp',
+        'helpBanner.whatsapp.value': '01648044201',
+        'helpBanner.email.label': 'Email',
+        'helpBanner.email.value': 'org.bmsf@gmail.com',
+        'helpBanner.address.label': 'Address',
+        'helpBanner.address.value': 'Kamarkhara Bazar, Tongibari, Munshiganj',
+
+// ─── Add these keys inside the `en` translations object ───────────────────────
+
+        "quotes.eyebrow": "Testimonials",
+        "quotes.title": "Those who trust us",
+
+// Slide 1
+        "quotes.quote1": "\"To guide this intellectual and talented generation in the right direction and to give the best students of society their due recognition, we still consider this initiative of 'Bikrampur Manob Seba Foundation' praiseworthy.\"",
+        "quotes.author1": "Alhaj Mojibur Rahman Sardar",
+        "quotes.role1": "President, Bikrampur Manob Seba Foundation · Secretary, January 2026",
+
+// Slide 2
+        "quotes.quote2": "\"I am deeply moved by the sincere efforts of this organization in developing talent. This scholarship is playing an important role in fulfilling the dreams of students.\"",
+        "quotes.author2": "Professor Abdul Karim",
+        "quotes.role2": "Principal, Munshiganj Government College",
+
+// Slide 3
+        "quotes.quote3": "\"This initiative to encourage every talented student is truly commendable. Our society needs more such efforts.\"",
+        "quotes.author3": "Mr. Rafiqul Islam",
+        "quotes.role3": "Headmaster, Tongibari Pilot High School",
+
     },
 
 
