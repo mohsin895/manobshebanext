@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { Button } from '@/components/ui/button'
+import Image from "next/image";
 
 export function Navbar() {
   const { language, setLanguage, t } = useLanguage()
@@ -27,14 +28,14 @@ export function Navbar() {
 
       {/* White Navbar */}
       <div className="bg-white shadow-md border-b">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl ">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500">
-                <span className="font-bold text-white">শ</span>
+              <div className="flex h-20 w-20 items-center justify-center rounded-full ">
+                <Image src="/logo.png" height={100} width={100} alt="logo" />
               </div>
-              <span className="hidden font-bold text-gray-900 sm:block">ShikshaBhandar</span>
+
             </div>
 
             {/* Menu Items */}

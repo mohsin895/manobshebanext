@@ -12,7 +12,7 @@ const notoSerifBengali = Noto_Serif_Bengali({
     variable: '--font-bengali', // 👈 important
 })
 export const metadata: Metadata = {
-    title: 'ShikshaBhandar - শিক্ষা সেবা প্ল্যাটফর্ম',
+    title: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
     description: 'বিশ্বমানের শিক্ষা এবং নির্দেশনা - Online Classes, Test Series, Study Material',
     generator: 'v0.app',
     icons: {
