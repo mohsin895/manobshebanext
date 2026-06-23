@@ -47,13 +47,14 @@ export function Hero() {
                             {/* Badge */}
                             <div
                                 className="inline-flex items-center gap-2  px-4 py-2 text-white  w-fit">
-                                <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"/>
+                                {/*<span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"/>*/}
+                                <Image src="/imag2.png" height={15} width={15} alt="logo" />
                                 <span className="text-[10px] font-semibold tracking-wide">{t('exam.next_exam')}</span>
                             </div>
 
                             {/* Title + Buttons */}
                             <div>
-                                <h1 className="text-5xl font-black text-orange-400 leading-tight tracking-tight">
+                                <h1 className="text-5xl font-black text-[#FF6B35] leading-tight tracking-tight">
                                     {isBn ? <>মেধাবৃত্তি ২০২৬</> : 'Merit Scholarship 2026'}
                                 </h1>
                                 <p className="text-base text-white font-bold mt-2">
@@ -66,58 +67,115 @@ export function Hero() {
                                 </p>
                                 <div className="flex gap-3 mt-3">
                                     <Button
-                                        className="bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
-             hover:opacity-90
-             text-white px-5 py-2 font-bold text-xs rounded-lg shadow-lg cursor-pointer">
+                                        className="
+    w-[155px]
+    h-[40px]
+    px-[16px]
+    py-[8px]
+    flex items-center justify-center gap-[8px]
+    rounded-full
+    bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
+    text-white
+    text-xs font-bold
+    shadow-lg
+    hover:opacity-90
+    cursor-pointer
+  "
+                                    >
+                                        <Image src="/image3.png" height={15} width={15} alt="logo" />
                                         {isBn ? 'আবেদন করুন' : 'Apply Now'}
                                     </Button>
-                                    <Button variant="outline"
-                                            className="bg-[#FFFFFF] text-[#282929]  cursor-pointer  hover:bg-white/25 font-bold text-xs rounded-lg backdrop-blur-sm">
+                                    <Button
+                                        variant="outline"
+                                        className="
+    w-[143px]
+    h-[40px]
+    px-[16px]
+    py-[8px]
+    flex items-center justify-center gap-[8px]
+    rounded-full
+    bg-white
+    text-[#282929]
+    text-xs font-bold
+    backdrop-blur-sm
+    hover:bg-white/25
+    cursor-pointer
+  "
+                                    >
                                         {isBn ? 'আরও জানুন →' : 'Learn More →'}
                                     </Button>
                                 </div>
                             </div>
 
 
-
-
                             <div
-                                className="inline-flex items-center gap-2 rounded-[7px] bg-white/15  text-white backdrop-blur-md w-fit border border-white/20">
+                                className="
+    w-[423px]
+    h-[156px]
+    flex flex-col gap-[20px]
+    pb-[20px]
+    rounded-[16px]
+    bg-white/10
+    backdrop-blur-[25px]
+    border border-white/20
+    text-white
+  "
+                            >
+                                {/* Header */}
+                                <div className="w-full rounded-tl-[16px] rounded-tr-[16px] sticky top-0 z-10 flex items-center justify-center gap-2 px-3 py-2 bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)]">
 
-                                <span
-                                className="text-[16px] font-semibold tracking-wide">
-                                 <span
-                                     className="bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)] rounded-t-md text-white text-[16px] font-bold px-3 py-1  whitespace-nowrap shrink-0">
-                                {isBn ? 'আবেদন সম্পন্ন করার সর্বশেষ সময় বাকি' : 'Time left until deadline'}
-                            </span>
-                                     <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-                                <div className="flex items-center justify-center gap-1 w-full text-center  p-[15px]">
+                                    <Image src="/image4.png" height={15} width={15} alt="logo" />
+
+                                    <span
+                                        className="
+      rounded-md
+      text-white
+      text-[16px]
+      font-bold
+      px-3 py-1
+      whitespace-nowrap
+    "
+                                    >
+    {isBn ? 'আবেদন সম্পন্ন করার সর্বশেষ সময় বাকি' : 'Time left until deadline'}
+  </span>
+
+                                </div>
+
+                                {/* Timer */}
+                                <div className="flex items-center justify-center gap-[8px] w-full px-[15px]">
                                     {[
-                                        {val: timeLeft.days, label: t('exam.days')},
-                                        {val: timeLeft.hours, label: t('exam.hours')},
-                                        {val: timeLeft.minutes, label: t('exam.minutes')},
-                                        {val: timeLeft.seconds, label: t('exam.seconds')},
+                                        { val: timeLeft.days, label: t('exam.days') },
+                                        { val: timeLeft.hours, label: t('exam.hours') },
+                                        { val: timeLeft.minutes, label: t('exam.minutes') },
+                                        { val: timeLeft.seconds, label: t('exam.seconds') },
                                     ].map((item, i) => (
-                                        <div key={i} className="flex items-center gap-1">
+                                        <div key={i} className="flex items-center gap-[8px]">
                                             <div
-                                                className="text-center bg-[#FFFFFF3D]  border border-[#FFFFFF66] rounded-[7px] px-2.5 py-1.5 min-w-[44px]">
-                                                <div className="text-[15px] font-black text-white font-mono leading-none">
+                                                className="
+            text-center
+            bg-white/25
+            border border-white/40
+            rounded-[7px]
+            px-2.5 py-1.5
+            min-w-[44px]
+          "
+                                            >
+                                                <div className="text-[15px] font-black font-mono leading-none">
                                                     {String(item.val).padStart(2, '0')}
                                                 </div>
-                                                <div
-                                                    className="text-[14px] text-[#FFFFFF] font-[700] uppercase tracking-wide mt-0.5">
+                                                <div className="text-[14px] font-bold uppercase tracking-wide mt-0.5">
                                                     {item.label}
                                                 </div>
                                             </div>
-                                            {i < 3 &&
-                                                <span className="text-slate-500 font-black text-base pb-3">:</span>}
+
+                                            {i < 3 && (
+                                                <span className="text-white/60 font-black text-base pb-3">:</span>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
-                            </span>
                             </div>
                         </div>
-
                         {/* Countdown Bar */}
 
                     </div>
@@ -142,8 +200,8 @@ export function Hero() {
                     >
                         {/* Icon - top 50% */}
                         <div className="w-full h-[50%] mt-[-45px] flex items-end justify-center">
-                            <div className="w-[200px] h-[200px] bg-[#EEF3FF] rounded-full flex items-center justify-center">
-                               <Image src="/hero2.png" height={100} width={100} alt="hero" />
+                            <div className="w-[200px] h-[200px] bg-[#EEF3FF]/30 rounded-full flex items-end justify-center pb-4">
+                                <Image src="/hero2.png" height={100} width={100} alt="hero" />
                             </div>
                         </div>
                         {/* Content - bottom 50% */}

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react'
 
-type Language = 'bn' | 'en'
+
 
 interface LanguageContextType {
     language: Language
@@ -574,3 +574,5 @@ export function useLanguage() {
     }
     return context
 }
+
+export type Language = 'bn' | 'en'
