@@ -11,7 +11,6 @@ export function Navbar() {
     const { language, setLanguage, t } = useLanguage()
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [showTopBar, setShowTopBar] = useState(true)
-    const lastScrollY = useRef(0)
 
     const menuItems = [
         { bn: 'অনলাইন আবেদন পরীক্ষা নির্দেশিকা', en: 'Exam Application Guide' },
@@ -21,21 +20,30 @@ export function Navbar() {
     ]
 
     useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY
+        let lastScrollY = window.scrollY
+        let ticking = false
+        const THRESHOLD = 8 // ignore sub-pixel / momentum jitter so state doesn't flap
 
-            // Always show top bar at the very top of the page
+        const update = () => {
+            const currentScrollY = window.scrollY
+            const delta = currentScrollY - lastScrollY
+
             if (currentScrollY <= 0) {
                 setShowTopBar(true)
-            } else if (currentScrollY > lastScrollY.current) {
-                // Scrolling down -> hide
-                setShowTopBar(false)
-            } else {
-                // Scrolling up -> show
-                setShowTopBar(true)
+                lastScrollY = currentScrollY
+            } else if (Math.abs(delta) > THRESHOLD) {
+                setShowTopBar(delta < 0) // scrolling up -> show, down -> hide
+                lastScrollY = currentScrollY
             }
 
-            lastScrollY.current = currentScrollY
+            ticking = false
+        }
+
+        const handleScroll = () => {
+            if (!ticking) {
+                ticking = true
+                window.requestAnimationFrame(update)
+            }
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })
@@ -44,11 +52,13 @@ export function Navbar() {
 
     return (
         <nav className="sticky top-0 z-50">
-            {/* Orange Top Bar */}
+            {/* Orange Top Bar — collapses via transform, not height, so it never shifts
+                the white navbar below it and can't retrigger a scroll/layout loop */}
             <div
-                className={`bg-[#FF6B35] mx-auto max-w-7xl text-white rounded-b-[10px] overflow-hidden transition-all duration-300 ease-in-out ${
-                    showTopBar ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'
+                className={`bg-[#FF6B35] mx-auto max-w-7xl text-white rounded-b-[10px] transition-transform duration-300 ease-in-out will-change-transform ${
+                    showTopBar ? 'translate-y-0' : '-translate-y-full'
                 }`}
+                style={{ height: showTopBar ? undefined : 0, overflow: 'hidden' }}
             >
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="flex items-center gap-6 py-2 text-sm">
@@ -65,8 +75,9 @@ export function Navbar() {
                 </div>
             </div>
 
-            {/* White Navbar */}
-            <div className="bg-white shadow-md border-b">
+            {/* White Navbar — sticky on its own so it docks cleanly at the top
+                regardless of what the orange bar above it is doing */}
+            <div className="sticky top-0 bg-white shadow-md border-b">
                 <div className="mx-auto max-w-7xl">
                     <div className="flex items-center justify-between">
                         {/* Logo */}
