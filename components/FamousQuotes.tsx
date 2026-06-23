@@ -10,21 +10,21 @@ const quotes = [
         key: 'quotes.quote1',
         authorKey: 'quotes.author1',
         roleKey: 'quotes.role1',
-        image: '/images/quotes/person1.jpg',
+        image: '/imag10.png',
     },
     {
         id: 2,
         key: 'quotes.quote2',
         authorKey: 'quotes.author2',
         roleKey: 'quotes.role2',
-        image: '/images/quotes/person2.jpg',
+        image: '/imag10.png',
     },
     {
         id: 3,
         key: 'quotes.quote3',
         authorKey: 'quotes.author3',
         roleKey: 'quotes.role3',
-        image: '/images/quotes/person3.jpg',
+        image: '/imag10.png',
     },
 ]
 
@@ -77,71 +77,68 @@ export function FamousQuotes() {
             <div className="pointer-events-none absolute -left-24 top-0 h-96 w-96 rounded-full bg-indigo-50 opacity-60 blur-3xl" />
             <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-orange-50 opacity-60 blur-3xl" />
 
-            <div className="relative mx-auto max-w-5xl px-4">
+            <div className="relative mx-auto max-w-6xl px-4">
                 {/* Section heading */}
                 <div className="mb-12 text-center">
                     <span className="mb-3 inline-block rounded-full bg-indigo-100 px-4 py-1 text-sm font-semibold text-indigo-700">
                         {t('quotes.eyebrow')}
                     </span>
-                    <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-                        {t('quotes.title')}
-                    </h2>
+
                 </div>
 
                 {/* Carousel card */}
                 <div className="relative flex items-center gap-4">
                     {/* Prev button */}
-                    <button
-                        onClick={prev}
-                        aria-label="Previous"
-                        className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-                    >
-                        <ChevronLeft className="h-5 w-5" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={prev}*/}
+                    {/*    aria-label="Previous"*/}
+                    {/*    className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"*/}
+                    {/*>*/}
+                    {/*    <ChevronLeft className="h-5 w-5" />*/}
+                    {/*</button>*/}
 
                     {/* Slide */}
                     <div
                         className={`flex-1 transition-all duration-350 ease-in-out ${slideClass}`}
                     >
                         <div className="flex flex-col items-center gap-8 rounded-2xl border border-gray-100 bg-white p-8 shadow-lg md:flex-row md:items-start md:gap-10">
-                            {/* Person image */}
-                            <div className="shrink-0">
-                                <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-indigo-100 shadow-md md:h-40 md:w-40">
+
+                            {/* Content - 60% */}
+                            <div className="w-full md:w-[60%] text-center md:text-left">
+                                <p className="mb-6 font-normal text-[24px] leading-[30px] tracking-[0px] text-gray-700 font-[Noto_Sans_Bengali]">
+                                    {t(q.key)}
+                                </p>
+                            </div>
+
+                            {/* Image - 40% */}
+                            <div className="w-full md:w-[40%] shrink-0 flex flex-col items-center">
+                                <div className="relative h-[300px] w-[420px] overflow-hidden  ">
                                     <img
                                         src={q.image}
                                         alt={t(q.authorKey)}
-                                        className="h-full w-full object-cover object-top"
-                                        onError={(e) => {
-                                            // Fallback avatar
-                                            ;(e.target as HTMLImageElement).src =
-                                                `https://ui-avatars.com/api/?name=${encodeURIComponent(t(q.authorKey))}&background=4f46e5&color=fff&size=160`
-                                        }}
-                                    />
-                                </div>
-                            </div>
+                                        className="h-full w-[550px]   object-top"
 
-                            {/* Quote content */}
-                            <div className="flex-1 text-center md:text-left">
-                                <Quote className="mb-3 h-8 w-8 text-orange-400 opacity-80" />
-                                <p className="mb-6 text-base leading-relaxed text-gray-700 md:text-lg">
-                                    {t(q.key)}
-                                </p>
-                                <div className="border-t border-gray-100 pt-4">
+                                    />
+
+                                </div>
+
+                                <div className="border-t border-gray-100 pt-4 text-center">
                                     <p className="font-bold text-gray-900">{t(q.authorKey)}</p>
                                     <p className="text-sm text-indigo-600">{t(q.roleKey)}</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
                     {/* Next button */}
-                    <button
-                        onClick={next}
-                        aria-label="Next"
-                        className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-                    >
-                        <ChevronRight className="h-5 w-5" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={next}*/}
+                    {/*    aria-label="Next"*/}
+                    {/*    className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"*/}
+                    {/*>*/}
+                    {/*    <ChevronRight className="h-5 w-5" />*/}
+                    {/*</button>*/}
                 </div>
 
                 {/* Dot indicators */}

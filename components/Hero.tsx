@@ -200,8 +200,8 @@ export function Hero() {
                     >
                         {/* Icon - top 50% */}
                         <div className="w-full h-[50%] mt-[-45px] flex items-end justify-center">
-                            <div className="w-[200px] h-[200px] bg-[#EEF3FF]/30 rounded-full flex items-end justify-center pb-4">
-                                <Image src="/hero2.png" height={100} width={100} alt="hero" />
+                            <div className="w-[200px] h-[200px] bg-[#EEF3FF]/40 rounded-full flex items-end justify-center pb-4">
+                                <Image src="/hero2.png" height={80} width={90} alt="hero" />
                             </div>
                         </div>
                         {/* Content - bottom 50% */}

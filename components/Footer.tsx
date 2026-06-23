@@ -1,44 +1,49 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
+import Image from "next/image";
 
 export function Footer() {
     const { t } = useLanguage()
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="bg-[#0d1b3e] text-white px-6 py-10">
+        <footer className="bg-[#1C1D4A] mx-auto max-w-7xl text-white rounded-[10px] px-6 py-10">
+
             <div className="mx-auto max-w-7xl">
                 <div className="grid gap-10 grid-cols-1 md:grid-cols-4 mb-8">
 
                     {/* Col 1: Logo + Description + Newsletter */}
                     <div className="flex flex-col gap-4">
-                        <div className="flex items-center gap-3">
-                            <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-yellow-400 bg-white overflow-hidden">
+                        <div className="items-center gap-3">
+                            <div className="  items-center justify-center mb-2 overflow-hidden">
                                 {/* Replace with <Image> if you have a logo */}
-                                <span className="text-blue-900 font-bold text-xl">শ</span>
+                                <Image src="/logo.png" height={100} width={100} alt="logo" />
                             </div>
                             <div>
                                 <p className="font-bold text-sm leading-tight">
-                                    রাজশাহী বিশ্ববিদ্যালয় স্কুল ও কলেজ এর অনলাইন প্লাটফর্ম
+                                    মেধাবী শিক্ষার্থীদের স্বীকৃতি ও উৎসাহ প্রদানে নিবেদিত একটি শিক্ষা সহায়তা কার্যক্রম।
                                 </p>
-                                <p className="text-gray-400 text-xs mt-0.5">মেধাবৃত্তি ২০২৬</p>
+
                             </div>
                         </div>
 
                         {/* Email input */}
                         <div className="mt-2">
-                            <div className="flex items-center gap-2 bg-[#162040] border border-gray-600 rounded-full px-4 py-2">
+                            <div className="flex items-center gap-2  border rounded-full px-4 py-2">
                                 <span className="text-gray-400 text-sm">📧</span>
                                 <input
                                     type="email"
                                     placeholder="আপনার ই-মেইল দিন"
-                                    className="bg-transparent text-sm text-gray-300 placeholder-gray-500 outline-none flex-1"
+                                    className="text-sm text-white outline-none flex-1"
                                 />
                             </div>
-                            <button className="mt-3 w-full bg-[#1a3a8f] hover:bg-[#1e44a8] text-white text-sm font-medium py-2 px-4 rounded-full transition-colors">
-                                সাবস্ক্রাইব করুন →
-                            </button>
+
+                            <div className="flex justify-end">
+                                <button className="mt-3 w-[163px] h-[40px] bg-white hover:bg-[#1e44a8] text-[#3335A0] hover:text-white text-sm font-medium px-4 py-2 rounded-full flex items-center justify-center gap-2 transition-colors">
+                                    সাবস্ক্রাইব করুন →
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -46,55 +51,93 @@ export function Footer() {
                     <div>
                         <h4 className="mb-4 font-semibold text-sm text-gray-200">মেনু</h4>
                         <ul className="space-y-2 text-gray-400 text-sm">
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">বৃত্তির তথ্যাবলী</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">আবেদন</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">নিউজ</a></li>
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">আমাদের সম্পর্কে</a></li>
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">কার্যক্রম</a></li>
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">মিডিয়া</a></li>
                         </ul>
                     </div>
 
                     {/* Col 3: দুদক লিঙ্ক */}
                     <div>
-                        <h4 className="mb-4 font-semibold text-sm text-gray-200">দুদক লিঙ্ক</h4>
-                        <ul className="space-y-2 text-gray-400 text-sm">
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">প্রথম আলো</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">টেলিগ্রাম</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">ফেস বুক</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">ইউটিউব</a></li>
+                        <h4 className="mb-4 font-semibold text-sm text-gray-200">কুইক লিংক</h4>
+                        <ul className="space-y-2 pl-4 text-gray-400 text-sm">
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">আবেদন</a></li>
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">সিলেবাস</a></li>
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">আসন বিন্যাস</a></li>
+                            <li><a href="#" className="hover:text-orange-400 transition-colors">ফলাফল</a></li>
                         </ul>
                     </div>
 
                     {/* Col 4: Social icon grid */}
                     <div>
-                        <h4 className="mb-4 font-semibold text-sm text-gray-200">যোগাযোগ মাধ্যমে করুন</h4>
+                        <h4 className="mb-4 font-semibold text-sm text-gray-200">আমাদের অনুসরণ করুন</h4>
                         <div className="grid grid-cols-3 gap-2">
-                            {[
-                                { icon: '📸', label: 'Instagram' },
-                                { icon: '✉️', label: 'Email' },
-                                { icon: '🎵', label: 'TikTok' },
-                                { icon: '▶️', label: 'YouTube' },
-                                { icon: '💬', label: 'Telegram' },
-                                { icon: '📘', label: 'Facebook' },
-                                { icon: '📌', label: 'Pinterest' },
-                            ].map((s) => (
 
-                               <a key={s.label}
+
+                               <a
                                 href="#"
-                                title={s.label}
+                                title="mobile"
                                 className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
                                 >
-                            {s.icon}
+                                   <Image src="/phone1.png" height={100} width={100} alt="logo" />
                                 </a>
-                                ))}
+                            <a
+                                href="#"
+                                title="mobile"
+                                className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
+                            >
+                                <Image src="/email1.png" height={100} width={100} alt="logo" />
+                            </a>
+                            <a
+                                href="#"
+                                title="mobile"
+                                className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
+                            >
+                                <Image src="/location1.png" height={100} width={100} alt="logo" />
+                            </a>
+                            <a
+                                href="#"
+                                title="mobile"
+                                className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
+                            >
+                                <Image src="/youtube1.png" height={100} width={100} alt="logo" />
+                            </a>
+                            <a
+                                href="#"
+                                title="mobile"
+                                className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
+                            >
+                                <Image src="/instgram1.png" height={100} width={100} alt="logo" />
+                            </a>
+                            <a
+                                href="#"
+                                title="mobile"
+                                className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
+                            >
+                                <Image src="/facebook1.png" height={100} width={100} alt="logo" />
+                            </a>
+                            <a
+                                href="#"
+                                title="mobile"
+                                className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#162040] hover:bg-[#1a3a8f] text-lg transition-colors"
+                            >
+                                <Image src="/linkdi1.png" height={100} width={100} alt="logo" />
+                            </a>
+
                         </div>
                     </div>
                 </div>
 
                 {/* Bottom bar */}
-                <div className="border-t border-gray-700 pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-                    <p>
-                        &copy; {currentYear} মেধাবৃত্তি পরিচালনা কমিটি কর্তৃক। সর্বস্বত্ব সংরক্ষিত।
+                <div className="relative border-t border-white/10 pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-[40%] w-[400px] h-[100px] bg-[#4A4DE1] opacity-100 blur-[100px] pointer-events-none"></div>
+
+
+                    <p className="relative z-10 text-center sm:text-left">
+                        © {currentYear} বিক্রমপুর মানব সেবা ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত। Powered By Mohsin Sikder
                     </p>
-                    <div className="flex gap-4">
+
+                    <div className="relative z-10 flex gap-4">
                         <a href="#" className="hover:text-gray-300 transition-colors">গোপনীয়তা নীতি</a>
                         <a href="#" className="hover:text-gray-300 transition-colors">যোগাযোগ</a>
                     </div>
