@@ -10,7 +10,7 @@ export function ScholarshipCategories() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-12 md:py-16">
+        <section className="bg-white px-4 py-12 md:py-10">
             <div className="mx-auto max-w-6xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">

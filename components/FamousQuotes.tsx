@@ -72,7 +72,7 @@ export function FamousQuotes() {
         : 'opacity-100 translate-x-0'
 
     return (
-        <section className="relative overflow-hidden bg-white py-16 md:py-24">
+        <section className="relative overflow-hidden bg-white py-16 md:py-5">
             {/* Decorative background blob */}
             <div className="pointer-events-none absolute -left-24 top-0 h-96 w-96 rounded-full bg-indigo-50 opacity-60 blur-3xl" />
             <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-orange-50 opacity-60 blur-3xl" />
@@ -101,7 +101,7 @@ export function FamousQuotes() {
                     <div
                         className={`flex-1 transition-all duration-350 ease-in-out ${slideClass}`}
                     >
-                        <div className="flex flex-col items-center gap-8 rounded-2xl border border-gray-100 bg-white p-8 shadow-lg md:flex-row md:items-start md:gap-10">
+                        <div className="flex flex-col items-center bg-[#FFF0EB] gap-8 rounded-2xl border border-gray-100 bg-white p-8 shadow-lg md:flex-row md:items-start md:gap-10">
 
                             {/* Content - 60% */}
                             <div className="w-full md:w-[60%] text-center md:text-left">

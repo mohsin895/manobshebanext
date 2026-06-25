@@ -39,7 +39,7 @@ export function ApplicationProcess() {
     const [isPlaying, setIsPlaying] = useState(false)
 
     return (
-        <section className="bg-gray-50 px-4 py-16 md:py-24">
+        <section className="bg-gray-50 px-4 py-16 md:py-10">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <div className="mb-12 text-center">
@@ -61,17 +61,23 @@ export function ApplicationProcess() {
                         return (
                             <div
                                 key={idx}
-                                className="rounded-xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md"
+                                className="relative rounded-xl bg-white p-6 pt-12 text-center shadow-sm transition-shadow hover:shadow-md"
                             >
-                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
-                                    <Icon className="h-8 w-8 text-blue-500" strokeWidth={1.75} />
+                                {/* Floating Icon */}
+                                <div className="absolute -top-15 left-1/2 -translate-x-1/2">
+                                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 shadow">
+                                        <Icon className="h-8 w-8 text-blue-500" strokeWidth={1.75} />
+                                    </div>
                                 </div>
+
                                 <h3 className="mb-2 font-bold text-gray-900">
                                     {t(step.titleKey)}
                                 </h3>
+
                                 <p className="mb-4 text-sm leading-relaxed text-gray-500">
                                     {t(step.descKey)}
                                 </p>
+
                                 <a
                                     href="#"
                                     className="inline-flex items-center gap-1 text-sm font-medium text-orange-500 hover:text-orange-600"

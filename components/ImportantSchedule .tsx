@@ -129,7 +129,7 @@ export function ImportantSchedule() {
     }
 
     return (
-        <section className="bg-white px-4 py-12 md:py-16">
+        <section className="bg-white px-4 py-12 md:py-10">
             <div className="mx-auto max-w-5xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
@@ -140,7 +140,7 @@ export function ImportantSchedule() {
 
                 {/* Title */}
                 <div className="mb-10 text-center">
-                    <h3 className="inline-block border-2 border-blue-500 px-4 py-1 text-xl font-bold text-gray-900 md:text-2xl">
+                    <h3 className="inline-block  px-4 py-1 text-xl font-bold text-gray-900 md:text-2xl">
                         {t('schedule.title')}
                     </h3>
                 </div>

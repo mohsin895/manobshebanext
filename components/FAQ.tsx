@@ -15,11 +15,11 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="bg-white px-4 py-16 md:py-24">
+    <section className="bg-white px-4 py-16 md:py-10">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="mb-2 text-sm font-semibold text-purple-500">
+          <h2 className="mb-2 text-sm font-semibold text-[#FE4711]">
             ({t('faq.title')})
           </h2>
           <h3 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
@@ -39,9 +39,9 @@ export function FAQ() {
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                 className="w-full flex items-center justify-between bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors text-left"
               >
-                <span className="font-medium text-gray-900">{t(faq.qKey)}</span>
+                <span className="font-medium text-[#FE4711]">{t(faq.qKey)}</span>
                 <span
-                  className={`text-orange-500 text-xl transition-transform ${
+                  className={`text-[#FE4711] text-xl transition-transform ${
                     openIndex === idx ? 'rotate-180' : ''
                   }`}
                 >
@@ -49,7 +49,7 @@ export function FAQ() {
                 </span>
               </button>
               {openIndex === idx && (
-                <div className="bg-white px-6 py-4 border-t border-gray-200 text-gray-600">
+                <div className="bg-[#FFFAF7] px-6 py-4 border-t border-gray-200 text-gray-600">
                   {t(faq.aKey)}
                 </div>
               )}

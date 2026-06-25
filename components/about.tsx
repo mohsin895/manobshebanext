@@ -7,12 +7,12 @@ export function AboutUs() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-16 md:py-24">
+        <section className="bg-white px-4 py-16 md:py-10">
             <div className="mx-auto max-w-7xl">
 
                 {/* Top notification bar */}
                 <div className="mb-8 flex justify-center">
-                    <div className="inline-flex items-center gap-2   px-4 py-1.5 text-sm text-blue-700">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
                         <Image src="/about1.png"  width={24}
                                height={24} alt={t('about.photo_alt')} />
                         {t('about.notification')} <Image src="/about2.png"  width={24}  height={24} alt={t('about.photo_alt')} />
@@ -22,9 +22,9 @@ export function AboutUs() {
 
 
                 {/* Large quote */}
-                <blockquote className="mb-12 text-center text-[56px] font-bold leading-relaxed text-gray-900 md:text-4xl">
+                <blockquote className="mb-12 text-center text-[16px] md:text-[56px] font-bold leading-relaxed text-[#8497F5] md:text-4xl">
                     {t('about.quote_start')} {' '}
-                    <span className="text-blue-600">{t('about.quote_highlight')}</span>{' '}
+                    <span className="text-[#3335A0]">{t('about.quote_highlight')}</span>{' '}
                     {t('about.quote_end')}&rdquo;
                 </blockquote>
 

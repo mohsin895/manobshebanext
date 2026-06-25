@@ -66,7 +66,7 @@ export function ReasonAttendance() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-12 md:py-16">
+        <section className="bg-white px-4 py-12 md:py-10">
             <div className="mx-auto max-w-6xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
@@ -77,7 +77,7 @@ export function ReasonAttendance() {
 
                 {/* Header */}
                 <div className="mb-8 text-center">
-                    <h3 className="mb-2 inline-block border-2 border-blue-500 px-4 py-1 text-xl font-bold text-gray-900 md:text-2xl">
+                    <h3 className="mb-2 inline-block  px-4 py-1 text-xl font-bold text-gray-900 md:text-2xl">
                         {t('reasons.title')}
                     </h3>
                     <p className="mt-3 text-sm text-gray-600">

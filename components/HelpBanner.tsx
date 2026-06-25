@@ -14,7 +14,7 @@ export function HelpBanner() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-gray-50 px-4 py-12 md:py-16">
+        <section className="bg-gray-50 px-4 py-12 md:py-10">
             <div className="mx-auto max-w-6xl">
                 <div className="grid overflow-hidden rounded-2xl shadow-sm lg:grid-cols-5">
                     {/* Left: message + actions */}

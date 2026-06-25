@@ -29,10 +29,10 @@ export function Hero() {
     return (
         <section className=" p-1">
             <div className="mx-auto max-w-6xl">
-                <div className="relative h-[550px]">
+                <div className="relative h-[570px] md:h-[550px]">
 
                     {/* Full-width Hero Image */}
-                    <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-xl">
+                    <div className="absolute ml-5 mr-5 md:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl">
 
                         {/* Background Image */}
                         <div
@@ -43,7 +43,13 @@ export function Hero() {
                         />
 
                         {/* Text Content */}
-                        <div className="relative z-10 flex flex-col justify-between h-[calc(100%-60px)] p-5 md:p-6">
+                        <div className=" relative z-10
+    flex flex-col justify-between
+
+    md:h-[calc(100%-60px)]
+    p-5 md:p-6
+    items-center md:items-start
+    text-center md:text-left">
                             {/* Badge */}
                             <div
                                 className="inline-flex items-center gap-2  px-4 py-2 text-white  w-fit">
@@ -54,7 +60,7 @@ export function Hero() {
 
                             {/* Title + Buttons */}
                             <div>
-                                <h1 className="text-5xl font-black text-[#FF6B35] leading-tight tracking-tight">
+                                <h1 className=" text-[26px] lg:text-5xl font-black text-[#FF6B35] leading-tight tracking-tight">
                                     {isBn ? <>মেধাবৃত্তি ২০২৬</> : 'Merit Scholarship 2026'}
                                 </h1>
                                 <p className="text-base text-white font-bold mt-2">
@@ -65,7 +71,7 @@ export function Hero() {
                                         ? 'মেধা বিকাশের অনন্য সুযোগ! বিক্রমপুর মানব সেবা ফাউন্ডেশনের উদ্যোগে সপ্তম থেকে দশম শ্রেণির শিক্ষার্থীদের জন্য ‘মেধাবৃত্তি-২০২৬’। বিনামূল্যে অনলাইনের মাধ্যমে আগ্রহী শিক্ষার্থীরা সরাসরি নিজ নিজ বিদ্যালয়ের মাধ্যমে আবেদন প্রক্রিয়া সম্পন্ন করুন।'
                                         : 'Our scholarship program is specially designed for successful students.'}
                                 </p>
-                                <div className="flex gap-3 mt-3">
+                                <div className="flex flex-col md:flex-row gap-3 mt-3 justify-center md:justify-start items-center">
                                     <Button
                                         className="
     w-[155px]
@@ -110,9 +116,9 @@ export function Hero() {
 
                             <div
                                 className="
-    w-[423px]
-    h-[156px]
-    flex flex-col gap-[20px]
+    w-[260px] md:w-[423px]
+    h-[106px] md:h-[156px] mt-5
+    flex flex-col gap-[10px] md:gap-[20px]
     pb-[20px]
     rounded-[16px]
     bg-white/10
@@ -122,7 +128,7 @@ export function Hero() {
   "
                             >
                                 {/* Header */}
-                                <div className="w-full rounded-tl-[16px] rounded-tr-[16px] sticky top-0 z-10 flex items-center justify-center gap-2 px-3 py-2 bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)]">
+                                <div className="w-full rounded-tl-[16px] rounded-tr-[16px] sticky top-10 md:top-0 z-10 flex items-center justify-center gap-2 px-3 py-1 md:py-2 bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)]">
 
                                     <Image src="/image4.png" height={15} width={15} alt="logo" />
 
@@ -130,9 +136,9 @@ export function Hero() {
                                         className="
       rounded-md
       text-white
-      text-[16px]
+      text-[12px] md:text-[16px]
       font-bold
-      px-3 py-1
+      px-1 md:px-3 py-1
       whitespace-nowrap
     "
                                     >
@@ -142,14 +148,14 @@ export function Hero() {
                                 </div>
 
                                 {/* Timer */}
-                                <div className="flex items-center justify-center gap-[8px] w-full px-[15px]">
+                                <div className="flex items-center justify-center gap-[4px] md:gap-[8px] w-full px-[8px] md:px-[15px]">
                                     {[
                                         { val: timeLeft.days, label: t('exam.days') },
                                         { val: timeLeft.hours, label: t('exam.hours') },
                                         { val: timeLeft.minutes, label: t('exam.minutes') },
                                         { val: timeLeft.seconds, label: t('exam.seconds') },
                                     ].map((item, i) => (
-                                        <div key={i} className="flex items-center gap-[8px]">
+                                        <div key={i} className="flex items-center gap-[4px] md:gap-[8px]">
                                             <div
                                                 className="
             text-center
@@ -163,7 +169,7 @@ export function Hero() {
                                                 <div className="text-[15px] font-black font-mono leading-none">
                                                     {String(item.val).padStart(2, '0')}
                                                 </div>
-                                                <div className="text-[14px] font-bold uppercase tracking-wide mt-0.5">
+                                                <div className=" text-[12px] md:text-[14px] font-[400] uppercase tracking-wide mt-0.5">
                                                     {item.label}
                                                 </div>
                                             </div>
@@ -183,31 +189,36 @@ export function Hero() {
                     {/* Floating Card — top right */}
                     <div
                         className="
-            absolute
-            top-[46%]
-            left-[60%]
-            w-[390px]
-            h-[280px]
-            bg-white
-            rounded-[24px]
-            p-[24px]
-            flex flex-col items-center
-            gap-[12px]
-            opacity-100
-            z-30
-            shadow-2xl
-            "
+        absolute
+        top-[90%]
+        left-1/2
+        -translate-x-1/2
+
+        md:top-[46%]
+        md:left-[60%]
+        md:translate-x-0
+
+        w-[255px] md:w-[390px]
+        h-[214px] md:h-[280px]
+        bg-white
+        rounded-[24px]
+        p-[24px]
+        flex flex-col items-center
+        gap-[12px]
+        z-30
+        shadow-2xl
+    "
                     >
                         {/* Icon - top 50% */}
                         <div className="w-full h-[50%] mt-[-45px] flex items-end justify-center">
-                            <div className="w-[200px] h-[200px] bg-[#EEF3FF]/40 rounded-full flex items-end justify-center pb-4">
+                            <div className=" w-[40px] md:w-[200px] h-[35px] md:h-[200px] bg-[#EEF3FF]/40 rounded-full flex items-end justify-center pb-4">
                                 <Image src="/hero2.png" height={80} width={90} alt="hero" />
                             </div>
                         </div>
                         {/* Content - bottom 50% */}
                         <div className="w-full h-[50%] flex flex-col items-center justify-center gap-[12px]">
                             {/* Title */}
-                            <h3 className="text-[16px] font-bold text-gray-900 text-center">
+                            <h3 className=" text-[16px] font-bold text-gray-900 text-center">
                                 {isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
                             </h3>
 
@@ -219,12 +230,12 @@ export function Hero() {
                             </p>
 
                             {/* Button */}
-                            <button className="w-full flex items-center justify-center gap-2 text-[#3B3BC7] text-[13px] bg-[#EEF3FF] font-semibold border border-blue-100 rounded-lg py-3 px-4 hover:bg-blue-50 transition">
+                            <button className="w-full flex items-center justify-center gap-1 md:gap-2 text-[#3B3BC7] text-[12px] md:text-[13px] bg-[#EEF3FF] font-semibold border border-blue-100 rounded-lg py-1 md:py-3 px-1 md:px-4 hover:bg-blue-50 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <circle cx="12" cy="12" r="10"/>
                                     <path d="M12 8v4l3 3"/>
                                 </svg>
-                                {isBn ? 'বিস্তারিত জানতে এখানে ক্লিক করুন' : 'Click here to learn more'}
+                                {isBn ? 'বিকাশমান মেধাই জাতির সম্পদ' : 'Click here to learn more'}
                             </button>
                         </div>
                     </div>

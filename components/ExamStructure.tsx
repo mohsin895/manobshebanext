@@ -16,7 +16,7 @@ export function ExamStructure() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-gray-50 px-4 py-16 md:py-24">
+        <section className="bg-gray-50 px-4 py-16 md:py-10">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <div className="mb-12 text-center">
