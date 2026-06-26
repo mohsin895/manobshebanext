@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
+import Image from "next/image";
 
 const timelineItems = [
     { dateKey: 'schedule.date1', labelKey: 'schedule.label1', status: 'done' },
@@ -129,13 +130,18 @@ export function ImportantSchedule() {
     }
 
     return (
-        <section className="bg-white px-4 py-12 md:py-10">
+        <section className="bg-white px-4 py-5 md:py-10">
             <div className="mx-auto max-w-5xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
-                    <span className="rounded-full border border-gray-300 px-4 py-1 text-xs text-gray-500">
-                        {'{ '}{t('schedule.eyebrow')}{' }'}
-                    </span>
+
+
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
+                        <Image src="/about1.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   {t('schedule.eyebrow')}   <Image src="/about2.png"  width={24}
+                                                                                                             height={24} alt={t('about.photo_alt')} />
+                    </div>
+
                 </div>
 
                 {/* Title */}
@@ -146,7 +152,50 @@ export function ImportantSchedule() {
                 </div>
 
                 {/* Timeline */}
-                <div className="mb-10 flex items-start overflow-x-auto pb-2">
+
+                {/* Timeline */}
+                <div className="mb-10 md:hidden">
+                    {/* Mobile: vertical timeline | md+: original horizontal timeline */}
+                    <div className="flex flex-col md:flex-row md:items-start md:overflow-x-auto md:pb-2">
+                        {timelineItems.map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="flex items-stretch gap-3 md:min-w-[80px] md:flex-1 md:flex-col md:items-center md:gap-0"
+                            >
+                                {/* Date */}
+                                <div className="w-[30%] shrink-0 whitespace-nowrap pt-1.5 text-[11px] font-bold text-gray-700 md:mb-1.5 md:w-auto md:pt-0 md:text-center">
+                                    {t(item.dateKey)}
+                                </div>
+
+                                {/* Dot + lines */}
+                                <div className="relative flex w-9 flex-shrink-0 flex-col items-center md:h-9 w-[30%] md:flex-row">
+                                    {/* Top/Left line */}
+                                    {/*<div*/}
+                                    {/*    className={`w-0.5 min-h-[20px] flex-1 md:h-0.5 md:w-auto md:min-h-0 ${idx === 0 ? 'invisible' : leftLineStyle(idx, item.status)}`}*/}
+                                    {/*/>*/}
+
+                                    {/* Dot */}
+                                    <div
+                                        className={`relative z-10 flex h-[48px] w-[72px] flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
+                                    >
+                                        {iconsByIndex[idx](item.status)}
+                                    </div>
+
+                                    {/* Bottom/Right line */}
+                                    <div
+                                        className={`w-0.5 min-h-[20px] flex-1 md:h-0.5 md:w-auto md:min-h-0 ${idx === timelineItems.length - 1 ? 'invisible' : rightLineStyle(idx, item.status)}`}
+                                    />
+                                </div>
+
+                                {/* Label */}
+                                <div className="flex-1 pt-1.5 text-left text-[12px] leading-snug text-gray-600 md:mt-1.5 md:max-w-[74px] md:flex-none md:text-center md:text-[10px] md:text-gray-500">
+                                    {t(item.labelKey)}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="mb-10 hidden items-start overflow-x-auto pb-2 md:flex">
                     {timelineItems.map((item, idx) => (
                         <div key={idx} className="flex min-w-[80px] flex-1 flex-col items-center">
                             {/* Date */}
@@ -161,7 +210,7 @@ export function ImportantSchedule() {
 
                                 {/* Dot */}
                                 <div
-                                    className={`relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
+                                    className={`relative z-10 flex h-[40px] w-[60px] flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
                                 >
                                     {iconsByIndex[idx](item.status)}
                                 </div>
@@ -187,40 +236,51 @@ export function ImportantSchedule() {
                         {t('schedule.countdown_title')}
                     </h4>
 
-                    <div className="relative mb-6 inline-block rounded-full bg-white/10 px-4 py-1 text-xs text-indigo-200">
+                    <div className="relative mb-6 inline-flex h-[28px] items-center justify-center gap-2 rounded-full bg-white px-2 py-1 font-noto-bengali text-center text-[12px] font-medium leading-[20px] tracking-normal text-[#3335A0]">
                         {t('schedule.countdown_subtitle')}
                     </div>
 
                     {/* Numbers */}
-                    <div className="relative mb-4 flex items-start justify-center gap-4 md:gap-6">
+                    <div className="relative mb-4 flex items-start justify-center gap-2 md:gap-2">
                         {[
                             { val: countdown.days, label: t('schedule.days') },
                             { val: countdown.hours, label: t('schedule.hours') },
                             { val: countdown.minutes, label: t('schedule.minutes') },
                             { val: countdown.seconds, label: t('schedule.seconds') },
                         ].map((block, i) => (
-                            <div key={i} className="flex items-start">
+                            <div key={i} className="flex items-center">
                                 {i > 0 && (
-                                    <span className="mr-4 text-4xl font-bold leading-none text-white/40">:</span>
+                                    <div className="flex h-full items-center justify-center px-2">
+            <span className="font-noto-bengali text-[15.66px] font-medium leading-none tracking-[-0.02em] text-white">
+                :
+            </span>
+                                    </div>
                                 )}
-                                <div className="flex flex-col items-center">
-                                    <span className="min-w-[56px] text-center text-4xl font-bold leading-none">
-                                        {toBengaliNum(block.val)}
-                                    </span>
-                                    <span className="mt-1 text-[11px] text-indigo-300">
-                                        {block.label}
-                                    </span>
+
+                                <div className="flex flex-col items-center rounded-lg border-[0.4px] border-[#4A4DE166] bg-[#3335A03D] px-2 py-1">
+        <span className=" w-auto md:min-w-[56px] text-center text-[16px] font-bold leading-none md:text-[56px]">
+            {toBengaliNum(block.val)}
+        </span>
+
+                                    <span className="mt-1 text-[11px] text-[#FFFFFF]">
+            {block.label}
+        </span>
                                 </div>
                             </div>
                         ))}
                     </div>
 
                     {/* Footer */}
-                    <p className="relative text-[11.5px] text-slate-400">
+                    <p className="relative text-center font-['Noto_Serif_Bengali'] text-[12px] font-normal leading-6 tracking-normal text-white">
                         {t('schedule.countdown_footer_prefix')}{' '}
-                        <span className="font-semibold text-indigo-300">{t('schedule.countdown_date')}</span>
-                        {', '}{t('schedule.countdown_footer_time')}{' '}
-                        <span className="font-semibold text-indigo-300">{t('schedule.countdown_time')}</span>
+                        <span className="font-semibold text-[#FFFFFF]">
+        {t('schedule.countdown_date')}
+    </span>
+                        {', '}
+                        {t('schedule.countdown_footer_time')}{' '}
+                        <span className="font-semibold text-[#FFFFFF]">
+        {t('schedule.countdown_time')}
+    </span>
                         {' ।'}
                     </p>
                 </div>

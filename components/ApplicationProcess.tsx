@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
 import { UserCircle2, ClipboardList, IdCard, HourglassIcon, Play, ArrowRight } from 'lucide-react'
+import Image from "next/image";
 
 // Replace with the real YouTube video ID
 const YOUTUBE_VIDEO_ID = 'dQw4w9WgXcQ'
@@ -12,25 +13,29 @@ const steps = [
         key: 'process.register',
         titleKey: 'process.register.title',
         descKey: 'process.register.desc',
-        icon: UserCircle2,
+        icon: '/image24.png',
+        bg:'/image27.png',
     },
     {
         key: 'process.fillForm',
         titleKey: 'process.fillForm.title',
         descKey: 'process.fillForm.desc',
-        icon: ClipboardList,
+        icon: '/image23.png',
+        bg:'/image28.png',
     },
     {
         key: 'process.verify',
         titleKey: 'process.verify.title',
         descKey: 'process.verify.desc',
-        icon: IdCard,
+        icon: '/image22.png',
+        bg:'/image27.png',
     },
     {
         key: 'process.confirm',
         titleKey: 'process.confirm.title',
         descKey: 'process.confirm.desc',
-        icon: HourglassIcon,
+        icon: '/image21.png',
+        bg:'/image28.png',
     },
 ]
 
@@ -39,13 +44,17 @@ export function ApplicationProcess() {
     const [isPlaying, setIsPlaying] = useState(false)
 
     return (
-        <section className="bg-gray-50 px-4 py-16 md:py-10">
+        <section className="bg-gray-50 px-4 py-5 md:py-10">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <div className="mb-12 text-center">
-                    <p className="mb-2 text-sm font-medium text-gray-500">
-                        ({t('process.eyebrow')})
-                    </p>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
+                        <Image src="/about1.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   {t('process.eyebrow')}   <Image src="/about2.png"  width={24}
+                                                                                                           height={24} alt={t('about.photo_alt')} />
+                    </div>
+
+
                     <h2 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">
                         {t('process.title')}
                     </h2>
@@ -54,40 +63,48 @@ export function ApplicationProcess() {
                     </p>
                 </div>
 
-                {/* Steps Grid */}
-                <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {steps.map((step, idx) => {
-                        const Icon = step.icon
-                        return (
+                {/* Steps Grid / Mobile Slider */}
+                <div className="mb-12 pt-10">
+                    <div className="flex gap-10 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide md:grid md:gap-10 md:overflow-visible md:snap-none md:pb-0 md:mx-0 md:px-0 md:grid-cols-2 lg:grid-cols-4">
+                        {steps.map((step, idx) => (
                             <div
                                 key={idx}
-                                className="relative rounded-xl bg-white p-6 pt-12 text-center shadow-sm transition-shadow hover:shadow-md"
+                                className="relative overflow-visible rounded-[20px] bg-cover bg-center bg-no-repeat transition-all duration-300 hover:-translate-y-1 shrink-0 w-[85%] snap-center md:w-auto md:shrink"
+                                style={{
+                                    backgroundImage: `url(${step.bg})`,
+                                    minHeight: "400px",
+                                }}
                             >
                                 {/* Floating Icon */}
-                                <div className="absolute -top-15 left-1/2 -translate-x-1/2">
-                                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 shadow">
-                                        <Icon className="h-8 w-8 text-blue-500" strokeWidth={1.75} />
-                                    </div>
+                                <div className="absolute top-[20px] left-1/2 z-20 -translate-x-1/2">
+                                    <img
+                                        src={step.icon}
+                                        alt={t(step.titleKey)}
+                                        className="h-[148px] w-[148px] object-contain"
+                                    />
                                 </div>
 
-                                <h3 className="mb-2 font-bold text-gray-900">
-                                    {t(step.titleKey)}
-                                </h3>
+                                {/* Body */}
+                                <div className="flex h-full flex-col items-left px-2 pb-4 pt-[180px] text-left">
+                                    <h3 className="font-noto-bengali text-left mt-2 mb-4 text-[20px] font-medium leading-[28px] text-[#282929]">
+                                        {t(step.titleKey)}
+                                    </h3>
 
-                                <p className="mb-4 text-sm leading-relaxed text-gray-500">
-                                    {t(step.descKey)}
-                                </p>
+                                    <p className="mb-8 flex-1 text-left font-serif-bengali text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-[#545959]">
+                                        {t(step.descKey)}
+                                    </p>
 
-                                <a
-                                    href="#"
-                                    className="inline-flex items-center gap-1 text-sm font-medium text-orange-500 hover:text-orange-600"
-                                >
+
+                                   <a href="#"
+                                    className="mt-auto self-end inline-flex items-center gap-2 rounded-full bg-[#FFE8DE] px-5 py-2 text-sm font-medium text-[#F26522]"
+                                    >
                                     {t('process.details')}
-                                    <ArrowRight className="h-3.5 w-3.5" />
+                                    <ArrowRight className="h-4 w-4" />
                                 </a>
                             </div>
-                        )
-                    })}
+                            </div>
+                            ))}
+                    </div>
                 </div>
 
                 {/* Video Section */}
@@ -105,7 +122,7 @@ export function ApplicationProcess() {
                             <>
                                 {/* Replace src with the actual thumbnail image */}
                                 <img
-                                    src="/images/video.png"
+                                    src="/image20.jpg"
                                     alt={t('process.videoCaption')}
                                     className="h-full w-full object-cover"
                                 />

@@ -66,13 +66,17 @@ export function ReasonAttendance() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-12 md:py-10">
+        <section className="bg-white px-4 py-5 md:py-10">
             <div className="mx-auto max-w-6xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
-                    <span className="rounded-full border border-gray-300 px-4 py-1 text-xs text-gray-500">
-                        ( {t('reasons.eyebrow')} )
-                    </span>
+
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
+                        <Image src="/about1.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   {t('reasons.eyebrow')}   <Image src="/about2.png"  width={24}
+                                                                                                             height={24} alt={t('about.photo_alt')} />
+                    </div>
+
                 </div>
 
                 {/* Header */}
@@ -88,7 +92,8 @@ export function ReasonAttendance() {
                 {/* Image with overlapping card grid */}
                 <div className="relative overflow-hidden rounded-xl">
                     {/* Background photo */}
-                    <div className="relative h-[260px] w-full sm:h-[320px] md:h-[380px]">
+                    {/* Background photo - desktop/laptop */}
+                    <div className="relative hidden h-[320px] w-full sm:block md:h-[380px]">
                         <Image
                             src="/images/image3.png"
                             alt={t('reasons.image_alt')}
@@ -98,16 +103,59 @@ export function ReasonAttendance() {
                         />
                     </div>
 
+                    {/* Background photo - mobile */}
+                    <div className="relative h-[460px] w-full sm:hidden">
+                        <Image
+                            src="/aboutUsm.png"
+                            alt={t('reasons.image_alt')}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
+
+
+                    <div
+                        className="
+        grid grid-cols-2
+        absolute inset-x-0 bottom-0
+        m-4
+        bg-[#00000080] backdrop-blur-[2px]
+        sm:hidden
+    "
+                    >
+                        {reasons.map((reason, idx) => (
+                            <div
+                                key={idx}
+                                className="flex flex-col gap-1 px-3 py-2 text-center items-center"
+                            >
+                                <div
+                                    className={`flex h-8 w-8 items-center justify-center rounded-full ${reason.iconBg} ${reason.iconColor}`}
+                                >
+                                    {reason.icon}
+                                </div>
+
+                                <h4 className="text-[12px] font-bold text-white">
+                                    {t(reason.titleKey)}
+                                </h4>
+
+                                <p className="text-[10px] leading-relaxed text-white">
+                                    {t(reason.descKey)}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                     {/* 2x2 card grid overlapping the right half of the photo (desktop),
                         full-width panel under the photo on mobile */}
                     <div
                         className="
-                            grid grid-cols-1 sm:grid-cols-2
-                            bg-white/95
-                            sm:absolute sm:inset-y-0 sm:right-0 sm:w-[58%]
-                            m-[35px]
-                            sm:bg-[#00000080] sm:backdrop-blur-[2px]
-                        "
+        hidden sm:grid
+        sm:grid-cols-2
+        sm:absolute sm:inset-y-0 sm:right-0 sm:w-[58%]
+        m-[35px]
+        bg-[#00000080]
+        backdrop-blur-[2px]
+    "
                     >
                         {reasons.map((reason, idx) => (
                             <div

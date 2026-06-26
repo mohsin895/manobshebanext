@@ -15,7 +15,7 @@ export function Achievements() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-16 md:py-5">
+        <section className="bg-white px-4 py-5 md:py-5">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <div className="mb-12 text-center">

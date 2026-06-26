@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { GraduationCap } from 'lucide-react'
+import Image from "next/image";
 
 const tiers = ['tier1', 'tier2', 'tier3'] as const
 const rules = ['rule1', 'rule2', 'rule3', 'rule4'] as const
@@ -10,21 +11,23 @@ export function ScholarshipCategories() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-12 md:py-10">
+        <section className="bg-white px-4 py-5 md:py-10">
             <div className="mx-auto max-w-6xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
-                    <span className="rounded-full border border-gray-300 px-4 py-1 text-xs text-gray-500">
-                        ( {t('categories.eyebrow')} )
-                    </span>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
+                         <Image src="/about1.png"  width={24}
+                                height={24} alt={t('about.photo_alt')} />   {t('categories.eyebrow')}   <Image src="/about2.png"  width={24}
+                                                                                                               height={24} alt={t('about.photo_alt')} />
+                    </div>
                 </div>
 
                 {/* Header */}
                 <div className="mb-10 text-center">
-                    <h2 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">
+                    <h2 className="mb-2 text-center font-[Noto_Sans_Bengali] text-[48px] font-medium leading-[56px] tracking-[0] text-[#282929]">
                         {t('categories.title')}
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-center font-[Noto_Serif_Bengali] text-[16px] font-normal leading-[24px] tracking-[0] text-[#404545]">
                         {t('categories.subtitle')}
                     </p>
                 </div>
@@ -32,7 +35,7 @@ export function ScholarshipCategories() {
                 {/* Two-column grid */}
                 <div className="grid gap-6 lg:grid-cols-2">
                     {/* Left: scholarship tiers */}
-                    <div className="rounded-2xl bg-gray-50 p-6 md:p-8">
+                    <div className="rounded-2xl bg-[#F7FAFF] p-6 md:p-8">
                         <h3 className="mb-5 font-bold text-gray-900">
                             {t('categories.tiersTitle')}
                         </h3>
@@ -59,7 +62,7 @@ export function ScholarshipCategories() {
                     </div>
 
                     {/* Right: distribution rules */}
-                    <div className="rounded-2xl bg-gray-50 p-6 md:p-8">
+                    <div className="rounded-2xl bg-[#F7FAFF] p-6 md:p-8">
                         <h3 className="mb-5 font-bold text-gray-900">
                             {t('categories.rulesTitle')}
                         </h3>

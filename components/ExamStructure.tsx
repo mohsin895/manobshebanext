@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { BookOpen, Languages, Sigma, MonitorSmartphone, Globe2, Trees, ArrowRight } from 'lucide-react'
+import Image from "next/image";
 
 const subjects = [
     { key: 'bengali', icon: BookOpen, color: 'text-red-500', bg: 'bg-red-50' },
@@ -16,17 +17,26 @@ export function ExamStructure() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-gray-50 px-4 py-16 md:py-10">
+        <section className="bg-gray-50 px-4 py-5 md:py-10">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <div className="mb-12 text-center">
-                    <p className="mb-2 text-sm font-medium text-gray-500">
-                        ({t('structure.eyebrow')})
-                    </p>
-                    <h2 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
+                        <Image src="/about1.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   {t('structure.eyebrow')}   <Image src="/about2.png"  width={24}
+                                                                                                              height={24} alt={t('about.photo_alt')} />
+                    </div>
+
+                    <h2
+                        className="mb-2 text-center font-medium text-[#282929] text-[32px] leading-[40px] md:text-[48px] md:leading-[56px]"
+                        style={{ fontFamily: 'Noto Sans Bengali' }}
+                    >
                         {t('structure.title')}
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p
+                        className="text-center font-normal text-[16px] leading-[24px] text-[#404545]"
+                        style={{ fontFamily: 'Noto Serif Bengali' }}
+                    >
                         {t('structure.subtitle')}
                     </p>
                 </div>
@@ -102,27 +112,37 @@ export function ExamStructure() {
                 </div>
 
                 {/* CTA banner */}
-                <div className="flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
-                    <div className="flex gap-4">
-                        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-100">
-                            <BookOpen className="h-5 w-5 text-blue-600" strokeWidth={2} />
-                        </span>
+                <div className="flex flex-col gap-4 rounded-[8px] border-l-[8px] border-l-[#C8D7FD] bg-[#EEF3FF] p-4 md:flex-row md:items-center md:justify-between md:p-8">
+                    {/* Left Content */}
+                    <div className="flex flex-1 flex-col items-start gap-3 text-left md:flex-row md:items-center">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white">
+            <BookOpen
+                className="h-5 w-5 text-blue-600"
+                strokeWidth={2}
+            />
+        </span>
+
                         <div>
-                            <h3 className="mb-1 font-bold text-gray-900">
+                            <h3 className="mb-1 text-lg font-bold text-gray-900">
                                 {t('structure.ctaTitle')}
                             </h3>
+
                             <p className="text-sm text-gray-600">
                                 {t('structure.ctaDesc')}
                             </p>
                         </div>
                     </div>
-                    <a
-                        href="#"
-                        className="inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                    >
-                        {t('structure.ctaButton')}
-                        <ArrowRight className="h-4 w-4" />
-                    </a>
+
+                    {/* Right Button */}
+                    <div className="flex justify-end md:block shrink-0">
+                        <a
+                            href="#"
+                            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#9AA5FF] to-[#4457F9] px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                        >
+                            {t('structure.ctaButton')}
+                            <ArrowRight className="h-4 w-4" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>

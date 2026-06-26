@@ -22,9 +22,7 @@ import {FamousQuotes} from "@/components/FamousQuotes";
 
 export default function Page() {
     return (
-        // FIX: Remove `bg-white` — it was painting over the hero's bg-slate-100
-        // and any section that has its own background color.
-        // Also remove any potential overflow:hidden that would clip the floating card.
+
         <main className="w-full">
             <Navbar />
             <Hero />

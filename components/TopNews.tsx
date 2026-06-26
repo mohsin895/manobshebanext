@@ -1,6 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
+import {Notification} from "@/components/Notification";
 
 interface NewsItem {
     icon: string
@@ -17,25 +18,38 @@ export function NewsTicker() {
     const { t } = useLanguage()
 
     return (
-        <div className="ticker-group relative w-full overflow-hidden border-b border-gray-200 bg-[#EEF3FF] py-2">
-            <div className="animate-marquee ticker-track flex w-max items-center gap-4 whitespace-nowrap">
-                {/* Render twice for a seamless infinite loop */}
-                {[...newsItems, ...newsItems].map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-center gap-3">
-                        <img
-                            src={item.icon}
-                            alt="achievement"
-                            className="h-10 w-10 object-contain shrink-0"
-                        />
 
-                        <span className="text-sm text-gray-700 flex items-center">
-            {item.text}
-        </span>
 
-                        <span className="ml-3 text-gray-300 flex items-center">|</span>
-                    </div>
-                ))}
+        <>
+            {/* Desktop & Laptop Notification */}
+            <div className="mx-auto mt-20 hidden max-w-5xl sm:block">
+                <Notification />
             </div>
-        </div>
+
+            <div className=" mt-[160px] md:mt-0 ticker-group relative w-full overflow-hidden border-b border-gray-200 bg-[#EEF3FF] py-2">
+                <div className="ticker-track animate-marquee flex w-max items-center gap-4 whitespace-nowrap">
+                    {[...newsItems, ...newsItems].map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-center gap-3">
+                            <img
+                                src={item.icon}
+                                alt="achievement"
+                                className="h-10 w-10 shrink-0 object-contain"
+                            />
+
+                            <span className="flex items-center text-sm text-gray-700">
+                    {item.text}
+                </span>
+
+                            <span className="ml-3 flex items-center text-gray-300">|</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Mobile Notification */}
+            <div className="mx-auto mt-20 max-w-5xl sm:hidden">
+                <Notification />
+            </div>
+        </>
     )
 }

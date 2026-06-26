@@ -7,7 +7,7 @@ export function AboutUs() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-16 md:py-10">
+        <section className="bg-white px-4 py-5 md:py-10">
             <div className="mx-auto max-w-7xl">
 
                 {/* Top notification bar */}
