@@ -70,16 +70,16 @@ export function Navbar() {
             {/* Orange Top Bar — collapses via transform, not height, so it never shifts
                 the white navbar below it and can't retrigger a scroll/layout loop */}
             <div
-                className={`bg-[#FF6B35] mx-auto max-w-7xl text-white rounded-b-[10px] transition-transform duration-300 ease-in-out will-change-transform hidden md:block ${
+                className={`bg-[#FF6B35] mx-auto max-w-[1320px] text-white rounded-b-[10px] transition-transform duration-300 ease-in-out will-change-transform hidden md:block ${
                     showTopBar ? 'translate-y-0' : '-translate-y-full'
                 }`}
                 style={{ height: showTopBar ? undefined : 0, overflow: 'hidden' }}
             >
-                <div className="mx-auto max-w-7xl px-4">
+                <div className="mx-auto max-w-[1320px] px-4">
                     <div className="flex items-center gap-6 py-2 text-sm">
-                        <a href="#" className="hover:text-orange-100 transition-colors flex gap-2"><Image src="/location.png" height={20} width={20} alt="location"/><span>Munshiganj</span></a>
-                        <a href="#" className="hover:text-orange-100 transition-colors flex gap-2"><Image src="/phone.png" height={20} width={20} alt="location"/><span>01949482583</span></a>
-                        <a href="#" className="hover:text-orange-100 transition-colors flex gap-2"><Image src="/email.png" height={20} width={20} alt="location"/><span>org.bmsf@gmail.com</span></a>
+                        <a href="#" className="hover:text-orange-100 font-be-vietnam transition-colors flex gap-2"><Image src="/location.png" height={20} width={20} alt="location"/><span>Munshiganj</span></a>
+                        <a href="#" className="hover:text-orange-100 font-be-vietnam transition-colors flex gap-2"><Image src="/phone.png" height={20} width={20} alt="location"/><span>01949482583</span></a>
+                        <a href="#" className="hover:text-orange-100 font-be-vietnam transition-colors flex gap-2"><Image src="/email.png" height={20} width={20} alt="location"/><span>org.bmsf@gmail.com</span></a>
                         <span className="ml-auto flex gap-3">
               <button className="hover:text-orange-100"><Image src="/facebook.png" height={20} width={20} alt="location"/></button>
               <button className="hover:text-orange-100"><Image src="/youtube.png" height={20} width={20} alt="location"/></button>
@@ -93,24 +93,35 @@ export function Navbar() {
             {/* White Navbar — sticky on its own so it docks cleanly at the top
                 regardless of what the orange bar above it is doing */}
             <div className="sticky top-0 bg-white shadow-md border-b">
-                <div className="mx-auto max-w-7xl">
+                <div className="mx-auto max-w-[1340px]">
                     <div className="flex items-center justify-between">
                         {/* Logo */}
                         <div className="flex items-center gap-2">
                             <div className="flex h-20 w-20 items-center justify-center rounded-full">
-                                <Image src="/logo.png" height={100} width={100} alt="logo" />
+                                <Image src="/navlogo.png" height={100} width={100} style={{height:"40px", width:'40px'}} alt="logo" />
                             </div>
                         </div>
 
                         {/* Menu Items */}
                         <div className="hidden items-center justify-center gap-6 md:flex">
-                            <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-500">
+                            <a
+                                href="#"
+                                className="font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]"
+                            >
                                 {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
                             </a>
-                            <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-500">
+
+                            <a
+                                href="#"
+                                className="font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]"
+                            >
                                 {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
                             </a>
-                            <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-500">
+
+                            <a
+                                href="#"
+                                className="font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]"
+                            >
                                 {language === 'bn' ? 'কার্যক্রম' : 'Training'}
                             </a>
 
@@ -122,7 +133,7 @@ export function Navbar() {
                             >
 
                                 <a  href="#"
-                                    className="text-sm font-medium text-gray-700 hover:text-orange-500 flex items-center gap-1 py-7"
+                                    className="text-sm font-medium  font-bn text-gray-700 hover:text-orange-500 flex items-center gap-1 py-7"
                                 >
                                     {language === 'bn' ? 'মেধাবৃত্তি' : 'News'}
                                     <svg
@@ -187,11 +198,12 @@ export function Navbar() {
     h-[40px]
     px-[16px]
     py-[8px]
+    font-bn
     items-center justify-center gap-[8px]
     rounded-full
     bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
     text-white
-    text-xs font-bold
+    text-[16px] font-bold
     hover:opacity-90
     cursor-pointer
   "
@@ -238,19 +250,19 @@ export function Navbar() {
                     <div className="flex flex-col px-4 py-3 gap-1">
                         <a
                             href="#"
-                            className="text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3"
+                            className="text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3"
                         >
                             {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
                         </a>
                         <a
                             href="#"
-                            className="text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3"
+                            className="text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3"
                         >
                             {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
                         </a>
                         <a
                             href="#"
-                            className="text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3"
+                            className="text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3"
                         >
                             {language === 'bn' ? 'কার্যক্রম' : 'Training'}
                         </a>

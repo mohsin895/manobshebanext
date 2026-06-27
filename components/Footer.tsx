@@ -19,7 +19,7 @@ export function Footer() {
                         <div className="flex flex-col items-center md:items-start gap-3">
                             <div className="mb-2 overflow-hidden">
                                 <Image
-                                    src="/logo1.png"
+                                    src="/navlogo.png"
                                     height={138}
                                     width={138}
                                     alt="logo"

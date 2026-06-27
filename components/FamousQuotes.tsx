@@ -94,7 +94,7 @@ export function FamousQuotes() {
                         <div className="flex flex-col items-center gap-6 rounded-2xl border border-gray-100 bg-[#FFFAF7] p-6 text-center shadow-lg md:flex-row md:items-start md:gap-4 md:p-8 md:text-left">
                             {/* Quote Content */}
                             <div className="order-2 w-full md:order-1 md:w-[60%]">
-                                <p className="mb-6 text-center font-[Noto_Sans_Bengali] text-[16px] font-normal leading-[30px] text-gray-700 md:text-left md:text-[24px]">
+                                <p className="mb-6 text-center font-[Noto_Sans_Bengali] text-[16px] font-normal leading-[30px] text-gray-700 md:text-left md:text-[18px]">
                                     {t(q.key)
                                         .split('\n')
                                         .map((line, index) => (

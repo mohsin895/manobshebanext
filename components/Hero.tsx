@@ -28,8 +28,8 @@ export function Hero() {
 
     return (
         <section className=" p-1">
-            <div className="mx-auto max-w-6xl">
-                <div className="relative h-[570px] md:h-[550px]">
+            <div className="mx-auto max-w-[1400]">
+                <div className="relative h-[590px] md:h-[600px]">
 
                     {/* Full-width Hero Image */}
                     <div className="absolute ml-5 mr-5 md:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl">
@@ -53,20 +53,24 @@ export function Hero() {
                             {/* Badge */}
                             <div
                                 className="inline-flex items-center gap-2  px-4 py-2 text-white  w-fit">
-                                {/*<span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"/>*/}
-                                <Image src="/imag2.png" height={15} width={15} alt="logo" />
-                                <span className="text-[10px] font-semibold tracking-wide">{t('exam.next_exam')}</span>
+                                <span className="flex items-center justify-center">
+  <span className="h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse" />
+</span>
+
+                                <span className="font-bn-serif text-[12px] font-normal leading-5 text-[#FFFFFF] md:text-[14px]">
+  {t('exam.next_exam')}
+</span>
                             </div>
 
                             {/* Title + Buttons */}
                             <div>
-                                <h1 className=" text-[26px] lg:text-5xl font-black text-[#FF6B35] leading-tight tracking-tight">
-                                    {isBn ? <>মেধাবৃত্তি ২০২৬</> : 'Merit Scholarship 2026'}
+                                <h1 className="font-bn text-[20px] font-semibold leading-[26px] text-[#FF6B35] md:text-[64px] md:leading-[80px]">
+                                    {isBn ? 'মেধাবৃত্তি ২০২৬' : 'Merit Scholarship 2026'}
                                 </h1>
-                                <p className="text-base text-white font-bold mt-2">
+                                <p className="mt-2 font-bn-serif text-[16px] font-medium leading-6 text-[#FFFFFF] md:text-[40px] md:leading-[48px]">
                                     {isBn ? 'নিবন্ধন ও অংশগ্রহণ করুন' : 'Selection and Apply'}
                                 </p>
-                                <p className="text-gray-300 text-[11px] leading-relaxed mt-2 max-w-sm font-medium">
+                                <p className="mt-2 max-w-sm font-bn-serif text-left text-[14px] font-normal leading-5 text-[#FFFFFF] md:text-[16px] md:leading-6">
                                     {isBn
                                         ? 'মেধা বিকাশের অনন্য সুযোগ! বিক্রমপুর মানব সেবা ফাউন্ডেশনের উদ্যোগে সপ্তম থেকে দশম শ্রেণির শিক্ষার্থীদের জন্য ‘মেধাবৃত্তি-২০২৬’। বিনামূল্যে অনলাইনের মাধ্যমে আগ্রহী শিক্ষার্থীরা সরাসরি নিজ নিজ বিদ্যালয়ের মাধ্যমে আবেদন প্রক্রিয়া সম্পন্ন করুন।'
                                         : 'Our scholarship program is specially designed for successful students.'}
@@ -116,15 +120,21 @@ export function Hero() {
 
                             <div
                                 className="
-    w-[260px] md:w-[423px]
-    h-[106px] md:h-[156px] mt-5
-    flex flex-col gap-[10px] md:gap-[20px]
-    pb-[20px]
+    mt-5
+    flex
+    h-[110px] w-[260px]
+    flex-col
+    gap-[10px]
     rounded-[16px]
-    bg-white/10
-    backdrop-blur-[25px]
     border border-white/20
+    bg-white/10
+    pb-[20px]
     text-white
+    backdrop-blur-[25px]
+
+    md:h-[170px]
+    md:w-[423px]
+    md:gap-[20px]
   "
                             >
                                 {/* Header */}
@@ -158,18 +168,27 @@ export function Hero() {
                                         <div key={i} className="flex items-center gap-[4px] md:gap-[8px]">
                                             <div
                                                 className="
-            text-center
-            bg-white/25
-            border border-white/40
-            rounded-[7px]
-            px-2.5 py-1.5
-            min-w-[44px]
-          "
+    flex flex-col items-center justify-center
+    w-[40px] h-[54px]
+    rounded-[4px]
+    border-[0.39px] border-white/40
+    bg-white/25
+    px-[8px] py-[4px]
+    gap-1
+    md:w-[80px]
+    md:h-[80px]
+    md:rounded-[9px]
+    md:border
+    md:px-[8px]
+    md:py-[8px]
+    md:gap-1
+  "
                                             >
-                                                <div className="text-[15px] font-black font-mono leading-none">
+                                                <div className="font-mono text-[15px] font-black leading-none md:text-[32px]">
                                                     {String(item.val).padStart(2, '0')}
                                                 </div>
-                                                <div className=" text-[12px] md:text-[14px] font-[400] uppercase tracking-wide mt-0.5">
+
+                                                <div className="text-center text-[8px] font-normal uppercase leading-none md:text-[14px]">
                                                     {item.label}
                                                 </div>
                                             </div>
@@ -211,31 +230,58 @@ export function Hero() {
                     >
                         {/* Icon - top 50% */}
                         <div className="w-full h-[50%] mt-[-45px] flex items-end justify-center">
-                            <div className=" w-[40px] md:w-[200px] h-[35px] md:h-[200px] bg-[#EEF3FF]/40 rounded-full flex items-end justify-center pb-4">
+                            <div className="w-[40px] md:w-[200px] h-[35px] md:h-[200px] rounded-full bg-[#eef3ff54] flex items-end justify-center pb-4">
                                 <Image src="/hero2.png" height={80} width={90} alt="hero" />
                             </div>
                         </div>
                         {/* Content - bottom 50% */}
                         <div className="w-full h-[50%] flex flex-col items-center justify-center gap-[12px]">
                             {/* Title */}
-                            <h3 className=" text-[16px] font-bold text-gray-900 text-center">
+                            <h3 className="font-bn text-center font-medium text-[#282929] text-[12px] leading-4 md:text-[24px] md:leading-8">
                                 {isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
                             </h3>
 
                             {/* Description */}
-                            <p className="text-[13px] text-gray-500 text-center leading-relaxed">
+                            <p className="font-bn-serif text-center text-[#545959] font-normal text-[14px] leading-6 md:text-[16px] md:leading-6">
                                 {isBn
                                     ? 'স্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।'
                                     : 'We evaluate students through our modern metrics system.'}
                             </p>
 
                             {/* Button */}
-                            <button className="w-full flex items-center justify-center gap-1 md:gap-2 text-[#3B3BC7] text-[12px] md:text-[13px] bg-[#EEF3FF] font-semibold border border-blue-100 rounded-lg py-1 md:py-3 px-1 md:px-4 hover:bg-blue-50 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M12 8v4l3 3"/>
+                            <button
+                                className="
+    inline-flex items-center justify-center
+    w-[191px] md:w-[217px]
+    h-[28px]
+    gap-2
+    rounded-full
+    bg-[#EEF3FF]
+    px-4 py-1
+    text-[#3B3BC7]
+    font-bn
+    text-[12px] md:text-[13px]
+    font-medium
+    leading-4 md:leading-5
+    transition-colors
+    hover:bg-[#DCE8FF]
+  "
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-4 w-4 shrink-0"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 8v4l3 3" />
                                 </svg>
-                                {isBn ? 'বিকাশমান মেধাই জাতির সম্পদ' : 'Click here to learn more'}
+
+                                <span className="whitespace-nowrap">
+    {isBn ? 'বিকাশমান মেধাই জাতির সম্পদ' : 'Click here to learn more'}
+  </span>
                             </button>
                         </div>
                     </div>

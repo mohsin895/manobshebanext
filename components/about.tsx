@@ -7,22 +7,34 @@ export function AboutUs() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-5 md:py-10">
+        <section className="bg-white  py-5 md:py-10">
             <div className="mx-auto max-w-7xl">
 
                 {/* Top notification bar */}
                 <div className="mb-8 flex justify-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
-                        <Image src="/about1.png"  width={24}
-                               height={24} alt={t('about.photo_alt')} />
-                        {t('about.notification')} <Image src="/about2.png"  width={24}  height={24} alt={t('about.photo_alt')} />
+                    <div className="inline-flex items-center gap-2  py-1.5 font-bn text-[10px] md:text-[14px] font-medium leading-[22px] text-[#4A4DE1] md:text-[16px] md:leading-6">
+                        <Image
+                            src="/about1.png"
+                            width={24}
+                            height={24}
+                            alt={t('about.photo_alt')}
+                        />
+
+                        <p>{t('about.notification')}</p>
+
+                        <Image
+                            src="/about2.png"
+                            width={24}
+                            height={24}
+                            alt={t('about.photo_alt')}
+                        />
                     </div>
                 </div>
 
 
 
                 {/* Large quote */}
-                <blockquote className="mb-12 text-center text-[16px] md:text-[56px] font-bold leading-relaxed text-[#8497F5] md:text-4xl">
+                <blockquote className="mb-12 text-center text-[16px] md:text-[35px] font-bold leading-relaxed text-[#8497F5] md:text-4xl">
                     {t('about.quote_start')} {' '}
                     <span className="text-[#3335A0]">{t('about.quote_highlight')}</span>{' '}
                     {t('about.quote_end')}&rdquo;

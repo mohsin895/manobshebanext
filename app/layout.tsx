@@ -1,7 +1,7 @@
 // layout.tsx — Add 'light' class to html to force light mode always
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono, Noto_Serif_Bengali } from 'next/font/google'
+import {  Noto_Sans_Bengali, Noto_Serif_Bengali,Be_Vietnam_Pro} from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from './context/LanguageContext'
 
@@ -9,8 +9,22 @@ import { LanguageProvider } from './context/LanguageContext'
 const notoSerifBengali = Noto_Serif_Bengali({
     subsets: ['bengali'],
     weight: ['400'],
-    variable: '--font-bengali', // 👈 important
+    variable: '--font-bengali-serif',
 })
+
+const notoSansBengali = Noto_Sans_Bengali({
+    subsets: ['bengali'],
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-bengali-sans',
+    display: 'swap',
+})
+
+const beVietnamPro = Be_Vietnam_Pro({
+    subsets: ["latin", "vietnamese"],
+    weight: ["300", "400", "500", "600", "700", "800"],
+    variable: "--font-be-vietnam",
+    display: "swap",
+});
 export const metadata: Metadata = {
     title: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
     description: 'বিশ্বমানের শিক্ষা এবং নির্দেশনা - Online Classes, Test Series, Study Material',
@@ -37,7 +51,7 @@ export default function RootLayout({
                                    }: Readonly<{ children: React.ReactNode }>) {
     return (
         // FIX 1: Add `light` class so globals.css never applies the dark theme block
-        <html lang="bn" className={`${notoSerifBengali.variable} light`}>
+        <html lang="bn"   className={`${notoSansBengali.variable} ${notoSerifBengali.variable} ${beVietnamPro.variable} light`}>
         {/* FIX 2: Remove bg-white from body — let each section own its background */}
         <body className=" antialiased">
         <LanguageProvider>
