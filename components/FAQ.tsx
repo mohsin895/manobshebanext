@@ -33,23 +33,66 @@ export function FAQ() {
               key={idx}
               className="border border-gray-200 rounded-lg overflow-hidden"
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full flex items-center justify-between bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors text-left"
-              >
-                <span className="font-medium text-[#FE4711]">{t(faq.qKey)}</span>
-                <span
-                  className={`text-[#FE4711] text-xl transition-transform ${
-                    openIndex === idx ? 'rotate-180' : ''
-                  }`}
+                <button
+                    onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                    className="
+    w-full
+    flex items-center justify-between
+    bg-gray-50
+    px-6 py-4
+    text-left
+    hover:bg-gray-100
+    transition-colors
+  "
                 >
-                  ⌄
-                </span>
-              </button>
+  <span
+      className={`
+      font-bn
+      font-medium
+      text-[14px] md:text-[20px]
+      leading-[22px] md:leading-[28px]
+      tracking-[0]
+      transition-colors
+      ${
+          openIndex === idx
+              ? 'text-[#FE4711]'
+              : 'text-[#282929]'
+      }
+    `}
+  >
+    {t(faq.qKey)}
+  </span>
+
+                    <span
+                        className={`
+      text-xl
+      transition-all
+      ${
+                            openIndex === idx
+                                ? 'rotate-180 text-[#FE4711]'
+                                : 'text-[#282929]'
+                        }
+    `}
+                    >
+    ⌄
+  </span>
+                </button>
               {openIndex === idx && (
-                <div className="bg-[#FFFAF7] px-6 py-4 border-t border-gray-200 text-gray-600">
-                  {t(faq.aKey)}
-                </div>
+                  <div
+                      className="
+    bg-[#FFFAF7]
+    border-t border-gray-200
+    px-6 py-4
+    font-bn-serif
+    font-normal
+    text-[14px] md:text-[16px]
+    leading-[22px] md:leading-[24px]
+    tracking-[-0.02em]
+    text-[#545959]
+  "
+                  >
+                      {t(faq.aKey)}
+                  </div>
               )}
             </div>
           ))}

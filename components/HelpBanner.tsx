@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { Phone, MessageCircle, Mail, MapPin } from 'lucide-react'
+import Image from "next/image";
 
 const contactItems = [
     { key: 'call', icon: Phone },
@@ -18,20 +19,86 @@ export function HelpBanner() {
             <div className="mx-auto max-w-6xl">
                 <div className="grid overflow-hidden bg-[#161347] rounded-2xl shadow-sm lg:grid-cols-5">
                     {/* Left: message + actions */}
-                    <div className=" p-8 md:p-10 lg:col-span-3">
-                        <span className="mb-4 inline-block rounded-full border border-white/20 px-4 py-1 text-xs text-indigo-200">
-                            ‹ {t('helpBanner.eyebrow')} ›
-                        </span>
-                        <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+                    <div className=" p-2 md:p-10 lg:col-span-3">
+                        <div className="flex justify-center md:justify-start">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5">
+                                <Image
+                                    src="/about1.png"
+                                    width={24}
+                                    height={24}
+                                    alt={t('about.photo_alt')}
+                                />
+
+                                <span
+                                    className="
+        font-bn
+        font-medium
+        text-[14px] md:text-[16px]
+        leading-[24px]
+        tracking-[0]
+        text-[#A7BCFA]
+      "
+                                >
+      {t('process.eyebrow')}
+    </span>
+
+                                <Image
+                                    src="/about2.png"
+                                    width={24}
+                                    height={24}
+                                    alt={t('about.photo_alt')}
+                                />
+                            </div>
+                        </div>
+                        <h2
+                            className="
+    mb-4
+    font-bn
+    font-medium
+    text-[20px] md:text-[48px]
+    leading-[28px] md:leading-[56px]
+    tracking-[0]
+    text-[#FFFFFF]
+  "
+                        >
                             {t('helpBanner.title')}
                         </h2>
-                        <p className="mb-6 max-w-md text-sm leading-relaxed text-indigo-200">
+                        <p
+                            className="
+    mb-6
+    max-w-md
+    font-bn-serif
+    text-center md:text-left
+    text-[#FFFFFF]
+    text-[14px] md:text-[16px]
+    font-normal
+    leading-[22px] md:leading-[24px]
+    tracking-[0]
+  "
+                        >
                             {t('helpBanner.description')}
                         </p>
                         <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-start">
                             <a
                                 href="#"
-                                className="inline-flex w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#161347] transition-colors hover:bg-gray-100 sm:w-auto sm:max-w-none"
+                                className="
+    inline-flex
+    w-full sm:w-auto
+    max-w-[260px] sm:max-w-none
+    items-center justify-center gap-2
+    rounded-full
+    bg-white
+    px-5 py-2.5
+    font-bn
+    font-medium
+    text-[16px]
+    leading-[24px]
+    tracking-[0]
+    text-center
+    text-[#3335A0]
+    transition-colors
+    hover:bg-gray-100
+  "
                             >
                                 <Phone className="h-4 w-4" />
                                 {t('helpBanner.callButton')}
@@ -39,7 +106,24 @@ export function HelpBanner() {
 
                             <a
                                 href="#"
-                                className="inline-flex w-full max-w-[260px] items-center justify-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10 sm:w-auto sm:max-w-none"
+                                className="
+    inline-flex
+    w-full sm:w-auto
+    max-w-[260px] sm:max-w-none
+    items-center justify-center gap-2
+    rounded-full
+    border border-white/30
+    px-5 py-2.5
+    font-bn
+    font-medium
+    text-[16px]
+    leading-[24px]
+    tracking-[0]
+    text-center
+    text-[#FFFFFF]
+    transition-colors
+    hover:bg-white/10
+  "
                             >
                                 <Mail className="h-4 w-4" />
                                 {t('helpBanner.emailButton')}
@@ -58,10 +142,29 @@ export function HelpBanner() {
                                 >
                                     <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-indigo-200" strokeWidth={1.75} />
                                     <div>
-                                        <p className="text-xs text-indigo-200">
+                                        <p
+                                            className="
+    font-bn-serif
+    font-normal
+    text-[16px]
+    leading-[24px]
+    tracking-[0]
+    text-[#FFFFFF]
+  "
+                                        >
                                             {t(`helpBanner.${item.key}.label`)}
                                         </p>
-                                        <p className="mt-0.5 text-sm font-medium text-white">
+                                        <p
+                                            className="
+    mt-0.5
+    font-bn-serif
+    font-medium
+    text-[16px] md:text-[24px]
+    leading-[24px] md:leading-[32px]
+    md:tracking-[-0.02em]
+    text-[#FFFFFF]
+  "
+                                        >
                                             {t(`helpBanner.${item.key}.value`)}
                                         </p>
                                     </div>

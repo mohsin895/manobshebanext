@@ -27,7 +27,7 @@ export function Footer() {
                                 />
                             </div>
 
-                            <p className="font-[Noto_Serif_Bengali] text-[16px] font-normal leading-[24px] text-white max-w-[320px]">
+                            <p className="max-w-[320px] font-bn-serif text-[14px] font-normal leading-6 text-[#FFFFFF] md:text-[16px]">
                                 মেধাবী শিক্ষার্থীদের স্বীকৃতি ও উৎসাহ প্রদানে নিবেদিত একটি শিক্ষা সহায়তা কার্যক্রম।
                             </p>
                         </div>
@@ -42,12 +42,40 @@ export function Footer() {
                                 <input
                                     type="email"
                                     placeholder="আপনার ই-মেইল দিন"
-                                    className="flex-1 text-sm text-white outline-none bg-transparent"
+                                    className="
+    flex-1
+    bg-transparent
+    font-bn
+    text-center
+    text-[12px]
+    font-medium
+    leading-6
+    text-[#FFFFFF]
+    outline-none
+    placeholder:font-bn
+    placeholder:text-[#FFFFFF]
+    placeholder:text-[12px]
+    placeholder:font-medium
+    md:text-[16px]
+    md:placeholder:text-[16px]
+  "
                                 />
                             </div>
 
                             <div className="flex justify-end">
-                                <button className="mt-3 w-[163px] h-[40px] bg-white hover:bg-[#1e44a8] text-[#3335A0] hover:text-white text-sm font-medium rounded-full flex items-center justify-center gap-2 transition-colors">
+                                <button
+                                    className="
+    mt-3
+    flex h-[40px] w-[163px] items-center justify-center gap-2
+    rounded-full
+    bg-white
+    font-bn
+    text-[14px] font-medium leading-6 text-[#3335A0]
+    transition-colors
+    hover:bg-[#1E44A8] hover:text-white
+    md:text-[16px] md:leading-6
+  "
+                                >
                                     সাবস্ক্রাইব করুন →
                                 </button>
                             </div>
@@ -58,7 +86,7 @@ export function Footer() {
                     <div className="hidden md:block">
                         <h4 className="mb-4 font-semibold text-sm text-gray-200">মেনু</h4>
 
-                        <ul className="list-disc list-inside space-y-2 pl-5 font-[Noto_Serif_Bengali] text-[16px] font-normal leading-[24px] text-white">
+                        <ul className="list-inside list-disc space-y-2 pl-5 font-bn-serif text-[16px] font-normal leading-6 text-[#FFFFFF]">
                             <li>
                                 <a href="#" className="transition-colors hover:text-orange-400">
                                     আমাদের সম্পর্কে
@@ -81,7 +109,7 @@ export function Footer() {
                     <div className="hidden md:block">
                         <h4 className="mb-4 font-semibold text-sm text-gray-200">কুইক লিংক</h4>
 
-                        <ul className="list-disc list-inside space-y-2 pl-5 font-[Noto_Serif_Bengali] text-[16px] font-normal leading-[24px] text-white">
+                        <ul className="list-inside list-disc space-y-2 pl-5 font-bn-serif text-[16px] font-normal leading-6 text-[#FFFFFF]">
                             <li>
                                 <a href="#" className="transition-colors hover:text-orange-400">
                                     আবেদন
@@ -114,7 +142,7 @@ export function Footer() {
                                     মেনু
                                 </h4>
 
-                                <ul className="list-disc list-inside space-y-2 text-left font-[Noto_Serif_Bengali] text-[16px] font-normal leading-[24px] text-white">
+                                <ul className="list-inside list-disc space-y-2 text-left pl-5 font-bn-serif text-[16px] font-normal leading-6 text-[#FFFFFF]">
                                     <li>
                                         <a href="#" className="transition-colors hover:text-orange-400">
                                             আমাদের সম্পর্কে
@@ -139,7 +167,7 @@ export function Footer() {
                                     কুইক লিংক
                                 </h4>
 
-                                <ul className="list-disc list-inside space-y-2 text-left font-[Noto_Serif_Bengali] text-[16px] font-normal leading-[24px] text-white">
+                                <ul className="list-inside list-disc text-left space-y-2 pl-5 font-bn-serif text-[16px] font-normal leading-6 text-[#FFFFFF]">
                                     <li>
                                         <a href="#" className="transition-colors hover:text-orange-400">
                                             আবেদন
@@ -303,16 +331,17 @@ export function Footer() {
                 {/* Bottom bar */}
                 <div className="relative border-t border-[#4A4DE1] pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 font-[Noto_Serif_Bengali] text-[12px] font-normal leading-[20px] text-white">
                     <div className="absolute left-1/2 top-[40%] h-[100px] w-[200px] md:w-[400px] -translate-x-1/2 bg-[#4A4DE1] opacity-100 blur-[100px] pointer-events-none"></div>
-
-                    <p className="relative z-10 text-center sm:text-left">
+                    <p className="relative z-10 font-bn-serif text-center text-[12px] font-normal leading-5 text-[#FFFFFF] sm:text-left md:text-[16px] md:leading-6">
                         © {currentYear} বিক্রমপুর মানব সেবা ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত। Powered By Mohsin Sikder
                     </p>
 
-                    <div className="relative z-10 flex items-center gap-4">
+                    <div className="relative z-10 flex items-center gap-4 font-bn-serif text-[12px] font-normal leading-5 text-[#FFFFFF] md:text-[16px] md:leading-6">
                         <a href="#" className="transition-colors hover:text-gray-300">
                             গোপনীয়তা নীতি
                         </a>
+
                         <span>|</span>
+
                         <a href="#" className="transition-colors hover:text-gray-300">
                             যোগাযোগ
                         </a>

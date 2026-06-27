@@ -81,9 +81,22 @@ export function FamousQuotes() {
             <div className="relative mx-auto max-w-6xl px-4">
                 {/* Heading */}
                 <div className="mb-12 text-center">
-                    <span className="mb-3 inline-block rounded-full bg-indigo-100 px-4 py-1 text-sm font-semibold text-indigo-700">
-                        {t('quotes.eyebrow')}
-                    </span>
+                   <span
+                       className="
+    mb-3 inline-flex items-center justify-center
+
+    px-4 py-1
+    font-bn
+    font-medium
+    text-[16px] md:text-[48px]
+    leading-[24px] md:leading-[56px]
+    tracking-[0]
+    text-center
+    text-[#282929]
+  "
+                   >
+  {t('quotes.eyebrow')}
+</span>
                 </div>
 
                 {/* Slider */}
@@ -94,7 +107,18 @@ export function FamousQuotes() {
                         <div className="flex flex-col items-center gap-6 rounded-2xl border border-gray-100 bg-[#FFFAF7] p-6 text-center shadow-lg md:flex-row md:items-start md:gap-4 md:p-8 md:text-left">
                             {/* Quote Content */}
                             <div className="order-2 w-full md:order-1 md:w-[60%]">
-                                <p className="mb-6 text-center font-[Noto_Sans_Bengali] text-[16px] font-normal leading-[30px] text-gray-700 md:text-left md:text-[18px]">
+                                <p
+                                    className="
+    mb-6
+    text-justify
+    font-bn
+    text-[16px] md:text-[24px]
+    font-normal
+    leading-[24px] md:leading-[30px]
+    tracking-[0]
+    text-[#1E2939]
+  "
+                                >
                                     {t(q.key)
                                         .split('\n')
                                         .map((line, index) => (
@@ -117,10 +141,28 @@ export function FamousQuotes() {
                                 </div>
 
                                 <div className="mt-4 w-full rounded-lg bg-[#FFF0EB] p-4 text-center">
-                                    <p className="font-bold text-gray-900">
+                                    <p
+                                        className="
+    font-bn
+    font-semibold
+    text-[20px] md:text-[24px]
+    leading-[30px]
+    tracking-[0]
+    text-[#282929]
+  "
+                                    >
                                         {t(q.authorKey)}
                                     </p>
-                                    <p className="text-sm text-indigo-600">
+                                    <p
+                                        className="
+    font-bn
+    font-semibold
+    text-[20px] md:text-[24px]
+    leading-[30px]
+    tracking-[0]
+    text-[#737380]
+  "
+                                    >
                                         {t(q.roleKey)}
                                     </p>
                                 </div>
