@@ -20,7 +20,20 @@ export function AboutUs() {
                             alt={t('about.photo_alt')}
                         />
 
-                        <p>{t('about.notification')}</p>
+                        <p
+                            className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-[#4A4DE1]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                        >
+                            {t('about.notification')}
+                        </p>
 
                         <Image
                             src="/about2.png"
@@ -34,9 +47,25 @@ export function AboutUs() {
 
 
                 {/* Large quote */}
-                <blockquote className="mb-12 text-center text-[16px] md:text-[35px] font-bold leading-relaxed text-[#8497F5] md:text-4xl">
-                    {t('about.quote_start')} {' '}
-                    <span className="text-[#3335A0]">{t('about.quote_highlight')}</span>{' '}
+                <blockquote
+                    className="
+    mb-12
+    font-bn
+    font-medium
+    text-[16px]
+    leading-[22px]
+    tracking-[0]
+    indent-[88px]
+    text-[#8497F5]
+    md:text-[56px]
+    md:leading-[72px]
+    md:indent-[88px]
+  "
+                >
+                    " {t('about.quote_start')}{' '}
+                    <span className="text-[#3335A0]">
+    {t('about.quote_highlight')}
+  </span>{' '}
                     {t('about.quote_end')}&rdquo;
                 </blockquote>
 
@@ -55,10 +84,22 @@ export function AboutUs() {
                     </div>
 
                     {/* Right: paragraphs */}
-                    <div className="space-y-4 text-gray-600">
-                        <p className="leading-relaxed">{t('about.para_1')}</p>
-                        <p className="leading-relaxed">{t('about.para_2')}</p>
-
+                    <div
+                        className="
+    space-y-4
+    font-bn-serif
+    font-normal
+    text-[14px]
+    leading-[20px]
+    tracking-[0]
+    text-justify
+    text-[#404545]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
+                        <p>{t('about.para_1')}</p>
+                        <p>{t('about.para_2')}</p>
                     </div>
 
                 </div>

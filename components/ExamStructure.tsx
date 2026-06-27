@@ -147,7 +147,7 @@ export function ExamStructure() {
                     </div>
 
                     {/* Right card: marks distribution */}
-                    <div className="rounded-xl bg-white p-6 shadow-sm md:p-8">
+                    <div className="rounded-xl bg-[#F7FAFF] p-6 shadow-sm md:p-8">
                         <h3
                             className="
     mb-5

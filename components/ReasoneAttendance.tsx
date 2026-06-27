@@ -5,56 +5,28 @@ import Image from 'next/image'
 
 const reasons = [
     {
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-                <path d="M12 3L2 8l10 5 8-4.2V14h2V8L12 3z" fill="currentColor" />
-                <path
-                    d="M6 12.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    fill="none"
-                />
-            </svg>
-        ),
+        icon: '/image31.png',
         titleKey: 'reasons.merit_recognition',
         descKey: 'reasons.merit_recognition_desc',
         iconBg: 'bg-gradient-to-br from-sky-400 to-blue-600',
         iconColor: 'text-white',
     },
     {
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-                <path d="M5 21V9.5L12 5l7 4.5V21" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-                <path d="M9 21v-6h6v6" stroke="currentColor" strokeWidth="1.8" />
-                <path d="M3 21h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </svg>
-        ),
+        icon:'/image32.png',
         titleKey: 'reasons.institutional_pride',
         descKey: 'reasons.institutional_pride_desc',
         iconBg: 'bg-gradient-to-br from-sky-400 to-blue-600',
         iconColor: 'text-white',
     },
     {
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-                <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.8" />
-                <path d="M8 13l2.5 2.5L16 9.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
+        icon:'/image33.png',
         titleKey: 'reasons.objective_evaluation',
         descKey: 'reasons.objective_evaluation_desc',
         iconBg: 'bg-blue-50',
         iconColor: 'text-blue-600',
     },
     {
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-                <rect x="5" y="3" width="11" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
-                <circle cx="13" cy="12" r="0.9" fill="currentColor" />
-                <path d="M16 8l4-1.5v12L16 17" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-            </svg>
-        ),
+        icon:'/image34.png',
         titleKey: 'reasons.future_opportunities',
         descKey: 'reasons.future_opportunities_desc',
         iconBg: 'bg-blue-50',
@@ -73,7 +45,20 @@ export function ReasonAttendance() {
 
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
                         <Image src="/about1.png"  width={24}
-                               height={24} alt={t('about.photo_alt')} />   {t('reasons.eyebrow')}   <Image src="/about2.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />  <span
+                        className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[24px]
+    tracking-[0]
+    text-[#4A4DE1]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
+  {t('reasons.eyebrow')}
+</span>  <Image src="/about2.png"  width={24}
                                                                                                              height={24} alt={t('about.photo_alt')} />
                     </div>
 
@@ -81,10 +66,36 @@ export function ReasonAttendance() {
 
                 {/* Header */}
                 <div className="mb-8 text-center">
-                    <h3 className="mb-2 inline-block  px-4 py-1 text-xl font-bold text-gray-900 md:text-2xl">
+                    <h3
+                        className="
+    mb-2
+    text-center
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-[#282929]
+    md:text-[48px]
+    md:leading-[56px]
+  "
+                    >
                         {t('reasons.title')}
                     </h3>
-                    <p className="mt-3 text-sm text-gray-600">
+                    <p
+                        className="
+    mt-3
+    font-bn
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-center
+    text-[#404545]
+    md:font-bn-serif
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
                         {t('reasons.subtitle')}
                     </p>
                 </div>
@@ -93,7 +104,7 @@ export function ReasonAttendance() {
                 <div className="relative overflow-hidden rounded-xl">
                     {/* Background photo */}
                     {/* Background photo - desktop/laptop */}
-                    <div className="relative hidden h-[320px] w-full sm:block md:h-[380px]">
+                    <div className="relative hidden h-[320px] w-full sm:block md:h-[560px]">
                         <Image
                             src="/images/image3.png"
                             alt={t('reasons.image_alt')}
@@ -130,16 +141,44 @@ export function ReasonAttendance() {
                                 className="flex flex-col gap-1 px-3 py-2 text-center items-center"
                             >
                                 <div
-                                    className={`flex h-8 w-8 items-center justify-center rounded-full ${reason.iconBg} ${reason.iconColor}`}
+                                    className={`flex h-[28px] w-[28px] items-center justify-center  `}
                                 >
-                                    {reason.icon}
+                                    <div className="relative h-8 w-8">
+                                        <Image
+                                            src={reason.icon}
+                                            alt="title"
+                                            fill
+                                            className="object-contain"
+                                            priority
+                                        />
+                                    </div>
                                 </div>
 
-                                <h4 className="text-[12px] font-bold text-white">
+                                <h4
+                                    className="
+    font-bn
+    font-medium
+    text-[12px]
+    leading-[14px]
+    tracking-[0]
+    text-white
+    text-center
+  "
+                                >
                                     {t(reason.titleKey)}
                                 </h4>
 
-                                <p className="text-[10px] leading-relaxed text-white">
+                                <p
+                                    className="
+    font-bn-serif
+    font-normal
+    text-[10px]
+    leading-[14px]
+    tracking-[0]
+    text-white
+    text-center
+  "
+                                >
                                     {t(reason.descKey)}
                                 </p>
                             </div>
@@ -161,20 +200,52 @@ export function ReasonAttendance() {
                             <div
                                 key={idx}
                                 className="
-                                    flex flex-col gap-2  px-6 py-2
+                                    flex flex-col gap-2 items-center text-center  px-6 py-2
                                     sm:px-7 sm:py-2
 
                                 "
                             >
                                 <div
-                                    className={`flex h-10 w-10 items-center justify-center rounded-full ${reason.iconBg} ${reason.iconColor}`}
+                                    className={`flex h-[80px] w-[80px] items-center justify-center  `}
                                 >
-                                    {reason.icon}
+                                    <div className="relative h-8 w-8">
+                                        <Image
+                                            src={reason.icon}
+                                            alt="title"
+                                            fill
+                                            className="object-contain"
+                                            priority
+                                        />
+                                    </div>
                                 </div>
-                                <h4 className="text-[15px] font-bold text-white">
+                                <h4
+                                    className="
+    font-bn
+    font-medium
+    text-[15px]
+    leading-[32px]
+    tracking-[0]
+    text-white
+    md:text-[24px]
+    md:text-center
+  "
+                                >
                                     {t(reason.titleKey)}
                                 </h4>
-                                <p className="text-[12.5px] leading-relaxed text-white">
+                                <p
+                                    className="
+    font-bn-serif
+    font-normal
+    text-[12.5px]
+    leading-[22px]
+    tracking-[0]
+    text-white
+    md:text-[16px]
+    md:leading-[24px]
+    md:tracking-[-0.02em]
+    md:text-center
+  "
+                                >
                                     {t(reason.descKey)}
                                 </p>
                             </div>
