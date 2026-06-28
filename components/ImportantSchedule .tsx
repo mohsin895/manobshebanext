@@ -256,7 +256,7 @@ export function ImportantSchedule() {
                 </div>
 
                 {/* Countdown card */}
-                <div className="relative overflow-hidden rounded-2xl bg-[#1C1D4A] px-6 py-6 text-center text-white">
+                <div className="relative overflow-hidden rounded-2xl bg-[#1C1D4A] px-1 py-6 text-center text-white">
                     {/* Subtle purple glow */}
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_60%_0%,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
 

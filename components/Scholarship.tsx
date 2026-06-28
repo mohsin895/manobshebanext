@@ -59,8 +59,8 @@ const items = [
     {
         titleKey: 'scholarship.achievements',
         descKey: 'scholarship.achievements_desc',
-        topImage: '/images/scholarship/exam6.png',
-        bottomImage: '/images/scholarship/bg6.png',
+        topImage: '/images/scholarship/exam3.png',
+        bottomImage: '/images/scholarship/bg3.png',
         color: 'bg-yellow-100',
         span: 'md:col-span-1 md:row-span-2',
         tall: false,
@@ -189,7 +189,7 @@ export function Scholarship() {
                                         </div>
 
                                         {/* Bottom: colored bg with bottom image + text overlay */}
-                                        <div className="relative flex flex-1 flex-col overflow-hidden">
+                                        <div className="relative flex flex-1 flex-col overflow-hidden mt-[-24px]">
                                             <Image
                                                 src={item.bottomImage}
                                                 alt=""
@@ -198,7 +198,7 @@ export function Scholarship() {
                                                 aria-hidden
                                             />
                                             <div className="relative z-10 flex flex-1 flex-col justify-between p-4">
-                                                <div>
+                                                <div className="mt-[30px]">
                                                     <h3
                                                         className="
     mb-1
@@ -259,7 +259,7 @@ export function Scholarship() {
                                                         {t(item.descKey)}
                                                     </p>
                                                 </div>
-                                                <div className="mt-3 text-right">
+                                                <div className="mt-[60px] text-right">
                                                     <button className="inline-flex items-center gap-1 rounded-full bg-teal-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-teal-600 transition-colors">
                                                         {t('scholarship.see_more')} →
                                                     </button>
@@ -268,7 +268,7 @@ export function Scholarship() {
                                         </div>
 
                                         {/* Bottom: Exam Image */}
-                                        <div className={`relative w-full flex-shrink-0 overflow-hidden ${item.tall ? 'h-[58%]' : 'h-[55%]'}`}>
+                                        <div className={`relative w-full flex-shrink-0 rounded-[20px] overflow-hidden mt-[-24px] ${item.tall ? 'h-[58%]' : 'h-[55%]'}`}>
                                             <Image
                                                 src={item.topImage}
                                                 alt={t(item.titleKey)}

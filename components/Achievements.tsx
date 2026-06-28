@@ -16,7 +16,7 @@ export function Achievements() {
 
     return (
         <section className="bg-white px-4 py-5 md:py-5">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-[1400]">
                 {/* Header */}
                 <div className="mb-12 text-center">
                     <h2

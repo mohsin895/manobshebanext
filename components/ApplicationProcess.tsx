@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
-import { UserCircle2, ClipboardList, IdCard, HourglassIcon, Play, ArrowRight } from 'lucide-react'
+import { UserCircle2, ClipboardList, IdCard, HourglassIcon, Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from "next/image";
 
 // Replace with the real YouTube video ID
@@ -13,6 +13,7 @@ const steps = [
         key: 'process.register',
         titleKey: 'process.register.title',
         descKey: 'process.register.desc',
+        step: 'process.register.step',
         icon: '/image24.png',
         bg:'/image27.png',
     },
@@ -20,6 +21,7 @@ const steps = [
         key: 'process.fillForm',
         titleKey: 'process.fillForm.title',
         descKey: 'process.fillForm.desc',
+        step: 'process.fillForm.step',
         icon: '/image23.png',
         bg:'/image28.png',
     },
@@ -27,6 +29,7 @@ const steps = [
         key: 'process.verify',
         titleKey: 'process.verify.title',
         descKey: 'process.verify.desc',
+        step: 'process.verify.step',
         icon: '/image22.png',
         bg:'/image27.png',
     },
@@ -34,6 +37,7 @@ const steps = [
         key: 'process.confirm',
         titleKey: 'process.confirm.title',
         descKey: 'process.confirm.desc',
+        step: 'process.confirm.step',
         icon: '/image21.png',
         bg:'/image28.png',
     },
@@ -43,9 +47,21 @@ export function ApplicationProcess() {
     const { t } = useLanguage()
     const [isPlaying, setIsPlaying] = useState(false)
 
+    const sliderRef = useRef<HTMLDivElement>(null)
+    const CARD_WIDTH = 300 // matches the inline width on the card
+    const CARD_GAP = 40 // matches gap-10
+
+    const scrollByCard = (direction: number) => {
+        const el = sliderRef.current
+        if (!el) return
+
+        const amount = CARD_WIDTH + CARD_GAP
+        el.scrollBy({ left: direction * amount, behavior: 'smooth' })
+    }
+
     return (
         <section className="bg-gray-50 px-4 py-5 md:py-10">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-[1400]">
                 {/* Header */}
                 <div className="mb-12 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
@@ -64,7 +80,7 @@ export function ApplicationProcess() {
                     >
   {t('process.eyebrow')}
 </span>  <Image src="/about2.png"  width={24}
-                                                                                                           height={24} alt={t('about.photo_alt')} />
+                height={24} alt={t('about.photo_alt')} />
                     </div>
 
 
@@ -103,15 +119,36 @@ export function ApplicationProcess() {
                 </div>
 
                 {/* Steps Grid / Mobile Slider */}
-                <div className="mb-12 pt-10">
-                    <div className="flex gap-10 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide md:grid md:gap-10 md:overflow-visible md:snap-none md:pb-0 md:mx-0 md:px-0 md:grid-cols-2 lg:grid-cols-4">
+                <div className="relative mb-12 pt-10">
+                    {/* Prev / Next arrows - mobile only, vertically centered over the slider */}
+                    <button
+                        type="button"
+                        aria-label={t('process.prevStep') || 'Previous'}
+                        onClick={() => scrollByCard(-1)}
+                        className="absolute left-0 top-1/2 z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden"
+                    >
+                        <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                        type="button"
+                        aria-label={t('process.nextStep') || 'Next'}
+                        onClick={() => scrollByCard(1)}
+                        className="absolute right-0 top-1/2 z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden"
+                    >
+                        <ChevronRight className="h-5 w-5" />
+                    </button>
+
+                    <div
+                        ref={sliderRef}
+                        className="flex gap-10 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-[7.5%] scrollbar-hide md:grid md:gap-10 md:overflow-visible md:snap-none md:pb-0 md:mx-0 md:px-0 md:grid-cols-2 lg:grid-cols-4"
+                    >
                         {steps.map((step, idx) => (
                             <div
                                 key={idx}
                                 className="relative overflow-visible rounded-[20px] bg-cover bg-center bg-no-repeat transition-all duration-300 hover:-translate-y-1 shrink-0 w-[85%] snap-center md:w-auto md:shrink"
                                 style={{
                                     backgroundImage: `url(${step.bg})`,
-                                    minHeight: "400px",
+                                    minHeight: "400px", width:'300px',
                                 }}
                             >
                                 {/* Floating Icon */}
@@ -119,9 +156,12 @@ export function ApplicationProcess() {
                                     <img
                                         src={step.icon}
                                         alt={t(step.titleKey)}
-                                        className="h-[148px] w-[148px] object-contain"
+                                        className="h-[120px] w-[120px] object-contain md:h-[148px] md:w-[148px]"
                                     />
                                 </div>
+
+                                {/* Step badge */}
+
 
                                 {/* Body */}
                                 <div className="flex h-full flex-col items-left px-2 pb-4 pt-[180px] text-left">
@@ -163,15 +203,15 @@ export function ApplicationProcess() {
                                     </p>
 
 
-                                   <a href="#"
-                                    className="mt-auto self-end inline-flex items-center gap-2 rounded-full bg-[#FFE8DE] px-5 py-2 text-sm font-medium text-[#F26522]"
+                                    <a href="#"
+                                       className="mt-auto self-end inline-flex items-center gap-2 rounded-full bg-[#FFE8DE] px-5 py-2 text-sm font-medium text-[#F26522]"
                                     >
-                                    {t('process.details')}
-                                    <ArrowRight className="h-4 w-4" />
-                                </a>
+                                        {t(step.step)}
+                                        <ArrowRight className="h-4 w-4" />
+                                    </a>
+                                </div>
                             </div>
-                            </div>
-                            ))}
+                        ))}
                     </div>
                 </div>
 

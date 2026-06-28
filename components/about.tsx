@@ -7,8 +7,8 @@ export function AboutUs() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white  py-5 md:py-10">
-            <div className="mx-auto ml-5 mr-5 md:m-0  max-w-7xl">
+        <section className="bg-white  p-1 py-5 md:py-10">
+            <div className="mx-auto   max-w-[1400]">
 
                 {/* Top notification bar */}
                 <div className="mb-8  flex justify-center">

@@ -47,7 +47,7 @@ export function NewsTicker() {
             </div>
 
             {/* Mobile Notification */}
-            <div className="mx-auto mt-20 ml-5 mr-5 md:m-0  max-w-5xl">
+            <div className="mx-auto mt-10  max-w-5xl">
                 <Notification />
             </div>
         </>

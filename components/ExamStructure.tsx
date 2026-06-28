@@ -18,7 +18,7 @@ export function ExamStructure() {
 
     return (
         <section className="bg-gray-50 px-4 py-5 md:py-10 ">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-[1400]">
                 {/* Header */}
                 <div className="mb-12 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">

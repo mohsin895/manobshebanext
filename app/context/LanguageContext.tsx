@@ -191,17 +191,22 @@ const translations: Record<Language, Record<string, string>> = {
         "process.title": "ধাপভেদে অনলাইনে আবেদন প্রক্রিয়া",
         "process.subtitle": "নিচের ধাপগুলো অনুসরণ করে সহজেই আপনার আবেদন সম্পন্ন করুন",
 
+
         "process.register.title": "রেজিস্ট্রেশন বা প্রোফাইল তৈরি",
         "process.register.desc": "আপনার মৌলিক তথ্য দিয়ে দ্রুত একটি অ্যাকাউন্ট খুলুন এবং প্রোফাইল সম্পন্ন করুন।",
+        "process.register.step": "১ম ধাপ",
 
         "process.fillForm.title": "নতুন আবেদন ফর্ম পূরণ",
         "process.fillForm.desc": "প্রয়োজনীয় তথ্য সহ আবেদন ফর্মটি সঠিকভাবে পূরণ করুন এবং প্রয়োজনীয় কাগজপত্র যুক্ত করুন।",
+        "process.fillForm.step": "২য় ধাপ",
 
         "process.verify.title": "তথ্য পূরণ ও সংশোধনী",
         "process.verify.desc": "প্রদত্ত তথ্য যাচাই করে নিশ্চিত করুন যে সকল তথ্য সঠিক এবং সম্পূর্ণ রয়েছে।",
+        "process.verify.step": "৩য় ধাপ",
 
         "process.confirm.title": "প্রেরণসহ সংরক্ষণ",
         "process.confirm.desc": "নিশ্চিতকরণ বার্তা পাওয়ার পর আবেদনপত্রের একটি অনুলিপি সংরক্ষণ করুন।",
+        "process.confirm.step": "৪র্থ ধাপ",
 
         "process.details": "বিস্তারিত",
         "process.videoCaption": "ভিডিওতে এপ্লিকেশন পদ্ধতি দেখুন",
@@ -449,6 +454,10 @@ const translations: Record<Language, Record<string, string>> = {
         'reasons.future_opportunities_desc': 'Scholarship recipients get priority access to special courses, mentoring programs, and higher education support.',
 
         // Application Process
+        'process.register.step': '1st step',
+        'process.fillForm.step': '2nd step',
+        'process.verify.step': '3rd step',
+        'process.confirm.step': '4th step',
         'process.eyebrow': 'Application steps',
         'process.title': 'Step-by-step online application process',
         'process.subtitle': 'Follow the steps below to complete your application easily',

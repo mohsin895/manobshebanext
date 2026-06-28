@@ -19,11 +19,37 @@ export function FAQ() {
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="mb-2 text-[48px] font-semibold text-[#000]">
-            {t('faq.title')}
-          </h2>
 
-          <p className="text-[#404545] text-[24px]">{t('faq.subtitle')}</p>
+            <h2
+                className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[24px]
+    tracking-[0]
+    text-center
+    text-[#282929]
+    md:text-[48px]
+    md:leading-[56px]
+  "
+            >
+                {t('faq.title')}
+            </h2>
+            <p
+                className="
+    font-bn-serif
+    font-normal
+    text-center
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-[#404545]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+            >
+                {t('faq.subtitle')}
+            </p>
         </div>
 
         {/* FAQ Items */}
