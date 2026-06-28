@@ -134,8 +134,6 @@ export function ImportantSchedule() {
             <div className="mx-auto max-w-5xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
-
-
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
                         <Image src="/about1.png"  width={24}
                                height={24} alt={t('about.photo_alt')} />   <span
@@ -152,9 +150,8 @@ export function ImportantSchedule() {
                     >
   {t('schedule.eyebrow')}
 </span>   <Image src="/about2.png"  width={24}
-                                                                                                             height={24} alt={t('about.photo_alt')} />
+                 height={24} alt={t('about.photo_alt')} />
                     </div>
-
                 </div>
 
                 {/* Title */}
@@ -180,10 +177,8 @@ export function ImportantSchedule() {
                 </div>
 
                 {/* Timeline */}
-
-                {/* Timeline */}
                 <div className="mb-10 md:hidden">
-                    {/* Mobile: vertical timeline | md+: original horizontal timeline */}
+                    {/* Mobile: vertical timeline */}
                     <div className="flex flex-col md:flex-row md:items-start md:overflow-x-auto md:pb-2">
                         {timelineItems.map((item, idx) => (
                             <div
@@ -197,11 +192,6 @@ export function ImportantSchedule() {
 
                                 {/* Dot + lines */}
                                 <div className="relative flex w-9 flex-shrink-0 flex-col items-center md:h-9 w-[30%] md:flex-row">
-                                    {/* Top/Left line */}
-                                    {/*<div*/}
-                                    {/*    className={`w-0.5 min-h-[20px] flex-1 md:h-0.5 md:w-auto md:min-h-0 ${idx === 0 ? 'invisible' : leftLineStyle(idx, item.status)}`}*/}
-                                    {/*/>*/}
-
                                     {/* Dot */}
                                     <div
                                         className={`relative z-10 flex h-[48px] w-[72px] flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
@@ -256,111 +246,159 @@ export function ImportantSchedule() {
                 </div>
 
                 {/* Countdown card */}
-                <div className="relative overflow-hidden rounded-2xl bg-[#1C1D4A] px-1 py-6 text-center text-white">
-                    {/* Subtle purple glow */}
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_60%_0%,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
-
-                    <h4
-                        className="
-    relative
-    mb-2.5
-    font-bn
-    font-medium
-    text-[16px]
-    leading-[24px]
-    tracking-[0]
-    text-center
-    text-white
-    md:text-[32px]
-    md:leading-[48px]
-  "
-                    >
-                        {t('schedule.countdown_title')}
-                    </h4>
-
+                <div className="relative flex justify-center">
+                    {/* Countdown Card */}
                     <div
                         className="
-    relative
-    mb-6
-    inline-flex
-    h-[28px]
-    items-center
-    justify-center
-    rounded-full
-    bg-white
-    px-4
-    py-1
-    font-bn
-    font-medium
-    text-[10px]
-    leading-[20px]
-    tracking-[0]
-    text-center
-    text-[#3335A0]
-    md:text-[16px]
-    md:leading-[24px]
-  "
+      relative
+      z-10
+      flex
+      w-full
+      max-w-[351px]
+      flex-col
+      gap-3
+      rounded-[12px]
+      bg-[#1C1D4A]
+      p-4
+      text-center
+      text-white
+      overflow-hidden
+
+      md:max-w-[874px]
+      md:min-h-[376px]
+      md:gap-8
+      md:rounded-[32px]
+      md:px-8
+      md:py-12
+    "
                     >
-                        {t('schedule.countdown_subtitle')}
-                    </div>
+                        {/* Ellipse glow background - positioned at bottom */}
+                        <div
+                            className="
+                                pointer-events-none
+                                absolute
+                                left-1/2
+                                bottom-0
+                                -translate-x-1/2
+                                translate-y-1/2
+                                z-0
+                                w-[383px]
+                                h-[222px]
+                                rounded-full
+                                bg-[#4A4DE1]
+                                blur-[200px]
+                                md:w-[772px]
+                                md:h-[395px]
+                            "
+                        />
 
-                    {/* Numbers */}
-                    <div className="relative mb-4 flex items-start justify-center gap-2 md:gap-2">
-                        {[
-                            { val: countdown.days, label: t('schedule.days') },
-                            { val: countdown.hours, label: t('schedule.hours') },
-                            { val: countdown.minutes, label: t('schedule.minutes') },
-                            { val: countdown.seconds, label: t('schedule.seconds') },
-                        ].map((block, i) => (
-                            <div key={i} className="flex items-center">
-                                {i > 0 && (
-                                    <div className="flex h-full items-center justify-center px-2">
-            <span className="font-noto-bengali text-[15.66px] font-medium leading-none tracking-[-0.02em] text-white">
-                :
-            </span>
-                                    </div>
-                                )}
+                        {/* Content wrapper with relative z-index */}
+                        <div className="relative z-10 flex flex-col gap-3 md:gap-8">
+                            {/* Title */}
+                            <h4
+                                className="
+                                    font-bn
+                                    font-medium
+                                    text-[16px]
+                                    leading-[24px]
+                                    text-center
+                                    text-white
+                                    md:text-[32px]
+                                    md:leading-[48px]
+                                "
+                            >
+                                {t("schedule.countdown_title")}
+                            </h4>
 
-                                <div className="flex flex-col items-center rounded-lg border-[0.4px] border-[#4A4DE166] bg-[#3335A03D] px-2 py-1">
-        <span className=" w-auto md:min-w-[56px] text-center text-[16px] font-bold leading-none md:text-[56px]">
-            {toBengaliNum(block.val)}
-        </span>
-
-                                    <span className="mt-1 text-[11px] text-[#FFFFFF]">
-            {block.label}
-        </span>
-                                </div>
+                            {/* Subtitle */}
+                            <div
+                                className="
+                                    mx-auto
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    rounded-full
+                                    bg-white
+                                    px-4
+                                    py-1
+                                    font-bn
+                                    font-medium
+                                    text-[10px]
+                                    leading-[20px]
+                                    text-[#3335A0]
+                                    md:text-[16px]
+                                    md:leading-[24px]
+                                "
+                            >
+                                {t("schedule.countdown_subtitle")}
                             </div>
-                        ))}
-                    </div>
 
-                    {/* Footer */}
-                    <p
-                        className="
-    relative
-    text-center
-    font-bn-serif
-    font-normal
-    text-[14px]
-    leading-[24px]
-    tracking-[-0.02em]
-    text-white
-    md:text-[12px]
-    md:leading-[24px]
-    md:tracking-[0]
-  "
-                    >
-                        {t('schedule.countdown_footer_prefix')}{' '}
-                        <span className="font-semibold text-white">
-    {t('schedule.countdown_date')}
-  </span>
-                        {', '}
-                        {t('schedule.countdown_footer_time')}{' '}
-                        <span className="font-semibold text-white">
-    {t('schedule.countdown_time')}
-  </span>
-                        {' ।'}
-                    </p>
+                            {/* Countdown */}
+                            <div className="flex justify-center ">
+                                {[
+                                    { val: countdown.days, label: t("schedule.days") },
+                                    { val: countdown.hours, label: t("schedule.hours") },
+                                    { val: countdown.minutes, label: t("schedule.minutes") },
+                                    { val: countdown.seconds, label: t("schedule.seconds") },
+                                ].map((block, i) => (
+                                    <div key={i} className="flex items-center">
+                                        {i > 0 && (
+                                            <span className="mx-2 text-[18px] font-medium text-white md:text-[28px]">
+                                                :
+                                            </span>
+                                        )}
+
+                                        <div
+                                            className="
+                                                flex
+                                                flex-col
+                                                items-center
+                                                rounded-lg
+                                                border
+                                                border-[#4A4DE166]
+                                                bg-[#3335A03D]
+                                                px-1
+                                                py-2
+                                                md:px-4
+                                                md:py-3
+                                            "
+                                        >
+                                            <span className="min-w-[42px] text-center text-[18px] font-bold leading-none md:min-w-[70px] md:text-[56px]">
+                                                {toBengaliNum(block.val)}
+                                            </span>
+
+                                            <span className="mt-1 text-[10px] text-white md:text-[14px]">
+                                                {block.label}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Footer */}
+                            <p
+                                className="
+                                    font-bn-serif
+                                    text-center
+                                    text-[14px]
+                                    leading-[24px]
+                                    text-white
+                                    md:text-[12px]
+                                "
+                            >
+                                {t("schedule.countdown_footer_prefix")}{" "}
+                                <span className="font-semibold">
+                                    {t("schedule.countdown_date")}
+                                </span>
+                                {", "}
+                                {t("schedule.countdown_footer_time")}{" "}
+                                <span className="font-semibold">
+                                    {t("schedule.countdown_time")}
+                                </span>
+                                {" ।"}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

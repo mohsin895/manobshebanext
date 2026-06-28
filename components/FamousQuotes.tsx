@@ -1,7 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
-import { useState, useEffect, useCallback, Fragment } from 'react'
+import { useState, useEffect, useCallback, useRef, Fragment } from 'react'
 
 const quotes = [
     {
@@ -33,6 +33,11 @@ export function FamousQuotes() {
     const [animating, setAnimating] = useState(false)
     const [direction, setDirection] = useState<'left' | 'right'>('right')
 
+    // Read more / read less state
+    const [expanded, setExpanded] = useState(false)
+    const [isOverflowing, setIsOverflowing] = useState(false)
+    const textRef = useRef<HTMLParagraphElement>(null)
+
     const goTo = useCallback(
         (index: number, dir: 'left' | 'right') => {
             if (animating) return
@@ -43,6 +48,8 @@ export function FamousQuotes() {
             setTimeout(() => {
                 setCurrent(index)
                 setAnimating(false)
+                // Reset expand state whenever the slide changes
+                setExpanded(false)
             }, 350)
         },
         [animating],
@@ -58,19 +65,39 @@ export function FamousQuotes() {
         goTo(idx, 'right')
     }, [current, goTo])
 
-    // Auto slide
+    // Auto slide (pauses while a quote is expanded so people can keep reading)
     useEffect(() => {
+        if (expanded) return
         const timer = setInterval(next, 6000)
         return () => clearInterval(timer)
-    }, [next])
+    }, [next, expanded])
 
     const q = quotes[current]
+
+    // Detect whether the quote text actually overflows the clamped height,
+    // so we only show the toggle button when it's actually needed.
+    useEffect(() => {
+        const el = textRef.current
+        if (!el) return
+
+        // Measure after the clamp class has applied
+        const checkOverflow = () => {
+            setIsOverflowing(el.scrollHeight > el.clientHeight + 1)
+        }
+
+        checkOverflow()
+        window.addEventListener('resize', checkOverflow)
+        return () => window.removeEventListener('resize', checkOverflow)
+    }, [current])
 
     const slideClass = animating
         ? direction === 'right'
             ? 'opacity-0 translate-x-8'
             : 'opacity-0 -translate-x-8'
         : 'opacity-100 translate-x-0'
+
+    const readMoreLabel = t('quotes.readMore') || 'Read more'
+    const readLessLabel = t('quotes.readLess') || 'Read less'
 
     return (
         <section className="relative overflow-hidden bg-white py-5 md:py-5">
@@ -108,8 +135,9 @@ export function FamousQuotes() {
                             {/* Quote Content */}
                             <div className="order-2 w-full md:order-1 md:w-[60%]">
                                 <p
-                                    className="
-    mb-6
+                                    ref={textRef}
+                                    className={`
+    mb-2
     text-justify
     font-bn
     text-[16px] md:text-[24px]
@@ -117,7 +145,9 @@ export function FamousQuotes() {
     leading-[24px] md:leading-[30px]
     tracking-[0]
     text-[#1E2939]
-  "
+    transition-all duration-200
+    ${expanded ? '' : 'line-clamp-3'}
+  `}
                                 >
                                     {t(q.key)
                                         .split('\n')
@@ -128,6 +158,17 @@ export function FamousQuotes() {
                                             </Fragment>
                                         ))}
                                 </p>
+
+                                {isOverflowing && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setExpanded((e) => !e)}
+                                        className="mb-4 font-bn text-[14px] md:text-[16px] font-semibold text-indigo-600 hover:text-indigo-800 focus:outline-none"
+                                        aria-expanded={expanded}
+                                    >
+                                        {expanded ? readLessLabel : readMoreLabel}
+                                    </button>
+                                )}
                             </div>
 
                             {/* Image & Author */}

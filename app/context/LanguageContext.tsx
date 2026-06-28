@@ -280,6 +280,8 @@ const translations: Record<Language, Record<string, string>> = {
 
         "quotes.eyebrow": "গুণিজনদের বাণী",
         "quotes.title": "যারা আমাদের বিশ্বাস করেন",
+        "quotes.readMore": "আরও পড়ুন",
+        "quotes.readLess": "সংক্ষিপ্ত করুন",
 
 // Slide 1
         "quotes.quote1": "\"একটি সুশিক্ষিত ও আলোকিত প্রজন্মই পারে দেশ ও সমাজের প্রকৃত রূপান্তর ঘটাতে। মুন্সিগঞ্জের ঐতিহ্যবাহী মাটিতে বেড়ে ওঠা মেধাবী শিক্ষার্থীদের স্বপ্ন পূরণের পথকে আরও মসৃণ করতেই 'বিক্রমপুর মানব সেবা ফাউন্ডেশন মেধাবৃত্তি'-এর এই আন্তরিক প্রয়াস।\n" +
@@ -547,7 +549,8 @@ const translations: Record<Language, Record<string, string>> = {
 
         "quotes.eyebrow": "Testimonials",
         "quotes.title": "Those who trust us",
-
+        "quotes.readMore": "Read more",
+        "quotes.readLess": "Read less",
 // Slide 1
         "quotes.quote1": "\"To guide this intellectual and talented generation in the right direction and to give the best students of society their due recognition, we still consider this initiative of 'Bikrampur Manob Seba Foundation' praiseworthy.\"",
         "quotes.author1": "Alhaj Mojibur Rahman Sardar",
