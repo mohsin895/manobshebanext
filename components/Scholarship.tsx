@@ -110,11 +110,36 @@ export function Scholarship() {
 
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
                         <Image src="/about1.png"  width={24}
-                               height={24} alt={t('about.photo_alt')} />   {t('scholarship.tag')}   <Image src="/about2.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   <span
+                        className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[24px]
+    tracking-[0]
+    text-[#4A4DE1]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
+  {t('scholarship.tag')}
+</span>  <Image src="/about2.png"  width={24}
                                                                                                            height={24} alt={t('about.photo_alt')} />
                     </div>
 
-                    <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
+                    <h2
+                        className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-center
+    text-[#282929]
+    md:text-[48px]
+    md:leading-[56px]
+  "
+                    >
                         {t('scholarship.title')}
                     </h2>
                 </div>
@@ -174,10 +199,33 @@ export function Scholarship() {
                                             />
                                             <div className="relative z-10 flex flex-1 flex-col justify-between p-4">
                                                 <div>
-                                                    <h3 className="mb-1 text-base font-bold text-gray-900">
+                                                    <h3
+                                                        className="
+    mb-1
+    font-bn
+    font-medium
+    text-[16px]
+    leading-[24px]
+    tracking-[0]
+    text-[#3B3BC7]
+    md:text-[24px]
+    md:leading-[32px]
+  "
+                                                    >
                                                         {t(item.titleKey)}
                                                     </h3>
-                                                    <p className="text-sm text-gray-600 leading-snug">
+                                                    <p
+                                                        className="
+    font-bn-serif
+    font-normal
+    text-[14px]
+    leading-[20px]
+    tracking-[0]
+    text-[#3B3BC7]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                                                    >
                                                         {t(item.descKey)}
                                                     </p>
                                                 </div>

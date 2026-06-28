@@ -69,21 +69,21 @@ function AlertIcon({ color = '#ef4444' }: { color?: string }) {
 }
 
 function TimelineIcon({ status }: { status: string }) {
-    if (status === 'done' && true) return <DoneIcon />
-    if (status === 'done') return <DocIcon />
-    if (status === 'active') return <CalIcon />
-    if (status === 'urgent') return <AlertIcon />
-    return <ClockIcon />
+    if (status === 'done' && true) return '/image35.png'
+    if (status === 'done') return '/image36.png'
+    if (status === 'active') return '/image37.png'
+    if (status === 'urgent') return '/image38.png'
+    return '/image39.png'
 }
 
 // manually assign per index
 const iconsByIndex = [
-    (s: string) => <DoneIcon />,
-    (s: string) => <DocIcon />,
-    (s: string) => <CalIcon />,
-    (s: string) => <ClockIcon />,
-    (s: string) => <ClockIcon />,
-    (s: string) => <AlertIcon />,
+    (s: string) => '/image35.png',
+    (s: string) => '/image36.png',
+    (s: string) => '/image37.png',
+    (s: string) => '/image38.png',
+    (s: string) => '/image39.png',
+    (s: string) => '/image40.png',
 ]
 
 export function ImportantSchedule() {
@@ -138,7 +138,20 @@ export function ImportantSchedule() {
 
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
                         <Image src="/about1.png"  width={24}
-                               height={24} alt={t('about.photo_alt')} />   {t('schedule.eyebrow')}   <Image src="/about2.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   <span
+                        className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[24px]
+    tracking-[0]
+    text-[#4A4DE1]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
+  {t('schedule.eyebrow')}
+</span>   <Image src="/about2.png"  width={24}
                                                                                                              height={24} alt={t('about.photo_alt')} />
                     </div>
 
@@ -146,7 +159,22 @@ export function ImportantSchedule() {
 
                 {/* Title */}
                 <div className="mb-10 text-center">
-                    <h3 className="inline-block  px-4 py-1 text-xl font-bold text-gray-900 md:text-2xl">
+                    <h3
+                        className="
+    inline-block
+    px-4
+    py-1
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-center
+    text-[#282929]
+    md:text-[48px]
+    md:leading-[56px]
+  "
+                    >
                         {t('schedule.title')}
                     </h3>
                 </div>
@@ -160,7 +188,7 @@ export function ImportantSchedule() {
                         {timelineItems.map((item, idx) => (
                             <div
                                 key={idx}
-                                className="flex items-stretch gap-3 md:min-w-[80px] md:flex-1 md:flex-col md:items-center md:gap-0"
+                                className="flex items-stretch gap-3 px-4 md:min-w-[80px] md:flex-1 md:flex-col md:items-center md:gap-0"
                             >
                                 {/* Date */}
                                 <div className="w-[30%] shrink-0 whitespace-nowrap pt-1.5 text-[11px] font-bold text-gray-700 md:mb-1.5 md:w-auto md:pt-0 md:text-center">
@@ -178,7 +206,7 @@ export function ImportantSchedule() {
                                     <div
                                         className={`relative z-10 flex h-[48px] w-[72px] flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
                                     >
-                                        {iconsByIndex[idx](item.status)}
+                                        <Image src={iconsByIndex[idx](item.status)} width={32} height={32} alt="" />
                                     </div>
 
                                     {/* Bottom/Right line */}
@@ -188,7 +216,7 @@ export function ImportantSchedule() {
                                 </div>
 
                                 {/* Label */}
-                                <div className="flex-1 pt-1.5 text-left text-[12px] leading-snug text-gray-600 md:mt-1.5 md:max-w-[74px] md:flex-none md:text-center md:text-[10px] md:text-gray-500">
+                                <div className="flex-1 pt-1.5 text-right text-[12px] leading-snug text-gray-600 md:mt-1.5 md:max-w-[74px] md:flex-none md:text-center md:text-[10px] md:text-gray-500">
                                     {t(item.labelKey)}
                                 </div>
                             </div>
@@ -212,7 +240,7 @@ export function ImportantSchedule() {
                                 <div
                                     className={`relative z-10 flex h-[40px] w-[60px] flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
                                 >
-                                    {iconsByIndex[idx](item.status)}
+                                    <Image src={iconsByIndex[idx](item.status)} width={28} height={28} alt="" />
                                 </div>
 
                                 {/* Right line */}
@@ -228,15 +256,51 @@ export function ImportantSchedule() {
                 </div>
 
                 {/* Countdown card */}
-                <div className="relative overflow-hidden rounded-2xl bg-[#1C1D4A] px-6 py-8 text-center text-white">
+                <div className="relative overflow-hidden rounded-2xl bg-[#1C1D4A] px-6 py-6 text-center text-white">
                     {/* Subtle purple glow */}
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_60%_0%,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
 
-                    <h4 className="relative mb-2.5 text-lg font-bold">
+                    <h4
+                        className="
+    relative
+    mb-2.5
+    font-bn
+    font-medium
+    text-[16px]
+    leading-[24px]
+    tracking-[0]
+    text-center
+    text-white
+    md:text-[32px]
+    md:leading-[48px]
+  "
+                    >
                         {t('schedule.countdown_title')}
                     </h4>
 
-                    <div className="relative mb-6 inline-flex h-[28px] items-center justify-center gap-2 rounded-full bg-white px-2 py-1 font-noto-bengali text-center text-[12px] font-medium leading-[20px] tracking-normal text-[#3335A0]">
+                    <div
+                        className="
+    relative
+    mb-6
+    inline-flex
+    h-[28px]
+    items-center
+    justify-center
+    rounded-full
+    bg-white
+    px-4
+    py-1
+    font-bn
+    font-medium
+    text-[10px]
+    leading-[20px]
+    tracking-[0]
+    text-center
+    text-[#3335A0]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
                         {t('schedule.countdown_subtitle')}
                     </div>
 
@@ -271,16 +335,30 @@ export function ImportantSchedule() {
                     </div>
 
                     {/* Footer */}
-                    <p className="relative text-center font-['Noto_Serif_Bengali'] text-[12px] font-normal leading-6 tracking-normal text-white">
+                    <p
+                        className="
+    relative
+    text-center
+    font-bn-serif
+    font-normal
+    text-[14px]
+    leading-[24px]
+    tracking-[-0.02em]
+    text-white
+    md:text-[12px]
+    md:leading-[24px]
+    md:tracking-[0]
+  "
+                    >
                         {t('schedule.countdown_footer_prefix')}{' '}
-                        <span className="font-semibold text-[#FFFFFF]">
-        {t('schedule.countdown_date')}
-    </span>
+                        <span className="font-semibold text-white">
+    {t('schedule.countdown_date')}
+  </span>
                         {', '}
                         {t('schedule.countdown_footer_time')}{' '}
-                        <span className="font-semibold text-[#FFFFFF]">
-        {t('schedule.countdown_time')}
-    </span>
+                        <span className="font-semibold text-white">
+    {t('schedule.countdown_time')}
+  </span>
                         {' ।'}
                     </p>
                 </div>

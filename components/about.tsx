@@ -8,15 +8,15 @@ export function AboutUs() {
 
     return (
         <section className="bg-white  py-5 md:py-10">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto ml-5 mr-5 md:m-0  max-w-7xl">
 
                 {/* Top notification bar */}
-                <div className="mb-8 flex justify-center">
+                <div className="mb-8  flex justify-center">
                     <div className="inline-flex items-center gap-2  py-1.5 font-bn text-[10px] md:text-[14px] font-medium leading-[22px] text-[#4A4DE1] md:text-[16px] md:leading-6">
                         <Image
                             src="/about1.png"
-                            width={24}
-                            height={24}
+                            width={20}
+                            height={20}
                             alt={t('about.photo_alt')}
                         />
 

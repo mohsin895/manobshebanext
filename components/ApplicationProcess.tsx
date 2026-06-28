@@ -50,15 +50,54 @@ export function ApplicationProcess() {
                 <div className="mb-12 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]">
                         <Image src="/about1.png"  width={24}
-                               height={24} alt={t('about.photo_alt')} />   {t('process.eyebrow')}   <Image src="/about2.png"  width={24}
+                               height={24} alt={t('about.photo_alt')} />   <span
+                        className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[24px]
+    tracking-[0]
+    text-[#4A4DE1]
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
+  {t('process.eyebrow')}
+</span>  <Image src="/about2.png"  width={24}
                                                                                                            height={24} alt={t('about.photo_alt')} />
                     </div>
 
 
-                    <h2 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">
+                    <h2
+                        className="
+    mb-2
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-center
+    text-[#282929]
+    md:text-[48px]
+    md:leading-[56px]
+  "
+                    >
                         {t('process.title')}
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p
+                        className="
+    font-bn
+    font-normal
+    text-[14px]
+    leading-[22px]
+    tracking-[0]
+    text-center
+    text-[#404545]
+    md:font-bn-serif
+    md:text-[16px]
+    md:leading-[24px]
+  "
+                    >
                         {t('process.subtitle')}
                     </p>
                 </div>
@@ -86,11 +125,40 @@ export function ApplicationProcess() {
 
                                 {/* Body */}
                                 <div className="flex h-full flex-col items-left px-2 pb-4 pt-[180px] text-left">
-                                    <h3 className="font-noto-bengali text-left mt-2 mb-4 text-[20px] font-medium leading-[28px] text-[#282929]">
+                                    <h3
+                                        className="
+    mt-2
+    mb-4
+    text-left
+    font-bn
+    font-medium
+    text-[16px]
+    leading-[28px]
+    tracking-[0]
+    text-[#282929]
+    md:text-[20px]
+    md:leading-[28px]
+  "
+                                    >
                                         {t(step.titleKey)}
                                     </h3>
 
-                                    <p className="mb-8 flex-1 text-left font-serif-bengali text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-[#545959]">
+                                    <p
+                                        className="
+    mb-8
+    flex-1
+    text-left
+    font-bn-serif
+    font-normal
+    text-[12px]
+    leading-[24px]
+    tracking-[0]
+    text-[#545959]
+    md:text-[16px]
+    md:leading-[24px]
+    md:tracking-[-0.02em]
+  "
+                                    >
                                         {t(step.descKey)}
                                     </p>
 
