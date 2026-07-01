@@ -14,7 +14,7 @@ export function AboutUs() {
             backgroundSize: "cover",
             backgroundPosition: "center",
         }}>
-            <div className="mx-auto   max-w-[1400]">
+            <div className="mx-auto   max-w-[1320]">
 
                 {/* Top notification bar */}
                 <div className="mb-8  flex justify-center">
