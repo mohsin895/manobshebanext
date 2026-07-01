@@ -102,7 +102,7 @@ export function Scholarship() {
     }
 
     return (
-        <section className="bg-white px-4 py-5 md:py-24">
+        <section className=" px-4 py-5 md:py-24">
             <div className="mx-auto max-w-7xl">
 
                 {/* Header */}

@@ -79,7 +79,7 @@ export function ImportantSchedule() {
     }
 
     return (
-        <section className="bg-white px-4 py-5 md:py-10">
+        <section className=" px-4 py-5 md:py-10">
             <div className="mx-auto max-w-5xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">

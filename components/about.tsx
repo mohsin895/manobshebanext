@@ -7,7 +7,13 @@ export function AboutUs() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white  p-1 py-5 md:py-10">
+        <section className="  p-1 py-5 md:py-10" style={{
+            backgroundImage: "url('/bg2.png')",
+
+            height:"942px",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <div className="mx-auto   max-w-[1400]">
 
                 {/* Top notification bar */}

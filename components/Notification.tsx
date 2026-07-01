@@ -15,7 +15,7 @@ interface NewsItem {
 const newsItems: NewsItem[] = [
     {
         id: '1',
-        badge: 'জরুরি বিজ্ঞপ্তি',
+        badge: 'জরুরী বিজ্ঞপ্তি',
         date: '০৯ জুন ২০২৬',
         title: 'রেজিস্ট্রেশনের সময় শেষ হচ্ছে, এখনই নিবন্ধন করুন',
         summary: 'আমাদের ওয়েবসাইটের রেজিস্ট্রেশন সেকশনে গিয়ে এখনই অংশগ্রহণ নিশ্চিত করুন। সময়সীমা শেষ হওয়ার আগেই নিবন্ধন সম্পন্ন করুন।',
@@ -23,7 +23,7 @@ const newsItems: NewsItem[] = [
     },
     {
         id: '2',
-        badge: 'ঘোষণা',
+        badge: 'জরুরী বিজ্ঞপ্তি',
         date: '০৭ জুন ২০২৬',
         title: 'মেধাবৃত্তি-২০২৬ পরীক্ষার পরিবর্তিত পৃষ্ঠপোষক',
         summary: 'ধন্যবাদ ও কৃতজ্ঞতা! মেধাবৃত্তি-২০২৬ পরীক্ষার পরিবর্তিত পৃষ্ঠপোষক: মফিজুর রহমান এন্ড সাইল লিমিটেড।',
@@ -137,35 +137,93 @@ export function Notification() {
         border-l-[8px]
         border-l-[#FFA071]
         bg-[#FFF4ED]
-        p-2
+        p-4
     "
                             >
                                 <div className="mb-4 flex items-center gap-3">
-        <span className="rounded-full bg-[#FFE3D1] px-3 py-1 text-xs font-medium text-[#C65D1A]">
+        <span className="rounded-full bg-[#FFE5D4] px-3 py-1 text-xs font-medium text-[#FF6B35]">
             {item.badge}
         </span>
 
                                     <div className="flex items-center gap-1 whitespace-nowrap text-xs text-[#6B7280]">
                                         <CalendarIcon className="shrink-0 w-[28px]" />
-                                        <span>{item.date}</span>
+                                        <span
+                                            className="
+    font-bn
+    font-medium
+    text-center
+    text-[12px]
+    leading-[16px]
+    tracking-[0]
+    text-[#282929]
+
+    md:text-[24px]
+    md:leading-[32px]
+  "
+                                        >
+  {item.date}
+</span>
                                     </div>
                                 </div>
 
                                 <div className="mb-4  ">
-                                    <p className=" text-[14px] md:text-[32px] font-semibold text-[#282929]">
+                                    <p
+                                        className="
+    font-bn
+    font-medium
+    text-[14px]
+    leading-[20px]
+    tracking-[0]
+    text-[#282929]
+
+    md:text-[32px]
+    md:leading-[48px]
+  "
+                                    >
                                         {item.title}
                                     </p>
                                 </div>
 
-                                <p className=" text-[12px] md:text-[16px] leading-7 px-4 py-3 text-[#5F6368] rounded-[8px] border border-[#C8D7FD] bg-[#EEF3FF]">
-                                    {isExpanded ? item.full : item.summary}{' '}
+                                <p className=" text-[12px] md:text-[16px] leading-7 px-4 py-3 text-[#5F6368] rounded-[8px] border border-[#C8D7FD] bg-[#FFFAF7]">
+                                    <p
+                                        className="
+    font-bn-serif
+    font-semibold
+    text-[12px]
+    leading-[20px]
+    tracking-[0]
+    text-[#545959]
+    underline
+
+    md:font-normal
+    md:text-[16px]
+    md:leading-[24px]
+    md:tracking-[-0.02em]
+    md:no-underline
+  "
+                                    >
+                                        {isExpanded ? item.full : item.summary}
+                                    </p>
                                     <button
                                         onClick={() => setExpandedId(isExpanded ? null : item.id)}
-                                        className="font-medium text-[#2563EB] underline underline-offset-2"
+                                        className="
+    font-bn-serif
+    font-semibold
+    text-[12px]
+    leading-[20px]
+    tracking-[0]
+    text-[#FF6B35]
+    underline
+    underline-offset-0
+
+    md:text-[16px]
+    md:leading-[24px]
+    md:tracking-[-0.02em]
+  "
                                     >
                                         {isExpanded
-                                            ? (t?.('সংক্ষেপ করুন') ?? 'seeLess ')
-                                            : (t?.(' বিস্তারিত দেখুন') ?? 'readMore')}
+                                            ? (t?.('সংক্ষেপ করুন') ?? 'See Less')
+                                            : (t?.('বিস্তারিত দেখুন') ?? 'Read More')}
                                     </button>
                                 </p>
                             </div>

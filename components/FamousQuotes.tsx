@@ -9,6 +9,7 @@ const quotes = [
         key: 'quotes.quote1',
         authorKey: 'quotes.author1',
         roleKey: 'quotes.role1',
+        roleYear: 'quotes.year1',
         image: '/imag10.png',
     },
     {
@@ -16,6 +17,7 @@ const quotes = [
         key: 'quotes.quote2',
         authorKey: 'quotes.author2',
         roleKey: 'quotes.role2',
+        roleYear: 'quotes.year2',
         image: '/imag10.png',
     },
     {
@@ -23,6 +25,7 @@ const quotes = [
         key: 'quotes.quote3',
         authorKey: 'quotes.author3',
         roleKey: 'quotes.role3',
+        roleYear: 'quotes.year3',
         image: '/imag10.png',
     },
 ]
@@ -100,17 +103,37 @@ export function FamousQuotes() {
     const readLessLabel = t('quotes.readLess') || 'Read less'
 
     return (
-        <section className="relative overflow-hidden bg-white py-5 md:py-5">
-            {/* Decorative background */}
+        <section
+            className="
+    relative
+    mx-auto
+    w-full
+
+    h-[819px]
+    overflow-hidden
+    bg-[url('/bgm2.png')]
+    bg-cover
+    bg-center
+    bg-no-repeat
+
+
+    md:max-w-none
+    md:h-[730px]
+    md:bg-[url('/bg2.png')]
+  "
+        >
+            {/* Content */}
+
+
             <div className="pointer-events-none absolute -left-24 top-0 h-96 w-96 rounded-full bg-indigo-50 opacity-60 blur-3xl" />
             <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-orange-50 opacity-60 blur-3xl" />
 
-            <div className="relative mx-auto max-w-6xl px-4">
+            <div className="relative mx-auto max-w-6xl px-4 mt-[30px] ">
                 {/* Heading */}
-                <div className="mb-12 text-center">
+                <div className=" text-center">
                    <span
                        className="
-    mb-3 inline-flex items-center justify-center
+     inline-flex items-center justify-center
 
     px-4 py-1
     font-bn
@@ -127,13 +150,23 @@ export function FamousQuotes() {
                 </div>
 
                 {/* Slider */}
-                <div className="relative flex items-center gap-4">
+                <div className="relative flex mt-[30px] items-center gap-4">
                     <div
-                        className={`flex-1 transition-all duration-350 ease-in-out ${slideClass}`}
+                        className={`  flex
+    flex-col
+  
+    rounded-[24px]
+    border
+    border-gray-200
+    bg-[#FFFAF7]
+    shadow-[0px_2px_12px_0px_rgba(0,0,0,0.18)]
+
+   
+    md:flex-row flex-1 transition-all duration-350 ease-in-out ${slideClass}`}
                     >
-                        <div className="flex flex-col items-center gap-6 rounded-2xl border border-gray-100 bg-[#FFFAF7] p-6 text-center shadow-lg md:flex-row md:items-start md:gap-4 md:p-8 md:text-left">
+                        <div className="flex flex-col items-center gap-6 rounded-2xl border border-gray-100 bg-[#FFFAF7]  text-center shadow-lg md:flex-row md:items-start md:gap-4  md:text-left">
                             {/* Quote Content */}
-                            <div className="order-2 w-full md:order-1 md:w-[60%]">
+                            <div className="order-2 w-full md:order-1 md:w-[60%] p-6 md:p-8">
                                 <p
                                     ref={textRef}
                                     className={`
@@ -146,7 +179,7 @@ export function FamousQuotes() {
     tracking-[0]
     text-[#1E2939]
     transition-all duration-200
-    ${expanded ? '' : 'line-clamp-3'}
+    ${expanded ? '' : 'line-clamp-12'}
   `}
                                 >
                                     {t(q.key)
@@ -181,10 +214,11 @@ export function FamousQuotes() {
                                     />
                                 </div>
 
-                                <div className="mt-4 w-full rounded-lg bg-[#FFF0EB] p-4 text-center">
+                                <div className="mt-4 w-full rounded-lg bg-[#FFF0EB] p-4  shadow-[0px_0px_4px_0px_rgba(0,0,0,0.2)]">
                                     <p
                                         className="
     font-bn
+    text-left
     font-semibold
     text-[20px] md:text-[24px]
     leading-[30px]
@@ -197,14 +231,34 @@ export function FamousQuotes() {
                                     <p
                                         className="
     font-bn
-    font-semibold
-    text-[20px] md:text-[24px]
+    font-normal
+    text-left
+    text-[14px]
     leading-[30px]
     tracking-[0]
     text-[#737380]
+
+    md:text-[16px]
+    md:leading-[30px]
   "
                                     >
                                         {t(q.roleKey)}
+                                    </p>
+                                    <p
+                                        className="
+    font-bn
+    font-normal
+    text-left
+    text-[14px]
+    leading-[30px]
+    tracking-[0]
+    text-[#737380]
+
+    md:text-[16px]
+    md:leading-[30px]
+  "
+                                    >
+                                        {t(q.roleYear)}
                                     </p>
                                 </div>
                             </div>

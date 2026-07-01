@@ -60,7 +60,13 @@ export function ApplicationProcess() {
     }
 
     return (
-        <section className="bg-gray-50 px-4 py-5 md:py-10">
+        <section className="bg-gray-50 px-4 py-5 md:py-10" style={{
+            backgroundImage: "url('/bg2.png')",
+
+            height:"1359px",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <div className="mx-auto max-w-[1400]">
                 {/* Header */}
                 <div className="mb-12 text-center">

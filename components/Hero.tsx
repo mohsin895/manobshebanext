@@ -5,10 +5,27 @@ import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 
+
+
+
+const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯']
+
+const toLocaleDigits = (num: number, isBn: boolean) => {
+    const str = String(num).padStart(2, '0')
+    if (!isBn) return str
+    return str.split('').map(d => bnDigits[Number(d)] ?? d).join('')
+}
 export function Hero() {
     const { t } = useLanguage()
     const [timeLeft, setTimeLeft] = useState({ days: 10, hours: 10, minutes: 10, seconds: 10 })
+    const [isMobile, setIsMobile] = useState(false);
 
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeLeft(prev => {
@@ -28,8 +45,18 @@ export function Hero() {
 
     return (
         <section className=" p-1">
-            <div className="mx-auto max-w-[1400]">
-                <div className="relative h-[590px] md:h-[600px]">
+            <div   className="
+                 relative
+                 mx-auto
+
+            w-full
+
+
+            md:max-w-[1400px]
+
+            ">
+                <div className="relative  h-[570px]
+            md:h-[832px]">
 
                     {/* Full-width Hero Image */}
                     <div className="absolute ml-5 mr-5 md:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl">
@@ -44,9 +71,9 @@ export function Hero() {
 
                         {/* Text Content */}
                         <div className=" relative z-10
-    flex flex-col justify-between
-
-    md:h-[calc(100%-60px)]
+      justify-between
+mt-2
+  md:mt-[122px]
     p-5 md:p-6
     items-center md:items-start
     text-center md:text-left">
@@ -63,18 +90,76 @@ export function Hero() {
                             </div>
 
                             {/* Title + Buttons */}
-                            <div>
-                                <h1 className="font-bn text-[20px] font-semibold leading-[26px] text-[#FF6B35] md:text-[64px] md:leading-[80px]">
+                            <div><div
+                                className="
+                                mt-1
+    md:mt-5
+    mx-auto
+    flex
+    w-[327px]
+    flex-col
+    items-center
+    gap-[10px]
+    pb-[20px]
+    text-center
+
+    md:mx-0
+    md:w-[465px]
+    md:items-start
+    md:gap-[20px]
+    md:text-left
+  "
+                            >
+                                <h1
+                                    className="
+            font-bn
+            font-semibold
+            text-[20px]
+            leading-[26px]
+            tracking-[0]
+            text-[#FF6B35]
+
+            md:text-[64px]
+            md:leading-[80px]
+        "
+                                >
                                     {isBn ? 'মেধাবৃত্তি ২০২৬' : 'Merit Scholarship 2026'}
                                 </h1>
-                                <p className="mt-2 font-bn-serif text-[16px] font-medium leading-6 text-[#FFFFFF] md:text-[40px] md:leading-[48px]">
+
+                                <p
+                                    className="
+            font-bn-serif
+            font-medium
+            text-[16px]
+            leading-[24px]
+            tracking-[0]
+            text-[#FFFFFF]
+
+            md:text-[40px]
+            md:leading-[48px]
+        "
+                                >
                                     {isBn ? 'নিবন্ধন ও অংশগ্রহণ করুন' : 'Selection and Apply'}
                                 </p>
-                                <p className="mt-2 max-w-sm font-bn-serif text-left text-[14px] font-normal leading-5 text-[#FFFFFF] md:text-[16px] md:leading-6">
+
+                                <p
+                                    className="
+            font-bn-serif
+            font-normal
+            text-[14px]
+            leading-[20px]
+            tracking-[0]
+            text-[#FFFFFF]
+
+            md:text-[16px]
+            md:leading-[24px]
+        "
+                                >
                                     {isBn
                                         ? 'মেধা বিকাশের অনন্য সুযোগ! বিক্রমপুর মানব সেবা ফাউন্ডেশনের উদ্যোগে সপ্তম থেকে দশম শ্রেণির শিক্ষার্থীদের জন্য ‘মেধাবৃত্তি-২০২৬’। বিনামূল্যে অনলাইনের মাধ্যমে আগ্রহী শিক্ষার্থীরা সরাসরি নিজ নিজ বিদ্যালয়ের মাধ্যমে আবেদন প্রক্রিয়া সম্পন্ন করুন।'
                                         : 'Our scholarship program is specially designed for successful students.'}
                                 </p>
+                            </div>
                                 <div className="flex flex-col md:flex-row gap-3 mt-3 justify-center md:justify-start items-center">
                                     <Button
                                         className="
@@ -92,7 +177,7 @@ export function Hero() {
     cursor-pointer
   "
                                     >
-                                        <Image src="/image3.png" height={15} width={15} alt="logo" />
+                                        <Image src="/image61.svg" height={20} width={20} alt="logo" />
                                         {isBn ? 'আবেদন করুন' : 'Apply Now'}
                                     </Button>
                                     <Button
@@ -118,25 +203,26 @@ export function Hero() {
                             </div>
 
 
-                            <div
-                                className="
-    mt-5
-    flex
-    h-[110px] w-[260px]
-    flex-col
-    gap-[10px]
-    rounded-[16px]
-    border border-white/20
-    bg-white/10
-    pb-[20px]
-    text-white
-    backdrop-blur-[25px]
+                            <div className="mt-5 flex justify-center md:justify-start">
+                                <div
+                                    className="
+      flex
+      h-[110px]
+      w-[260px]
+      flex-col
+      gap-[10px]
+      rounded-[16px]
+      border border-white/20
+      bg-white/10
+      pb-[20px]
+      text-white
+      backdrop-blur-[25px]
 
-    md:h-[170px]
-    md:w-[423px]
-    md:gap-[20px]
-  "
-                            >
+      md:h-[170px]
+      md:w-[423px]
+      md:gap-[20px]
+    "
+                                >
                                 {/* Header */}
                                 <div className="w-full rounded-tl-[16px] rounded-tr-[16px] sticky top-10 md:top-0 z-10 flex items-center justify-center gap-2 px-3 py-1 md:py-2 bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)]">
 
@@ -185,7 +271,7 @@ export function Hero() {
   "
                                             >
                                                 <div className="font-mono text-[15px] font-black leading-none md:text-[32px]">
-                                                    {String(item.val).padStart(2, '0')}
+                                                    {toLocaleDigits(item.val, isBn)}
                                                 </div>
 
                                                 <div className="text-center text-[8px] font-normal uppercase leading-none md:text-[14px]">
@@ -198,6 +284,7 @@ export function Hero() {
                                             )}
                                         </div>
                                     ))}
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -213,15 +300,16 @@ export function Hero() {
         left-1/2
         -translate-x-1/2
 
-        md:top-[46%]
-        md:left-[60%]
+        md:top-[56%]
+        md:left-[70%]
         md:translate-x-0
 
         w-[255px] md:w-[390px]
-        h-[214px] md:h-[280px]
+        h-[218px] md:h-[344px]
         bg-white
         rounded-[24px]
-        p-[24px]
+        p-1
+        md:p-[24px]
         flex flex-col items-center
         gap-[12px]
         z-30
@@ -230,8 +318,19 @@ export function Hero() {
                     >
                         {/* Icon - top 50% */}
                         <div className="w-full h-[50%] mt-[-45px] flex items-end justify-center">
-                            <div className="w-[40px] md:w-[200px] h-[35px] md:h-[200px] rounded-full bg-[#eef3ff54] flex items-end justify-center pb-4">
-                                <Image src="/hero2.png" height={80} width={90} alt="hero" />
+                            <div
+                                className="flex h-[128px] w-[128px] items-end justify-center rounded-full bg-[#eef3ff54] pb-4 md:h-[200px] md:w-[200px]"
+                                style={{
+                                    clipPath: isMobile ? "inset(48% 0 0 0)" : "inset(37% 0 0 0)",
+                                }}
+                            >
+                                <Image
+                                    src="/hero2.png"
+                                    alt="hero"
+                                    width={90}
+                                    height={80}
+                                    className="h-[40px] w-[40px] md:h-[80px] md:w-[90px]"
+                                />
                             </div>
                         </div>
                         {/* Content - bottom 50% */}

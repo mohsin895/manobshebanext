@@ -3,20 +3,20 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 
 const achievements = [
-    { key: 'achievements.successEvents', icon: '/image11.png', bg: 'bg-[#FFF3EF]', valueColor: 'text-blue-700' },
-    { key: 'achievements.partnerSchools', icon: '/image12.png', bg: 'bg-[#FFF3EF]', valueColor: 'text-red-700' },
-    { key: 'achievements.totalParticipants', icon: '/image13.png', bg: 'bg-[#FFF3EF]', valueColor: 'text-red-700' },
-    { key: 'achievements.scholarshipRecipients', icon: '/image14.png', bg: 'bg-[#FFF3EF]', valueColor: 'text-blue-700' },
-    { key: 'achievements.generalGrade', icon: '/image15.png', bg: 'bg-[#FFF3EF]', valueColor: 'text-blue-700' },
-    { key: 'achievements.certificates', icon: '/image16.png', bg: 'bg-[#FFF3EF]', valueColor: 'text-red-700' },
+    { key: 'achievements.successEvents', icon: '/image41.svg', bg: 'bg-[#FFF3EF]', valueColor: 'text-blue-700' },
+    { key: 'achievements.partnerSchools', icon: '/image42.svg', bg: 'bg-[#FFF3EF]', valueColor: 'text-red-700' },
+    { key: 'achievements.totalParticipants', icon: '/image43.svg', bg: 'bg-[#FFF3EF]', valueColor: 'text-red-700' },
+    { key: 'achievements.scholarshipRecipients', icon: '/image44.svg', bg: 'bg-[#FFF3EF]', valueColor: 'text-blue-700' },
+    { key: 'achievements.generalGrade', icon: '/image45.svg', bg: 'bg-[#FFF3EF]', valueColor: 'text-blue-700' },
+    { key: 'achievements.certificates', icon: '/image46.svg', bg: 'bg-[#FFF3EF]', valueColor: 'text-red-700' },
 ]
 
 export function Achievements() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-5 md:py-5">
-            <div className="mx-auto max-w-[1400]">
+        <section className=" px-4 py-5 md:py-20">
+            <div className="mx-auto max-w-[1320]">
                 {/* Header */}
                 <div className="mb-12 text-center">
                     <h2
@@ -44,7 +44,7 @@ export function Achievements() {
                             <div className="mb-4 text-4xl"><img
                                 src={item.icon}
                                 alt="achievement"
-                                className="mx-auto mb-4 h-12 w-12 object-contain"
+                                className="mx-auto mb-4 h-[80px] w-[80px] object-contain md:h-[140px] md:w-[140px]"
                             /></div>
                             <p
                                 className="

@@ -15,7 +15,7 @@ export function HelpBanner() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-gray-50 px-4 py-12 md:py-10">
+        <section className=" px-4 py-12 md:py-10">
             <div className="mx-auto max-w-6xl">
                 <div className="relative grid overflow-hidden bg-[#161347] rounded-2xl shadow-sm lg:grid-cols-5">
                     {/* Ellipse glow background - positioned at right side */}

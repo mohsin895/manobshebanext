@@ -38,7 +38,13 @@ export function ReasonAttendance() {
     const { t } = useLanguage()
 
     return (
-        <section className="bg-white px-4 py-5 md:py-10">
+        <section className=" px-4 py-5 md:py-10" style={{
+            backgroundImage: "url('/bg2.png')",
+
+            height:"942px",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <div className="mx-auto max-w-6xl">
                 {/* Eyebrow */}
                 <div className="mb-4 flex justify-center">
