@@ -7,10 +7,10 @@ import Image from "next/image";
 const timelineItems = [
     { dateKey: 'schedule.date1', labelKey: 'schedule.label1', status: 'done' },
     { dateKey: 'schedule.date2', labelKey: 'schedule.label2', status: 'done' },
-    { dateKey: 'schedule.date3', labelKey: 'schedule.label3', status: 'active' },
+    { dateKey: 'schedule.date3', labelKey: 'schedule.label3', status: 'done' },
     { dateKey: 'schedule.date4', labelKey: 'schedule.label4', status: 'upcoming' },
     { dateKey: 'schedule.date5', labelKey: 'schedule.label5', status: 'upcoming' },
-    { dateKey: 'schedule.date6', labelKey: 'schedule.label6', status: 'urgent' },
+    { dateKey: 'schedule.date6', labelKey: 'schedule.label6', status: 'upcoming' },
 ]
 
 function toBengaliNum(n: number) {
@@ -24,61 +24,10 @@ function toBengaliNum(n: number) {
 
 const EXAM_DATE = new Date('2026-07-15T10:00:00+06:00').getTime()
 
-function DoneIcon({ color = '#3b82f6' }: { color?: string }) {
-    return (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-            <path d="M5 12h14M14 7l5 5-5 5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    )
-}
-
-function DocIcon({ color = '#3b82f6' }: { color?: string }) {
-    return (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-            <rect x="5" y="3" width="14" height="18" rx="2" stroke={color} strokeWidth="2" />
-            <path d="M9 9h6M9 13h4" stroke={color} strokeWidth="2" strokeLinecap="round" />
-        </svg>
-    )
-}
-
-function CalIcon({ color = '#fff' }: { color?: string }) {
-    return (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="4" width="18" height="18" rx="2" stroke={color} strokeWidth="2" />
-            <path d="M16 2v4M8 2v4M3 10h18" stroke={color} strokeWidth="2" strokeLinecap="round" />
-        </svg>
-    )
-}
-
-function ClockIcon({ color = '#9ca3af' }: { color?: string }) {
-    return (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-            <path d="M12 6v6l4 2" stroke={color} strokeWidth="2" strokeLinecap="round" />
-            <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="2" />
-        </svg>
-    )
-}
-
-function AlertIcon({ color = '#ef4444' }: { color?: string }) {
-    return (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-            <path d="M12 8v4M12 16h.01" stroke={color} strokeWidth="2" strokeLinecap="round" />
-            <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="2" />
-        </svg>
-    )
-}
-
-function TimelineIcon({ status }: { status: string }) {
-    if (status === 'done' && true) return '/image35.png'
-    if (status === 'done') return '/image36.png'
-    if (status === 'active') return '/image37.png'
-    if (status === 'urgent') return '/image38.png'
-    return '/image39.png'
-}
 
 // manually assign per index
 const iconsByIndex = [
-    (s: string) => '/image35.png',
+    (s: string) => '/file-edit.svg',
     (s: string) => '/image36.png',
     (s: string) => '/image37.png',
     (s: string) => '/image38.png',
@@ -194,9 +143,32 @@ export function ImportantSchedule() {
                                 <div className="relative flex w-9 flex-shrink-0 flex-col items-center md:h-9 w-[30%] md:flex-row">
                                     {/* Dot */}
                                     <div
-                                        className={`relative z-10 flex h-[48px] w-[72px] flex-shrink-0 items-center justify-center rounded-full border-2 ${dotStyle(item.status)}`}
+                                        className={`
+        relative
+        z-10
+        flex
+        h-[48px]
+        w-[72px]
+        md:w-[88px]
+        flex-shrink-0
+        items-center
+        justify-center
+        rounded-[99px]
+        border-2
+        px-[24px]
+        py-[12px]
+        md:px-[32px]
+        md:py-[12px]
+        ${dotStyle(item.status)}
+    `}
                                     >
-                                        <Image src={iconsByIndex[idx](item.status)} width={32} height={32} alt="" />
+                                        <Image
+                                            src={iconsByIndex[idx](item.status)}
+                                            width={24}
+                                            height={24}
+                                            alt=""
+                                            className="h-[24px] w-[24px] object-contain"
+                                        />
                                     </div>
 
                                     {/* Bottom/Right line */}

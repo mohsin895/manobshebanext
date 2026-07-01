@@ -130,6 +130,7 @@ export function ReasonAttendance() {
                         className="
         grid grid-cols-2
         absolute inset-x-0 bottom-0
+        rounded-[10px]
         m-4
         bg-[#00000080] backdrop-blur-[2px]
         sm:hidden
@@ -192,6 +193,7 @@ export function ReasonAttendance() {
         sm:grid-cols-2
         sm:absolute sm:inset-y-0 sm:right-0 sm:w-[58%]
         m-[35px]
+     rounded-[10px]
         bg-[#00000080]
         backdrop-blur-[2px]
     "
