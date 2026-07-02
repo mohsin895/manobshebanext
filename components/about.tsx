@@ -10,7 +10,7 @@ export function AboutUs() {
         <section className="  p-1 py-5 md:py-10" style={{
             backgroundImage: "url('/bg2.png')",
 
-            height:"942px",
+            height:"800px",
             backgroundSize: "cover",
             backgroundPosition: "center",
         }}>
