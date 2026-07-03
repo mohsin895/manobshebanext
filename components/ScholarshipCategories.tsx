@@ -12,14 +12,23 @@ export function ScholarshipCategories() {
 
   return (
     <section
-      className=' px-4 py-5 md:py-10'
-      style={{
-        backgroundImage: "url('/bg2.png')",
+      className="
+    relative
+    mx-auto
+    w-full
+p-3
+    h-[900px]
+    overflow-hidden
+    bg-[]
+    bg-cover
+    bg-center
+    bg-no-repeat
 
-        height: '838px',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+
+    md:max-w-none
+    md:h-[800px]
+    md:bg-[url('/bg2.png')]
+  "
     >
       <div className='mx-auto max-w-6xl'>
         {/* Eyebrow */}
@@ -48,6 +57,7 @@ export function ScholarshipCategories() {
           <h2
             className='
     mb-2
+    mt-5
     text-center
     font-bn
     font-medium
@@ -67,6 +77,7 @@ export function ScholarshipCategories() {
     text-[14px] md:text-[16px]
     leading-[22px] md:leading-[24px]
     tracking-[0]
+    mt-5
     text-[#282929] md:text-[#404545]
   '
           >
@@ -75,7 +86,7 @@ export function ScholarshipCategories() {
         </div>
 
         {/* Two-column grid */}
-        <div className='grid gap-6 lg:grid-cols-2'>
+        <div className='grid gap-6 mt-5 lg:grid-cols-2'>
           {/* Left: scholarship tiers */}
           <div className='rounded-2xl bg-[#F7FAFF] p-6 md:p-8'>
             <h3

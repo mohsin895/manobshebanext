@@ -39,18 +39,27 @@ export function ReasonAttendance() {
 
   return (
     <section
-      className=' px-4 py-5 md:py-10'
-      style={{
-        backgroundImage: "url('/bg2.png')",
+      className="
+    relative
+    mx-auto
+    w-full
+p-5
+    h-[684px]
+    overflow-hidden
+    bg-[url('/bg3.png')]
+    bg-cover
+    bg-center
+    bg-no-repeat
 
-        height: '942px',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+
+    md:max-w-none
+    md:h-[900px]
+    md:bg-[url('/bg2.png')]
+  "
     >
       <div className='mx-auto max-w-[1320px]'>
         {/* Eyebrow */}
-        <div className='mb-4 flex justify-center'>
+        <div className='mb-4 mt-5 flex justify-center'>
           <div className='inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]'>
             <Image src='/about1.png' width={24} height={24} alt={t('about.photo_alt')} />{' '}
             <span
@@ -72,7 +81,7 @@ export function ReasonAttendance() {
         </div>
 
         {/* Header */}
-        <div className='mb-8 text-center'>
+        <div className='mb-8 mt-5 text-center'>
           <h3
             className='
     mb-2
@@ -91,7 +100,7 @@ export function ReasonAttendance() {
           </h3>
           <p
             className='
-    mt-3
+    mt-5
     font-bn
     text-[14px]
     leading-[22px]
@@ -108,7 +117,7 @@ export function ReasonAttendance() {
         </div>
 
         {/* Image with overlapping card grid */}
-        <div className='relative overflow-hidden rounded-xl'>
+        <div className='relative rounded-xl'>
           {/* Background photo */}
           {/* Background photo - desktop/laptop */}
           <div className='relative hidden h-[430px] w-full sm:block md:h-[560px]'>
@@ -174,7 +183,11 @@ export function ReasonAttendance() {
             className='
         hidden sm:grid
         sm:grid-cols-2
-        sm:absolute sm:inset-y-0 sm:right-0 sm:w-[58%]
+        h-[218px]
+        mt-[180px]
+        md:mt-[40px]
+        md:h-[496px]
+        sm:absolute sm:inset-y-0 sm:right-0 w-[90%] md:w-[58%]
         m-[35px]
      rounded-[10px]
         bg-[#00000080]

@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { useState } from 'react'
-import Image from "next/image";
+import Image from 'next/image'
 
 const faqs = [
   { qKey: 'faq.q1', aKey: 'faq.a1' },
@@ -16,19 +16,21 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className=" px-4 py-[40px] md:py-[40px]"   style={{
+    <section
+      className=' px-4 py-[40px] md:py-[40px]'
+      style={{
         backgroundImage: "url('/bg2.png')",
 
-        height:"792px",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-    }}>
-      <div className="mx-auto max-w-3xl">
+        height: '792px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className='mx-auto max-w-3xl'>
         {/* Header */}
-        <div className="mb-12 text-center">
-
-            <h2
-                className="
+        <div className='mb-12 text-center'>
+          <h2
+            className='
     font-bn
     font-medium
     text-[14px]
@@ -38,12 +40,12 @@ export function FAQ() {
     text-[#282929]
     md:text-[48px]
     md:leading-[56px]
-  "
-            >
-                {t('faq.title')}
-            </h2>
-            <p
-                className="
+  '
+          >
+            {t('faq.title')}
+          </h2>
+          <p
+            className='
     font-bn-serif
     font-normal
     text-center
@@ -54,22 +56,19 @@ export function FAQ() {
     text-[#404545]
     md:text-[16px]
     md:leading-[24px]
-  "
-            >
-                {t('faq.subtitle')}
-            </p>
+  '
+          >
+            {t('faq.subtitle')}
+          </p>
         </div>
 
         {/* FAQ Items */}
-        <div className="space-y-3">
+        <div className='space-y-3'>
           {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="border border-gray-200 rounded-lg overflow-hidden"
-            >
-                <button
-                    onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                    className="
+            <div key={idx} className='border border-gray-200 rounded-lg overflow-hidden'>
+              <button
+                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                className='
     flex
     h-[44px]
     w-full
@@ -79,7 +78,7 @@ export function FAQ() {
     border
     border-[#E5E6E6]
     bg-white
-    px-3
+    px-1
     py-2
     transition-colors
     hover:bg-gray-50
@@ -88,55 +87,32 @@ export function FAQ() {
     md:max-w-[762px]
     md:px-4
     md:py-4
-  "
-                >
-                    <div className="flex items-center gap-5">
-                        <Image
-                            src={openIndex === idx ? "/image51.svg" : "/image52.svg"}
-                            alt="FAQ icon"
-                            width={24}
-                            height={24}
-                            className="h-6 w-6 shrink-0"
-                        />
-
-                        <span
-                            className={`
+  '
+              >
+                <div className='flex items-center gap-1'>
+                  <Image src={openIndex === idx ? '/image51.svg' : '/image52.svg'} alt='FAQ icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
+                  <span
+                    className={`
         font-bn
         font-medium
         text-[14px]
         leading-[22px]
         md:text-[20px]
         md:leading-[28px]
-        ${
-                                openIndex === idx
-                                    ? "text-[#FE4711]"
-                                    : "text-[#282929]"
-                            }
+        ${openIndex === idx ? 'text-[#FE4711]' : 'text-[#282929]'}
       `}
-                        >
-      {t(faq.qKey)}
-    </span>
-                    </div>
+                  >
+                    {t(faq.qKey)}
+                  </span>
+                </div>
 
-                    <span
-                        className={`text-xl transition-transform ${
-                            openIndex === idx
-                                ? "rotate-180 text-[#FE4711]"
-                                : "text-[#282929]"
-                        }`}
-                    >
-    <Image
-        src="/arrowdown1.svg"
-        alt="FAQ icon"
-        width={24}
-        height={24}
-        className="h-6 w-6 shrink-0"
-    />
-  </span>
-                </button>
+                <span className={`text-xl transition-transform ${openIndex === idx ? 'rotate-180 text-[#FE4711]' : 'text-[#282929]'}`}>
+                  <Image src='/arrowdown1.svg' alt='FAQ icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
+                </span>
+              </button>
               {openIndex === idx && (
-                  <div
-                      className="
+                <div
+                  className='
     bg-[#FFFAF7]
     border-t border-gray-200
     px-6 py-4
@@ -146,10 +122,10 @@ export function FAQ() {
     leading-[22px] md:leading-[24px]
     tracking-[-0.02em]
     text-[#545959]
-  "
-                  >
-                      {t(faq.aKey)}
-                  </div>
+  '
+                >
+                  {t(faq.aKey)}
+                </div>
               )}
             </div>
           ))}

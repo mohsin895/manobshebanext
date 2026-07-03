@@ -217,7 +217,7 @@ export function ImportantSchedule() {
               <div
                 className='
     mt-5
-    max-w-[74px]
+    max-w-[156px]
     text-center
     font-bn-serif
     font-normal
