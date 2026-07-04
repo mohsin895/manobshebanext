@@ -20,6 +20,7 @@ export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ days: 10, hours: 10, minutes: 10, seconds: 10 })
   const [isMobile, setIsMobile] = useState(false)
 
+  // Tiers: <768 mobile | 768-1024 tablet | 1025-1300 desktop | 1301+ large desktop
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
     check()
@@ -56,17 +57,14 @@ export function Hero() {
 
   return (
     <section className=' p-1'>
-      <div className='relative  mx-auto w-full  md:max-w-[1400px]'>
-        <div
-          className='relative  h-[570px]
-            md:h-[832px]'
-        >
+      <div className='relative  mx-auto w-full  min-[768px]:max-w-[1400px] min-[1301px]:max-w-[1400px]'>
+        <div className='relative  h-[570px] min-[768px]:h-[832px] min-[1301px]:h-[832px]'>
           {/* Full-width Hero Image */}
-          <div className='absolute ml-5 mr-5 md:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl'>
+          <div className='absolute ml-5 mr-5 min-[768px]:m-0 min-[1301px]:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl'>
             {/* Background Image */}
             {/* Desktop */}
             <div
-              className='absolute inset-0 hidden md:block bg-cover bg-center'
+              className='absolute inset-0 hidden min-[768px]:block bg-cover bg-center'
               style={{
                 backgroundImage: `
       linear-gradient(
@@ -82,7 +80,7 @@ export function Hero() {
 
             {/* Mobile */}
             <div
-              className='absolute inset-0 block md:hidden bg-cover bg-center'
+              className='absolute inset-0 block min-[768px]:hidden bg-cover bg-center'
               style={{
                 backgroundImage: `
       linear-gradient(
@@ -101,10 +99,10 @@ export function Hero() {
               className=' relative z-10
       justify-between
 mt-2
-  md:mt-[122px]
-    p-1 md:p-6
-    items-center md:items-start
-    text-center md:text-left'
+  min-[768px]:mt-[122px] min-[1301px]:mt-[122px]
+    p-1 min-[768px]:p-6 min-[1301px]:p-6
+    items-center min-[768px]:items-start min-[1301px]:items-start
+    text-center min-[768px]:text-left min-[1301px]:text-left'
             >
               {/* Badge */}
               <div className='inline-flex items-center gap-2  px-4 py-2 text-white  w-fit'>
@@ -112,7 +110,7 @@ mt-2
                   <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
 
-                <span className='font-bn-serif text-[12px] font-normal leading-5 text-[#FFFFFF] md:text-[14px]'>{t('exam.next_exam')}</span>
+                <span className='font-bn-serif text-[12px] font-normal leading-5 text-[#FFFFFF] min-[768px]:text-[14px] min-[1301px]:text-[14px]'>{t('exam.next_exam')}</span>
               </div>
 
               {/* Title + Buttons */}
@@ -120,22 +118,22 @@ mt-2
                 <div
                   className='
                                 mt-1
-    md:mt-5
+    min-[768px]:mt-5 min-[1301px]:mt-5
     mx-auto
     flex
     w-[300px]
-   md:w-[327px]
+   min-[768px]:w-[327px] min-[1301px]:w-[327px]
     flex-col
     items-center
     gap-[10px]
     pb-[20px]
     text-center
 
-    md:mx-0
-    md:w-[465px]
-    md:items-start
-    md:gap-[20px]
-    md:text-left
+    min-[768px]:mx-0 min-[1301px]:mx-0
+    min-[768px]:w-[465px] min-[1301px]:w-[465px]
+    min-[768px]:items-start min-[1301px]:items-start
+    min-[768px]:gap-[20px] min-[1301px]:gap-[20px]
+    min-[768px]:text-left min-[1301px]:text-left
   '
                 >
                   <h1
@@ -147,8 +145,8 @@ mt-2
             tracking-[0]
             text-[#FF6B35]
 
-            md:text-[64px]
-            md:leading-[80px]
+            min-[768px]:text-[64px] min-[1301px]:text-[64px]
+            min-[768px]:leading-[80px] min-[1301px]:leading-[80px]
         '
                   >
                     {isBn ? 'মেধাবৃত্তি ২০২৬' : 'Merit Scholarship 2026'}
@@ -163,8 +161,8 @@ mt-2
             tracking-[0]
             text-[#FFFFFF]
 
-            md:text-[40px]
-            md:leading-[48px]
+            min-[768px]:text-[40px] min-[1301px]:text-[40px]
+            min-[768px]:leading-[48px] min-[1301px]:leading-[48px]
         '
                   >
                     {isBn ? 'নিবন্ধন ও অংশগ্রহণ করুন' : 'Selection and Apply'}
@@ -179,8 +177,8 @@ mt-2
             tracking-[0]
             text-[#FFFFFF]
 
-            md:text-[16px]
-            md:leading-[24px]
+            min-[768px]:text-[16px] min-[1301px]:text-[16px]
+            min-[768px]:leading-[24px] min-[1301px]:leading-[24px]
         '
                   >
                     {isBn
@@ -188,7 +186,7 @@ mt-2
                       : 'Our scholarship program is specially designed for successful students.'}
                   </p>
                 </div>
-                <div className='flex flex-col md:flex-row gap-3 mt-3 justify-center md:justify-start items-center'>
+                <div className='flex flex-col min-[768px]:flex-row min-[1301px]:flex-row gap-3 mt-3 justify-center min-[768px]:justify-start min-[1301px]:justify-start items-center'>
                   <Button
                     className='
     w-[155px] h-[40px]
@@ -198,8 +196,8 @@ mt-2
     bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
     text-white
     font-bn font-medium
-    text-[14px] md:text-[16px]
-    leading-[22px] md:leading-6
+    text-[14px] min-[768px]:text-[16px] min-[1301px]:text-[16px]
+    leading-[22px] min-[768px]:leading-6 min-[1301px]:leading-6
     transition-all duration-300
     hover:bg-[linear-gradient(270deg,_#FF713E_0%,_#FE4711_100%)]
     hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
@@ -222,8 +220,8 @@ mt-2
     text-[#282929]
     font-bn
     font-medium
-    text-[14px] md:text-[16px]
-    leading-[22px] md:leading-6
+    text-[14px] min-[768px]:text-[16px] min-[1301px]:text-[16px]
+    leading-[22px] min-[768px]:leading-6 min-[1301px]:leading-6
     transition-all
     duration-300
     ease-linear
@@ -238,7 +236,7 @@ mt-2
                 </div>
               </div>
 
-              <div className='mt-8 flex justify-center md:justify-start'>
+              <div className='mt-8 flex justify-center min-[768px]:justify-start min-[1301px]:justify-start'>
                 <div
                   className='
       flex
@@ -253,34 +251,34 @@ mt-2
       text-white
       backdrop-blur-[25px]
 
-      md:h-[170px]
-      md:w-[423px]
-      md:gap-[20px]
+      min-[768px]:h-[170px] min-[1301px]:h-[170px]
+      min-[768px]:w-[423px] min-[1301px]:w-[423px]
+      min-[768px]:gap-[20px] min-[1301px]:gap-[20px]
     '
                 >
                   {/* Header */}
-                  <div className='w-full rounded-tl-[16px] rounded-tr-[16px] sticky top-10 md:top-0 z-10 flex items-center justify-center gap-2 px-3 py-1 md:py-2 bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)]'>
+                  <div className='w-full rounded-tl-[16px] rounded-tr-[16px] sticky top-10 min-[768px]:top-0 min-[1301px]:top-0 z-10 flex items-center justify-center gap-2 px-3 py-1 min-[768px]:py-2 min-[1301px]:py-2 bg-[linear-gradient(90deg,_#4A4DE1_0%,_#3335A0_100%)]'>
                     <div
                       className='
   flex items-center justify-center
-  w-4 h-4 md:w-7 md:h-7
-  p-1 md:p-0
+  w-4 h-4 min-[768px]:w-7 min-[768px]:h-7 min-[1301px]:w-7 min-[1301px]:h-7
+  p-1 min-[768px]:p-0 min-[1301px]:p-0
   rounded-full
   bg-white/10
   shrink-0
 '
                     >
-                      <Image src='/image4.png' alt='logo' width={16} height={16} className='w-3 h-3 md:w-4 md:h-4 animate-deadline-icon' />
+                      <Image src='/image4.png' alt='logo' width={16} height={16} className='w-3 h-3 min-[768px]:w-4 min-[768px]:h-4 min-[1301px]:w-4 min-[1301px]:h-4 animate-deadline-icon' />
                     </div>
 
                     <span
                       className='
   font-bn-serif
   rounded-md
-  px-1 md:px-3 py-1
+  px-1 min-[768px]:px-3 min-[1301px]:px-3 py-1
   text-white
   text-[12px]
-  md:text-[16px]
+  min-[768px]:text-[16px] min-[1301px]:text-[16px]
   font-normal
   leading-6
   tracking-normal
@@ -292,14 +290,14 @@ mt-2
                   </div>
 
                   {/* Timer */}
-                  <div className='flex items-center justify-center gap-[4px] md:gap-[8px] w-full px-[8px] md:px-[15px]'>
+                  <div className='flex items-center justify-center gap-[4px] min-[768px]:gap-[8px] min-[1301px]:gap-[8px] w-full px-[8px] min-[768px]:px-[15px] min-[1301px]:px-[15px]'>
                     {[
                       { val: timeLeft.days, label: t('exam.days') },
                       { val: timeLeft.hours, label: t('exam.hours') },
                       { val: timeLeft.minutes, label: t('exam.minutes') },
                       { val: timeLeft.seconds, label: t('exam.seconds') },
                     ].map((item, i) => (
-                      <div key={i} className='flex items-center gap-[4px] md:gap-[8px]'>
+                      <div key={i} className='flex items-center gap-[4px] min-[768px]:gap-[8px] min-[1301px]:gap-[8px]'>
                         <div
                           className='
     flex flex-col items-center justify-center
@@ -309,18 +307,18 @@ mt-2
     bg-white/25
     px-[8px] py-[4px]
     gap-1
-    md:w-[80px]
-    md:h-[80px]
-    md:rounded-[9px]
-    md:border
-    md:px-[8px]
-    md:py-[8px]
-    md:gap-1
+    min-[768px]:w-[80px] min-[1301px]:w-[80px]
+    min-[768px]:h-[80px] min-[1301px]:h-[80px]
+    min-[768px]:rounded-[9px] min-[1301px]:rounded-[9px]
+    min-[768px]:border min-[1301px]:border
+    min-[768px]:px-[8px] min-[1301px]:px-[8px]
+    min-[768px]:py-[8px] min-[1301px]:py-[8px]
+    min-[768px]:gap-1 min-[1301px]:gap-1
   '
                         >
-                          <div className='font-mono text-[15px] font-black leading-none md:text-[32px]'>{toLocaleDigits(item.val, isBn)}</div>
+                          <div className='font-mono text-[15px] font-black leading-none min-[768px]:text-[32px] min-[1301px]:text-[32px]'>{toLocaleDigits(item.val, isBn)}</div>
 
-                          <div className='text-center text-[8px] font-normal uppercase leading-none md:text-[14px]'>{item.label}</div>
+                          <div className='text-center text-[8px] font-normal uppercase leading-none min-[768px]:text-[14px] min-[1301px]:text-[14px]'>{item.label}</div>
                         </div>
 
                         {i < 3 && <span className='text-white/60 font-black text-base pb-3'>:</span>}
@@ -335,22 +333,16 @@ mt-2
 
           {/* Floating Card — top right */}
           <div
-            className='
-        absolute
-        top-[90%]
-        left-1/2
-        -translate-x-1/2
+            className=' absolute top-[90%] left-1/2 -translate-x-1/2 min-[768px]:top-[56%] min-[1301px]:top-[56%]
+        min-[768px]:left-[70%] min-[1301px]:left-[70%]
+        min-[768px]:translate-x-0 min-[1301px]:translate-x-0
 
-        md:top-[56%]
-        md:left-[70%]
-        md:translate-x-0
-
-        w-[210px] md:w-[390px]
-        h-[218px] md:h-[344px]
+        w-[210px] min-[768px]:w-[250px] min-[1301px]:w-[390px]
+        h-[218px] min-[768px]:h-[344px] min-[1301px]:h-[344px]
         bg-white
         rounded-[24px]
         p-1
-        md:p-[24px]
+        min-[768px]:p-[24px] min-[1301px]:p-[24px]
         flex flex-col items-center
         gap-[12px]
         z-30
@@ -360,21 +352,23 @@ mt-2
             {/* Icon - top 50% */}
             <div className='w-full h-[50%] mt-[-45px] flex items-end justify-center'>
               <div
-                className='flex h-[128px] w-[128px] items-end justify-center rounded-full bg-[#eef3ff54] pb-4 md:h-[200px] md:w-[200px]'
+                className='flex h-[128px] w-[128px] items-end justify-center rounded-full bg-[#eef3ff54] pb-4 min-[768px]:h-[200px] min-[768px]:w-[200px] min-[1301px]:h-[200px] min-[1301px]:w-[200px]'
                 style={{
                   clipPath: isMobile ? 'inset(49% 0 0 0)' : 'inset(37% 0 0 0)',
                 }}
               >
-                <Image src='/hero2.png' alt='hero' width={90} height={80} className='h-[40px] w-[40px] md:h-[80px] md:w-[90px]' />
+                <Image src='/hero2.png' alt='hero' width={90} height={80} className='h-[40px] w-[40px] min-[768px]:h-[80px] min-[768px]:w-[90px] min-[1301px]:h-[80px] min-[1301px]:w-[90px]' />
               </div>
             </div>
             {/* Content - bottom 50% */}
             <div className='w-full h-[50%] flex flex-col items-center justify-center gap-[12px]'>
               {/* Title */}
-              <h3 className='font-bn text-center font-medium text-[#282929] text-[12px] leading-4 md:text-[24px] md:leading-8'>{isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}</h3>
+              <h3 className='font-bn text-center font-medium text-[#282929] text-[12px] leading-4 min-[768px]:text-[24px] min-[768px]:leading-8 min-[1301px]:text-[24px] min-[1301px]:leading-8'>
+                {isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
+              </h3>
 
               {/* Description */}
-              <p className='font-bn-serif text-center text-[#545959] font-normal text-[14px] leading-6 md:text-[16px] md:leading-6'>
+              <p className='font-bn-serif text-center text-[#545959] font-normal text-[14px] leading-6 min-[768px]:text-[16px] min-[768px]:leading-6 min-[1301px]:text-[16px] min-[1301px]:leading-6'>
                 {isBn ? 'স্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।' : 'We evaluate students through our modern metrics system.'}
               </p>
 
@@ -382,7 +376,7 @@ mt-2
               <button
                 className='
     inline-flex items-center justify-center
-    w-[191px] md:w-[217px]
+    w-[191px] min-[768px]:w-[217px] min-[1301px]:w-[217px]
     h-[28px]
     gap-2
     rounded-full
@@ -390,9 +384,9 @@ mt-2
     px-4 py-1
     text-[#3B3BC7]
     font-bn
-    text-[12px] md:text-[13px]
+    text-[12px] min-[768px]:text-[13px] min-[1301px]:text-[13px]
     font-medium
-    leading-4 md:leading-5
+    leading-4 min-[768px]:leading-5 min-[1301px]:leading-5
     transition-colors
     hover:bg-[#DCE8FF]
   '
