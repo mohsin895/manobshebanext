@@ -214,12 +214,11 @@ mt-2
                     className='
     w-[140px]
     h-[40px]
-    px-4
-    py-2
+    px-4 py-2
     flex items-center justify-center gap-2
     rounded-full
     border-0
-    bg-[#FFFFFF]
+    bg-white
     text-[#282929]
     font-bn
     font-medium
@@ -228,7 +227,8 @@ mt-2
     transition-all
     duration-300
     ease-linear
-    hover:bg-[#5565E8]
+    hover:!bg-[#5565E8]
+    hover:!text-white
     hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
     cursor-pointer
   '
