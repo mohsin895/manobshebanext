@@ -120,11 +120,11 @@ export function Navbar() {
 
             {/* Menu Items */}
             <div className='hidden items-center justify-center gap-6 md:flex'>
-              <a href='#' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
+              <a href='/' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
                 {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
               </a>
 
-              <a href='#' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
+              <a href='/about-us' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
                 {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
               </a>
 
@@ -176,7 +176,8 @@ export function Navbar() {
                 </div>
               </div>
 
-              <Button
+              <a
+                href='/auth/login'
                 className='
     hidden sm:flex
     w-[146px]
@@ -195,7 +196,7 @@ export function Navbar() {
               >
                 <Image src='/login.png' height={15} width={15} alt='location' />
                 <span>{language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}</span>
-              </Button>
+              </a>
 
               {/*<button className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500 text-white hover:bg-orange-600">*/}
               {/*    👤*/}
@@ -227,7 +228,7 @@ export function Navbar() {
             <a href='#' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
               {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
             </a>
-            <a href='#' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
+            <a href='/about-us' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
               {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
             </a>
             <a href='#' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
