@@ -241,3 +241,25 @@
     line-height: 24px;
     color: #404545;
 }
+
+@keyframes deadline-icon {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.15) rotate(-8deg);
+    }
+    50% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.85;
+    }
+    75% {
+        transform: scale(1.15) rotate(8deg);
+    }
+}
+
+.animate-deadline-icon {
+    animation: deadline-icon 1.6s ease-in-out infinite;
+    transform-origin: center;
+}
