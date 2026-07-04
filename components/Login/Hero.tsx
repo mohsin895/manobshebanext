@@ -42,7 +42,7 @@ export function LoginHero() {
             />
 
             {/* Text Content */}
-            <div className=' relative z-10 mt-2 md:mt-[12px] p-5 md:p-6 flex flex-col items-center text-center '>
+            <div className=' relative z-10 mt-2 md:mt-[12px] p-5 md:p-10 flex flex-col items-center text-center '>
               {/* Badge */}
               <div className='inline-flex items-center gap-2  px-4 py-2 text-white  w-fit'>
                 <span className='flex items-center justify-center'>
