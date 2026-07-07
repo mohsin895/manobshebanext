@@ -44,7 +44,7 @@ export function LoginHero() {
             {/* Text Content */}
             <div className=' relative z-10 mt-2 md:mt-[12px] p-5 md:p-10 flex flex-col items-center text-center '>
               {/* Badge */}
-              <div className='inline-flex items-center gap-2  px-4 py-2 text-white  w-fit'>
+              <div className='inline-flex items-center gap-2  px-4 py-2 mt-8 text-white  w-fit'>
                 <span className='flex items-center justify-center'>
                   <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
@@ -56,7 +56,7 @@ export function LoginHero() {
               <div>
                 <div
                   className='  mt-1 md:mt-5 mx-auto flex w-[327px] flex-col items-center gap-[10px]
-    pb-[20px]
+    pb-[10px]
     text-center
 
     md:mx-0
@@ -90,7 +90,7 @@ export function LoginHero() {
             leading-[24px]
             tracking-[0]
             text-[#FFFFFF]
-
+mt-8
             md:text-[40px]
             md:leading-[48px]
         '
@@ -106,7 +106,7 @@ export function LoginHero() {
             leading-[20px]
             tracking-[0]
             text-[#FFFFFF]
-
+mt-8
             md:text-[16px]
             md:leading-[24px]
         '
@@ -118,7 +118,7 @@ export function LoginHero() {
                 </div>
               </div>
 
-              <div className='mt-5 flex justify-center md:justify-start'>
+              <div className='mt-8 flex justify-center md:justify-start'>
                 <div
                   className='
 flex
@@ -143,29 +143,87 @@ md:gap-[20px]
                   {/* Timer */}
                   <div className='flex items-center justify-center gap-[4px] md:gap-[8px] w-full px-[8px] md:px-[15px]'>
                     <form className='flex w-full flex-col items-center gap-[8px] px-[12px] py-[10px] md:gap-[14px] md:px-[24px] md:py-[16px]'>
-                      <div className='flex w-full flex-col gap-[2px] md:gap-[4px]'>
-                        <label className='text-[10px] text-left text-white/90 md:text-[13px]'>ইমেইল দিন</label>
+                      <div className='flex h-[82px] w-[226px] flex-col gap-[8px] md:h-[80px] md:w-[652px]'>
+                        <label className='font-bn text-[16px] font-normal leading-[24px] tracking-[0px] text-left text-white'>ইমেইল দিন</label>
+
                         <input
                           type='email'
-                          placeholder='আপনার ইমেইল দিন'
-                          className='w-full rounded-[6px] border border-white/30 bg-white/20 px-[10px] py-[6px] text-[11px] text-white placeholder-white/50 outline-none focus:border-[#FF6B35] md:px-[14px] md:py-[8px] md:text-[13px]'
+                          placeholder='আপনার ইমেইল লিখুন'
+                          className='
+    font-bn
+    w-[226px] md:w-[652px]
+    h-[40px] md:h-[48px]
+    rounded-[8px]
+    border border-white/30
+    bg-white/20
+    p-[8px] md:p-[12px]
+    text-[16px]
+    font-normal
+    leading-[24px]
+    tracking-[0px]
+    text-white
+    placeholder:text-white/50
+    outline-none
+    focus:border-[#FF6B35]
+  '
                         />
                       </div>
 
-                      <div className='flex w-full flex-col gap-[2px] md:gap-[4px]'>
-                        <label className='text-[10px] text-left text-white/90 md:text-[13px]'>পাসওয়ার্ড দিন</label>
+                      <div className='flex h-[82px] w-[226px] flex-col gap-[8px] md:h-[80px] md:w-[652px]'>
+                        <label className='font-bn text-[16px] font-normal leading-[24px] tracking-[0px] text-left text-white'>পাসওয়ার্ড দিন</label>
+
                         <input
                           type='password'
-                          placeholder='আপনার পাসওয়ার্ড দিন'
-                          className='w-full rounded-[6px] border border-white/30 bg-white/20 px-[10px] py-[6px] text-[11px] text-white placeholder-white/50 outline-none focus:border-[#FF6B35] md:px-[14px] md:py-[8px] md:text-[13px]'
+                          placeholder='আপনার পাসওয়ার্ড লিখুন'
+                          className='
+    font-bn
+    w-[226px] md:w-[652px]
+    h-[40px] md:h-[48px]
+    rounded-[8px]
+    border border-white/30
+    bg-white/20
+    p-[8px] md:p-[12px]
+    text-[16px]
+    font-normal
+    leading-[24px]
+    tracking-[0px]
+    text-white
+    placeholder:font-bn
+    placeholder:text-[16px]
+    placeholder:font-normal
+    placeholder:leading-[24px]
+    placeholder:tracking-[0px]
+    placeholder:text-[#BBBCC5]
+    outline-none
+    focus:border-[#FF6B35]
+  '
                         />
                       </div>
 
                       <button
                         type='submit'
-                        className='mt-[4px] w-full rounded-[6px] border border-[#FF6B35] bg-[#FF6B35] py-[6px] text-[11px] font-medium text-white transition hover:bg-[#FF6B35]/90 md:mt-[6px] md:py-[8px] md:text-[13px]'
+                        className='
+    font-bn
+    mt-[8px]
+    w-full md:w-[652px]
+    h-[56px]
+    rounded-[8px]
+    border border-[#FF6B35]
+    bg-[#FF6B35]
+    p-[16px]
+    text-[16px]
+    font-medium
+    leading-[24px]
+    tracking-[0px]
+    text-white
+    transition-colors
+    hover:bg-[#e95d2d]
+    focus:outline-none
+    focus:ring-2
+    focus:ring-[#FF6B35]/50
+  '
                       >
-                        লগ ইন
+                        <span className='font-bn text-[16px] md:text-[20px] font-semibold leading-[24px] tracking-[0px] text-white'>লগ ইন</span>
                       </button>
                     </form>
                   </div>

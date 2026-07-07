@@ -118,29 +118,68 @@ p-5
 
         {/* Image with overlapping card grid */}
         <div className='relative rounded-xl'>
-          {/* Background photo */}
           {/* Background photo - desktop/laptop */}
           <div className='relative hidden h-[430px] w-full sm:block md:h-[560px]'>
             <Image src='/images/image3.png' alt={t('reasons.image_alt')} fill className='object-cover' priority />
           </div>
 
           {/* Background photo - mobile */}
-          <div className='relative h-[460px] w-full sm:hidden'>
-            <Image src='/aboutUsm.png' alt={t('reasons.image_alt')} fill className='object-cover' priority />
+          <div className='relative h-[430px] w-full sm:hidden'>
+            <Image src='/aboutUsm.png' alt={t('reasons.image_alt')} fill className='object-cover rounded-xl' priority />
           </div>
 
+          {/* Mobile version - 2x2 grid with gradient lines */}
           <div
             className='
         grid grid-cols-2
         absolute inset-x-0 bottom-0
         rounded-[10px]
+        top-[-250px]
+        md:top-0
         m-4
         bg-[#00000080] backdrop-blur-[2px]
         sm:hidden
+        relative
     '
           >
+            {/* Vertical gradient line - mobile */}
+            <div
+              className='
+                absolute
+                w-[1px]
+                h-[176px]
+                left-1/2
+                top-1/2
+                -translate-x-1/2
+                -translate-y-1/2
+                block
+                sm:hidden
+              '
+              style={{
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #C8D7FD 50%, rgba(255, 255, 255, 0) 100%)',
+              }}
+            />
+
+            {/* Horizontal gradient line - mobile */}
+            <div
+              className='
+                absolute
+                w-[300px]
+                h-[1px]
+                left-1/2
+                top-1/2
+                -translate-x-1/2
+                -translate-y-1/2
+                block
+                sm:hidden
+              '
+              style={{
+                background: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #C8D7FD 50%, rgba(255, 255, 255, 0) 100%)',
+              }}
+            />
+
             {reasons.map((reason, idx) => (
-              <div key={idx} className='flex flex-col gap-1 px-3 py-2 text-center items-center'>
+              <div key={idx} className='flex flex-col gap-1 px-3 py-2 text-center items-center relative z-10'>
                 <div className={`flex h-[28px] w-[28px] items-center justify-center  `}>
                   <div className='relative h-8 w-8'>
                     <Image src={reason.icon} alt='title' fill className='object-contain' priority />
@@ -177,31 +216,72 @@ p-5
               </div>
             ))}
           </div>
-          {/* 2x2 card grid overlapping the right half of the photo (desktop),
-                        full-width panel under the photo on mobile */}
+
+          {/* Desktop version - 2x2 card grid with gradient lines */}
           <div
             className='
         hidden sm:grid
         sm:grid-cols-2
-        h-[218px]
+        sm:grid-rows-2
+        h-[218.59px]
+        w-[300px]
         mt-[180px]
         md:mt-[40px]
         md:h-[496px]
-        sm:absolute sm:inset-y-0 sm:right-0 w-[90%] md:w-[58%]
+        md:w-[58%]
+        sm:absolute sm:inset-y-0 sm:right-0
         m-[35px]
-     rounded-[10px]
+        rounded-[12px]
         bg-[#00000080]
-        backdrop-blur-[2px]
+        backdrop-blur-[4.41px]
+        relative
     '
           >
+            {/* Vertical gradient line - desktop */}
+            <div
+              className='
+                absolute
+                w-[1px]
+                h-[400px]
+                left-1/2
+                top-1/2
+                -translate-x-1/2
+                -translate-y-1/2
+                hidden
+                sm:block
+              '
+              style={{
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #C8D7FD 50%, rgba(255, 255, 255, 0) 100%)',
+              }}
+            />
+
+            {/* Horizontal gradient line - desktop */}
+            <div
+              className='
+                absolute
+                w-[400px]
+                h-[1px]
+                left-1/2
+                top-1/2
+                -translate-x-1/2
+                -translate-y-1/2
+                hidden
+                sm:block
+              '
+              style={{
+                background: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #C8D7FD 50%, rgba(255, 255, 255, 0) 100%)',
+              }}
+            />
+
             {reasons.map((reason, idx) => (
               <div
                 key={idx}
                 className='
-                                    flex flex-col gap-2 items-center text-center  px-6 py-2
-                                    sm:px-7 sm:py-2
-
-                                '
+                  flex flex-col gap-2 items-center text-center px-6 py-2
+                  sm:px-7 sm:py-2
+                  relative
+                  z-10
+                '
               >
                 <div className='flex h-7 w-7 items-center justify-center md:h-20 md:w-20'>
                   <div className='flex items-center justify-center'>

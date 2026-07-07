@@ -17,7 +17,7 @@ export function AboutUs() {
         backgroundPosition: 'center',
       }}
     >
-      <div className='mx-auto px-10  max-w-[1320]'>
+      <div className='mx-auto px-4  max-w-[1320]'>
         {/* Top notification bar */}
         <div className='mb-8   flex justify-center'>
           <div className='inline-flex items-center gap-2  py-1.5 font-bn text-[10px] md:text-[14px] font-medium leading-[22px] text-[#4A4DE1] md:text-[16px] md:leading-6'>

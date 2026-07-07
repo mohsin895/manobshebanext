@@ -117,23 +117,25 @@ mt-2
               <div>
                 <div
                   className='
-                                mt-1
-    min-[768px]:mt-5 min-[1301px]:mt-5
     mx-auto
+    mt-1
     flex
-    w-[300px]
-   min-[768px]:w-[327px] min-[1301px]:w-[327px]
+    w-full
+    max-w-[327px]
     flex-col
     items-center
     gap-[10px]
-    pb-[20px]
+    pb-5
     text-center
 
-    min-[768px]:mx-0 min-[1301px]:mx-0
-    min-[768px]:w-[465px] min-[1301px]:w-[465px]
-    min-[768px]:items-start min-[1301px]:items-start
-    min-[768px]:gap-[20px] min-[1301px]:gap-[20px]
-    min-[768px]:text-left min-[1301px]:text-left
+    min-[500px]:max-w-[465px]
+
+    md:mx-0
+    md:mt-5
+    md:max-w-[465px]
+    md:items-start
+    md:gap-5
+    md:text-left
   '
                 >
                   <h1
@@ -337,7 +339,7 @@ mt-2
         min-[768px]:left-[70%] min-[1301px]:left-[70%]
         min-[768px]:translate-x-0 min-[1301px]:translate-x-0
 
-        w-[210px] min-[768px]:w-[250px] min-[1301px]:w-[390px]
+        w-[255px] min-[768px]:w-[250px] min-[1301px]:w-[390px]
         h-[218px] min-[768px]:h-[344px] min-[1301px]:h-[344px]
         bg-white
         rounded-[24px]

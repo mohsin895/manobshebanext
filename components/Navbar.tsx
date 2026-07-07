@@ -91,29 +91,29 @@ export function Navbar() {
           <div className='mx-auto max-w-[1320px] px-4'>
             <div className='flex items-center gap-6 py-2 text-sm'>
               <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
-                <Image src='/location.png' height={20} width={20} alt='location' />
+                <Image src='/image111.svg' height={24} width={24} alt='location' />
                 <span>Munshiganj</span>
               </a>
               <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
-                <Image src='/phone.png' height={20} width={20} alt='location' />
+                <Image src='/image112.svg' height={24} width={24} alt='location' />
                 <span>01949482583</span>
               </a>
               <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
-                <Image src='/email.png' height={20} width={20} alt='location' />
+                <Image src='/image123.svg' height={24} width={24} alt='location' />
                 <span>org.bmsf@gmail.com</span>
               </a>
               <span className='ml-auto flex gap-3'>
                 <button className='hover:text-orange-100'>
-                  <Image src='/facebook.png' height={20} width={20} alt='location' />
+                  <Image src='/image124.svg' height={24} width={24} alt='location' />
                 </button>
                 <button className='hover:text-orange-100'>
-                  <Image src='/youtube.png' height={20} width={20} alt='location' />
+                  <Image src='/image125.svg' height={24} width={24} alt='location' />
                 </button>
                 <button className='hover:text-orange-100'>
-                  <Image src='/twitter.png' height={20} width={20} alt='location' />
+                  <Image src='/image127.svg' height={24} width={24} alt='location' />
                 </button>
                 <button className='hover:text-orange-100'>
-                  <Image src='/instgram.png' height={20} width={20} alt='location' />
+                  <Image src='/image128.svg' height={24} width={24} alt='location' />
                 </button>
               </span>
             </div>
@@ -121,29 +121,42 @@ export function Navbar() {
         </div>
 
         {/* White Navbar — no sticky, it's inside the fixed header now */}
-        <div ref={navBarRef} className='bg-white shadow-md border-b'>
+        <div
+          ref={navBarRef}
+          className='
+    border-b shadow-md
+    bg-white
+    md:bg-white
+
+  '
+        >
           <div className='mx-auto max-w-[1340px]'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between h-[64px]'>
               {/* Logo */}
               <div className='flex items-center gap-2'>
-                <div className='flex h-20 w-20 items-center justify-center rounded-full'>
-                  <Image src='/navlogo.png' height={100} width={100} style={{ height: '40px', width: '40px' }} alt='logo' />
+                <div className='flex h-[40px] w-[50px] items-center justify-center rounded-full'>
+                  <Image src='/navlogo.png' height={40} width={50} style={{ height: '40px', width: '40px' }} alt='logo' />
                 </div>
               </div>
 
               {/* Menu Items */}
               <div className='hidden items-center justify-center gap-6 md:flex'>
-                <a href='/' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
-                  {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
-                </a>
+                <div className='flex items-center gap-2'>
+                  <a href='/' className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
+                    {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
+                  </a>
 
-                <a href='/about-us' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
-                  {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
-                </a>
+                  <a
+                    href='/about-us'
+                    className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
+                  >
+                    {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
+                  </a>
 
-                <a href='#' className='font-bn text-[16px] font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
-                  {language === 'bn' ? 'কার্যক্রম' : 'Training'}
-                </a>
+                  <a href='#' className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
+                    {language === 'bn' ? 'কার্যক্রম' : 'Training'}
+                  </a>
+                </div>
 
                 {/* Dropdown Menu */}
                 <div className='relative' onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
@@ -175,38 +188,54 @@ export function Navbar() {
 
               {/* Right Actions */}
               <div className='flex items-center gap-3'>
-                <div className='hidden gap-1 rounded-lg bg-gray-200 p-1 sm:flex'>
+                <div className='hidden gap-1 rounded-lg p-1 sm:flex'>
                   <div className='hidden sm:flex'>
-                    <select
-                      value={language}
-                      onChange={e => setLanguage(e.target.value as Language)}
-                      className='rounded-lg bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer'
-                    >
-                      <option value='bn'>বাংলা</option>
-                      <option value='en'>EN</option>
-                    </select>
+                    <div className='relative w-[110px]'>
+                      <select
+                        value={language}
+                        onChange={e => setLanguage(e.target.value as Language)}
+                        className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-2 pr-8 text-sm font-medium text-[#374151] outline-none cursor-pointer'
+                      >
+                        <option value='bn'>বাংলা</option>
+                        <option value='en'>EN</option>
+                      </select>
+
+                      <div className='pointer-events-none absolute right-0 top-0 flex h-7 w-8 items-center justify-center rounded-r-[4px] bg-[#8497F5]'>
+                        <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
+                          <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <a
                   href='/auth/login'
                   className='
-                            hidden sm:flex
-                            w-[146px]
-                            h-[40px]
-                            px-[16px]
-                            py-[8px]
-                            font-bn
-                            items-center justify-center gap-[8px]
-                            rounded-full
-                            bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
-                            text-white
-                            text-[16px] font-bold
-                            hover:opacity-90
-                            cursor-pointer
-                            '
+     flex
+    w-[146px]
+    h-10
+    items-center
+    justify-center
+    gap-2
+    rounded-full
+    px-4
+    py-2
+    font-bn
+    text-[16px]
+    font-bold
+    text-white
+    bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)]
+    shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
+    transition-all
+    duration-300
+    hover:bg-[linear-gradient(270deg,#FF865A_0%,#FF5A28_100%)]
+    hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.35),0px_4px_12px_rgba(254,71,17,0.35)]
+    active:scale-[0.98]
+    cursor-pointer
+  '
                 >
-                  <Image src='/login.png' height={15} width={15} alt='location' />
+                  <Image src='/login.png' width={15} height={15} alt='login' />
                   <span>{language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}</span>
                 </a>
 
@@ -216,15 +245,22 @@ export function Navbar() {
                   aria-label='Toggle menu'
                   aria-expanded={mobileMenuOpen}
                   onClick={() => setMobileMenuOpen(prev => !prev)}
-                  className='flex md:hidden h-10 w-10 items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 mr-2'
+                  className='
+  flex md:hidden
+  h-10 w-10
+  items-center justify-center
+  rounded-lg
+
+  text-[#8497F5]
+'
                 >
-                  <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    {mobileMenuOpen ? (
+                  {mobileMenuOpen ? (
+                    <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                       <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
-                    ) : (
-                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 6h16M4 12h16M4 18h16' />
-                    )}
-                  </svg>
+                    </svg>
+                  ) : (
+                    <Image src='/manu.svg' height={28} width={28} alt='location' />
+                  )}
                 </button>
               </div>
             </div>
@@ -268,33 +304,22 @@ export function Navbar() {
               </div>
 
               <div className='flex items-center gap-3 px-3 pt-2 pb-1'>
-                <select
-                  value={language}
-                  onChange={e => setLanguage(e.target.value as Language)}
-                  className='rounded-lg bg-gray-200 px-2 py-1.5 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer'
-                >
-                  <option value='bn'>বাংলা</option>
-                  <option value='en'>EN</option>
-                </select>
+                <div className='relative w-[110px]'>
+                  <select
+                    value={language}
+                    onChange={e => setLanguage(e.target.value as Language)}
+                    className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-2 pr-8 text-sm font-medium text-[#374151] outline-none cursor-pointer'
+                  >
+                    <option value='bn'>বাংলা</option>
+                    <option value='en'>EN</option>
+                  </select>
 
-                <Button
-                  className='
-      flex-1
-      h-[40px]
-      px-[16px]
-      py-[8px]
-      flex items-center justify-center gap-[8px]
-      rounded-full
-      bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
-      text-white
-      text-xs font-bold
-      hover:opacity-90
-      cursor-pointer
-    '
-                >
-                  <Image src='/login.png' height={15} width={15} alt='location' />
-                  <span>{language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}</span>
-                </Button>
+                  <div className='pointer-events-none absolute right-0 top-0 flex h-7 w-8 items-center justify-center rounded-r-[4px] bg-[#8497F5]'>
+                    <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
+                      <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
