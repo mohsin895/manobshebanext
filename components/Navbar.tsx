@@ -21,12 +21,13 @@ export function Navbar() {
 
   const menuItems = [
     { bn: 'অনলাইন আবেদন পরীক্ষা নির্দেশিকা', en: 'Exam Application Guide' },
-    { bn: 'অনলাইন আবেদন', en: 'Online Application' },
+    { bn: 'অনলাইন আবেদন', en: 'Online Application', href: '/auth/student/registration' },
     { bn: 'মেধাবৃত্তি সিলেবাস', en: 'Online Application', href: '/syllabus' },
     { bn: 'কৃতি শিক্ষার্থী ফলাফল অনুসন্ধান', en: 'Student Result Search', href: '/result' },
     { bn: 'পরীক্ষার আসন অনুসন্ধান', en: 'Student Result Search', href: '/seat-plan' },
     { bn: 'কৃতি শিক্ষার্থী', en: 'Student Result Search', href: '/meritorious-student' },
     { bn: 'শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ', en: 'Institution Achievements' },
+    { bn: 'student List', en: 'Institution Achievements', href: '/auth/student/list' },
     { bn: 'Registration', en: 'Institution Achievements', href: '/auth/user' },
   ]
 
