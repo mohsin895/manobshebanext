@@ -22,7 +22,10 @@ export function Navbar() {
   const menuItems = [
     { bn: 'অনলাইন আবেদন পরীক্ষা নির্দেশিকা', en: 'Exam Application Guide' },
     { bn: 'অনলাইন আবেদন', en: 'Online Application' },
-    { bn: 'কৃতি শিক্ষার্থী ফলাফল অনুসন্ধান', en: 'Student Result Search' },
+    { bn: 'মেধাবৃত্তি সিলেবাস', en: 'Online Application', href: '/syllabus' },
+    { bn: 'কৃতি শিক্ষার্থী ফলাফল অনুসন্ধান', en: 'Student Result Search', href: '/result' },
+    { bn: 'পরীক্ষার আসন অনুসন্ধান', en: 'Student Result Search', href: '/seat-plan' },
+    { bn: 'কৃতি শিক্ষার্থী', en: 'Student Result Search', href: '/meritorious-student' },
     { bn: 'শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ', en: 'Institution Achievements' },
   ]
 
@@ -175,7 +178,7 @@ export function Navbar() {
                       {menuItems.map((item, i) => (
                         <a
                           key={i}
-                          href='#'
+                          href={item.href}
                           className='flex items-center gap-3 px-4 w-[265px] py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors border-b border-gray-50 last:border-0 group/item'
                         >
                           <span className='leading-snug font-medium flex-1'>{language === 'bn' ? item.bn : item.en}</span>

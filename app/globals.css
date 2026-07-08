@@ -263,3 +263,24 @@
     animation: deadline-icon 1.6s ease-in-out infinite;
     transform-origin: center;
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #result-print-area,
+    #result-print-area * {
+        visibility: visible;
+    }
+
+    #result-print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        border: none;
+    }
+}
