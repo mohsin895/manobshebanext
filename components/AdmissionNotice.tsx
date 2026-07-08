@@ -6,12 +6,34 @@ type AdmissionNoticeProps = {
 
 export function AdmissionNotice({ admittedCount, totalSeats, seatsRemaining }: AdmissionNoticeProps) {
   return (
-    <div className='flex items-center gap-2 rounded-[12px] border border-[#EEF0F4] bg-white px-4 py-3'>
-      <span className='h-2 w-2 shrink-0 rounded-full bg-[#22C55E]' />
-      <p className='font-bn text-[13px] leading-5 text-[#374151]'>
-        <span className='font-semibold text-[#1C1D4A]'>
-          {admittedCount}/{totalSeats}
-        </span>{' '}
+    <div
+      className='
+    flex
+    h-[72px]
+    w-full
+    items-center
+
+    rounded-[8px]
+    border-l-[8px]
+    border-l-[#FFA071]
+    bg-[#FFF4ED]
+    p-[12px]
+  '
+    >
+      <p
+        className='
+    font-bn
+    text-[16px]
+    font-normal
+    leading-[24px]
+    tracking-[0]
+    text-[#282929]
+    md:text-[20px]
+    md:font-medium
+    md:leading-[48px]
+  '
+      >
+        {admittedCount}/{totalSeats}
         জন আবেদন সম্পন্ন করেছেন। এখনও {seatsRemaining} টি সিট বাকি আছে।
       </p>
     </div>

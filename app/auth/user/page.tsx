@@ -6,10 +6,10 @@ import { ClassCard } from '@/components/ClassCard'
 import { AdmissionNotice } from '@/components/AdmissionNotice'
 
 const QUICK_ACTIONS = [
-  { icon: '/icons/application.svg', label: 'আবেদন', href: '/apply' },
-  { icon: '/icons/student-list.svg', label: 'শিক্ষার্থীদের তালিকা দেখুন', href: '/students' },
-  { icon: '/icons/admit-card.svg', label: 'এডমিট কার্ড ডাউনলোড', href: '/admit-card' },
-  { icon: '/icons/target.svg', label: 'ভর্তিসমূহ', href: '/admissions' },
+  { icon: '/image55.svg', label: 'আবেদন', href: '/apply' },
+  { icon: '/image56.svg', label: 'শিক্ষার্থীদের তালিকা দেখুন', href: '/students' },
+  { icon: '/image58.svg', label: 'এডমিট কার্ড ডাউনলোড', href: '/admit-card' },
+  { icon: '/image57.svg', label: 'ভর্তিসমূহ', href: '/admissions' },
 ]
 
 const CLASSES = [
@@ -35,14 +35,14 @@ export default function Page() {
         </div>
 
         {/* Class list */}
-        <div className='mt-6 grid grid-cols-1 gap-3 md:grid-cols-2'>
+        <div className='mt-6 grid grid-cols-1 gap-8 md:grid-cols-2'>
           {CLASSES.map(cls => (
             <ClassCard key={cls.className} {...cls} />
           ))}
         </div>
 
         {/* Notice */}
-        <div className='mt-6'>
+        <div className='mt-6 grid grid-cols-1 gap-0 md:grid-cols-2'>
           <AdmissionNotice admittedCount='১০/১৬' totalSeats='১৬' seatsRemaining='৬' />
         </div>
       </div>

@@ -40,8 +40,11 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
         </div>
 
         {/* Right Illustration */}
-        <div className='relative h-[220px] w-[320px] shrink-0'>
-          <Image src='/dashboard-illustration.png' alt='' fill className='object-contain object-right' />
+        <div className='absolute -top-[35px] right-[175px] h-[191px] w-[191px]'>
+          <Image src='/d2.svg' alt='' fill className='-rotate-[3deg] object-contain' />
+        </div>
+        <div className='absolute top-[9px] right-0 h-[321px] w-[321px]'>
+          <Image src='/d1.svg' alt='' fill className='object-contain' priority />
         </div>
       </div>
     </div>

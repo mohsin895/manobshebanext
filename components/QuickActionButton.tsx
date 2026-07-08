@@ -12,18 +12,33 @@ export function QuickActionButton({ icon, label, href }: QuickActionButtonProps)
     <Link
       href={href}
       className='
-        flex flex-col items-center justify-center gap-2
-        rounded-[14px] border border-[#EEF0F4] bg-white
-        px-4 py-5
-        text-center shadow-[0_1px_2px_rgba(16,24,40,0.04)]
-        transition-shadow hover:shadow-md
-        focus:outline-none focus:ring-2 focus:ring-[#4A4DE1]/40
+        flex
+        h-[162px]
+        w-[170px]
+        flex-col
+        items-center
+        justify-center
+        gap-[12px]
+        rounded-[32px]
+        bg-[#D9DDFF]
+        p-[40px]
+        transition-all
+        duration-200
+        hover:scale-[1.02]
+        focus:outline-none
+        focus:ring-2
+        focus:ring-[#4A4DE1]/30
+
+        md:h-[220px]
+        md:w-[251.2px]
+        md:p-0
       '
     >
-      <div className='flex h-11 w-11 items-center justify-center rounded-[10px] bg-[#EEF1FE]'>
-        <Image src={icon} alt='' width={22} height={22} className='h-[22px] w-[22px]' />
+      <div className='flex items-center justify-center'>
+        <Image src={icon} alt='' width={56} height={56} className='h-[56px] w-[56px] object-contain' />
       </div>
-      <span className='font-bn text-[13px] font-medium leading-5 text-[#1C1D4A]'>{label}</span>
+
+      <span className='text-center font-bn text-[16px] font-medium leading-[24px] text-[#1C1D4A] md:text-[20px] md:leading-[28px]'>{label}</span>
     </Link>
   )
 }

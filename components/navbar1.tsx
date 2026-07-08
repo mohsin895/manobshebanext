@@ -163,34 +163,25 @@ export function Navbar() {
               {/* Menu Items */}
               <div className='hidden items-center justify-center gap-6 md:flex'>
                 <div className='flex items-center gap-2'>
-                  <a
-                    href='/'
-                    className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
-                    style={isScrolled ? { color: '#FFFFFF' } : undefined}
-                  >
+                  <a href='/' className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
                     {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
                   </a>
 
                   <a
                     href='/about-us'
                     className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
-                    style={isScrolled ? { color: '#FFFFFF' } : undefined}
                   >
                     {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
                   </a>
 
-                  <a
-                    href='#'
-                    className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
-                    style={isScrolled ? { color: '#FFFFFF' } : undefined}
-                  >
+                  <a href='#' className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'>
                     {language === 'bn' ? 'কার্যক্রম' : 'Training'}
                   </a>
                 </div>
 
                 {/* Dropdown Menu */}
                 <div className='relative' onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-                  <a href='#' className='text-sm font-medium  font-bn text-gray-700 hover:text-orange-500 flex items-center gap-1 py-7' style={isScrolled ? { color: '#FFFFFF' } : undefined}>
+                  <a href='#' className='text-sm font-medium  font-bn text-gray-700 hover:text-orange-500 flex items-center gap-1 py-7'>
                     {language === 'bn' ? 'মেধাবৃত্তি' : 'News'}
                     <svg className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                       <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
