@@ -9,11 +9,14 @@ export type MeritoriousStudent = {
   motherName: string
   institutionName: string
   rollNumber: string
+  className: string // e.g. '৮'
+  upazila: string // e.g. 'সিরাজদিখান'
   category: 'talent-pool' | 'general'
   photo: string
+  meritPosition: string
+  marks: string
 }
 
-// TODO: replace with real data from your API.
 const STUDENTS: MeritoriousStudent[] = Array.from({ length: 12 }).map((_, i) => ({
   id: String(i + 1),
   name: 'সুমাইয়া ইসলাম',
@@ -21,16 +24,28 @@ const STUDENTS: MeritoriousStudent[] = Array.from({ length: 12 }).map((_, i) => 
   motherName: 'সুমা আক্তার',
   institutionName: 'লক্ষ্মী মাধ্যমিক বিদ্যালয়',
   rollNumber: String(9050 + i),
+  className: '৮',
+  upazila: 'সিরাজদিখান',
   category: i % 3 === 0 ? 'talent-pool' : 'general',
   photo: '/student.png',
+  meritPosition: 'প্রথম',
+  marks: '৬৭',
 }))
 
-function DetailRow({ label, value }: { label: string; value: string }) {
+function InfoBadge({ icon, label }: { icon: string; label: string }) {
   return (
-    <div className='flex flex-col'>
-      <span className='font-bn text-[11px] leading-4 text-[#6B7280]'>{label}</span>
-      <span className='font-bn text-[13px] font-medium leading-5 text-[#1F2937] truncate'>{value}</span>
+    <div className='flex flex-1 flex-col items-center justify-center gap-1 px-2 text-center'>
+      <Image src={icon} alt='' width={24} height={24} className='h-6 w-6' />
+      <span className='font-bn text-[12px] font-medium leading-[16px] text-[#1C1D4A]'>{label}</span>
     </div>
+  )
+}
+function DetailLine({ label, value }: { label: string; value: string }) {
+  return (
+    <p className='font-bn text-[13px] leading-6 text-[#374151] truncate'>
+      <span className='text-[#6B7280]'>{label}: </span>
+      <span className='font-medium text-[#1F2937]'>{value}</span>
+    </p>
   )
 }
 
@@ -74,59 +89,33 @@ function StudentCard({ student }: { student: MeritoriousStudent }) {
             <Image src={student.photo} alt={student.name} width={242} height={242} className='h-full w-full rounded-full object-cover' />
           </div>
         </div>
-
-        <span
-          className='
-            font-bn
-            absolute
-            -left-3
-            -bottom-1
-            whitespace-nowrap
-            rounded-full
-            bg-[#FF6B35]
-            px-2
-            py-[2px]
-            text-[9px]
-            font-medium
-            text-white
-            shadow-sm
-          '
-        >
-          {categoryLabel}
-        </span>
-
-        <span
-          className='
-            font-bn
-            absolute
-            -right-4
-            -bottom-1
-            whitespace-nowrap
-            rounded-full
-            bg-[#2E5AAC]
-            px-2
-            py-[2px]
-            text-[9px]
-            font-medium
-            text-white
-            shadow-sm
-          '
-        >
-          রোল {student.rollNumber}
-        </span>
       </div>
+      <div className='mt-4 flex bg-[#fff] h-[84px] w-[291px] overflow-hidden rounded-[8px] border border-[#E5E7EB] '>
+        <InfoBadge icon='/s3.svg' label={`মেধাস্থান-${student.meritPosition}`} />
 
+        <div className='w-px bg-[#E5E7EB]' />
+
+        <InfoBadge icon='/s2.svg' label={categoryLabel} />
+
+        <div className='w-px bg-[#E5E7EB]' />
+
+        <InfoBadge icon='/s1.svg' label={`প্রাপ্ত নম্বর: ${student.marks}`} />
+      </div>
       {/* Name */}
-      <div className='mt-4 flex flex-col items-center text-center'>
-        <span className='font-bn text-[11px] leading-4 text-[#6B7280]'>শিক্ষার্থীর নাম</span>
-        <span className='font-bn text-[15px] font-semibold leading-5 text-[#1F2937]'>{student.name}</span>
+      {/* Name */}
+      <div className='mt-4 flex flex-col items-start text-left'>
+        <span className='font-bn text-[20px] font-medium leading-[28px] tracking-[0] text-[#1C1D4A]'>{student.name}</span>
       </div>
 
       {/* Details */}
-      <div className='mt-3 grid w-full grid-cols-1 gap-2 text-center'>
-        <DetailRow label='পিতার নাম' value={student.fatherName} />
-        <DetailRow label='মাতার নাম' value={student.motherName} />
-        <DetailRow label='বিদ্যালয়ের নাম' value={student.institutionName} />
+      <div className='mt-3 flex flex-col gap-1 text-left'>
+        <div className='flex items-center gap-4'>
+          <DetailLine label='রোল নম্বর' value={student.rollNumber} />
+          <DetailLine label='শ্রেণি' value={student.className} />
+        </div>
+        <DetailLine label='পিতা' value={student.fatherName} />
+        <DetailLine label='বিদ্যালয়' value={student.institutionName} />
+        <DetailLine label='উপজেলা' value={student.upazila} />
       </div>
     </div>
   )

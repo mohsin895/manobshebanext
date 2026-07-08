@@ -27,6 +27,7 @@ export function Navbar() {
     { bn: 'পরীক্ষার আসন অনুসন্ধান', en: 'Student Result Search', href: '/seat-plan' },
     { bn: 'কৃতি শিক্ষার্থী', en: 'Student Result Search', href: '/meritorious-student' },
     { bn: 'শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ', en: 'Institution Achievements' },
+    { bn: 'Registration', en: 'Institution Achievements', href: '/auth/user' },
   ]
 
   // Measure real heights once, and again on resize — never guessed.
