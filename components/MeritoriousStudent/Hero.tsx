@@ -21,47 +21,59 @@ function StatPill({ label, value }: StatPillProps) {
   return (
     <div
       className='
-    flex
-    w-full
-    max-w-[424px]
-    h-[140px]
-    flex-col
-    items-center
-    justify-center
-    gap-[32px]
-    rounded-[24px]
-    border
-    border-[#C8C8C8]
-    px-[24px]
-    py-[24px]
-    backdrop-blur-[16px]
-  '
+        flex
+        w-[89px]
+        h-[78px]
+        flex-col
+        items-center
+        justify-between
+        rounded-[16px]
+        border
+        border-[#C8C8C8]
+        px-[16px]
+        py-[12px]
+
+        md:w-full
+        md:max-w-[424px]
+        md:h-[140px]
+        md:justify-center
+        md:gap-[32px]
+        md:rounded-[24px]
+        md:px-[24px]
+        md:py-[24px]
+
+        backdrop-blur-[16px]
+      '
       style={{
         background: 'linear-gradient(180deg, rgba(128,128,128,0.5) 0%, rgba(26,26,26,0.5) 90.19%)',
       }}
     >
       <p
         className='
-      font-bn
-      text-[28px]
-      font-bold
-      leading-[100%]
-      text-[#FF6B35]
-      md:text-[48px]
-    '
+          font-bn
+          text-[16px]
+          font-bold
+          leading-[100%]
+          text-[#FF6B35]
+
+          md:text-[48px]
+        '
       >
         {toBnDigits(value)}
       </p>
 
       <p
         className='
-      font-bn
-      text-[16px]
-      font-normal
-      leading-[24px]
-      text-white
-      md:text-[20px]
-    '
+          text-center
+          font-bn
+          text-[8px]
+          font-normal
+          leading-[100%]
+          text-white
+
+          md:text-[20px]
+          md:leading-[24px]
+        '
       >
         {label}
       </p>
@@ -145,7 +157,7 @@ export function MeritoriousStudentHero() {
 
               {/* Stats */}
               <div className='mt-auto mb-0 w-full'>
-                <div className='flex flex-wrap  gap-3  md:gap-2'>
+                <div className='grid grid-cols-3 place-items-center gap-2 md:gap-3'>
                   <StatPill label='ট্যালেন্টপুল' value={stats.talentPool} />
                   <StatPill label='সাধারণ গ্রেড' value={stats.generalGrade} />
                   <StatPill label='মোট বৃত্তিপ্রাপ্ত' value={stats.totalAwarded} />

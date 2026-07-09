@@ -36,84 +36,84 @@ function SyllabusCard({ item }: { item: SyllabusItem }) {
   return (
     <div
       className='
-        mx-auto
-        w-full
-        md:w-[315px]
-        h-[427px]
-        rounded-[20px]
-        border
-        border-[#FFC7A8]
-        bg-[#FFF4ED]
-        p-[12px]
-        flex
-        flex-col
-        gap-[12px]
-      '
+    mx-auto
+    w-[327px]
+    md:w-[315px]
+    rounded-[20px]
+    border
+    border-[#FFC7A8]
+    bg-[#FFF4ED]
+    px-[16px]
+    pb-[16px]
+    pt-[12px]
+    md:p-[12px]
+    flex
+    flex-col
+    gap-6
+  '
     >
-      {/* Image */}
       {/* Image */}
       <div
         className='
-    relative
-    w-[291px]
-    h-[250px]
-    overflow-hidden
-    rounded-[12px]
-    mx-auto
-    shrink-0
-  '
+      relative
+      w-full
+      h-[250px]
+      md:w-[291px]
+      md:h-[250px]
+      overflow-hidden
+      rounded-[12px]
+      shrink-0
+    '
       >
         <Image src={item.image} alt={item.className} fill className='rounded-[12px] object-cover' />
       </div>
 
-      {/* Title */}
-      <h3
-        className='
-    font-bn-serif
-    font-semibold
-    text-[24px]
-    md:text-[32px]
-    leading-[160%]
-    tracking-[0.14px]
-    text-[#282929]
-    text-left
-  '
-      >
-        {item.className}
-      </h3>
+      {/* Content */}
+      <div className='flex flex-col gap-4'>
+        <h3
+          className='
+        font-bn-serif
+        font-semibold
+        text-[24px]
+        md:text-[32px]
+        leading-[160%]
+        tracking-[0.14px]
+        text-[#282929]
+        text-left
+      '
+        >
+          {item.className}
+        </h3>
 
-      {/* Download Button */}
-      <a
-        href={item.fileUrl}
-        download
-        className='
-    mt-auto
-    mx-auto
-    flex
-    w-[267px]
-    h-[50px]
-    items-center
-    justify-center
-    gap-[10px]
-    rounded-[99px]
-    bg-[#FF6B35]
-
-    font-bn
-    text-[16px]
-    font-medium
-    leading-[24px]
-    tracking-[0]
-    text-white
-    transition-colors
-    hover:bg-[#e95d2d]
-    focus:outline-none
-    focus:ring-2
-    focus:ring-[#FF6B35]/50
-  '
-      >
-        <span>সিলেবাস ডাউনলোড</span>
-        <Download className='h-5 w-5 shrink-0' />
-      </a>
+        <a
+          href={item.fileUrl}
+          download
+          className='
+        flex
+        h-[50px]
+        w-full
+        md:w-[267px]
+        items-center
+        justify-center
+        gap-[10px]
+        rounded-full
+        bg-[#FF6B35]
+        font-bn
+        text-[16px]
+        font-medium
+        leading-6
+        text-white
+        transition-colors
+        hover:bg-[#e95d2d]
+        focus:outline-none
+        focus:ring-2
+        focus:ring-[#FF6B35]/50
+      '
+        >
+          <span>সিলেবাস ডাউনলোড</span>
+          <Download className='h-5 w-5 shrink-0' />
+        </a>
+      </div>
     </div>
   )
 }
