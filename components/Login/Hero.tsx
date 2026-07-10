@@ -18,7 +18,7 @@ export function LoginHero() {
     h-[570px]
 
     md:w-[1320px]
-    md:h-[832px]
+    md:h-[650px]
   '
         >
           {/* Full-width Hero Image */}
@@ -42,9 +42,9 @@ export function LoginHero() {
             />
 
             {/* Text Content */}
-            <div className=' relative z-10 mt-2 md:mt-[12px] p-5 md:p-10 flex flex-col items-center text-center '>
+            <div className=' relative z-10 mt-2  p-5  flex flex-col items-center text-center '>
               {/* Badge */}
-              <div className='inline-flex items-center gap-2  px-4 py-2 mt-8 text-white  w-fit'>
+              <div className='inline-flex items-center gap-2  px-4 py-2  text-white  w-fit'>
                 <span className='flex items-center justify-center'>
                   <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
@@ -55,15 +55,15 @@ export function LoginHero() {
               {/* Title + Buttons */}
               <div>
                 <div
-                  className='  mt-1 md:mt-5 mx-auto flex w-[327px] flex-col items-center gap-[10px]
+                  className='  mt-1  mx-auto flex w-[327px] flex-col items-center gap-[5px]
     pb-[10px]
     text-center
 
     md:mx-0
     md:w-[465px]
-    md:items-start
-    md:gap-[20px]
-    md:text-left
+    md:items-center
+    md:gap-[5px]
+    md:text-center
   '
                 >
                   <h1
@@ -90,7 +90,6 @@ export function LoginHero() {
             leading-[24px]
             tracking-[0]
             text-[#FFFFFF]
-mt-8
             md:text-[40px]
             md:leading-[48px]
         '
@@ -106,7 +105,6 @@ mt-8
             leading-[20px]
             tracking-[0]
             text-[#FFFFFF]
-mt-8
             md:text-[16px]
             md:leading-[24px]
         '
@@ -118,7 +116,7 @@ mt-8
                 </div>
               </div>
 
-              <div className='mt-8 flex justify-center md:justify-start'>
+              <div className='mt-8 flex justify-center md:justify-center'>
                 <div
                   className='
 flex
@@ -174,7 +172,7 @@ md:gap-[20px]
 
                         <input
                           type='password'
-                          placeholder='আপনার পাসওয়ার্ড লিখুন'
+                          placeholder='আপনার পাসওয়ার্ড লিখুন'
                           className='
     font-bn
     w-[226px] md:w-[652px]

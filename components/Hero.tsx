@@ -4,6 +4,7 @@ import { useLanguage } from '@/app/context/LanguageContext'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { FallDownText } from '@/components/FallDownText'
 
 const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
 
@@ -226,7 +227,9 @@ mt-2
 '
                   />
 
-                  <p
+                  <FallDownText
+                    as='p'
+                    text={isBn ? 'নিবন্ধন ও অংশগ্রহণ করুন' : 'Selection and Apply'}
                     className='
             font-bn-serif
             font-medium
@@ -238,10 +241,8 @@ mt-2
             min-[768px]:text-[40px] min-[1301px]:text-[40px]
             min-[768px]:leading-[48px] min-[1301px]:leading-[48px]
         '
-                  >
-                    {isBn ? 'নিবন্ধন ও অংশগ্রহণ করুন' : 'Selection and Apply'}
-                  </p>
-
+                    delayPerChar={25}
+                  />
                   <p
                     className='
             font-bn-serif
@@ -261,7 +262,8 @@ mt-2
                   </p>
                 </div>
                 <div className='flex flex-col min-[768px]:flex-row min-[1301px]:flex-row gap-3 mt-3 justify-center min-[768px]:justify-start min-[1301px]:justify-start items-center'>
-                  <Button
+                  <a
+                    href='/auth/login'
                     className='
     w-[155px] h-[40px]
     px-4 py-2
@@ -280,9 +282,10 @@ mt-2
                   >
                     <Image src='/image61.svg' alt='logo' width={20} height={20} className='w-5 h-5' />
                     {isBn ? 'আবেদন করুন' : 'Apply Now'}
-                  </Button>
-                  <Button
-                    variant='outline'
+                  </a>
+                  <a
+                    href='/about-us'
+
                     className='
     w-[140px]
     h-[40px]
@@ -306,7 +309,7 @@ mt-2
   '
                   >
                     {isBn ? 'আরও জানুন →' : 'Learn More →'}
-                  </Button>
+                  </a>
                 </div>
               </div>
 
@@ -345,7 +348,9 @@ mt-2
                       <Image src='/image4.png' alt='logo' width={16} height={16} className='w-3 h-3 min-[768px]:w-4 min-[768px]:h-4 min-[1301px]:w-4 min-[1301px]:h-4 animate-deadline-icon' />
                     </div>
 
-                    <span
+                    <FallDownText
+                      as='span'
+                      text={isBn ? 'আবেদন সম্পন্ন করার সর্বশেষ সময় বাকি' : 'Time left until deadline'}
                       className='
   font-bn-serif
   rounded-md
@@ -358,9 +363,8 @@ mt-2
   tracking-normal
   whitespace-nowrap
 '
-                    >
-                      {isBn ? 'আবেদন সম্পন্ন করার সর্বশেষ সময় বাকি' : 'Time left until deadline'}
-                    </span>
+                      delayPerChar={25}
+                    />
                   </div>
 
                   {/* Timer */}
@@ -437,9 +441,13 @@ mt-2
             {/* Content - bottom 50% */}
             <div className='w-full h-[50%] flex flex-col items-center justify-center gap-[12px]'>
               {/* Title */}
-              <h3 className='font-bn text-center font-medium text-[#282929] text-[12px] leading-4 min-[768px]:text-[24px] min-[768px]:leading-8 min-[1301px]:text-[24px] min-[1301px]:leading-8'>
-                {isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
-              </h3>
+
+              <FallDownText
+                as='h3'
+                text={isBn ? 'মেধার সঠিক মূল্যায়ন' : 'Merit Award Method'}
+                className='font-bn text-center font-medium text-[#282929] text-[12px] leading-4 min-[768px]:text-[24px] min-[768px]:leading-8 min-[1301px]:text-[24px] min-[1301px]:leading-8'
+                delayPerChar={25}
+              />
 
               {/* Description */}
               <p className='font-bn-serif text-center text-[#545959] font-normal text-[14px] leading-6 min-[768px]:text-[16px] min-[768px]:leading-6 min-[1301px]:text-[16px] min-[1301px]:leading-6'>

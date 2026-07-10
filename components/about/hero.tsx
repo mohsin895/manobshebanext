@@ -44,7 +44,7 @@ export function AboutHero() {
         270deg,
         rgba(255,255,255,0) -15.39%,
         rgba(120,120,120,0.2) 13.46%,
-        rgba(0,3,23,0.8) 100%
+        rgba(0 3 23 / 0%) 100%
       ),
       url('/about-us.png')
     `,

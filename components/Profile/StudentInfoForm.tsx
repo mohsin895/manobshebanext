@@ -52,7 +52,7 @@ function PhotoPickerModal({ onClose, onPick }: { onClose: () => void; onPick: (f
         </button>
 
         <div className='mx-auto mb-5 h-40 w-40 overflow-hidden rounded-xl bg-gray-100'>
-          <img src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=faces' alt='নমুনা প্রোফাইল ছবি' className='h-full w-full object-cover' />
+          <img src='/profile.webp?w=300&h=300&fit=crop&crop=faces' alt='নমুনা প্রোফাইল ছবি' className='h-full w-full object-cover' />
         </div>
 
         <ul className='mb-5 space-y-2 text-sm text-gray-600'>
@@ -90,10 +90,19 @@ function PhotoPickerModal({ onClose, onPick }: { onClose: () => void; onPick: (f
 export default function StudentInfoForm() {
   const [showPhotoModal, setShowPhotoModal] = useState(false)
   const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)
   const [gender, setGender] = useState('')
   const [bloodGroup, setBloodGroup] = useState('')
   const [religion, setReligion] = useState('')
   const [nationality, setNationality] = useState('')
+
+  const handlePhotoPick = (file: File) => {
+    setPhotoFile(file)
+    setPhotoPreviewUrl(prev => {
+      if (prev) URL.revokeObjectURL(prev)
+      return URL.createObjectURL(file)
+    })
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -184,26 +193,28 @@ export default function StudentInfoForm() {
           <Field label='রক্তের গ্রুপ'>
             <Select placeholder='নির্বাচন করুন...' options={['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']} value={bloodGroup} onChange={setBloodGroup} />
           </Field>
-
-          <Field label='জন্ম তারিখ'>
-            <input type='date' className={inputClass} placeholder='পরীক্ষার্থীর জন্ম তারিখ নির্বাচন করুন' />
+          <Field label='জন্ম সনদ নং'>
+            <input className={inputClass} placeholder='পরীক্ষার্থীর জন্ম সনদ নম্বর লিখুন' />
           </Field>
           <Field label='ধর্ম'>
             <Select placeholder='নির্বাচন করুন...' options={['ইসলাম', 'হিন্দু', 'বৌদ্ধ', 'খ্রিস্টান', 'অন্যান্য']} value={religion} onChange={setReligion} />
           </Field>
 
-          <Field label='জাতীয়তা' optional>
-            <Select placeholder='নির্বাচন করুন...' options={['বাংলাদেশি', 'অন্যান্য']} value={nationality} onChange={setNationality} />
+          <Field label='শ্রেণি'>
+            <Select placeholder='নির্বাচন করুন...' options={['ইসলাম', 'হিন্দু', 'বৌদ্ধ', 'খ্রিস্টান', 'অন্যান্য']} value={religion} onChange={setReligion} />
           </Field>
-          <Field label='রেফারেন্স নাম' optional>
-            <input className={inputClass} placeholder='রেফারেন্স নাম লিখুন' />
+
+          <Field label='মোবাইল নং (ইংরেজিতে)'>
+            <input className={inputClass} placeholder='মোবাইল নম্বর লিখুন' />
           </Field>
 
           <div className='sm:col-span-2'>
             <label className={labelClass}>ঠিকানা (বাংলায়)</label>
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
               <input className={inputClass} placeholder='গ্রাম/মহল্লা' />
-              <input className={inputClass} placeholder='থানা/উপজেলা' />
+              <input className={inputClass} placeholder='ডাকঘর' />
+              <input className={inputClass} placeholder='উপজেলা' />
+              <input className={inputClass} placeholder='জেলাা' />
             </div>
           </div>
 
@@ -219,8 +230,16 @@ export default function StudentInfoForm() {
             <p className='mt-1.5 text-xs text-gray-400'>SVG, PNG, JPG, অথবা GIF (সর্বোচ্চ 400x400px)</p>
           </Field>
 
-          <Field label='বিবরণ' optional>
-            <textarea className={`${inputClass} h-[86px] resize-none`} placeholder='কিছু বিবরণ লিখুন' />
+          <Field label='ছবি প্রিভিউ দেখুন' optional>
+            <div className='flex h-[136px] w-full items-center rounded-lg border border-white px-3 py-2'>
+              {photoPreviewUrl ? (
+                <img src={photoPreviewUrl} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
+              ) : (
+                <div className='flex h-full w-full items-center justify-center rounded-lg border border-dashed border-gray-300'>
+                  <span className='text-sm text-gray-400'>কোনো ছবি নির্বাচিত হয়নি</span>
+                </div>
+              )}
+            </div>
           </Field>
         </div>
 
@@ -234,7 +253,7 @@ export default function StudentInfoForm() {
         </div>
       </form>
 
-      {showPhotoModal && <PhotoPickerModal onClose={() => setShowPhotoModal(false)} onPick={file => setPhotoFile(file)} />}
+      {showPhotoModal && <PhotoPickerModal onClose={() => setShowPhotoModal(false)} onPick={handlePhotoPick} />}
     </div>
   )
 }

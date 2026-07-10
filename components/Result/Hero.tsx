@@ -61,7 +61,7 @@ export function ResultHero() {
     min-h-[570px]
 
     md:w-[1320px]
-    md:min-h-[832px]
+    md:min-h-[560px]
   '
         >
           {/* Full-width Hero Image */}
@@ -84,27 +84,19 @@ export function ResultHero() {
             />
 
             {/* Text Content */}
-            <div className=' relative z-10 mt-2 md:mt-[12px] p-5 md:p-10 flex flex-col items-center text-center '>
+            <div className=' relative z-10 mt-2 p-5  flex flex-col items-center text-center '>
               {/* Badge */}
-              <div className='inline-flex items-center gap-2  px-4 py-2 mt-8 text-white  w-fit'>
-                <span className='flex items-center justify-center'>
-                  <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
-                </span>
-
-                <span className='font-bn-serif text-[12px] font-normal leading-5 text-[#FFFFFF] md:text-[14px]'>{t('exam.next_exam')}</span>
-              </div>
 
               {/* Title */}
               <div>
                 <div
-                  className='  mt-1 md:mt-5 mx-auto flex w-[327px] flex-col items-center gap-[10px]
-    pb-[10px]
+                  className=' mx-auto flex w-[327px] flex-col items-center gap-[5px]
     text-center
 
     md:mx-0
     md:w-[465px]
     md:items-center
-    md:gap-[20px]
+
     md:text-center
   '
                 >
@@ -116,7 +108,6 @@ export function ResultHero() {
             leading-[26px]
             tracking-[0]
             text-[#FF6B35]
-
             md:text-[64px]
             md:leading-[80px]
         '
@@ -132,7 +123,6 @@ export function ResultHero() {
             leading-[24px]
             tracking-[0]
             text-[#FFFFFF]
-mt-8
             md:text-[40px]
             md:leading-[48px]
         '
@@ -148,7 +138,6 @@ mt-8
             leading-[20px]
             tracking-[0]
             text-[#FFFFFF]
-mt-8
             md:text-[16px]
             md:leading-[24px]
         '
@@ -194,13 +183,13 @@ md:p-[24px]
     h-[40px] md:h-[48px]
     rounded-[8px]
     border border-white/30
-    bg-white/20
+    bg-[#E4E4E4]
     p-[8px] md:p-[12px]
     text-[16px]
     font-normal
     leading-[24px]
     text-white
-    placeholder:text-white/50
+    placeholder:text-[#8F8F8F]
     outline-none
     focus:border-[#FF6B35]
   '
@@ -219,7 +208,7 @@ md:p-[24px]
       h-[40px] md:h-[48px]
       rounded-[8px]
       border border-[#E2E2E2]
-      bg-white
+      bg-[#E2E2E2]
       px-[12px]
       text-[16px]
       font-normal

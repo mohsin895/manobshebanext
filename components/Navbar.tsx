@@ -139,7 +139,7 @@ export function Navbar() {
           style={
             isScrolled
               ? {
-                  backgroundColor: '#FFFFFF3D',
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
                 }
@@ -154,7 +154,9 @@ export function Navbar() {
               {/* Logo */}
               <div className='flex items-center gap-2'>
                 <div className='flex h-[40px] w-[50px] items-center justify-center rounded-full'>
-                  <Image src='/navlogo.png' height={40} width={50} style={{ height: '40px', width: '40px' }} alt='logo' />
+                  <a href='/'>
+                    <Image src='/navlogo.png' height={40} width={50} style={{ height: '40px', width: '40px' }} alt='logo' />
+                  </a>
                 </div>
               </div>
 

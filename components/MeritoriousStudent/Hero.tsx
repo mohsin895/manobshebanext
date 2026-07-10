@@ -138,22 +138,14 @@ export function MeritoriousStudentHero() {
                 className='
               inline-flex
               items-center
-              gap-2
-              rounded-full
-              border
-              border-white/30
-              bg-white/10
-              px-4
-              py-2
-              backdrop-blur-[10px]
+
             '
               >
-                <Image src='/meritorious.svg' alt='মেধাবৃত্তি' width={22} height={22} className='h-[18px] w-[18px] md:h-[22px] md:w-[22px]' />
-                <span className='font-bn text-[13px] font-semibold text-[#FF6B35] md:text-[16px]'>মেধাবৃত্তি</span>
+                <Image src='/meritorias.svg' alt='মেধাবৃত্তি' width={250} height={150} className='h-[100px] w-[150px] md:h-[150px] md:w-[250px]' />
               </div>
 
               {/* Title */}
-              <h1 className='font-bn text-[24px] font-semibold leading-[32px] text-white md:text-[40px] md:leading-[52px]'>{isBn ? 'কৃতি শিক্ষার্থী' : 'Meritorious Students'}</h1>
+              <h1 className='font-bn text-[24px] font-normal leading-[32px] text-[#FF6B35] md:text-[48px] md:leading-[64px]'>{isBn ? 'কৃতি শিক্ষার্থী' : 'Meritorious Students'}</h1>
 
               {/* Stats */}
               <div className='mt-auto mb-0 w-full'>
