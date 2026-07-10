@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { Button } from '@/components/ui/button'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
@@ -14,6 +14,79 @@ const toLocaleDigits = (num: number, isBn: boolean) => {
     .split('')
     .map(d => bnDigits[Number(d)] ?? d)
     .join('')
+}
+
+function CascadeText({ text, className }: { text: string; className?: string }) {
+  const containerRef = useRef<HTMLHeadingElement>(null)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    // Split into real visual letters (grapheme clusters), not raw JS chars.
+    // This keeps Bengali conjuncts/matras attached to their base letter.
+    const segmenter = typeof Intl !== 'undefined' && 'Segmenter' in Intl ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null
+
+    const graphemes = segmenter ? Array.from(segmenter.segment(text), seg => seg.segment) : Array.from(text) // fallback: at least respects surrogate pairs
+
+    const chars = graphemes.map(ch => {
+      const span = document.createElement('span')
+      span.style.display = 'inline-block'
+      span.style.whiteSpace = 'pre'
+      span.style.willChange = 'transform, opacity'
+      span.textContent = ch
+      return span
+    })
+
+    el.innerHTML = ''
+    chars.forEach(c => el.appendChild(c))
+
+    const ease = {
+      out: (t: number) => 1 - (1 - t) ** 3,
+      in: (t: number) => t ** 3,
+      bounce: (t: number) => {
+        const n = 7.5625,
+          d = 2.75
+        if (t < 1 / d) return n * t * t
+        if (t < 2 / d) return n * (t -= 1.5 / d) * t + 0.75
+        if (t < 2.5 / d) return n * (t -= 2.25 / d) * t + 0.9375
+        return n * (t -= 2.625 / d) * t + 0.984375
+      },
+    }
+
+    function cyc(f: number, offset: number, enter: number, hold: number, exit: number, pause: number, eIn = ease.out, eOut = ease.in) {
+      if (f < offset) return 0
+      const total = enter + hold + exit + pause
+      const t = (f - offset) % total
+      if (t < enter) return eIn(t / enter)
+      if (t < enter + hold) return 1
+      if (t < enter + hold + exit) return 1 - eOut((t - enter - hold) / exit)
+      return 0
+    }
+
+    const STAGGER = 14,
+      ENTER = 42,
+      HOLD = 62,
+      EXIT = 34,
+      PAUSE = 36
+    let f = 0
+    let raf: number
+
+    const frame = () => {
+      f++
+      chars.forEach((ch, i) => {
+        const p = cyc(f, i * STAGGER, ENTER, HOLD, EXIT, PAUSE, ease.bounce, ease.in)
+        ch.style.opacity = String(p < 0.12 ? p / 0.12 : 1)
+        ch.style.transform = `translateY(${(1 - p) * -46}px)`
+      })
+      raf = requestAnimationFrame(frame)
+    }
+    frame()
+
+    return () => cancelAnimationFrame(raf)
+  }, [text])
+
+  return <h1 ref={containerRef} className={className} />
 }
 export function Hero() {
   const { t } = useLanguage()
@@ -138,21 +211,20 @@ mt-2
     md:text-left
   '
                 >
-                  <h1
+                  <CascadeText
+                    text={isBn ? 'মেধাবৃত্তি ২০২৬' : 'Merit Scholarship 2026'}
                     className='
-            font-bn
-            font-semibold
-            text-[20px]
-            leading-[26px]
-            tracking-[0]
-            text-[#FF6B35]
+    font-bn
+    font-semibold
+    text-[20px]
+    leading-[26px]
+    tracking-[0]
+    text-[#FF6B35]
 
-            min-[768px]:text-[64px] min-[1301px]:text-[64px]
-            min-[768px]:leading-[80px] min-[1301px]:leading-[80px]
-        '
-                  >
-                    {isBn ? 'মেধাবৃত্তি ২০২৬' : 'Merit Scholarship 2026'}
-                  </h1>
+    min-[768px]:text-[64px] min-[1301px]:text-[64px]
+    min-[768px]:leading-[80px] min-[1301px]:leading-[80px]
+'
+                  />
 
                   <p
                     className='

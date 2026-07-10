@@ -3,6 +3,7 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 import { BookOpen, BellRing, Languages, Sigma, MonitorSmartphone, Globe2, Trees, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { FallDownText } from '@/components/FallDownText'
 
 const subjects = [
   { key: 'bengali', icon: '/image91.svg', color: 'text-red-500', bg: 'bg-red-50' },
@@ -38,7 +39,9 @@ export function ExamStructure() {
             <Image src='/about2.png' width={24} height={24} alt={t('about.photo_alt')} />
           </div>
 
-          <h2
+          <FallDownText
+            as='h2'
+            text={t('structure.title')}
             className='
     mb-2
     text-center
@@ -49,10 +52,12 @@ export function ExamStructure() {
     tracking-[0]
     text-[#282929]
   '
-          >
-            {t('structure.title')}
-          </h2>
-          <p
+            delayPerChar={25}
+          />
+
+          <FallDownText
+            as='p'
+            text={t('structure.subtitle')}
             className='
     text-center
     font-bn-serif
@@ -62,9 +67,8 @@ export function ExamStructure() {
     tracking-[0]
     text-[#404545]
   '
-          >
-            {t('structure.subtitle')}
-          </p>
+            delayPerChar={25}
+          />
         </div>
 
         {/* Two-column grid */}
