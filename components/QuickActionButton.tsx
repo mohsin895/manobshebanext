@@ -13,15 +13,15 @@ export function QuickActionButton({ icon, label, href }: QuickActionButtonProps)
       href={href}
       className='
         flex
-        h-[162px]
-        w-[170px]
+        aspect-square
+        w-full
         flex-col
         items-center
         justify-center
         gap-[12px]
         rounded-[32px]
         bg-[#D9DDFF]
-        p-[40px]
+        p-[24px]
         transition-all
         duration-200
         hover:scale-[1.02]
@@ -29,6 +29,7 @@ export function QuickActionButton({ icon, label, href }: QuickActionButtonProps)
         focus:ring-2
         focus:ring-[#4A4DE1]/30
 
+        md:aspect-auto
         md:h-[220px]
         md:w-[251.2px]
         md:p-0

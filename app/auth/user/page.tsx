@@ -6,10 +6,10 @@ import { ClassCard } from '@/components/ClassCard'
 import { AdmissionNotice } from '@/components/AdmissionNotice'
 
 const QUICK_ACTIONS = [
-  { icon: '/image55.svg', label: 'আবেদন', href: '/apply' },
-  { icon: '/image56.svg', label: 'শিক্ষার্থীদের তালিকা দেখুন', href: '/students' },
-  { icon: '/image58.svg', label: 'এডমিট কার্ড ডাউনলোড', href: '/admit-card' },
-  { icon: '/image57.svg', label: 'ভর্তিসমূহ', href: '/admissions' },
+  { icon: '/image55.svg', label: 'আবেদন', href: '/auth/student/registration' },
+  { icon: '/image56.svg', label: 'শিক্ষার্থীদের তালিকা দেখুন', href: '/auth/student/list' },
+  { icon: '/image58.svg', label: 'এডমিট কার্ড ডাউনলোড', href: '/auth/student/admit-card' },
+  { icon: '/image57.svg', label: 'অর্জনসমূহ', href: '/admissions' },
 ]
 
 const CLASSES = [

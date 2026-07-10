@@ -58,7 +58,9 @@ const translations: Record<Language, Record<string, string>> = {
     'achievements.generalGrade.value': '১০ জন',
     'achievements.certificates.label': 'উদযাপনপূর্ণ',
     'achievements.certificates.value': '৩০০ জন',
-
+    'loginProcess.tooltip': 'কিভাবে লগইন করবেন?',
+    'partner.title': 'আমাদের পৃষ্ঠপোষক সমূহ',
+    'PrivacyHero.title': 'গোপনীয়তা নীতি',
     // Events
     'events.title': 'ইভেন্ট এবং কর্মসূচি',
     'events.view': 'দেখুন',
