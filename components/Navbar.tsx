@@ -91,51 +91,58 @@ export function Navbar() {
   return (
     <>
       {/* Fixed header — transform-only animation, no layout recalculation,
-          no sticky. This is what removes the trembling. */}
-      <div className='fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out will-change-transform' style={{ transform: `translateY(${showTopBar ? 0 : -topBarHeight}px)` }}>
-        <div ref={topBarRef} className='bg-[#FF6B35] mx-auto max-w-[1320px] text-white rounded-b-[10px] hidden md:block'>
-          <div className='mx-auto max-w-[1320px] px-4'>
-            <div className='flex items-center gap-6 py-2 text-sm'>
-              <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
-                <Image src='/image111.svg' height={24} width={24} alt='location' />
-                <span>Munshiganj</span>
-              </a>
-              <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
-                <Image src='/image112.svg' height={24} width={24} alt='location' />
-                <span>01949482583</span>
-              </a>
-              <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
-                <Image src='/image123.svg' height={24} width={24} alt='location' />
-                <span>org.bmsf@gmail.com</span>
-              </a>
-              <span className='ml-auto flex gap-3'>
-                <button className='hover:text-orange-100'>
-                  <Image src='/image124.svg' height={24} width={24} alt='location' />
-                </button>
-                <button className='hover:text-orange-100'>
-                  <Image src='/image125.svg' height={24} width={24} alt='location' />
-                </button>
-                <button className='hover:text-orange-100'>
-                  <Image src='/image127.svg' height={24} width={24} alt='location' />
-                </button>
-                <button className='hover:text-orange-100'>
-                  <Image src='/image128.svg' height={24} width={24} alt='location' />
-                </button>
-              </span>
+          no sticky. Topbar unmounts entirely once scrolled, leaving only
+          the compact navbar pinned at the top. */}
+      <div
+        className='fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out will-change-transform'
+        style={{ transform: `translateY(${showTopBar || isScrolled ? 0 : -topBarHeight}px)` }}
+      >
+        {!isScrolled && (
+          <div ref={topBarRef} className='bg-[#FF6B35] mx-auto max-w-[1320px] text-white rounded-b-[10px] hidden md:block'>
+            <div className='mx-auto max-w-[1320px] px-4'>
+              <div className='flex items-center gap-6 py-2 text-sm'>
+                <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
+                  <Image src='/image111.svg' height={24} width={24} alt='location' />
+                  <span>Munshiganj</span>
+                </a>
+                <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
+                  <Image src='/image112.svg' height={24} width={24} alt='location' />
+                  <span>01949482583</span>
+                </a>
+                <a href='#' className='hover:text-orange-100 font-be-vietnam transition-colors flex gap-2'>
+                  <Image src='/image123.svg' height={24} width={24} alt='location' />
+                  <span>org.bmsf@gmail.com</span>
+                </a>
+                <span className='ml-auto flex gap-3'>
+                  <button className='hover:text-orange-100'>
+                    <Image src='/image124.svg' height={24} width={24} alt='location' />
+                  </button>
+                  <button className='hover:text-orange-100'>
+                    <Image src='/image125.svg' height={24} width={24} alt='location' />
+                  </button>
+                  <button className='hover:text-orange-100'>
+                    <Image src='/image127.svg' height={24} width={24} alt='location' />
+                  </button>
+                  <button className='hover:text-orange-100'>
+                    <Image src='/image128.svg' height={24} width={24} alt='location' />
+                  </button>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* White Navbar — no sticky, it's inside the fixed header now */}
         <div
           ref={navBarRef}
-          className='
+          className={`
     border-b shadow-md
     bg-white
     md:bg-white
-    transition-[background-color] duration-300 ease-in-out
-
-  '
+    transition-[background-color,border-radius,width,max-width] duration-300 ease-in-out
+    mx-auto
+    ${isScrolled ? 'w-[90%] max-w-[1380px] rounded-b-[10px] mt-[15px]' : 'w-full max-w-[1380px]'}
+  `}
           style={
             isScrolled
               ? {
@@ -358,8 +365,8 @@ export function Navbar() {
 
       {/* Spacer — reserves the header's full height in normal flow so page
           content doesn't jump underneath the now-fixed header. Height is
-          the topbar+navbar total, measured, not guessed. */}
-      <div style={{ height: totalHeight }} />
+          scroll-aware since the topbar unmounts once isScrolled is true. */}
+      <div style={{ height: isScrolled ? totalHeight - topBarHeight : totalHeight }} />
     </>
   )
 }

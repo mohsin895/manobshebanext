@@ -120,12 +120,7 @@ export function MeritoriousStudentHero() {
               className='absolute inset-0 bg-cover bg-center bg-no-repeat'
               style={{
                 backgroundImage: `
-              linear-gradient(
-                180deg,
-                rgba(0, 3, 23, 0.8) 48.75%,
-                rgba(120, 120, 120, 0.2) 98.91%,
-                rgba(255, 255, 255, 0) 109.13%
-              ),
+            
               url('/meritorious.svg')
             `,
               }}

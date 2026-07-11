@@ -89,7 +89,7 @@ export function SeatPlanHero() {
             <div
               className='absolute inset-0 bg-cover  bg-no-repeat'
               style={{
-                backgroundImage: 'linear-gradient(270deg, rgba(255,255,255,0) -15.39%, rgba(120,120,120,0.2) 13.46%, rgb(0 3 23 / 0%) 100%), url("/loginbg.png")',
+                backgroundImage: 'linear-gradient(270deg, rgba(255,255,255,0) -15.39%, rgba(120,120,120,0.2) 13.46%, rgb(0 3 23 / 0%) 100%), url("/seat.svg")',
               }}
             />
 
