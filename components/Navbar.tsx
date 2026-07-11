@@ -114,18 +114,18 @@ export function Navbar() {
                   <span>org.bmsf@gmail.com</span>
                 </a>
                 <span className='ml-auto flex gap-3'>
-                  <button className='hover:text-orange-100'>
+                  <a href='https://www.facebook.com/share/1Cqg2Xp1cF/?mibextid=wwXIfr' target='_blank' rel='noopener noreferrer' className='hover:text-orange-100'>
                     <Image src='/image124.svg' height={24} width={24} alt='location' />
-                  </button>
-                  <button className='hover:text-orange-100'>
+                  </a>
+                  <a href='https://www.instagram.com/info.bmsf?igsh=cjlteGo4dThmcDl0' target='_blank' rel='noopener noreferrer' className='hover:text-orange-100'>
                     <Image src='/image125.svg' height={24} width={24} alt='location' />
-                  </button>
-                  <button className='hover:text-orange-100'>
-                    <Image src='/image127.svg' height={24} width={24} alt='location' />
-                  </button>
-                  <button className='hover:text-orange-100'>
+                  </a>
+                  <a href='https://x.com/infobmsf?s=21' target='_blank' rel='noopener noreferrer' className='hover:text-orange-100'>
+                    <Image src='/image127.svg' width={24} height={24} alt='X (Twitter)' />
+                  </a>
+                  <a href='https://youtube.com/@org.bmsf2018?si=McGVKiGNLOtjr8X7' target='_blank' rel='noopener noreferrer' className='hover:text-orange-100'>
                     <Image src='/image128.svg' height={24} width={24} alt='location' />
-                  </button>
+                  </a>
                 </span>
               </div>
             </div>
@@ -141,7 +141,7 @@ export function Navbar() {
     md:bg-white
     transition-[background-color,border-radius,width,max-width] duration-300 ease-in-out
     mx-auto
-    ${isScrolled ? 'w-[90%] max-w-[1380px] rounded-b-[10px] mt-[15px]' : 'w-full max-w-[1380px]'}
+    ${isScrolled ? 'w-[90%] max-w-[1380px] rounded-[16px] mt-[15px]' : 'w-full '}
   `}
           style={
             isScrolled
@@ -183,7 +183,7 @@ export function Navbar() {
                     className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
                     style={isScrolled ? { color: '#FFFFFF' } : undefined}
                   >
-                    {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
+                    {language === 'bn' ? 'আমাদের সম্পর্কে' : 'About Us'}
                   </a>
 
                   <a
@@ -191,15 +191,20 @@ export function Navbar() {
                     className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
                     style={isScrolled ? { color: '#FFFFFF' } : undefined}
                   >
-                    {language === 'bn' ? 'কার্যক্রম' : 'Training'}
+                    {language === 'bn' ? 'কার্যক্রম' : 'Activities'}
                   </a>
                 </div>
 
                 {/* Dropdown Menu */}
                 <div className='relative' onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-                  <a href='#' className='text-sm font-medium  font-bn text-gray-700 hover:text-orange-500 flex items-center gap-1 py-7' style={isScrolled ? { color: '#FFFFFF' } : undefined}>
-                    {language === 'bn' ? 'মেধাবৃত্তি' : 'News'}
-                    <svg className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                  <a
+                    href='#'
+                    className='flex items-center justify-center gap-1 py-7 font-bn text-[16px] font-medium leading-[24px] tracking-normal text-center text-gray-700 hover:text-orange-500'
+                    style={isScrolled ? { color: '#FFFFFF' } : undefined}
+                  >
+                    {language === 'bn' ? 'মেধাবৃত্তি' : 'Merit Scholarship'}
+
+                    <svg className={`h-4 w-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                       <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
                     </svg>
                   </a>
@@ -228,15 +233,20 @@ export function Navbar() {
                 <div className='hidden gap-1 rounded-lg p-1 sm:flex'>
                   <div className='hidden sm:flex'>
                     <div className='relative w-[110px]'>
+                      {/* Language Icon */}
+                      <div className='pointer-events-none absolute left-2 top-0 flex h-7 items-center z-10'>
+                        <Image src='/lang.svg' alt='Language' width={20} height={20} />
+                      </div>
                       <select
                         value={language}
                         onChange={e => setLanguage(e.target.value as Language)}
-                        className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-2 pr-8 text-sm font-medium text-[#374151] outline-none cursor-pointer'
+                        className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-8 pr-4 font-bn text-[16px] font-medium leading-[24px] tracking-normal text-center text-[#374151] outline-none cursor-pointer'
                       >
                         <option value='bn'>বাংলা</option>
                         <option value='en'>EN</option>
                       </select>
 
+                      {/* Arrow */}
                       <div className='pointer-events-none absolute right-0 top-0 flex h-7 w-8 items-center justify-center rounded-r-[4px] bg-[#8497F5]'>
                         <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
                           <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />

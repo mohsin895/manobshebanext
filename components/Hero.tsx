@@ -261,7 +261,7 @@ mt-2
                       : 'Our scholarship program is specially designed for successful students.'}
                   </p>
                 </div>
-                <div className='flex flex-col min-[768px]:flex-row min-[1301px]:flex-row gap-3 mt-3 justify-center min-[768px]:justify-start min-[1301px]:justify-start items-center'>
+                <div className='flex flex-col min-[768px]:flex-row min-[1301px]:flex-row gap-3  mt-0 md:mt-[10px] justify-center min-[768px]:justify-start min-[1301px]:justify-start items-center'>
                   <a
                     href='/auth/login'
                     className='
@@ -428,18 +428,18 @@ mt-2
     '
           >
             {/* Icon - top 50% */}
-            <div className='w-full h-[50%] mt-[-45px] flex items-end justify-center'>
+            <div className='w-full h-[50%] mt-[-35px] md:mt-[-18px] mb-[12px] md: mb-0 flex items-end justify-center'>
               <div
-                className='flex h-[128px] w-[128px] items-end justify-center rounded-full bg-[#eef3ff54] pb-4 min-[768px]:h-[200px] min-[768px]:w-[200px] min-[1301px]:h-[200px] min-[1301px]:w-[200px]'
+                className='flex h-[128px] w-[128px] items-end justify-center rounded-full bg-[#EEF3FF] pb-4 min-[768px]:h-[200px] min-[768px]:w-[200px] min-[1301px]:h-[310px] min-[1301px]:w-[310px]'
                 style={{
-                  clipPath: isMobile ? 'inset(49% 0 0 0)' : 'inset(37% 0 0 0)',
+                  clipPath: isMobile ? 'inset(42% 0 0 0)' : 'inset(50% 0 0 0)',
                 }}
               >
-                <Image src='/hero2.png' alt='hero' width={90} height={80} className='h-[40px] w-[40px] min-[768px]:h-[80px] min-[768px]:w-[90px] min-[1301px]:h-[80px] min-[1301px]:w-[90px]' />
+                <Image src='/hero2.png' alt='hero' width={108} height={108} className='h-[40px] w-[40px] min-[768px]:h-[80px] min-[768px]:w-[90px] min-[1301px]:h-[108px] min-[1301px]:w-[108px]' />
               </div>
             </div>
             {/* Content - bottom 50% */}
-            <div className='w-full h-[50%] flex flex-col items-center justify-center gap-[12px]'>
+            <div className='w-full h-[50%] flex flex-col items-center justify-end gap-[12px] pt-2 pb-2'>
               {/* Title */}
 
               <FallDownText
@@ -451,7 +451,7 @@ mt-2
 
               {/* Description */}
               <p className='font-bn-serif text-center text-[#545959] font-normal text-[14px] leading-6 min-[768px]:text-[16px] min-[768px]:leading-6 min-[1301px]:text-[16px] min-[1301px]:leading-6'>
-                {isBn ? 'স্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।' : 'We evaluate students through our modern metrics system.'}
+                {isBn ? 'সস্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।' : 'We evaluate students through our modern metrics system.'}
               </p>
 
               {/* Button */}
