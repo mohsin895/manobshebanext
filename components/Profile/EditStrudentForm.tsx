@@ -137,7 +137,7 @@ const FALLBACK_CLASS_OPTIONS: ClassOption[] = []
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error'
 
-export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number }) {
+export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: number }) {
   const [showPhotoModal, setShowPhotoModal] = useState(false)
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)

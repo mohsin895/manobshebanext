@@ -177,7 +177,7 @@ const translations: Record<Language, Record<string, string>> = {
     'schedule.label3': 'প্রবেশপত্র বিতরণ',
     'schedule.label4': 'পরীক্ষা তারিখ',
     'schedule.label5': 'ফলাফল প্রকাশ',
-    'schedule.label6': 'চূড়ান্ত ভর্তি তারিখ',
+    'schedule.label6': 'বৃত্তি প্রদান উৎসব',
 
     'schedule.countdown_title': 'পরীক্ষার সময় বাকী আছে',
     'schedule.countdown_subtitle': 'পরীক্ষায় অংশগ্রহণের জন্য প্রস্তুত থাকুন। সবার জন্য শুভকামনা',

@@ -1,4 +1,8 @@
+'use client'
+
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 type DashboardHeaderProps = {
   schoolName: string
@@ -8,6 +12,37 @@ type DashboardHeaderProps = {
 }
 
 export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo.png' }: DashboardHeaderProps) {
+  const router = useRouter()
+  const [loggingOut, setLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    if (loggingOut) return
+    setLoggingOut(true)
+
+    try {
+      const token = localStorage.getItem('token')
+
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      })
+    } catch (error) {
+      console.error('Logout request failed:', error)
+    } finally {
+      // Clear localStorage
+      localStorage.removeItem('token')
+
+      // Clear the cookie the middleware checks — must match path used at login
+      document.cookie = 'token=; path=/; max-age=0; SameSite=Lax'
+
+      setLoggingOut(false)
+      router.push('/auth/login') // matches your middleware's redirect target
+    }
+  }
   return (
     <div
       className='
@@ -27,6 +62,38 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
         md:py-[24px]
       '
     >
+      {/* Logout Button */}
+      <button
+        onClick={handleLogout}
+        disabled={loggingOut}
+        type='button'
+        className='
+    absolute
+    left-5 top-6
+    md:left-10
+    z-10
+    flex items-center gap-2
+    px-4 py-2
+  '
+      >
+        <div className='relative h-4 w-4 md:h-6 md:w-6 shrink-0'>
+          <Image src='/logout.svg' alt='Logout' fill className='object-contain' />
+        </div>
+
+        <span
+          className='
+      font-poppins
+      font-normal
+      text-[14px] md:text-[16px]
+      leading-none
+      text-[#4A4DE1] md:text-[#1C1D4A]
+      text-center
+    '
+        >
+          Logout
+        </span>
+      </button>
+
       <div className='flex h-full flex-col items-center justify-between gap-6 md:flex-row md:gap-0'>
         {/* Left Content */}
         <div className='flex flex-col items-center gap-3 text-center md:flex-row md:items-center md:gap-6 md:text-left'>
@@ -35,11 +102,8 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
           </div>
 
           <div>
-            <h1 className='font-bn text-[20px] font-semibold leading-[28px] text-[#1C1D4A] md:text-[32px] md:leading-[44px]'>{schoolName}</h1>
-
-            <p className='mt-2 font-bn text-[14px] leading-[22px] text-[#4B5563] md:text-[18px] md:leading-[28px]'>{address}</p>
-
-            <p className='mt-1 font-bn text-[14px] leading-[22px] text-[#4B5563] md:text-[18px] md:leading-[28px]'>ইআইআইএন: {eiin}</p>
+            <h1 className=' font-poppins text-[20px] font-semibold leading-[28px] text-[#1C1D4A] md:text-[32px] md:leading-[44px]'>{schoolName}</h1>
+            <p className='mt-2 font-bn-serif text-[14px] leading-[22px] text-[#4B5563] md:text-[18px] md:leading-[28px]'>{address}</p>
           </div>
         </div>
 

@@ -435,7 +435,9 @@ mt-2
                   clipPath: isMobile ? 'inset(42% 0 0 0)' : 'inset(50% 0 0 0)',
                 }}
               >
-                <Image src='/hero2.png' alt='hero' width={108} height={108} className='h-[40px] w-[40px] min-[768px]:h-[80px] min-[768px]:w-[90px] min-[1301px]:h-[108px] min-[1301px]:w-[108px]' />
+                <div className='relative h-[40px] w-[40px] min-[768px]:h-[80px] min-[768px]:w-[90px] min-[1301px]:h-[108px] min-[1301px]:w-[108px]'>
+                  <Image src='/hero2.png' alt='hero' fill className='object-scale-down' />
+                </div>
               </div>
             </div>
             {/* Content - bottom 50% */}

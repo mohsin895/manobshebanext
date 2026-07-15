@@ -1,3 +1,4 @@
+// components/Profile/student/page.tsx
 'use client'
 
 import { useState } from 'react'
@@ -20,7 +21,7 @@ const MOCK_STUDENTS: Student[] = Array.from({ length: 8 }).map((_, i) => ({
   mobile: '01711-000001',
 }))
 
-const CLASS_OPTIONS = ['সব শ্রেণী', 'VI', 'VII', 'VIII', 'IX', 'X']
+const DEFAULT_CLASS_OPTIONS = ['সব শ্রেণী', 'VI', 'VII', 'VIII', 'IX', 'X']
 
 function EditIcon() {
   return (
@@ -43,17 +44,20 @@ type ActionType = 'edit' | 'download'
 export default function AdmitCard({
   students = MOCK_STUDENTS,
   actionType = 'edit',
+  classOptions = DEFAULT_CLASS_OPTIONS,
   onEdit,
   onDownload,
 }: {
   students?: Student[]
   actionType?: ActionType
+  classOptions?: string[]
   onEdit?: (student: Student) => void
   onDownload?: (student: Student) => void
 }) {
-  const [selectedClass, setSelectedClass] = useState('সব শ্রেণী')
+  const allLabel = classOptions[0] ?? 'সব শ্রেণী'
+  const [selectedClass, setSelectedClass] = useState(allLabel)
 
-  const filtered = selectedClass === 'সব শ্রেণী' ? students : students.filter(s => s.className === selectedClass)
+  const filtered = selectedClass === allLabel ? students : students.filter(s => s.className === selectedClass)
 
   return (
     <div className='w-full bg-gray-50 px-4 py-10'>
@@ -66,7 +70,7 @@ export default function AdmitCard({
             onChange={e => setSelectedClass(e.target.value)}
             className='appearance-none rounded-lg border border-gray-200 bg-white py-1.5 pl-3 pr-8 text-sm text-gray-700 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100'
           >
-            {CLASS_OPTIONS.map(c => (
+            {classOptions.map(c => (
               <option key={c} value={c}>
                 {c}
               </option>

@@ -15,6 +15,10 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileNewsOpen, setMobileNewsOpen] = useState(false)
 
+  // NEW: auth state
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [authChecked, setAuthChecked] = useState(false)
+
   const topBarRef = useRef<HTMLDivElement>(null)
   const navBarRef = useRef<HTMLDivElement>(null)
   const [topBarHeight, setTopBarHeight] = useState(0)
@@ -22,13 +26,18 @@ export function Navbar() {
 
   const menuItems = [
     { bn: 'অনলাইন আবেদন পরীক্ষা নির্দেশিকা', en: 'Exam Application Guide' },
-    { bn: 'অনলাইন আবেদন', en: 'Online Application', href: '/auth/student/registration' },
     { bn: 'মেধাবৃত্তি সিলেবাস', en: 'Online Application', href: '/syllabus' },
     { bn: 'কৃতি শিক্ষার্থী ফলাফল অনুসন্ধান', en: 'Student Result Search', href: '/result' },
     { bn: 'পরীক্ষার আসন অনুসন্ধান', en: 'Student Result Search', href: '/seat-plan' },
     { bn: 'কৃতি শিক্ষার্থী', en: 'Student Result Search', href: '/meritorious-student' },
-    { bn: 'Dashboard', en: 'Institution Achievements', href: '/auth/user' },
   ]
+
+  // NEW: check auth on mount (client-only, since localStorage isn't available during SSR)
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    setIsAuthenticated(!!token)
+    setAuthChecked(true)
+  }, [])
 
   // Measure real heights once, and again on resize — never guessed.
   useEffect(() => {
@@ -90,9 +99,6 @@ export function Navbar() {
 
   return (
     <>
-      {/* Fixed header — transform-only animation, no layout recalculation,
-          no sticky. Topbar unmounts entirely once scrolled, leaving only
-          the compact navbar pinned at the top. */}
       <div
         className='fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out will-change-transform'
         style={{ transform: `translateY(${showTopBar || isScrolled ? 0 : -topBarHeight}px)` }}
@@ -132,7 +138,6 @@ export function Navbar() {
           </div>
         )}
 
-        {/* White Navbar — no sticky, it's inside the fixed header now */}
         <div
           ref={navBarRef}
           className={`
@@ -209,7 +214,6 @@ export function Navbar() {
                     </svg>
                   </a>
 
-                  {/* Dropdown Panel */}
                   <div className={`absolute left-0 top-full w-64 z-50 transition-all duration-200 ${dropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'}`}>
                     <div className='w-3 h-3 bg-white border-l border-t border-gray-200 rotate-45 ml-5 -mb-1.5 relative z-10' />
 
@@ -233,7 +237,6 @@ export function Navbar() {
                 <div className='hidden gap-1 rounded-lg p-1 sm:flex'>
                   <div className='hidden sm:flex'>
                     <div className='relative w-[110px]'>
-                      {/* Language Icon */}
                       <div className='pointer-events-none absolute left-2 top-0 flex h-7 items-center z-10'>
                         <Image src='/lang.svg' alt='Language' width={20} height={20} />
                       </div>
@@ -246,7 +249,6 @@ export function Navbar() {
                         <option value='en'>EN</option>
                       </select>
 
-                      {/* Arrow */}
                       <div className='pointer-events-none absolute right-0 top-0 flex h-7 w-8 items-center justify-center rounded-r-[4px] bg-[#8497F5]'>
                         <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
                           <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
@@ -256,35 +258,38 @@ export function Navbar() {
                   </div>
                 </div>
 
-                <a
-                  href='/auth/login'
-                  className='
-     flex
-    w-[146px]
-    h-10
-    items-center
-    justify-center
-    gap-2
-    rounded-full
-    px-4
-    py-2
-    font-bn
-    text-[16px]
-    font-bold
-    text-white
-    bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)]
-    shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
-    transition-all
-    duration-300
-    hover:bg-[linear-gradient(270deg,#FF865A_0%,#FF5A28_100%)]
-    hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.35),0px_4px_12px_rgba(254,71,17,0.35)]
-    active:scale-[0.98]
-    cursor-pointer
-  '
-                >
-                  <Image src='/login.png' width={15} height={15} alt='login' />
-                  <span>{language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}</span>
-                </a>
+                {/* CHANGED: conditional Login / Dashboard button */}
+                {authChecked && (
+                  <a
+                    href={isAuthenticated ? '/auth/user' : '/auth/login'}
+                    className='
+          flex
+          w-[146px]
+          h-10
+          items-center
+          justify-center
+          gap-2
+          rounded-full
+          px-4
+          py-2
+          font-bn
+          text-[16px]
+          font-bold
+          text-white
+          bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)]
+          shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
+          transition-all
+          duration-300
+          hover:bg-[linear-gradient(270deg,#FF865A_0%,#FF5A28_100%)]
+          hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.35),0px_4px_12px_rgba(254,71,17,0.35)]
+          active:scale-[0.98]
+          cursor-pointer
+          '
+                  >
+                    <Image src='/login.svg' width={15} height={15} alt='login' />
+                    <span>{isAuthenticated ? (language === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard') : language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}</span>
+                  </a>
+                )}
 
                 {/* Mobile Hamburger Button */}
                 <button
@@ -350,6 +355,15 @@ export function Navbar() {
                 </div>
               </div>
 
+              {/* CHANGED: mobile conditional Login / Dashboard */}
+
+              <a
+                href={isAuthenticated ? '/auth/user' : '/auth/login'}
+                className='text-[14px] font-bn font-medium text-white bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)] rounded-lg px-3 py-3 text-center'
+              >
+                {isAuthenticated ? (language === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard') : language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}
+              </a>
+
               <div className='flex items-center gap-3 px-3 pt-2 pb-1'>
                 <div className='relative w-[110px]'>
                   <select
@@ -373,9 +387,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Spacer — reserves the header's full height in normal flow so page
-          content doesn't jump underneath the now-fixed header. Height is
-          scroll-aware since the topbar unmounts once isScrolled is true. */}
       <div style={{ height: isScrolled ? totalHeight - topBarHeight : totalHeight }} />
     </>
   )
