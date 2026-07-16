@@ -52,7 +52,7 @@ export default function page() {
   return (
     <main className='w-full'>
       <Navbar />
-      studentId={searchParams.get('studentId')!}
+      <StudentInfoForm studentId={searchParams.get('studentId')!} />
       <Footer />
     </main>
   )
