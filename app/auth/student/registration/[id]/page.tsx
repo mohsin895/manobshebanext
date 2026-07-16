@@ -1,13 +1,14 @@
+// app/auth/student/registration/[id]/page.tsx
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-import StudentInfoForm from '@/components/Profile/StudentInfoForm'
+import StudentInfoFormEdit from '@/components/Profile/EditStrudentForm'
 
 export default function Page() {
   return (
     <main className='w-full'>
       <Navbar />
 
-      <StudentInfoForm />
+      <StudentInfoFormEdit />
 
       <Footer />
     </main>

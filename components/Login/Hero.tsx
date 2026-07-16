@@ -61,7 +61,7 @@ export function LoginHero() {
     h-[570px]
 
     md:w-[1320px]
-    md:h-[650px]
+    md:h-[560px]
   '
         >
           {/* Full-width Hero Image */}
@@ -71,7 +71,6 @@ export function LoginHero() {
       inset-0
       overflow-hidden
       rounded-[20px]
-      shadow-xl
 
       md:rounded-[32px]
     '

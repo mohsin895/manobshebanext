@@ -1,6 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
+import { useSchoolSetting } from '@/app/context/SchoolSettingContext'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
@@ -89,9 +90,11 @@ function CascadeText({ text, className }: { text: string; className?: string }) 
 
   return <h1 ref={containerRef} className={className} />
 }
+
 export function Hero() {
   const { t } = useLanguage()
-  const [timeLeft, setTimeLeft] = useState({ days: 10, hours: 10, minutes: 10, seconds: 10 })
+  const { setting } = useSchoolSetting()
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isMobile, setIsMobile] = useState(false)
 
   // Tiers: <768 mobile | 768-1024 tablet | 1025-1300 desktop | 1301+ large desktop
@@ -101,31 +104,34 @@ export function Hero() {
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
+
+  // Counts down to timeline2_date (the deadline). Holds at zero once it passes.
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { days, hours, minutes, seconds } = prev
-        seconds--
-        if (seconds < 0) {
-          seconds = 59
-          minutes--
-        }
-        if (minutes < 0) {
-          minutes = 59
-          hours--
-        }
-        if (hours < 0) {
-          hours = 23
-          days--
-        }
-        if (days < 0) {
-          days = 0
-        }
-        return { days, hours, minutes, seconds }
-      })
-    }, 1000)
+    if (!setting?.timeline2_date) return
+
+    const deadline = new Date(setting.timeline2_date).getTime()
+
+    const tick = () => {
+      const now = Date.now()
+      const diff = deadline - now
+
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        return
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
+      const minutes = Math.floor((diff / (1000 * 60)) % 60)
+      const seconds = Math.floor((diff / 1000) % 60)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }
+
+    tick()
+    const timer = setInterval(tick, 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [setting?.timeline2_date])
 
   const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
 
@@ -265,48 +271,49 @@ mt-2
                   <a
                     href='/auth/login'
                     className='
-    w-[155px] h-[40px]
-    px-4 py-2
-    flex items-center justify-center gap-2
-    rounded-full
-    bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
-    text-white
-    font-bn font-medium
-    text-[14px] min-[768px]:text-[16px] min-[1301px]:text-[16px]
-    leading-[22px] min-[768px]:leading-6 min-[1301px]:leading-6
-    transition-all duration-300
-    hover:bg-[linear-gradient(270deg,_#FF713E_0%,_#FE4711_100%)]
-    hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
-    cursor-pointer
-  '
+                  w-[155px] h-[40px]
+                  px-4 py-2
+                  flex items-center justify-center gap-2
+                  rounded-full
+                  bg-[linear-gradient(90deg,_#FF6B35_0%,_#FE4711_100%)]
+                  text-white
+                  font-bn font-medium
+                  text-[14px] min-[768px]:text-[16px] min-[1301px]:text-[16px]
+                  leading-[22px] min-[768px]:leading-6 min-[1301px]:leading-6
+                  transition-all duration-300
+                  hover:bg-[linear-gradient(270deg,_#FF713E_0%,_#FE4711_100%)]
+                  hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
+                  cursor-pointer
+                  '
                   >
                     <Image src='/image61.svg' alt='logo' width={20} height={20} className='w-5 h-5' />
                     {isBn ? 'আবেদন করুন' : 'Apply Now'}
                   </a>
+
                   <a
                     href='/about-us'
 
                     className='
-    w-[140px]
-    h-[40px]
-    px-4 py-2
-    flex items-center justify-center gap-2
-    rounded-full
-    border-0
-    bg-white
-    text-[#282929]
-    font-bn
-    font-medium
-    text-[14px] min-[768px]:text-[16px] min-[1301px]:text-[16px]
-    leading-[22px] min-[768px]:leading-6 min-[1301px]:leading-6
-    transition-all
-    duration-300
-    ease-linear
-    hover:!bg-[#5565E8]
-    hover:!text-white
-    hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
-    cursor-pointer
-  '
+                w-[140px]
+                h-[40px]
+                px-4 py-2
+                flex items-center justify-center gap-2
+                rounded-full
+                border-0
+                bg-white
+                text-[#282929]
+                font-bn
+                font-medium
+                text-[14px] min-[768px]:text-[16px] min-[1301px]:text-[16px]
+                leading-[22px] min-[768px]:leading-6 min-[1301px]:leading-6
+                transition-all
+                duration-300
+                ease-linear
+                hover:!bg-[#5565E8]
+                hover:!text-white
+                hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
+                cursor-pointer
+                '
                   >
                     {isBn ? 'আরও জানুন →' : 'Learn More →'}
                   </a>
@@ -453,7 +460,7 @@ mt-2
 
               {/* Description */}
               <p className='font-bn-serif text-center text-[#545959] font-normal text-[14px] leading-6 min-[768px]:text-[16px] min-[768px]:leading-6 min-[1301px]:text-[16px] min-[1301px]:leading-6'>
-                {isBn ? 'সস্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।' : 'We evaluate students through our modern metrics system.'}
+                {isBn ? 'সস্বচ্ছতা এবং আধুনিক মেন্টরিংয়ের মাধ্যমে শিক্ষার্থীদের শিক্ষাবৃত্তি সুনিশ্চিত করা।' : 'We evaluate students through our modern metrics system.'}
               </p>
 
               {/* Button */}

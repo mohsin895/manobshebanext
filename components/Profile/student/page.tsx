@@ -2,6 +2,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export type Student = {
   id: string
@@ -30,6 +31,14 @@ function EditIcon() {
     </svg>
   )
 }
+function EyeIcon() {
+  return (
+    <svg className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={1.8}>
+      <path strokeLinecap='round' strokeLinejoin='round' d='M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7S3.732 16.057 2.458 12z' />
+      <circle cx='12' cy='12' r='3' />
+    </svg>
+  )
+}
 
 function DownloadIcon() {
   return (
@@ -44,20 +53,28 @@ type ActionType = 'edit' | 'download'
 export default function StudentList({
   students = MOCK_STUDENTS,
   actionType = 'edit',
+
   classOptions = DEFAULT_CLASS_OPTIONS,
-  onEdit,
   onDownload,
 }: {
   students?: Student[]
   actionType?: ActionType
   classOptions?: string[]
-  onEdit?: (student: Student) => void
   onDownload?: (student: Student) => void
 }) {
+  const router = useRouter()
   const allLabel = classOptions[0] ?? 'সব শ্রেণী'
   const [selectedClass, setSelectedClass] = useState(allLabel)
 
   const filtered = selectedClass === allLabel ? students : students.filter(s => s.className === selectedClass)
+
+  const handleEdit = (id: string) => {
+    router.push(`/auth/student/registration/${id}`)
+  }
+
+  const handleInfo = (id: string) => {
+    router.push(`/auth/student/details/${id}`)
+  }
 
   return (
     <div className='w-full bg-gray-50 px-4 py-10'>
@@ -112,11 +129,20 @@ export default function StudentList({
                   <td className='py-3 pr-3 text-right'>
                     <button
                       type='button'
-                      onClick={() => (actionType === 'edit' ? onEdit?.(student) : onDownload?.(student))}
+                      onClick={() => (actionType === 'edit' ? handleEdit(student.id) : onDownload?.(student))}
                       className='rounded-md p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600'
                       aria-label={actionType === 'edit' ? 'সম্পাদনা করুন' : 'ডাউনলোড করুন'}
                     >
                       {actionType === 'edit' ? <EditIcon /> : <DownloadIcon />}
+                    </button>
+
+                    <button
+                      type='button'
+                      onClick={() => handleInfo(student.id)}
+                      className='rounded-md p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600'
+                      aria-label={'সম্পাদনা করুন'}
+                    >
+                      <EyeIcon />
                     </button>
                   </td>
                 </tr>

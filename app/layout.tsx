@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next'
 import { Noto_Sans_Bengali, Noto_Serif_Bengali, Be_Vietnam_Pro, Poppins } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from './context/LanguageContext'
+import { SchoolSettingProvider } from './context/SchoolSettingContext'
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ['bengali'],
@@ -56,8 +57,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       {/* FIX 2: Remove bg-white from body — let each section own its background */}
       <body className=' antialiased'>
         <LanguageProvider>
-          {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
+          <SchoolSettingProvider>
+            {children}
+            {process.env.NODE_ENV === 'production' && <Analytics />}
+          </SchoolSettingProvider>
         </LanguageProvider>
       </body>
     </html>
