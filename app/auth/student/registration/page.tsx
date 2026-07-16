@@ -1,15 +1,14 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import StudentInfoForm from '@/components/Profile/StudentInfoForm'
 import { useSchoolSetting } from '@/app/context/SchoolSettingContext'
 import { isApplicationOpen } from '@/lib/applicationWindow'
-import { useSearchParams } from 'next/navigation'
 
-export default function page() {
+function RegistrationPageContent() {
   const router = useRouter()
   const { setting, loading, error } = useSchoolSetting()
   const searchParams = useSearchParams()
@@ -55,5 +54,19 @@ export default function page() {
       <StudentInfoForm studentId={searchParams.get('studentId')!} />
       <Footer />
     </main>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <main className='flex min-h-screen items-center justify-center bg-[#F7F8FC]'>
+          <p className='font-bn text-[16px] text-[#1C1D4A]'>লোড হচ্ছে...</p>
+        </main>
+      }
+    >
+      <RegistrationPageContent />
+    </Suspense>
   )
 }
