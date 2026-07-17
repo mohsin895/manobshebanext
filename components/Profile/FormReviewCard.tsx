@@ -109,24 +109,21 @@ export default function FormReviewCard({ photoSrc = 'https://i.pravatar.cc/160?i
     py-[16px]
   '
       >
-        <div className='relative bg-[color:var(--ink)] px-4 pb-5 pt-4 text-center'>
+        <div className='relative bg-[#FF6B36] px-2 pb-2 pt-2 text-center'>
           <button aria-label='পেছনে যান' className='absolute left-3 top-4 rounded-full p-1.5 text-white/80 transition hover:bg-white/10 hover:text-white'>
             <svg viewBox='0 0 24 24' className='h-5 w-5' fill='none'>
               <path d='M15 5l-7 7 7 7' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
             </svg>
           </button>
           <h1 className='font-display text-[17px] tracking-wide text-white'>ফরম যাচাই করুন</h1>
-          <p className='mt-0.5 text-[11px] text-white/60'>জমা দেওয়ার আগে তথ্যগুলো ভালোভাবে দেখে নিন</p>
+          <p className='mt-0.5 text-[11px] text-white'>জমা দেওয়ার আগে তথ্যগুলো ভালোভাবে দেখে নিন</p>
         </div>
 
         {/* Info banner */}
-        <div className='mx-4 -mt-2.5 flex items-start gap-2.5 rounded-xl border border-[color:var(--forest)]/20 bg-[color:var(--forest-tint)] px-3.5 py-2.5'>
-          <svg viewBox='0 0 24 24' className='mt-0.5 h-4 w-4 shrink-0 text-[color:var(--forest)]' fill='none'>
-            <circle cx='12' cy='12' r='9' stroke='currentColor' strokeWidth='1.8' />
-            <path d='M12 8v5' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' />
-            <circle cx='12' cy='16' r='0.9' fill='currentColor' />
-          </svg>
-          <p className='text-[12px] leading-snug text-[color:var(--forest)]'>
+        <div className='mx-4 mt-2.5 flex h-[36px] items-center border border-[color:var(--forest)]/20 bg-[#E1F5EE]'>
+          <div className='h-full w-[3px] shrink-0 bg-[#1D9E75]' />
+
+          <p className='px-3.5 font-bn text-[12px] font-normal leading-[12px] tracking-[0] text-[#0F6E56]'>
             ভুল তথ্য পেলে নিচে থাকা <span className='font-semibold'>&quot;সংশোধন করুন&quot;</span> বোতাম চাপুন
           </p>
         </div>

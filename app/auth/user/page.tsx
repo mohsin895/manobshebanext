@@ -18,8 +18,8 @@ const CLASSES = [
 ]
 
 type Division = { id: number; name: string; details: string }
-type District = { id: number; district_name: string; details: string }
-type Upazila = { id: number; upozilla_name: string; details: string }
+type District = { id: number; name: string; details: string }
+type Upazila = { id: number; name: string; details: string }
 type Zone = { id: number; name: string; slug: string }
 
 type School = {
@@ -39,8 +39,8 @@ function formatAddress(school: School): string {
   const parts: string[] = []
 
   if (school.address) parts.push(`গ্রাম: ${school.address}`)
-  if (school.upazila?.upozilla_name) parts.push(`উপজেলা: ${school.upazila.upozilla_name}`)
-  if (school.district?.district_name) parts.push(`জেলা: ${school.district.district_name}`)
+  if (school.upazila?.name) parts.push(`উপজেলা: ${school.upazila.name}`)
+  if (school.district?.name) parts.push(`জেলা: ${school.district.name}`)
 
   let formatted = parts.join(', ')
   if (school.postcode) formatted += ` — ${school.postcode}`

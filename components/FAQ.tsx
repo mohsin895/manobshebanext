@@ -74,7 +74,6 @@ export function FAQ() {
     w-full
     items-center
     justify-between
-    rounded-[12px]
     border
     border-[#E5E6E6]
     bg-white
@@ -84,7 +83,7 @@ export function FAQ() {
     hover:bg-gray-50
 
     md:h-[60px]
-    md:max-w-[762px]
+
     md:px-4
     md:py-4
   '

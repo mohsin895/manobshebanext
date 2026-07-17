@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
 const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL ?? ''
@@ -24,15 +25,24 @@ function authHeaders(): HeadersInit {
   return token ? { Authorization: `Bearer ${token}` } : {}
 }
 
-// Picks the first defined value among a list of possible keys — used because
-// we don't know for certain which key name the /user/student/info endpoint
-// uses for a given field (e.g. `village_mahalla` vs `village`).
-function pick(obj: any, keys: string[]): string {
-  for (const key of keys) {
-    if (obj?.[key] !== undefined && obj?.[key] !== null) return String(obj[key])
-  }
-  return ''
+// --- Language filters -------------------------------------------------
+// English fields: keep only latin letters, spaces, and common name
+// punctuation (. ' -). Everything else (including Bangla glyphs) is stripped.
+function filterEnglishText(value: string): string {
+  return value.replace(/[^a-zA-Z\s.'-]/g, '')
 }
+
+// Bengali fields: keep only Bangla script characters, spaces, and common
+// name punctuation. Everything else (including Latin glyphs) is stripped.
+function filterBengaliText(value: string): string {
+  return value.replace(/[^\u0980-\u09FF\s.'-]/g, '')
+}
+
+// Mobile number: digits and a leading + only.
+function filterMobileNumber(value: string): string {
+  return value.replace(/[^\d+]/g, '')
+}
+// ------------------------------------------------------------------------
 
 function Field({ label, children, optional = false }: { label: string; children: React.ReactNode; optional?: boolean }) {
   return (
@@ -157,12 +167,11 @@ function normalizeOptions(rawList: any[], nameKeys: string[]): Option[] {
   })
 }
 
-export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { studentId: number | string; schoolId?: number }) {
+export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number }) {
   const [showPhotoModal, setShowPhotoModal] = useState(false)
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)
-  const [existingPhotoUrl, setExistingPhotoUrl] = useState<string | null>(null)
-
+  const router = useRouter()
   // Text fields
   const [nameBn, setNameBn] = useState('')
   const [nameEn, setNameEn] = useState('')
@@ -202,22 +211,10 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
   const [upazilasError, setUpazilasError] = useState('')
   const [zonesError, setZonesError] = useState('')
 
-  // Holds the district/upazila/zone id we still need to select once that
-  // level's option list has finished loading during the initial hydration
-  // from /user/student/info/{id}. Refs (not state) so they survive the
-  // resets that happen inside the cascading effects below.
-  const pendingDistrictId = useRef('')
-  const pendingUpazilaId = useRef('')
-  const pendingZoneId = useRef('')
-
   // Class list (fetched from API)
   const [classOptions, setClassOptions] = useState<ClassOption[]>([])
   const [classesLoading, setClassesLoading] = useState(true)
   const [classesError, setClassesError] = useState('')
-
-  // Existing student data (fetched from API)
-  const [studentLoading, setStudentLoading] = useState(true)
-  const [studentError, setStudentError] = useState('')
 
   // Submission state
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
@@ -304,9 +301,7 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
     }
   }, [])
 
-  // Load districts whenever division changes. If a pendingDistrictId was set
-  // by the initial hydration, select it once the list has loaded instead of
-  // leaving the field blank.
+  // Load districts whenever division changes
   useEffect(() => {
     setDistrictId('')
     setUpazilaId('')
@@ -335,10 +330,6 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
         if (!cancelled) {
           setDistrictOptions(list)
           if (list.length === 0) setDistrictsError('কোনো জেলা পাওয়া যায়নি')
-          if (pendingDistrictId.current) {
-            setDistrictId(pendingDistrictId.current)
-            pendingDistrictId.current = ''
-          }
         }
       } catch {
         if (!cancelled) setDistrictsError('জেলার তালিকা লোড করা যায়নি')
@@ -375,14 +366,10 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
         if (!res.ok) throw new Error('Failed to load upazilas')
         const json = await res.json()
         const rawList = Array.isArray(json) ? json : (json.data ?? [])
-        const list = normalizeOptions(rawList, ['upozilla_name', 'name'])
+        const list = normalizeOptions(rawList, ['name', 'name'])
         if (!cancelled) {
           setUpazilaOptions(list)
           if (list.length === 0) setUpazilasError('কোনো উপজেলা পাওয়া যায়নি')
-          if (pendingUpazilaId.current) {
-            setUpazilaId(pendingUpazilaId.current)
-            pendingUpazilaId.current = ''
-          }
         }
       } catch {
         if (!cancelled) setUpazilasError('উপজেলার তালিকা লোড করা যায়নি')
@@ -410,7 +397,7 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
     async function loadZones() {
       setZonesLoading(true)
       try {
-        const res = await fetch(`${API_BASE_URL}/zone?upozilla_id=${upazilaId}`, {
+        const res = await fetch(`${API_BASE_URL}/zone?upazila_id=${upazilaId}`, {
           headers: { Accept: 'application/json', ...authHeaders() },
         })
         if (!res.ok) throw new Error('Failed to load zones')
@@ -419,14 +406,10 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
         const list = normalizeOptions(rawList, ['name'])
         if (!cancelled) {
           setZoneOptions(list)
-          if (list.length === 0) setZonesError('কোনো জোন পাওয়া যায়নি')
-          if (pendingZoneId.current) {
-            setZoneId(pendingZoneId.current)
-            pendingZoneId.current = ''
-          }
+          if (list.length === 0) setZonesError('কোনো ইউনিয়ন পাওয়া যায়নি')
         }
       } catch {
-        if (!cancelled) setZonesError('জোনের তালিকা লোড করা যায়নি')
+        if (!cancelled) setZonesError('ইউনিয়নের তালিকা লোড করা যায়নি')
       } finally {
         if (!cancelled) setZonesLoading(false)
       }
@@ -438,72 +421,37 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
     }
   }, [upazilaId])
 
-  // Load the existing student's data and hydrate the form
-  useEffect(() => {
-    let cancelled = false
-
-    async function loadStudent() {
-      setStudentLoading(true)
-      setStudentError('')
-      try {
-        const res = await fetch(`${API_BASE_URL}/user/student/info/${studentId}`, {
-          headers: { Accept: 'application/json', ...authHeaders() },
-        })
-
-        if (res.status === 401) {
-          throw new Error('unauthenticated')
-        }
-        if (!res.ok) throw new Error('Failed to load student')
-
-        const json = await res.json()
-        const data = Array.isArray(json?.data) ? json.data[0] : (json.data ?? json)
-
-        if (cancelled || !data) return
-
-        setNameBn(pick(data, ['name_bn']))
-        setNameEn(pick(data, ['name_en']))
-        setFatherNameBn(pick(data, ['father_name_bn']))
-        setMotherNameBn(pick(data, ['mother_name_bn']))
-        setFatherNameEn(pick(data, ['father_name_en']))
-        setMotherNameEn(pick(data, ['mother_name_en']))
-        setBirthCertificateNo(pick(data, ['birth_certificate_no']))
-        setMobileNo(pick(data, ['mobile_no']))
-        setVillageMahalla(pick(data, ['village_mahalla']))
-        setPostOffice(pick(data, ['post_office']))
-        setGender(pick(data, ['gender']))
-        setBloodGroup(pick(data, ['blood_group']))
-        setReligion(pick(data, ['religion']))
-        setClassId(pick(data, ['student_class_id', 'class_id']))
-
-        const photo = pick(data, ['photo', 'image'])
-        if (photo) setExistingPhotoUrl(`${IMAGE_BASE_URL}${photo}`)
-
-        // Queue district/upazila/zone selection to happen once each level's
-        // option list loads, then kick off the cascade by setting division.
-        pendingDistrictId.current = pick(data, ['district_id'])
-        pendingUpazilaId.current = pick(data, ['upozilla_id', 'upazila_id'])
-        pendingZoneId.current = pick(data, ['zone_id'])
-        setDivisionId(pick(data, ['division_id']))
-      } catch (err) {
-        if (!cancelled) {
-          setStudentError(err instanceof Error && err.message === 'unauthenticated' ? 'আপনার সেশনের মেয়াদ শেষ হয়ে গেছে, অনুগ্রহ করে আবার লগইন করুন' : 'শিক্ষার্থীর তথ্য লোড করা যায়নি')
-        }
-      } finally {
-        if (!cancelled) setStudentLoading(false)
-      }
-    }
-
-    if (studentId) loadStudent()
-    return () => {
-      cancelled = true
-    }
-  }, [studentId])
-
   const handlePhotoPick = (file: File) => {
     setPhotoFile(file)
     setPhotoPreviewUrl(prev => {
       if (prev) URL.revokeObjectURL(prev)
       return URL.createObjectURL(file)
+    })
+  }
+
+  const resetForm = () => {
+    setNameBn('')
+    setNameEn('')
+    setFatherNameBn('')
+    setMotherNameBn('')
+    setFatherNameEn('')
+    setMotherNameEn('')
+    setBirthCertificateNo('')
+    setMobileNo('')
+    setVillageMahalla('')
+    setPostOffice('')
+    setDivisionId('')
+    setDistrictId('')
+    setUpazilaId('')
+    setZoneId('')
+    setGender('')
+    setBloodGroup('')
+    setReligion('')
+    setClassId('')
+    setPhotoFile(null)
+    setPhotoPreviewUrl(prev => {
+      if (prev) URL.revokeObjectURL(prev)
+      return null
     })
   }
 
@@ -544,13 +492,11 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
       if (postOffice) formData.append('post_office', postOffice)
       if (divisionId) formData.append('division_id', divisionId)
       if (districtId) formData.append('district_id', districtId)
-      if (upazilaId) formData.append('upozilla_id', upazilaId)
+      if (upazilaId) formData.append('upazila_id', upazilaId)
       if (zoneId) formData.append('zone_id', zoneId)
-      // Only send a new photo if the user picked one — otherwise the
-      // existing photo on the server is left untouched.
       if (photoFile) formData.append('photo', photoFile)
 
-      const res = await fetch(`${API_BASE_URL}/user/student/update/${studentId}`, {
+      const res = await fetch(`${API_BASE_URL}/user/student/store`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -569,10 +515,20 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
       const json = await res.json()
 
       if (!res.ok || json.status === false || json.success === false) {
-        throw new Error(json.message || 'আপডেট করা সম্ভব হয়নি')
+        throw new Error(json.message || 'জমা দেওয়া সম্ভব হয়নি')
       }
 
       setSubmitState('success')
+
+      // json.data.id is the newly created student's id (e.g. 9 in your
+      // sample response) — this must be interpolated into the path, not
+      // passed as a literal string, or Next.js will navigate to a route
+      // literally named ".../json.data:id".
+      const newStudentId = json?.data?.id
+      resetForm()
+      if (newStudentId != null) {
+        router.push(`/auth/student/details/${newStudentId}`)
+      }
     } catch (err) {
       setSubmitState('error')
       setErrorMessage(err instanceof Error ? err.message : 'কিছু একটা সমস্যা হয়েছে')
@@ -632,155 +588,153 @@ export default function StudentInfoFormEdit({ studentId, schoolId = 1 }: { stude
     md:leading-[24px]
   '
         >
-          শিক্ষার্থীর তথ্য সম্পাদনা করুন
+          শিক্ষার্থীর তথ্য দিন
         </h1>
 
-        {studentLoading && <div className='rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600'>তথ্য লোড হচ্ছে...</div>}
-        {studentError && <div className='rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700'>{studentError}</div>}
-        {submitState === 'success' && <div className='rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700'>শিক্ষার্থীর তথ্য সফলভাবে আপডেট হয়েছে।</div>}
+        {submitState === 'success' && <div className='rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700'>শিক্ষার্থীর তথ্য সফলভাবে জমা হয়েছে।</div>}
         {submitState === 'error' && errorMessage && <div className='rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700'>{errorMessage}</div>}
 
-        <fieldset disabled={studentLoading} className='contents'>
-          <div className='grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2'>
-            <Field label='পরীক্ষার্থীর নাম (বাংলায়)'>
-              <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameBn} onChange={e => setNameBn(e.target.value)} required />
-            </Field>
-            <Field label='পরীক্ষার্থীর নাম (ইংরেজিতে)'>
-              <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameEn} onChange={e => setNameEn(e.target.value)} required />
-            </Field>
+        <div className='grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2'>
+          <Field label='পরীক্ষার্থীর নাম (ইংরেজিতে)'>
+            <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameEn} onChange={e => setNameEn(filterEnglishText(e.target.value))} required />
+          </Field>
 
-            <Field label='পিতার নাম (বাংলায়)'>
-              <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameBn} onChange={e => setFatherNameBn(e.target.value)} required />
-            </Field>
-            <Field label='মাতার নাম (বাংলায়)'>
-              <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameBn} onChange={e => setMotherNameBn(e.target.value)} required />
-            </Field>
+          <Field label='পিতার নাম (ইংরেজিতে)'>
+            <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameEn} onChange={e => setFatherNameEn(filterEnglishText(e.target.value))} required />
+          </Field>
+          <Field label='মাতার নাম (ইংরেজিতে)'>
+            <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameEn} onChange={e => setMotherNameEn(filterEnglishText(e.target.value))} required />
+          </Field>
 
-            <Field label='পিতার নাম (ইংরেজিতে)'>
-              <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameEn} onChange={e => setFatherNameEn(e.target.value)} required />
-            </Field>
-            <Field label='মাতার নাম (ইংরেজিতে)'>
-              <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameEn} onChange={e => setMotherNameEn(e.target.value)} required />
-            </Field>
+          <Field label='মোবাইল নং (ইংরেজিতে)'>
+            <input className={inputClass} placeholder='মোবাইল নম্বর লিখুন' value={mobileNo} onChange={e => setMobileNo(filterMobileNumber(e.target.value))} inputMode='numeric' />
+          </Field>
+          <Field label='জন্ম সনদ নং'>
+            <input className={inputClass} placeholder='পরীক্ষার্থীর জন্ম সনদ নম্বর লিখুন' value={birthCertificateNo} onChange={e => setBirthCertificateNo(e.target.value)} />
+          </Field>
 
-            <Field label='লিঙ্গ'>
-              <Select placeholder='নির্বাচন করুন...' options={genderOptions} value={gender} onChange={setGender} />
-            </Field>
-            <Field label='রক্তের গ্রুপ'>
-              <Select placeholder='নির্বাচন করুন...' options={bloodGroupOptions} value={bloodGroup} onChange={setBloodGroup} />
-            </Field>
-            <Field label='জন্ম সনদ নং'>
-              <input className={inputClass} placeholder='পরীক্ষার্থীর জন্ম সনদ নম্বর লিখুন' value={birthCertificateNo} onChange={e => setBirthCertificateNo(e.target.value)} />
-            </Field>
-            <Field label='ধর্ম'>
-              <Select placeholder='নির্বাচন করুন...' options={religionOptions} value={religion} onChange={setReligion} />
-            </Field>
+          <Field label='পরীক্ষার্থীর নাম (বাংলায়)'>
+            <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameBn} onChange={e => setNameBn(filterBengaliText(e.target.value))} required />
+          </Field>
 
-            <Field label='শ্রেণি'>
-              <Select
-                placeholder={classesLoading ? 'লোড হচ্ছে...' : 'নির্বাচন করুন...'}
-                options={classOptions.map(c => ({ value: String(c.id), label: c.name }))}
-                value={classId}
-                onChange={setClassId}
-                disabled={classesLoading}
-              />
-              {classesError && <p className='mt-1.5 text-xs text-red-500'>{classesError}</p>}
-            </Field>
+          <Field label='পিতার নাম (বাংলায়)'>
+            <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameBn} onChange={e => setFatherNameBn(filterBengaliText(e.target.value))} required />
+          </Field>
+          <Field label='মাতার নাম (বাংলায়)'>
+            <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameBn} onChange={e => setMotherNameBn(filterBengaliText(e.target.value))} required />
+          </Field>
 
-            <Field label='মোবাইল নং (ইংরেজিতে)'>
-              <input className={inputClass} placeholder='মোবাইল নম্বর লিখুন' value={mobileNo} onChange={e => setMobileNo(e.target.value)} />
-            </Field>
+          <Field label='লিঙ্গ'>
+            <Select placeholder='নির্বাচন করুন...' options={genderOptions} value={gender} onChange={setGender} />
+          </Field>
+          <Field label='রক্তের গ্রুপ'>
+            <Select placeholder='নির্বাচন করুন...' options={bloodGroupOptions} value={bloodGroup} onChange={setBloodGroup} />
+          </Field>
 
-            <div className='sm:col-span-2'>
-              <label className={labelClass}>ঠিকানা (বাংলায়)</label>
-              <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-                <input className={inputClass} placeholder='গ্রাম/মহল্লা' value={villageMahalla} onChange={e => setVillageMahalla(e.target.value)} />
-                <input className={inputClass} placeholder='ডাকঘর' value={postOffice} onChange={e => setPostOffice(e.target.value)} />
+          <Field label='ধর্ম'>
+            <Select placeholder='নির্বাচন করুন...' options={religionOptions} value={religion} onChange={setReligion} />
+          </Field>
 
-                <div>
-                  <Select
-                    placeholder={divisionsLoading ? 'লোড হচ্ছে...' : 'বিভাগ নির্বাচন করুন...'}
-                    options={divisionOptions.map(o => ({ value: String(o.id), label: o.name }))}
-                    value={divisionId}
-                    onChange={setDivisionId}
-                    disabled={divisionsLoading}
-                  />
-                  {divisionsError && <p className='mt-1.5 text-xs text-red-500'>{divisionsError}</p>}
-                </div>
+          <Field label='শ্রেণি'>
+            <Select
+              placeholder={classesLoading ? 'লোড হচ্ছে...' : 'নির্বাচন করুন...'}
+              options={classOptions.map(c => ({ value: String(c.id), label: c.name }))}
+              value={classId}
+              onChange={setClassId}
+              disabled={classesLoading}
+            />
+            {classesError && <p className='mt-1.5 text-xs text-red-500'>{classesError}</p>}
+          </Field>
 
-                <div>
-                  <Select
-                    placeholder={districtsLoading ? 'লোড হচ্ছে...' : 'জেলা নির্বাচন করুন...'}
-                    options={districtOptions.map(o => ({ value: String(o.id), label: o.name }))}
-                    value={districtId}
-                    onChange={setDistrictId}
-                    disabled={!divisionId || districtsLoading}
-                  />
-                  {districtsError && <p className='mt-1.5 text-xs text-red-500'>{districtsError}</p>}
-                </div>
+          <div className='sm:col-span-2'>
+            <label className={labelClass}>ঠিকানা (বাংলায়)</label>
+            <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+              <input className={inputClass} placeholder='গ্রাম/মহল্লা' value={villageMahalla} onChange={e => setVillageMahalla(filterBengaliText(e.target.value))} />
+              <input className={inputClass} placeholder='ডাকঘর' value={postOffice} onChange={e => setPostOffice(filterBengaliText(e.target.value))} />
 
-                <div>
-                  <Select
-                    placeholder={upazilasLoading ? 'লোড হচ্ছে...' : 'উপজেলা নির্বাচন করুন...'}
-                    options={upazilaOptions.map(o => ({ value: String(o.id), label: o.name }))}
-                    value={upazilaId}
-                    onChange={setUpazilaId}
-                    disabled={!districtId || upazilasLoading}
-                  />
-                  {upazilasError && <p className='mt-1.5 text-xs text-red-500'>{upazilasError}</p>}
-                </div>
+              <div>
+                <Select
+                  placeholder={divisionsLoading ? 'লোড হচ্ছে...' : 'বিভাগ নির্বাচন করুন...'}
+                  options={divisionOptions.map(o => ({ value: String(o.id), label: o.name }))}
+                  value={divisionId}
+                  onChange={setDivisionId}
+                  disabled={divisionsLoading}
+                />
+                {divisionsError && <p className='mt-1.5 text-xs text-red-500'>{divisionsError}</p>}
+              </div>
 
-                <div>
-                  <Select
-                    placeholder={zonesLoading ? 'লোড হচ্ছে...' : 'জোন নির্বাচন করুন...'}
-                    options={zoneOptions.map(o => ({ value: String(o.id), label: o.name }))}
-                    value={zoneId}
-                    onChange={setZoneId}
-                    disabled={!upazilaId || zonesLoading}
-                  />
-                  {zonesError && <p className='mt-1.5 text-xs text-red-500'>{zonesError}</p>}
-                </div>
+              <div>
+                <Select
+                  placeholder={districtsLoading ? 'লোড হচ্ছে...' : 'জেলা নির্বাচন করুন...'}
+                  options={districtOptions.map(o => ({ value: String(o.id), label: o.name }))}
+                  value={districtId}
+                  onChange={setDistrictId}
+                  disabled={!divisionId || districtsLoading}
+                />
+                {districtsError && <p className='mt-1.5 text-xs text-red-500'>{districtsError}</p>}
+              </div>
+
+              <div>
+                <Select
+                  placeholder={upazilasLoading ? 'লোড হচ্ছে...' : 'উপজেলা নির্বাচন করুন...'}
+                  options={upazilaOptions.map(o => ({ value: String(o.id), label: o.name }))}
+                  value={upazilaId}
+                  onChange={setUpazilaId}
+                  disabled={!districtId || upazilasLoading}
+                />
+                {upazilasError && <p className='mt-1.5 text-xs text-red-500'>{upazilasError}</p>}
+              </div>
+
+              <div>
+                <Select
+                  placeholder={zonesLoading ? 'ইউনিয়ন হচ্ছে...' : 'ইউনিয়ন নির্বাচন করুন...'}
+                  options={zoneOptions.map(o => ({ value: String(o.id), label: o.name }))}
+                  value={zoneId}
+                  onChange={setZoneId}
+                  disabled={!upazilaId || zonesLoading}
+                />
+                {zonesError && <p className='mt-1.5 text-xs text-red-500'>{zonesError}</p>}
               </div>
             </div>
-
-            <Field label='ছবি'>
-              <button
-                type='button'
-                onClick={() => setShowPhotoModal(true)}
-                className='flex w-full items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-2 text-left text-sm text-gray-500 transition hover:border-gray-300'
-              >
-                <span className='rounded-md bg-gray-100 px-3 py-1 text-gray-700'>Choose File</span>
-                <span className='truncate'>{photoFile ? photoFile.name : 'No file chosen'}</span>
-              </button>
-              <p className='mt-1.5 text-xs text-gray-400'>SVG, PNG, JPG, অথবা GIF (সর্বোচ্চ 400x400px)</p>
-            </Field>
-
-            <Field label='ছবি প্রিভিউ দেখুন' optional>
-              <div className='flex h-[136px] w-full items-center rounded-lg border border-white px-3 py-2'>
-                {photoPreviewUrl || existingPhotoUrl ? (
-                  <img src={photoPreviewUrl ?? existingPhotoUrl ?? ''} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
-                ) : (
-                  <div className='flex h-full w-full items-center justify-center rounded-lg border border-dashed border-gray-300'>
-                    <span className='text-sm text-gray-400'>কোনো ছবি নির্বাচিত হয়নি</span>
-                  </div>
-                )}
-              </div>
-            </Field>
           </div>
 
-          <div className='mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between'>
-            <button type='button' className='rounded-lg border border-gray-300 px-6 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50'>
-              ফরমের পূর্বরূপ দেখুন
-            </button>
+          <Field label='ছবি'>
             <button
-              type='submit'
-              disabled={submitState === 'submitting'}
-              className='rounded-lg bg-orange-500 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60'
+              type='button'
+              onClick={() => setShowPhotoModal(true)}
+              className='flex w-full items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-2 text-left text-sm text-gray-500 transition hover:border-gray-300'
             >
-              {submitState === 'submitting' ? 'আপডেট হচ্ছে...' : 'তথ্য আপডেট করুন'}
+              <span className='rounded-md bg-gray-100 px-3 py-1 text-gray-700'>Choose File</span>
+              <span className='truncate'>{photoFile ? photoFile.name : 'No file chosen'}</span>
             </button>
-          </div>
-        </fieldset>
+            <p className='mt-1.5 text-xs text-gray-400'>SVG, PNG, JPG, অথবা GIF (সর্বোচ্চ 400x400px)</p>
+          </Field>
+
+          <Field label='ছবি প্রিভিউ দেখুন' optional>
+            <div className='flex h-[136px] w-full items-center rounded-lg border border-white px-3 py-2'>
+              {photoPreviewUrl ? (
+                <img src={photoPreviewUrl} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
+              ) : (
+                <div className='flex h-full w-full items-center justify-center rounded-lg border border-dashed border-gray-300'>
+                  <span className='text-sm text-gray-400'>কোনো ছবি নির্বাচিত হয়নি</span>
+                </div>
+              )}
+            </div>
+          </Field>
+        </div>
+
+        <div className='mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between'>
+          <button type='button' className='rounded-lg border border-gray-300 px-6 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50'>
+            ফরমের পূর্বরূপ দেখুন
+          </button>
+          <button
+            type='submit'
+            disabled={submitState === 'submitting'}
+            className='rounded-lg bg-orange-500 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60'
+          >
+            {submitState === 'submitting' ? 'জমা হচ্ছে...' : 'সাবমিট করুন'}
+          </button>
+        </div>
       </form>
 
       {showPhotoModal && <PhotoPickerModal onClose={() => setShowPhotoModal(false)} onPick={handlePhotoPick} />}

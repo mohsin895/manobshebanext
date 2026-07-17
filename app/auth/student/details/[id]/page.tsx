@@ -9,12 +9,28 @@ import FormReviewCard, { ReviewField } from '@/components/Profile/FormReviewCard
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
 const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL ?? ''
 
+interface NamedRef {
+  id: number
+  name: string
+  bn_name?: string
+}
+
 interface StudentInfo {
   id: number
+  school_id?: number
+  student_class_id?: number
+  division_id?: number
+  district_id?: number
+  upazila_id?: number
+  zone_id?: number
   name_bn: string
   name_en: string
   father_name_bn: string
+  father_name_en?: string | null
   mother_name_bn: string
+  mother_name_en?: string | null
+  birth_certificate_no?: string | null
+  roll_number?: number | string | null
   mobile_no: string | null
   gender: string | null
   blood_group: string | null
@@ -22,9 +38,11 @@ interface StudentInfo {
   village_mahalla: string | null
   post_office: string | null
   photo: string | null
-  division?: { name: string }
-  district?: { district_name: string }
-  upazila?: { upozilla_name: string }
+  division?: NamedRef
+  district?: NamedRef
+  upazila?: NamedRef
+  zone?: NamedRef
+  student_class?: { id: number; name: string; numericNumber?: number }
 }
 
 // Reads the `token` cookie set at login (matches middleware.ts's
@@ -44,18 +62,23 @@ function mapToFields(student: StudentInfo): ReviewField[] {
   return [
     { label: 'নাম (বাংলা)', value: student.name_bn || '-' },
     { label: 'নাম (ইংরেজি)', value: student.name_en || '-' },
-    { label: 'পিতার নাম', value: student.father_name_bn || '-' },
-    { label: 'মাতার নাম', value: student.mother_name_bn || '-' },
+    { label: 'পিতার নাম (বাংলা)', value: student.father_name_bn || '-' },
+    { label: 'পিতার নাম (ইংরেজি)', value: student.father_name_en || '-' },
+    { label: 'মাতার নাম (বাংলা)', value: student.mother_name_bn || '-' },
+    { label: 'মাতার নাম (ইংরেজি)', value: student.mother_name_en || '-' },
+    { label: 'জন্ম সনদ নম্বর', value: student.birth_certificate_no || '-' },
+    { label: 'রোল নম্বর', value: student.roll_number != null ? String(student.roll_number) : '-' },
+    { label: 'শ্রেণি', value: student.student_class?.name || '-' },
     { label: 'মোবাইল', value: student.mobile_no || '-' },
     { label: 'লিঙ্গ', value: student.gender || '-' },
     { label: 'রক্তের গ্রুপ', value: student.blood_group || '-' },
     { label: 'ধর্ম', value: student.religion || '-' },
     { label: 'গ্রাম/মহল্লা', value: student.village_mahalla || '-' },
     { label: 'ডাকঘর', value: student.post_office || '-' },
-    {
-      label: 'ঠিকানা',
-      value: [student.upazila?.upozilla_name, student.district?.district_name, student.division?.name].filter(Boolean).join(', ') || '-',
-    },
+    { label: 'ইউনিয়ন/জোন', value: student.zone?.name || '-' },
+    { label: 'উপজেলা', value: student.upazila?.name || '-' },
+    { label: 'জেলা', value: student.district?.name || '-' },
+    { label: 'বিভাগ', value: student.division?.name || '-' },
   ]
 }
 
@@ -173,7 +196,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             photoSrc={student.photo ? `${IMAGE_BASE_URL}/${student.photo}` : undefined}
             applicantName={student.name_bn}
             fields={mapToFields(student)}
-            onEdit={() => router.push(`/form/edit/${student.id}`)}
+            onEdit={() => router.push(`/auth/student/registration/${student.id}`)}
             onConfirm={submitForm}
           />
         )}

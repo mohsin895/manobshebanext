@@ -141,7 +141,7 @@ export function Navbar() {
         <div
           ref={navBarRef}
           className={`
-    border-b shadow-md
+  
     bg-white
     md:bg-white
     transition-[background-color,border-radius,width,max-width] duration-300 ease-in-out
@@ -158,10 +158,10 @@ export function Navbar() {
               : undefined
           }
         >
-          <div className='mx-auto max-w-[1340px]'>
+          <div className='mx-auto max-w-[1320px]'>
             <div
               className='flex items-center justify-between h-[64px] transition-[padding] duration-300 ease-in-out'
-              style={isScrolled ? { paddingLeft: 60, paddingRight: 60, paddingTop: 12, paddingBottom: 12 } : undefined}
+              style={isScrolled ? { paddingLeft: 10, paddingRight: 10, paddingTop: 12, paddingBottom: 12 } : undefined}
             >
               {/* Logo */}
               <div className='flex items-center gap-2'>

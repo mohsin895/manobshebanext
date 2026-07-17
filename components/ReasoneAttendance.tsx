@@ -277,11 +277,11 @@ p-5
               <div
                 key={idx}
                 className='
-                  flex flex-col gap-2 items-center text-center px-6 py-2
-                  sm:px-7 sm:py-2
-                  relative
-                  z-10
-                '
+    flex h-full flex-col justify-center gap-2 items-center text-center px-6 py-2
+    sm:px-7 sm:py-2
+    relative
+    z-10
+  '
               >
                 <div className='flex h-7 w-7 items-center justify-center md:h-20 md:w-20'>
                   <div className='flex items-center justify-center'>
@@ -290,31 +290,31 @@ p-5
                 </div>
                 <h4
                   className='
-    font-bn
-    font-medium
-    text-[15px]
-    leading-[32px]
-    tracking-[0]
-    text-white
-    md:text-[24px]
-    md:text-center
-  '
+  font-bn
+  font-medium
+  text-[15px]
+  leading-[32px]
+  tracking-[0]
+  text-white
+  md:text-[24px]
+  md:text-center
+'
                 >
                   {t(reason.titleKey)}
                 </h4>
                 <p
                   className='
-    font-bn-serif
-    font-normal
-    text-[12.5px]
-    leading-[22px]
-    tracking-[0]
-    text-white
-    md:text-[16px]
-    md:leading-[24px]
-    md:tracking-[-0.02em]
-    md:text-center
-  '
+  font-bn-serif
+  font-normal
+  text-[12.5px]
+  leading-[22px]
+  tracking-[0]
+  text-white
+  md:text-[16px]
+  md:leading-[24px]
+  md:tracking-[-0.02em]
+  md:text-center
+'
                 >
                   {t(reason.descKey)}
                 </p>

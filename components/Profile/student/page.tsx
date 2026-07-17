@@ -79,7 +79,12 @@ export default function StudentList({
   return (
     <div className='w-full bg-gray-50 px-4 py-10'>
       <div className='mx-auto max-w-5xl rounded-2xl bg-white p-6 shadow-sm'>
-        <h1 className='mb-4 text-sm text-gray-500'>শিক্ষার্থীদের তালিকা</h1>
+        <div className='flex justify-between'>
+          <h1 className='mb-4 text-sm text-gray-500'>শিক্ষার্থীদের তালিকা</h1>
+          <a href='/auth/student/registration' className='mb-4 text-sm text-gray-500'>
+            নতুন শিক্ষার্থী যোগকরুন
+          </a>
+        </div>
 
         <div className='relative mb-4 inline-block'>
           <select

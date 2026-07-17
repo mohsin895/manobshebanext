@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
 const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL ?? ''
@@ -25,6 +25,20 @@ function authHeaders(): HeadersInit {
   return token ? { Authorization: `Bearer ${token}` } : {}
 }
 
+function filterEnglishText(value: string): string {
+  return value.replace(/[^a-zA-Z\s.'-]/g, '')
+}
+
+// Bengali fields: keep only Bangla script characters, spaces, and common
+// name punctuation. Everything else (including Latin glyphs) is stripped.
+function filterBengaliText(value: string): string {
+  return value.replace(/[^\u0980-\u09FF\s.'-]/g, '')
+}
+
+// Mobile number: digits and a leading + only.
+function filterMobileNumber(value: string): string {
+  return value.replace(/[^\d+]/g, '')
+}
 // Picks the first defined value among a list of possible keys — used because
 // we don't know for certain which key name the /user/student/info endpoint
 // uses for a given field (e.g. `village_mahalla` vs `village`).
@@ -179,7 +193,7 @@ type SubmitState = 'idle' | 'submitting' | 'success' | 'error'
 export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: number }) {
   const params = useParams()
   const studentId = Array.isArray(params?.id) ? params.id[0] : (params?.id as string | undefined)
-
+  const router = useRouter()
   const [showPhotoModal, setShowPhotoModal] = useState(false)
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)
@@ -406,7 +420,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
         if (!res.ok) throw new Error('Failed to load upazilas')
         const json = await res.json()
         const rawList = Array.isArray(json) ? json : (json.data ?? [])
-        const list = normalizeOptions(rawList, ['upozilla_name', 'name'])
+        const list = normalizeOptions(rawList, ['name', 'name'])
         if (!cancelled) {
           setUpazilaOptions(prev => mergeOptions(prev, list))
           if (list.length === 0) setUpazilasError('কোনো উপজেলা পাওয়া যায়নি')
@@ -441,7 +455,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
     async function loadZones() {
       setZonesLoading(true)
       try {
-        const res = await fetch(`${API_BASE_URL}/zone?upozilla_id=${upazilaId}`, {
+        const res = await fetch(`${API_BASE_URL}/zone?upazila_id=${upazilaId}`, {
           headers: { Accept: 'application/json', ...authHeaders() },
         })
         if (!res.ok) throw new Error('Failed to load zones')
@@ -522,8 +536,8 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
         // a blank field while /district, /upazila, /zone are still loading.
         // Later list-fetch effects merge into these instead of overwriting.
         setDivisionOptions(prev => mergeOptions(prev, seedOption(data.division, ['name'])))
-        setDistrictOptions(prev => mergeOptions(prev, seedOption(data.district, ['district_name', 'name'])))
-        setUpazilaOptions(prev => mergeOptions(prev, seedOption(data.upazila, ['upozilla_name', 'name'])))
+        setDistrictOptions(prev => mergeOptions(prev, seedOption(data.district, ['name', 'name'])))
+        setUpazilaOptions(prev => mergeOptions(prev, seedOption(data.upazila, ['name', 'name'])))
         setZoneOptions(prev => mergeOptions(prev, seedOption(data.zone, ['name'])))
 
         // Also seed the class label in case /student/class doesn't include it.
@@ -539,7 +553,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
 
         setDivisionId(pick(data, ['division_id']))
         setDistrictId(pick(data, ['district_id']))
-        setUpazilaId(pick(data, ['upozilla_id', 'upazila_id']))
+        setUpazilaId(pick(data, ['upazila_id', 'upazila_id']))
         setZoneId(pick(data, ['zone_id']))
       } catch (err) {
         if (!cancelled) {
@@ -607,7 +621,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
       if (postOffice) formData.append('post_office', postOffice)
       if (divisionId) formData.append('division_id', divisionId)
       if (districtId) formData.append('district_id', districtId)
-      if (upazilaId) formData.append('upozilla_id', upazilaId)
+      if (upazilaId) formData.append('upazila_id', upazilaId)
       if (zoneId) formData.append('zone_id', zoneId)
       // Only send a new photo if the user picked one — otherwise the
       // existing photo on the server is left untouched.
@@ -636,6 +650,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
       }
 
       setSubmitState('success')
+      router.push('/auth/student/list')
     } catch (err) {
       setSubmitState('error')
       setErrorMessage(err instanceof Error ? err.message : 'কিছু একটা সমস্যা হয়েছে')
@@ -711,25 +726,33 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
         {submitState === 'error' && errorMessage && <div className='rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700'>{errorMessage}</div>}
 
         <div className='grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2'>
-          <Field label='পরীক্ষার্থীর নাম (বাংলায়)'>
-            <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameBn} onChange={e => setNameBn(e.target.value)} required />
-          </Field>
           <Field label='পরীক্ষার্থীর নাম (ইংরেজিতে)'>
-            <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameEn} onChange={e => setNameEn(e.target.value)} required />
-          </Field>
-
-          <Field label='পিতার নাম (বাংলায়)'>
-            <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameBn} onChange={e => setFatherNameBn(e.target.value)} required />
-          </Field>
-          <Field label='মাতার নাম (বাংলায়)'>
-            <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameBn} onChange={e => setMotherNameBn(e.target.value)} required />
+            <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameEn} onChange={e => setNameEn(filterEnglishText(e.target.value))} required />
           </Field>
 
           <Field label='পিতার নাম (ইংরেজিতে)'>
-            <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameEn} onChange={e => setFatherNameEn(e.target.value)} required />
+            <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameEn} onChange={e => setFatherNameEn(filterEnglishText(e.target.value))} required />
           </Field>
           <Field label='মাতার নাম (ইংরেজিতে)'>
-            <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameEn} onChange={e => setMotherNameEn(e.target.value)} required />
+            <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameEn} onChange={e => setMotherNameEn(filterEnglishText(e.target.value))} required />
+          </Field>
+
+          <Field label='মোবাইল নং (ইংরেজিতে)'>
+            <input className={inputClass} placeholder='মোবাইল নম্বর লিখুন' value={mobileNo} onChange={e => setMobileNo(filterMobileNumber(e.target.value))} inputMode='numeric' />
+          </Field>
+          <Field label='জন্ম সনদ নং'>
+            <input className={inputClass} placeholder='পরীক্ষার্থীর জন্ম সনদ নম্বর লিখুন' value={birthCertificateNo} onChange={e => setBirthCertificateNo(e.target.value)} />
+          </Field>
+
+          <Field label='পরীক্ষার্থীর নাম (বাংলায়)'>
+            <input className={inputClass} placeholder='পরীক্ষার্থীর নাম লিখুন' value={nameBn} onChange={e => setNameBn(filterBengaliText(e.target.value))} required />
+          </Field>
+
+          <Field label='পিতার নাম (বাংলায়)'>
+            <input className={inputClass} placeholder='পিতার নাম লিখুন' value={fatherNameBn} onChange={e => setFatherNameBn(filterBengaliText(e.target.value))} required />
+          </Field>
+          <Field label='মাতার নাম (বাংলায়)'>
+            <input className={inputClass} placeholder='মাতার নাম লিখুন' value={motherNameBn} onChange={e => setMotherNameBn(filterBengaliText(e.target.value))} required />
           </Field>
 
           <Field label='লিঙ্গ'>
@@ -738,9 +761,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
           <Field label='রক্তের গ্রুপ'>
             <Select placeholder='নির্বাচন করুন...' options={bloodGroupOptions} value={bloodGroup} onChange={setBloodGroup} />
           </Field>
-          <Field label='জন্ম সনদ নং'>
-            <input className={inputClass} placeholder='পরীক্ষার্থীর জন্ম সনদ নম্বর লিখুন' value={birthCertificateNo} onChange={e => setBirthCertificateNo(e.target.value)} />
-          </Field>
+
           <Field label='ধর্ম'>
             <Select placeholder='নির্বাচন করুন...' options={religionOptions} value={religion} onChange={setReligion} />
           </Field>
@@ -756,15 +777,11 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
             {classesError && <p className='mt-1.5 text-xs text-red-500'>{classesError}</p>}
           </Field>
 
-          <Field label='মোবাইল নং (ইংরেজিতে)'>
-            <input className={inputClass} placeholder='মোবাইল নম্বর লিখুন' value={mobileNo} onChange={e => setMobileNo(e.target.value)} />
-          </Field>
-
           <div className='sm:col-span-2'>
             <label className={labelClass}>ঠিকানা (বাংলায়)</label>
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-              <input className={inputClass} placeholder='গ্রাম/মহল্লা' value={villageMahalla} onChange={e => setVillageMahalla(e.target.value)} />
-              <input className={inputClass} placeholder='ডাকঘর' value={postOffice} onChange={e => setPostOffice(e.target.value)} />
+              <input className={inputClass} placeholder='গ্রাম/মহল্লা' value={villageMahalla} onChange={e => setVillageMahalla(filterBengaliText(e.target.value))} />
+              <input className={inputClass} placeholder='ডাকঘর' value={postOffice} onChange={e => setPostOffice(filterBengaliText(e.target.value))} />
 
               <div>
                 <Select

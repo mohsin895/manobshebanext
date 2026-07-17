@@ -27,13 +27,13 @@ p-3
 
     md:max-w-none
     md:h-[800px]
-    md:bg-[url('/bg2.png')]
+    md:bg-[url('/medhabg.svg')]
   "
     >
       <div className='mx-auto max-w-6xl'>
         {/* Eyebrow */}
         <div className='mb-4 flex justify-center'>
-          <div className='inline-flex items-center gap-2 px-4 py-1.5 text-[14px] md:text-[16px] text-[#4A4DE1]'>
+          <div className='inline-flex items-center gap-2 px-4 py-1.5    mt-[84px] text-[14px] md:text-[16px] text-[#4A4DE1]'>
             <Image src='/about1.png' width={24} height={24} alt={t('about.photo_alt')} />{' '}
             <span
               className='
@@ -43,6 +43,7 @@ p-3
     leading-[24px]
     tracking-[0]
     text-center
+
     text-[#4A4DE1]
   '
             >

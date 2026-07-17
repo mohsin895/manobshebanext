@@ -156,6 +156,9 @@ export function Scholarship() {
                   title/description/CTA overlaid in white text. The original bottomImage
                   is kept as a faint texture layer behind the scrim (mix-blend, low opacity)
                   so the decorative artwork isn't lost, just recessed behind the main photo.
+
+                  HOVER: an accent-colored overlay fades in over the whole card and the
+                  title/description/CTA re-center (everything else unchanged).
                 */}
         <div className='relative md:static'>
           <div
@@ -195,11 +198,14 @@ export function Scholarship() {
                   {/* Bottom gradient for text legibility */}
                   <div className='pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/0' />
 
+                  {/* Hover fill — accent color overlay, fades in on hover only */}
+                  <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-90' style={{ backgroundColor: accent }} aria-hidden />
+
                   {/* Top-left accent tab — encodes the card's original category color */}
                   <div className='absolute left-4 top-4 h-2.5 w-2.5 rounded-full' style={{ backgroundColor: accent, boxShadow: `0 0 0 4px ${accent}33` }} aria-hidden />
 
                   {/* Text + CTA overlay */}
-                  <div className='relative z-10 mt-auto flex flex-col gap-3 p-5'>
+                  <div className='relative z-10 mt-auto flex flex-col items-start gap-3 p-5 text-left transition-all duration-300 ease-out group-hover:items-center group-hover:text-center group-hover:mb-auto'>
                     <div>
                       <h3
                         className='
@@ -236,7 +242,7 @@ export function Scholarship() {
                     <div>
                       <button
                         className='
-                                                    inline-flex items-center gap-1.5
+                                                    inline-flex items-center justify-center gap-1.5
                                                     rounded-full
                                                     border border-white/30
                                                     bg-white/10
@@ -244,10 +250,7 @@ export function Scholarship() {
                                                     text-[13px] font-medium text-white
                                                     backdrop-blur-sm
                                                     transition-all duration-300
-                                                    group-hover:border-transparent
-                                                    group-hover:bg-[var(--accent)]
                                                 '
-                        style={{ ['--accent' as string]: accent }}
                       >
                         {t('scholarship.see_more')}
                         <ArrowUpRight className='h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />

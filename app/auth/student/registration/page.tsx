@@ -51,7 +51,7 @@ function RegistrationPageContent() {
   return (
     <main className='w-full'>
       <Navbar />
-      <StudentInfoForm studentId={searchParams.get('studentId')!} />
+      <StudentInfoForm />
       <Footer />
     </main>
   )

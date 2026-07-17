@@ -74,7 +74,7 @@ export function ExamStructure() {
         {/* Two-column grid */}
         <div className='mb-8 grid gap-6 lg:grid-cols-2'>
           {/* Left card: question pattern rules */}
-          <div className='rounded-xl bg-white p-6 shadow-sm md:p-8'>
+          <div className='rounded-xl bg-white p-6 h-[392px] shadow-sm md:p-8'>
             <h3
               className='
     mb-5
@@ -176,7 +176,7 @@ export function ExamStructure() {
             <ul className='divide-y divide-gray-100'>
               {subjects.map(subject => {
                 return (
-                  <li key={subject.key} className='flex items-center justify-between py-3'>
+                  <li key={subject.key} className='flex items-center justify-between py-1'>
                     <div className='flex items-center gap-3'>
                       <span className='flex h-8 w-8 items-center justify-center rounded-full border border-[#A7BCFA] bg-[#EEF3FF] md:h-10 md:w-10'>
                         <Image src={subject.icon} alt='test' width={24} height={24} className='h-5 w-5 md:h-6 md:w-6' />
