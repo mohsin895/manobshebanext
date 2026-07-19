@@ -4,6 +4,12 @@ import { useLanguage } from '@/app/context/LanguageContext'
 import Image from 'next/image'
 import { useRef, useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react'
+import { ComponentFirst } from '@/components/componentFirst'
+import { ComponentSecond } from '@/components/componentSecond'
+import { ComponentThird } from '@/components/componentThird'
+import { ComponentFourth } from '@/components/ComponentFourth'
+import { ComponentFifth } from '@/components/ComponentFifth'
+import { ComponentSix } from '@/components/ComponentSix'
 
 // Maps each card's original pastel Tailwind swatch to a matching solid
 // accent hex — used for the category dot + hover-fill on the CTA pill.
@@ -163,140 +169,23 @@ export function Scholarship() {
         <div className='relative md:static'>
           <div
             ref={scrollRef}
-            className='
-                            flex flex-row gap-4 overflow-x-auto pb-4
+            className='   flex flex-row gap-8 overflow-x-auto pb-4
                             snap-x snap-mandatory scroll-pl-4
                             -mx-4 px-4
                             [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
 
                             md:mx-0 md:px-0 md:pb-0 md:overflow-visible
-                            md:grid md:grid-cols-3 md:gap-4
-                        '
+                            md:grid md:grid-cols-3 md:gap-8'
           >
-            {items.map((item, idx) => {
-              const accent = COLOR_ACCENTS[item.color] ?? '#4A4DE1'
-              return (
-                <div
-                  key={idx}
-                  data-card
-                  className='
-                                        group relative flex flex-col overflow-hidden
-                                        shrink-0 w-[78%] aspect-[3/4] snap-start
-                                        rounded-[28px]
-                                        shadow-[0_8px_30px_-12px_rgba(28,29,74,0.25)]
-                                        transition-transform duration-500 ease-out
-                                        hover:-translate-y-1
-                                        md:w-auto md:aspect-auto md:shrink-0 md:h-[420px]
-                                    '
-                >
-                  {/* Recessed texture layer — the original bg*.png, kept faint behind the main photo */}
-                  <Image src={item.bottomImage} alt='' fill aria-hidden className='object-cover opacity-40 mix-blend-multiply' />
-
-                  {/* Main exam photo */}
-                  <Image src={item.topImage} alt={t(item.titleKey)} fill className='object-cover transition-transform duration-700 ease-out group-hover:scale-110' />
-
-                  {/* Bottom gradient for text legibility */}
-                  <div className='pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/0' />
-
-                  {/* Hover fill — accent color overlay, fades in on hover only */}
-                  <div className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-90' style={{ backgroundColor: accent }} aria-hidden />
-
-                  {/* Top-left accent tab — encodes the card's original category color */}
-                  <div className='absolute left-4 top-4 h-2.5 w-2.5 rounded-full' style={{ backgroundColor: accent, boxShadow: `0 0 0 4px ${accent}33` }} aria-hidden />
-
-                  {/* Text + CTA overlay */}
-                  <div className='relative z-10 mt-auto flex flex-col items-start gap-3 p-5 text-left transition-all duration-300 ease-out group-hover:items-center group-hover:text-center group-hover:mb-auto'>
-                    <div>
-                      <h3
-                        className='
-                                                    font-bn
-                                                    font-medium
-                                                    text-[17px]
-                                                    leading-[24px]
-                                                    tracking-[0]
-                                                    text-white
-                                                    md:text-[22px]
-                                                    md:leading-[30px]
-                                                '
-                      >
-                        {t(item.titleKey)}
-                      </h3>
-                      <p
-                        className='
-                                                    mt-1
-                                                    font-bn-serif
-                                                    font-normal
-                                                    text-[13px]
-                                                    leading-[20px]
-                                                    tracking-[0]
-                                                    text-white/75
-                                                    line-clamp-2
-                                                    md:text-[15px]
-                                                    md:leading-[22px]
-                                                '
-                      >
-                        {t(item.descKey)}
-                      </p>
-                    </div>
-
-                    <div>
-                      <button
-                        className='
-                                                    inline-flex items-center justify-center gap-1.5
-                                                    rounded-full
-                                                    border border-white/30
-                                                    bg-white/10
-                                                    px-4 py-2
-                                                    text-[13px] font-medium text-white
-                                                    backdrop-blur-sm
-                                                    transition-all duration-300
-                                                '
-                      >
-                        {t('scholarship.see_more')}
-                        <ArrowUpRight className='h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
+            <ComponentFirst />
+            <ComponentSecond />
+            <ComponentThird />
+            <ComponentFourth />
+            <ComponentFifth />
+            <ComponentSix />
           </div>
 
           {/* Left arrow — mobile only, centered on the card */}
-          <button
-            type='button'
-            onClick={() => scrollByCard('left')}
-            aria-label='Previous'
-            disabled={!canScrollLeft}
-            className={`
-                            md:hidden
-                            absolute -left-2 top-1/2 -translate-y-1/2 z-20
-                            flex items-center justify-center
-                            h-9 w-9 rounded-full bg-white shadow-md
-                            transition-opacity
-                            ${canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                        `}
-          >
-            <ChevronLeft className='h-5 w-5 text-gray-700' />
-          </button>
-
-          {/* Right arrow — mobile only, centered on the card */}
-          <button
-            type='button'
-            onClick={() => scrollByCard('right')}
-            aria-label='Next'
-            disabled={!canScrollRight}
-            className={`
-                            md:hidden
-                            absolute -right-2 top-1/2 -translate-y-1/2 z-20
-                            flex items-center justify-center
-                            h-9 w-9 rounded-full bg-white shadow-md
-                            transition-opacity
-                            ${canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                        `}
-          >
-            <ChevronRight className='h-5 w-5 text-gray-700' />
-          </button>
         </div>
       </div>
     </section>
