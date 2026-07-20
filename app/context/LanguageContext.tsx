@@ -127,23 +127,23 @@ const translations: Record<Language, Record<string, string>> = {
     'scholarship.title': 'বিক্রমপুর মানব সেবা ফাউন্ডেশন মেধাবৃত্তি-২০২৬',
     'scholarship.see_more': 'আরও দেখুন',
 
-    'scholarship.exam_guide': 'পরীক্ষা নির্দেশিকা',
-    'scholarship.exam_guide_desc': 'কক্ষে প্রবেশ ও নিয়মাবলি পড়ুন',
-
     'scholarship.online_apply': 'অনলাইন আবেদন',
-    'scholarship.online_apply_desc': 'পরীক্ষায় অংশগ্রহণের জন্য অনলাইনে আবেদন করুন',
+    'scholarship.online_apply_desc': 'পরীক্ষায় অংশগ্রহণের জন্য অনলাইনে ফরম পূরণ করুন',
+
+    'scholarship.exam_guide': 'পরীক্ষা নির্দেশিকা',
+    'scholarship.exam_guide_desc': 'প্রশ্ন কাঠামো ও সিলেবাস দেখুন',
 
     'scholarship.seat_plan': 'আসন বিন্যাস',
-    'scholarship.seat_plan_desc': 'হলরুম বিভাগ ও কেন্দ্রসূচি',
-
-    'scholarship.final_result': 'ফলাফল অনুসন্ধান',
-    'scholarship.final_result_desc': 'মেধাতালিকা দেখতে এখানে',
+    'scholarship.seat_plan_desc': 'আসন বিন্যাস ও কেন্দ্রসমূহ',
 
     'scholarship.merit_list': 'কৃতি শিক্ষার্থী',
-    'scholarship.merit_list_desc': 'বিগত বছরের সেরা কৃতি শিক্ষার্থী',
+    'scholarship.merit_list_desc': 'মুন্সিগঞ্জ জেলার গর্বিত কৃতি শিক্ষার্থীরা',
+
+    'scholarship.final_result': 'ফলাফল অনুসন্ধান',
+    'scholarship.final_result_desc': 'মেধাবৃত্তির ফলাফল দেখুন',
 
     'scholarship.achievements': 'শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ',
-    'scholarship.achievements_desc': 'প্রতিটি শিক্ষা প্রতিষ্ঠানের সাফল্য',
+    'scholarship.achievements_desc': 'প্রতিষ্ঠান ভিত্তিক বৃত্তি অর্জন',
 
     'reasons.eyebrow': 'অংশগ্রহণের কারণ',
     'reasons.title': 'কেন এই মেধাবৃত্তি পরীক্ষায় অংশগ্রহণ করবেন?',

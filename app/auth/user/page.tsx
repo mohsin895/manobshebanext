@@ -17,10 +17,10 @@ const CLASSES = [
   { className: 'দশম শ্রেণি', seatInfo: '১/৬ জন আবেদন সম্পন্ন করেছেন', href: '/class/10' },
 ]
 
-type Division = { id: number; name: string; details: string }
-type District = { id: number; name: string; details: string }
-type Upazila = { id: number; name: string; details: string }
-type Zone = { id: number; name: string; slug: string }
+type Division = { id: number; bn_name: string; details: string }
+type District = { id: number; bn_name: string; details: string }
+type Upazila = { id: number; bn_name: string; details: string }
+type Zone = { id: number; bn_name: string; slug: string }
 
 type School = {
   id: number
@@ -39,8 +39,9 @@ function formatAddress(school: School): string {
   const parts: string[] = []
 
   if (school.address) parts.push(`গ্রাম: ${school.address}`)
-  if (school.upazila?.name) parts.push(`উপজেলা: ${school.upazila.name}`)
-  if (school.district?.name) parts.push(`জেলা: ${school.district.name}`)
+  if (school.zone?.bn_name) parts.push(`ইউনিয়ন: ${school.zone.bn_name}`)
+  if (school.upazila?.bn_name) parts.push(`উপজেলা: ${school.upazila.bn_name}`)
+  if (school.district?.bn_name) parts.push(`জেলা: ${school.district.bn_name}`)
 
   let formatted = parts.join(', ')
   if (school.postcode) formatted += ` — ${school.postcode}`

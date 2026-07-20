@@ -27,31 +27,31 @@ export function ComponentFirst() {
           </svg>
         </div>
         <div className='mt-[-32px]'>
-            <div>
-                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 427 182' className='w-full'>
-                    <defs>
-                        <linearGradient id='cardGradient' x1='0' y1='0' x2='1' y2='1'>
-                            <stop offset='0%' stopColor='#91B3FF' />
-                            <stop offset='100%' stopColor='#EDF3FF' />
-                        </linearGradient>
-                    </defs>
+          <div>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 427 182' className='w-full'>
+              <defs>
+                <linearGradient id='cardGradientF' x1='0' y1='0' x2='1' y2='1'>
+                  <stop offset='0%' stopColor='#91B3FF' />
+                  <stop offset='100%' stopColor='#EDF3FF' />
+                </linearGradient>
+              </defs>
 
-                    {/* Normal background */}
-                    <path
-                        d='M0 24.0029C0 9.67516 12.4724 -1.46079 26.7086 0.156203L405.709 43.2042C417.837 44.5818 427 54.8441 427 67.0509V157.123C427 170.377 416.255 181.123 403 181.123H24C10.7452 181.123 0 170.377 0 157.123V24.0029Z'
-                        className='fill-[#E1EAFE] transition-all duration-500 group-hover:fill-[url(#cardGradient)]'
-                    />
-                </svg>
-            </div>
-          <div className='relative z-10 mt-[-130px] flex justify-between gap-3 p-5 text-left transition-all duration-300 ease-out group-hover:items-center group-hover:text-center'>
+              {/* Normal background */}
+              <path
+                d='M0 24.0029C0 9.67516 12.4724 -1.46079 26.7086 0.156203L405.709 43.2042C417.837 44.5818 427 54.8441 427 67.0509V157.123C427 170.377 416.255 181.123 403 181.123H24C10.7452 181.123 0 170.377 0 157.123V24.0029Z'
+                className='fill-[#E1EAFE] transition-all duration-500 group-hover:fill-[url(#cardGradientF)]'
+              />
+            </svg>
+          </div>
+          <div className='relative z-10 mt-[-130px]   gap-3 p-5 text-left transition-all duration-300 ease-out group-hover:items-center group-hover:text-center'>
             <div className='self-start mt-[-40px] text-left'>
               <h3 className='font-bn text-[24px] font-medium leading-[32px] text-[#3B3BC7]'> {t('scholarship.online_apply')}</h3>
               <p className='mt-1 font-bn-serif text-[16px] font-normal leading-[24px] text-[#3B3BC7] line-clamp-2'> {t('scholarship.online_apply_desc')}</p>
             </div>
 
-            <div className=' self-start flex h-full items-end mt-[55px]'>
+            <div className=' self-end justify-end flex h-full items-end mt-[40px]'>
               <button className='inline-flex items-center justify-center gap-2 rounded-[99px] bg-[#4A4DE1] px-4 py-2 text-white'>
-                sikder
+                {t('scholarship.see_more')}
                 <ArrowUpRight className='h-4 w-4' />
               </button>
             </div>

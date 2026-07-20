@@ -1,6 +1,8 @@
 import { ArrowUpRight } from 'lucide-react'
+import { useLanguage } from '@/app/context/LanguageContext'
 
 export function ComponentFourth() {
+  const { t } = useLanguage()
   return (
     <>
       <div className='group'>
@@ -43,13 +45,13 @@ export function ComponentFourth() {
           </div>
           <div className='relative z-10 mt-[-130px] flex justify-between gap-3 p-5 text-left transition-all duration-300 ease-out group-hover:items-left group-hover:text-left'>
             <div className='mt-[-30px]'>
-              <h3 className='font-bn text-[24px] font-medium leading-[32px] text-[#3B3BC7]'>mohsin</h3>
-              <p className='mt-1 font-bn-serif text-[16px] font-normal leading-[24px] text-[#3B3BC7] line-clamp-2'>sikder</p>
+              <h3 className='font-bn text-[24px] font-medium leading-[32px] text-[#3B3BC7]'>{t('scholarship.merit_list')}</h3>
+              <p className='mt-1 font-bn-serif text-[16px] font-normal leading-[24px] text-[#3B3BC7] line-clamp-2'>{t('scholarship.merit_list_desc')}</p>
             </div>
 
             <div className='flex h-full items-end mt-[55px]'>
               <button className='inline-flex items-center justify-center gap-2 rounded-[99px] bg-[#4A4DE1] px-4 py-2 text-white'>
-                sikder
+                {t('scholarship.see_more')}
                 <ArrowUpRight className='h-4 w-4' />
               </button>
             </div>

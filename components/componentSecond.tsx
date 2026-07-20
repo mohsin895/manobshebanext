@@ -1,6 +1,8 @@
 import { ArrowUpRight } from 'lucide-react'
+import { useLanguage } from '@/app/context/LanguageContext'
 
 export function ComponentSecond() {
+  const { t } = useLanguage()
   return (
     <>
       <div className='group'>
@@ -31,13 +33,13 @@ export function ComponentSecond() {
 
           <div className='absolute inset-0 flex justify-between p-5'>
             <div className='self-start'>
-              <h3 className='font-bn text-[24px] font-medium leading-[32px] text-[#C61D08]'>mohsin</h3>
-              <p className='mt-1 font-bn-serif text-[16px] leading-[24px] text-[#C61D08]'>sikder</p>
+              <h3 className='font-bn text-[24px] font-medium leading-[32px] text-[#C61D08]'>{t('scholarship.exam_guide')}</h3>
+              <p className='mt-1 font-bn-serif text-[16px] leading-[24px] text-[#C61D08]'>{t('scholarship.exam_guide_desc')}</p>
             </div>
 
             <div className='mt-[56px] self-start'>
               <button className='inline-flex items-center gap-2 rounded-full bg-[#FE4711] px-4 py-2 text-white'>
-                sikder
+                {t('scholarship.see_more')}
                 <ArrowUpRight className='h-4 w-4' />
               </button>
             </div>
