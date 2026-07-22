@@ -37,7 +37,7 @@ export function LoginProcess() {
       md:rounded-2xl
     '
           >
-            <Image src='/loginprocess.png' alt={t('loginProcess.alt') || 'Login process illustration'} width={854} height={480} className='h-full w-full object-cover' />
+            <Image src='/image201.jpeg' alt={t('loginProcess.alt') || 'Login process illustration'} width={854} height={480} className='h-full w-full object-cover' />
           </div>
         </div>
 

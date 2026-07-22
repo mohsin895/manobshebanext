@@ -243,10 +243,10 @@ export function Navbar() {
                       <select
                         value={language}
                         onChange={e => setLanguage(e.target.value as Language)}
-                        className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-8 pr-4 font-bn text-[16px] font-medium leading-[24px] tracking-normal text-center text-[#374151] outline-none cursor-pointer'
+                        className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-8 pr-[25px] font-bn text-[16px] font-medium leading-[24px] tracking-normal text-left text-[#374151] outline-none cursor-pointer'
                       >
                         <option value='bn'>বাংলা</option>
-                        <option value='en'>EN</option>
+                        <option value='en'>English</option>
                       </select>
 
                       <div className='pointer-events-none absolute right-0 top-0 flex h-7 w-8 items-center justify-center rounded-r-[4px] bg-[#8497F5]'>

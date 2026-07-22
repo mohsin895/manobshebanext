@@ -2,17 +2,53 @@
 
 import { useEffect, useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
+import { useSchoolSetting } from '@/app/context/SchoolSettingContext'
 import Image from 'next/image'
 
-const timelineItems = [
-  { dateKey: 'schedule.date1', labelKey: 'schedule.label1', status: 'done' },
-  { dateKey: 'schedule.date2', labelKey: 'schedule.label2', status: 'upcoming' },
-  { dateKey: 'schedule.date3', labelKey: 'schedule.label3', status: 'upcoming' },
-  { dateKey: 'schedule.date4', labelKey: 'schedule.label4', status: 'upcoming' },
-  { dateKey: 'schedule.date5', labelKey: 'schedule.label5', status: 'upcoming' },
-  { dateKey: 'schedule.date6', labelKey: 'schedule.label6', status: 'upcoming' },
+type TimelineStatus = 'done' | 'active' | 'urgent' | 'upcoming'
+
+type TimelineItem = {
+  dateField: 'timeline1_date' | 'timeline2_date' | 'timeline3_date' | 'timeline4_date' | 'timeline5_date' | 'timeline6_date'
+  labelKey: string
+  status: TimelineStatus
+}
+
+const timelineItems: TimelineItem[] = [
+  { dateField: 'timeline1_date', labelKey: 'schedule.label1', status: 'done' },
+  { dateField: 'timeline2_date', labelKey: 'schedule.label2', status: 'upcoming' },
+  { dateField: 'timeline3_date', labelKey: 'schedule.label3', status: 'upcoming' },
+  { dateField: 'timeline4_date', labelKey: 'schedule.label4', status: 'upcoming' },
+  { dateField: 'timeline5_date', labelKey: 'schedule.label5', status: 'upcoming' },
+  { dateField: 'timeline6_date', labelKey: 'schedule.label6', status: 'upcoming' },
 ]
 
+function formatFullDate(dateStr: string | null, isBn: boolean) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  if (Number.isNaN(d.getTime())) return ''
+  return new Intl.DateTimeFormat(isBn ? 'bn-BD' : 'en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(d)
+}
+
+function formatExamTime(timeStr: string | null, isBn: boolean) {
+  if (!timeStr) return ''
+  const [hStr, mStr] = timeStr.split(':')
+  const h = Number(hStr)
+  const m = Number(mStr)
+  if (Number.isNaN(h) || Number.isNaN(m)) return ''
+
+  const d = new Date()
+  d.setHours(h, m, 0, 0)
+
+  return new Intl.DateTimeFormat(isBn ? 'bn-BD' : 'en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(d)
+}
 function toBengaliNum(n: number) {
   const d = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
   return String(n)
@@ -21,8 +57,6 @@ function toBengaliNum(n: number) {
     .map(c => d[+c] ?? c)
     .join('')
 }
-
-const EXAM_DATE = new Date('2026-07-15T10:00:00+06:00').getTime()
 
 // manually assign per index
 const iconsByIndex = [
@@ -34,13 +68,32 @@ const iconsByIndex = [
   (s: string) => '/image40.png',
 ]
 
+function formatDate(dateStr: string | null, isBn: boolean) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  if (Number.isNaN(d.getTime())) return ''
+  const formatted = new Intl.DateTimeFormat(isBn ? 'bn-BD' : 'en-US', {
+    day: 'numeric',
+    month: 'short',
+  }).format(d)
+  return formatted
+}
+
 export function ImportantSchedule() {
   const { t } = useLanguage()
+  const { setting } = useSchoolSetting()
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
+  const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
+
+  // Counts down to timeline4_date, only while examStart is 'active'. Holds at zero otherwise/after.
   useEffect(() => {
+    if (!setting?.timeline4_date || setting?.examStart !== 'active') return
+
+    const deadline = new Date(setting.timeline4_date).getTime()
+
     function update() {
-      const diff = Math.max(0, EXAM_DATE - Date.now())
+      const diff = Math.max(0, deadline - Date.now())
       setCountdown({
         days: Math.floor(diff / 86400000),
         hours: Math.floor((diff % 86400000) / 3600000),
@@ -51,7 +104,7 @@ export function ImportantSchedule() {
     update()
     const id = setInterval(update, 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [setting?.timeline4_date, setting?.examStart])
 
   const dotStyle = (status: string) => {
     if (status === 'active') return 'bg-blue-500 border-blue-500 ring-4 ring-blue-100'
@@ -138,7 +191,7 @@ export function ImportantSchedule() {
     md:text-[24px] md:leading-[32px]
   '
                 >
-                  {t(item.dateKey)}
+                  {formatDate(setting?.[item.dateField] ?? null, isBn)}
                 </div>
                 {/* Dot + lines */}
                 <div className='relative flex w-9 flex-shrink-0 flex-col items-center md:h-9 w-[30%] md:flex-row'>
@@ -192,7 +245,7 @@ export function ImportantSchedule() {
     md:text-[24px] md:leading-[32px]
   '
               >
-                {t(item.dateKey)}
+                {formatDate(setting?.[item.dateField] ?? null, isBn)}
               </div>
 
               {/* Dot + lines */}
@@ -356,19 +409,20 @@ export function ImportantSchedule() {
               </div>
 
               {/* Footer */}
+              {/* Footer */}
               <p
                 className='
-                                    font-bn-serif
-                                    text-center
-                                    text-[14px]
-                                    leading-[24px]
-                                    text-white
-                                    md:text-[12px]
-                                '
+                      font-bn-serif
+                      text-center
+                      text-[14px]
+                      leading-[24px]
+                      text-white
+                      md:text-[12px]
+                  '
               >
-                {t('schedule.countdown_footer_prefix')} <span className='font-semibold'>{t('schedule.countdown_date')}</span>
+                {t('schedule.countdown_footer_prefix')} <span className='font-semibold'>{formatFullDate(setting?.timeline4_date ?? null, isBn)}</span>
                 {', '}
-                {t('schedule.countdown_footer_time')} <span className='font-semibold'>{t('schedule.countdown_time')}</span>
+                {t('schedule.countdown_footer_time')} <span className='font-semibold'>{formatExamTime(setting?.examTime ?? null, isBn)}</span>
                 {' ।'}
               </p>
             </div>

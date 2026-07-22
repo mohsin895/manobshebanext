@@ -7,6 +7,10 @@ type TimelineKey = 1 | 2 | 3 | 4 | 5 | 6
 type SchoolSetting = {
   id: number
   status: string
+  applicationStart: string
+  examStart: string
+  maxStudents: number | null
+  examTime: string | null
   created_at: string
   updated_at: string
 } & {

@@ -107,7 +107,7 @@ export function Hero() {
 
   // Counts down to timeline2_date (the deadline). Holds at zero once it passes.
   useEffect(() => {
-    if (!setting?.timeline2_date) return
+    if (!setting?.timeline2_date || setting?.applicationStart !== 'active') return
 
     const deadline = new Date(setting.timeline2_date).getTime()
 
@@ -131,8 +131,7 @@ export function Hero() {
     tick()
     const timer = setInterval(tick, 1000)
     return () => clearInterval(timer)
-  }, [setting?.timeline2_date])
-
+  }, [setting?.timeline2_date, setting?.applicationStart])
   const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
 
   return (

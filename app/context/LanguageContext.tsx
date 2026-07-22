@@ -553,6 +553,26 @@ const translations: Record<Language, Record<string, string>> = {
     'helpBanner.address.label': 'Address',
     'helpBanner.address.value': 'Kamarkhara Bazar, Tongibari, Munshiganj',
 
+    'schedule.eyebrow': 'Important Schedule',
+    'schedule.title': 'All important exam dates and deadlines.',
+
+    'schedule.label1': 'Application Starts',
+    'schedule.label2': 'Application Deadline',
+    'schedule.label3': 'Admit Card Distribution',
+    'schedule.label4': 'Exam Date',
+    'schedule.label5': 'Result Publication',
+    'schedule.label6': 'Scholarship Award Ceremony',
+
+    'schedule.countdown_title': 'Time Remaining Until the Exam',
+    'schedule.countdown_subtitle': 'Be prepared to take the exam. Best of luck to everyone!',
+    'schedule.days': 'Days',
+    'schedule.hours': 'Hours',
+    'schedule.minutes': 'Minutes',
+    'schedule.seconds': 'Seconds',
+    'schedule.countdown_footer_prefix': 'Exam Date:',
+    'schedule.countdown_date': 'July 15, 2025',
+    'schedule.countdown_footer_time': 'Time:',
+    'schedule.countdown_time': '10:00 AM',
     // ─── Add these keys inside the `en` translations object ───────────────────────
 
     'quotes.eyebrow': 'Testimonials',
