@@ -3,6 +3,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
 import { CalendarIcon } from '@heroicons/react/24/outline'
+
+interface ApiMediaItem {
+  id: number
+  title: string
+  description: string
+  date: string
+  language_id: number
+  status: string
+  created_at: string
+  updated_at: string
+}
+
 interface NewsItem {
   id: string
   badge: string
@@ -12,28 +24,51 @@ interface NewsItem {
   full: string
 }
 
-const newsItems: NewsItem[] = [
-  {
-    id: '1',
-    badge: 'জরুরী বিজ্ঞপ্তি',
-    date: '০৯ জুন ২০২৬',
-    title: 'রেজিস্ট্রেশনের সময় শেষ হচ্ছে, এখনই নিবন্ধন করুন',
-    summary: 'আমাদের ওয়েবসাইটের রেজিস্ট্রেশন সেকশনে গিয়ে এখনই অংশগ্রহণ নিশ্চিত করুন। সময়সীমা শেষ হওয়ার আগেই নিবন্ধন সম্পন্ন করুন।',
-    full: 'আমাদের ওয়েবসাইটের রেজিস্ট্রেশন সেকশনে গিয়ে এখনই অংশগ্রহণ নিশ্চিত করুন। সময়সীমা শেষ হওয়ার আগেই নিবন্ধন সম্পন্ন করুন। সকল শিক্ষার্থীকে অনুরোধ করা হচ্ছে নির্ধারিত সময়ের মধ্যে নিবন্ধন প্রক্রিয়া সম্পন্ন করার জন্য, কারণ আসন সংখ্যা সীমিত।',
-  },
-  {
-    id: '2',
-    badge: 'জরুরী বিজ্ঞপ্তি',
-    date: '০৭ জুন ২০২৬',
-    title: 'মেধাবৃত্তি-২০২৬ পরীক্ষার পরিবর্তিত পৃষ্ঠপোষক',
-    summary: 'ধন্যবাদ ও কৃতজ্ঞতা! মেধাবৃত্তি-২০২৬ পরীক্ষার পরিবর্তিত পৃষ্ঠপোষক: মফিজুর রহমান এন্ড সাইল লিমিটেড।',
-    full: 'ধন্যবাদ ও কৃতজ্ঞতা! মেধাবৃত্তি-২০২৬ পরীক্ষার পরিবর্তিত পৃষ্ঠপোষক: মফিজুর রহমান এন্ড সাইল লিমিটেড। শিক্ষার আলো ছড়াতে আমরা একসাথে কাজ করে যাচ্ছি এবং ভবিষ্যতেও এই অংশীদারিত্ব অব্যাহত থাকবে।',
-  },
-]
 const DELAY = 3500 // ms per slide
+const SUMMARY_MAX_CHARS = 140
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// bn -> language_id 1, en -> language_id 2
+const LANGUAGE_ID_MAP: Record<string, number> = {
+  bn: 1,
+  en: 2,
+}
+
+function stripHtml(html: string): string {
+  if (typeof window === 'undefined') {
+    return html.replace(/<[^>]*>/g, '')
+  }
+  const div = document.createElement('div')
+  div.innerHTML = html
+  return (div.textContent || div.innerText || '').replace(/\s+/g, ' ').trim()
+}
+
+function truncate(text: string, max: number): string {
+  if (text.length <= max) return text
+  return `${text.slice(0, max).trimEnd()}…`
+}
+
+function formatDate(dateStr: string, language: string): string {
+  const parsed = new Date(dateStr)
+  if (Number.isNaN(parsed.getTime())) return dateStr
+
+  try {
+    return new Intl.DateTimeFormat(language === 'bn' ? 'bn-BD' : 'en-US', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    }).format(parsed)
+  } catch {
+    return dateStr
+  }
+}
 
 export function Notification() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([])
+  const [loading, setLoading] = useState(true)
+
   const [current, setCurrent] = useState(0)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
@@ -45,13 +80,70 @@ export function Notification() {
   const currentRef = useRef(0)
   const touchStartX = useRef(0)
 
-  const goTo = useCallback((n: number) => {
-    const next = Math.max(0, Math.min(newsItems.length - 1, n))
-    currentRef.current = next
-    setCurrent(next)
-  }, [])
+  // Fetch media items whenever the language changes
+  useEffect(() => {
+    const languageId = LANGUAGE_ID_MAP[language] ?? 1
+    let cancelled = false
+
+    async function fetchMedia() {
+      setLoading(true)
+      try {
+        const res = await fetch(`${API_BASE_URL}/media/${languageId}`)
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`)
+        const json = await res.json()
+
+        if (!json?.status || !Array.isArray(json?.data)) {
+          if (!cancelled) setNewsItems([])
+          return
+        }
+
+        const badgeLabel = language === 'bn' ? 'জরুরী বিজ্ঞপ্তি' : 'Notice'
+
+        const items: NewsItem[] = (json.data as ApiMediaItem[])
+          .filter(item => item.status === 'active')
+          .map(item => {
+            const plain = stripHtml(item.description || '')
+            return {
+              id: String(item.id),
+              badge: badgeLabel,
+              date: formatDate(item.date, language),
+              title: item.title,
+              summary: truncate(plain, SUMMARY_MAX_CHARS),
+              full: item.description,
+            }
+          })
+
+        if (!cancelled) {
+          setNewsItems(items)
+          setCurrent(0)
+          currentRef.current = 0
+          setExpandedId(null)
+        }
+      } catch (err) {
+        console.error('Failed to load notification data:', err)
+        if (!cancelled) setNewsItems([])
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    fetchMedia()
+    return () => {
+      cancelled = true
+    }
+  }, [language])
+
+  const goTo = useCallback(
+    (n: number) => {
+      const next = Math.max(0, Math.min(newsItems.length - 1, n))
+      currentRef.current = next
+      setCurrent(next)
+    },
+    [newsItems.length]
+  )
 
   const startProgress = useCallback(() => {
+    if (newsItems.length === 0) return
     if (rafId.current) cancelAnimationFrame(rafId.current)
     startTime.current = null
 
@@ -75,7 +167,7 @@ export function Notification() {
     }
 
     rafId.current = requestAnimationFrame(tick)
-  }, [])
+  }, [newsItems.length])
 
   const resetProgress = useCallback(() => {
     elapsed.current = 0
@@ -109,6 +201,11 @@ export function Notification() {
   const go = (dir: number) => {
     goTo(current + dir)
     resetProgress()
+  }
+
+  if (loading || newsItems.length === 0) {
+    // Keep layout stable; render nothing visible while loading / if empty.
+    return <div className='flex flex-col gap-2' />
   }
 
   return (
@@ -188,8 +285,27 @@ export function Notification() {
                 </div>
 
                 <div className=' text-[12px] md:text-[16px] leading-7 px-4 py-3 text-[#5F6368] rounded-[8px] border border-[#C8D7FD] bg-[#FFFAF7]'>
-                  <p
-                    className='
+                  {isExpanded ? (
+                    <div
+                      className='
+    font-bn-serif
+    font-normal
+    text-[12px]
+    leading-[20px]
+    tracking-[0]
+    text-[#545959]
+
+    md:text-[16px]
+    md:leading-[24px]
+    md:tracking-[-0.02em]
+
+    [&_p]:mb-2 last:[&_p]:mb-0
+  '
+                      dangerouslySetInnerHTML={{ __html: item.full }}
+                    />
+                  ) : (
+                    <p
+                      className='
     font-bn-serif
     font-semibold
     text-[12px]
@@ -204,9 +320,10 @@ export function Notification() {
     md:tracking-[-0.02em]
     md:no-underline
   '
-                  >
-                    {isExpanded ? item.full : item.summary}
-                  </p>
+                    >
+                      {item.summary}
+                    </p>
+                  )}
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : item.id)}
                     className='
@@ -224,7 +341,7 @@ export function Notification() {
     md:tracking-[-0.02em]
   '
                   >
-                    {isExpanded ? (t?.('সংক্ষেপ করুন') ?? 'See Less') : (t?.('বিস্তারিত দেখুন') ?? 'Read More')}
+                    {isExpanded ? (t?.('quotes.readLess') ?? 'See Less') : (t?.('quotes.readMore') ?? 'Read More')}
                   </button>
                 </div>
               </div>

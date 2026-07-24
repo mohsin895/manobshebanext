@@ -1,19 +1,82 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const faqs = [
-  { qKey: 'faq.q1', aKey: 'faq.a1' },
-  { qKey: 'faq.q2', aKey: 'faq.a2' },
-  { qKey: 'faq.q3', aKey: 'faq.a3' },
-  { qKey: 'faq.q4', aKey: 'faq.a4' },
-]
+interface ApiFaqItem {
+  id: number
+  faq_category_id: number
+  language_id: number
+  question: string
+  answer: string
+  type: number
+  status: string
+  created_at: string
+  updated_at: string
+}
+
+interface FaqItem {
+  id: number
+  question: string
+  answer: string
+}
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// bn -> language_id 1, en -> language_id 2
+const LANGUAGE_ID_MAP: Record<string, number> = {
+  bn: 1,
+  en: 2,
+}
 
 export function FAQ() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const [faqs, setFaqs] = useState<FaqItem[]>([])
+  const [loading, setLoading] = useState(true)
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+
+  useEffect(() => {
+    const languageId = LANGUAGE_ID_MAP[language] ?? 1
+    let cancelled = false
+
+    async function fetchFaqs() {
+      setLoading(true)
+      try {
+        const res = await fetch(`${API_BASE_URL}/faq/${languageId}`)
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`)
+        const json = await res.json()
+
+        if (!json?.status || !Array.isArray(json?.data)) {
+          if (!cancelled) setFaqs([])
+          return
+        }
+
+        const items: FaqItem[] = (json.data as ApiFaqItem[])
+          .filter(item => item.status === 'active')
+          .map(item => ({
+            id: item.id,
+            question: item.question,
+            answer: item.answer,
+          }))
+
+        if (!cancelled) {
+          setFaqs(items)
+          setOpenIndex(items.length > 0 ? 0 : null)
+        }
+      } catch (err) {
+        console.error('Failed to load FAQ data:', err)
+        if (!cancelled) setFaqs([])
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    fetchFaqs()
+    return () => {
+      cancelled = true
+    }
+  }, [language])
 
   return (
     <section
@@ -63,12 +126,15 @@ export function FAQ() {
         </div>
 
         {/* FAQ Items */}
-        <div className='space-y-3'>
-          {faqs.map((faq, idx) => (
-            <div key={idx} className='border border-gray-200 rounded-lg overflow-hidden'>
-              <button
-                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className='
+        {!loading && faqs.length === 0 ? (
+          <p className='text-center font-bn-serif text-[14px] text-[#545959] md:text-[16px]'>{language === 'bn' ? 'কোনো তথ্য পাওয়া যায়নি।' : 'No FAQs found.'}</p>
+        ) : (
+          <div className='space-y-3'>
+            {faqs.map((faq, idx) => (
+              <div key={faq.id} className='border border-gray-200 rounded-lg overflow-hidden'>
+                <button
+                  onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                  className='
     flex
     h-[44px]
     w-full
@@ -87,11 +153,11 @@ export function FAQ() {
     md:px-4
     md:py-4
   '
-              >
-                <div className='flex items-center gap-1'>
-                  <Image src={openIndex === idx ? '/image51.svg' : '/image52.svg'} alt='FAQ icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
-                  <span
-                    className={`
+                >
+                  <div className='flex items-center gap-1'>
+                    <Image src={openIndex === idx ? '/image51.svg' : '/image52.svg'} alt='FAQ icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
+                    <span
+                      className={`
         font-bn
         font-medium
         text-[14px]
@@ -100,18 +166,18 @@ export function FAQ() {
         md:leading-[28px]
         ${openIndex === idx ? 'text-[#FE4711]' : 'text-[#282929]'}
       `}
-                  >
-                    {t(faq.qKey)}
-                  </span>
-                </div>
+                    >
+                      {faq.question}
+                    </span>
+                  </div>
 
-                <span className={`text-xl transition-transform ${openIndex === idx ? 'rotate-180 text-[#FE4711]' : 'text-[#282929]'}`}>
-                  <Image src='/arrowdown1.svg' alt='FAQ icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
-                </span>
-              </button>
-              {openIndex === idx && (
-                <div
-                  className='
+                  <span className={`text-xl transition-transform ${openIndex === idx ? 'rotate-180 text-[#FE4711]' : 'text-[#282929]'}`}>
+                    <Image src='/arrowdown1.svg' alt='FAQ icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
+                  </span>
+                </button>
+                {openIndex === idx && (
+                  <div
+                    className='
     bg-[#FFFAF7]
     border-t border-gray-200
     px-6 py-4
@@ -122,13 +188,14 @@ export function FAQ() {
     tracking-[-0.02em]
     text-[#545959]
   '
-                >
-                  {t(faq.aKey)}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                  >
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

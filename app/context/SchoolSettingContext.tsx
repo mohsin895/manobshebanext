@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useRef, useState, ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 
 type TimelineKey = 1 | 2 | 3 | 4 | 5 | 6
 
@@ -38,17 +38,20 @@ export function SchoolSettingProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // guards against setting state after unmount / re-fetch races
-  const hasFetchedRef = useRef(false)
-
   useEffect(() => {
-    // Only fetch once for the lifetime of the app (StrictMode-safe)
-    if (hasFetchedRef.current) return
-    hasFetchedRef.current = true
-
+    // NOTE: no "fetch once" ref guard here. In React 18 StrictMode (dev only),
+    // this effect intentionally runs mount -> cleanup -> mount. The
+    // AbortController below already cancels the first (throwaway) request on
+    // cleanup, and the second mount fires a clean one that completes normally.
+    // A ref that blocks re-running this effect breaks that pattern: the first
+    // request gets aborted, and the guard then prevents the second, real
+    // request from ever starting — so `loading` never resolves.
     const controller = new AbortController()
 
     const fetchSetting = async () => {
+      setLoading(true)
+      setError(null)
+
       try {
         const token = localStorage.getItem('token')
 
@@ -70,13 +73,15 @@ export function SchoolSettingProvider({ children }: { children: ReactNode }) {
         console.error('Failed to fetch school-setting:', err)
         setError('সেটিংস লোড করা যায়নি')
       } finally {
-        setLoading(false)
+        // Don't flip loading to false if this request was aborted — the
+        // follow-up request (StrictMode's second mount, or any future
+        // re-fetch) owns that responsibility instead.
+        if (!controller.signal.aborted) setLoading(false)
       }
     }
 
     fetchSetting()
 
-    // "stop the system" — cancel the in-flight request if the provider unmounts
     return () => controller.abort()
   }, [])
 

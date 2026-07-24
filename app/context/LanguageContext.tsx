@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 interface LanguageContextType {
   language: Language
@@ -598,11 +598,41 @@ const translations: Record<Language, Record<string, string>> = {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('bn')
+  const [language, setLanguageState] = useState<Language>('bn')
+  const [hydrated, setHydrated] = useState(false)
+
+  // On mount, restore whatever language the user last picked.
+  // (Runs client-side only — localStorage isn't available during SSR.)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('language')
+      if (saved === 'bn' || saved === 'en') {
+        setLanguageState(saved)
+      }
+    } catch {
+      // localStorage can throw in some environments (privacy mode, etc.) — ignore.
+    } finally {
+      setHydrated(true)
+    }
+  }, [])
+
+  // Wrap setLanguage so every change is persisted immediately.
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang)
+    try {
+      localStorage.setItem('language', lang)
+    } catch {
+      // ignore write failures
+    }
+  }
 
   const t = (key: string): string => {
     return translations[language][key] || key
   }
+
+  // Avoid a flash of the wrong language: don't render children until
+  // we've checked localStorage for a saved preference.
+  if (!hydrated) return null
 
   return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>
 }
