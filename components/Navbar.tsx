@@ -236,14 +236,14 @@ export function Navbar() {
               <div className='flex items-center gap-3'>
                 <div className='hidden gap-1 rounded-lg p-1 sm:flex'>
                   <div className='hidden sm:flex'>
-                    <div className='relative w-[110px]'>
+                    <div className='relative w-[125px]'>
                       <div className='pointer-events-none absolute left-2 top-0 flex h-7 items-center z-10'>
                         <Image src='/lang.svg' alt='Language' width={20} height={20} />
                       </div>
                       <select
                         value={language}
                         onChange={e => setLanguage(e.target.value as Language)}
-                        className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-8 pr-[25px] font-bn text-[16px] font-medium leading-[24px] tracking-normal text-left text-[#374151] outline-none cursor-pointer'
+                        className='h-7 w-[125px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-8 pr-[25px] font-bn text-[16px] font-medium leading-[24px] tracking-normal text-left text-[#374151] outline-none cursor-pointer'
                       >
                         <option value='bn'>বাংলা</option>
                         <option value='en'>English</option>
@@ -365,11 +365,11 @@ export function Navbar() {
               </a>
 
               <div className='flex items-center gap-3 px-3 pt-2 pb-1'>
-                <div className='relative w-[110px]'>
+                <div className='relative w-[125px]'>
                   <select
                     value={language}
                     onChange={e => setLanguage(e.target.value as Language)}
-                    className='h-7 w-[110px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-2 pr-8 text-sm font-medium text-[#374151] outline-none cursor-pointer'
+                    className='h-7 w-[125px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-2 pr-8 text-sm font-medium text-[#374151] outline-none cursor-pointer'
                   >
                     <option value='bn'>বাংলা</option>
                     <option value='en'>EN</option>

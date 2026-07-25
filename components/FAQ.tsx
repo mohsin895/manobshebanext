@@ -84,7 +84,7 @@ export function FAQ() {
       style={{
         backgroundImage: "url('/bg2.png')",
 
-        height: '792px',
+        height: '892px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
