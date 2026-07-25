@@ -442,7 +442,7 @@ const translations: Record<Language, Record<string, string>> = {
     'scholarship.merit_list': 'Top Students',
     'scholarship.merit_list_desc': 'Best students from previous years',
 
-    'scholarship.achievements': "Educational Institutions' Achievements",
+    'scholarship.achievements': " Institutions' Achievements",
     'scholarship.achievements_desc': 'Success of every educational institution',
 
     // Reasons (Why attend section)

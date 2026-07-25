@@ -190,6 +190,13 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
   const [religion, setReligion] = useState('')
   const [classId, setClassId] = useState('')
 
+  // Class-specific group/division (e.g. Science/Commerce/Arts), only shown
+  // when the selected class actually has any.
+  const [classDivisionId, setClassDivisionId] = useState('')
+  const [classDivisionOptions, setClassDivisionOptions] = useState<Option[]>([])
+  const [classDivisionsLoading, setClassDivisionsLoading] = useState(false)
+  const [classDivisionsError, setClassDivisionsError] = useState('')
+
   // Division / District / Upazila / Zone (cascading selects)
   const [divisionId, setDivisionId] = useState('')
   const [districtId, setDistrictId] = useState('')
@@ -268,6 +275,42 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
       cancelled = true
     }
   }, [])
+
+  // Load class-specific divisions/groups (e.g. Science/Commerce/Arts) whenever
+  // the selected class changes. Only populated (and thus only rendered) when
+  // the class actually has any.
+  useEffect(() => {
+    setClassDivisionId('')
+    setClassDivisionOptions([])
+    setClassDivisionsError('')
+
+    if (!classId) return
+
+    let cancelled = false
+
+    async function loadClassDivisions() {
+      setClassDivisionsLoading(true)
+      try {
+        const res = await fetch(`${API_BASE_URL}/student/division/${classId}`, {
+          headers: { Accept: 'application/json', ...authHeaders() },
+        })
+        if (!res.ok) throw new Error('Failed to load class divisions')
+        const json = await res.json()
+        const rawList = Array.isArray(json) ? json : (json.data ?? [])
+        const list = normalizeOptions(rawList, ['name'])
+        if (!cancelled) setClassDivisionOptions(list)
+      } catch {
+        if (!cancelled) setClassDivisionsError('বিভাগের তালিকা লোড করা যায়নি')
+      } finally {
+        if (!cancelled) setClassDivisionsLoading(false)
+      }
+    }
+
+    loadClassDivisions()
+    return () => {
+      cancelled = true
+    }
+  }, [classId])
 
   // Load divisions once on mount
   useEffect(() => {
@@ -448,6 +491,8 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
     setBloodGroup('')
     setReligion('')
     setClassId('')
+    setClassDivisionId('')
+    setClassDivisionOptions([])
     setPhotoFile(null)
     setPhotoPreviewUrl(prev => {
       if (prev) URL.revokeObjectURL(prev)
@@ -490,6 +535,7 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
       if (mobileNo) formData.append('mobile_no', mobileNo)
       if (villageMahalla) formData.append('village_mahalla', villageMahalla)
       if (postOffice) formData.append('post_office', postOffice)
+      if (classDivisionId) formData.append('student_division_id', classDivisionId)
       if (divisionId) formData.append('division_id', divisionId)
       if (districtId) formData.append('district_id', districtId)
       if (upazilaId) formData.append('upazila_id', upazilaId)
@@ -645,6 +691,19 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
             />
             {classesError && <p className='mt-1.5 text-xs text-red-500'>{classesError}</p>}
           </Field>
+
+          {classDivisionOptions.length > 0 && (
+            <Field label='গ্রুপ'>
+              <Select
+                placeholder={classDivisionsLoading ? 'লোড হচ্ছে...' : 'নির্বাচন করুন...'}
+                options={classDivisionOptions.map(o => ({ value: String(o.id), label: o.name }))}
+                value={classDivisionId}
+                onChange={setClassDivisionId}
+                disabled={classDivisionsLoading}
+              />
+              {classDivisionsError && <p className='mt-1.5 text-xs text-red-500'>{classDivisionsError}</p>}
+            </Field>
+          )}
 
           <div className='sm:col-span-2'>
             <label className={labelClass}>ঠিকানা (বাংলায়)</label>

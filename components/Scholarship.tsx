@@ -169,13 +169,12 @@ export function Scholarship() {
         <div className='relative md:static'>
           <div
             ref={scrollRef}
-            className='   flex flex-row gap-8 overflow-x-auto pb-4
-                            snap-x snap-mandatory scroll-pl-4
-                            -mx-4 px-4
-                            [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
-
-                            md:mx-0 md:px-0 md:pb-0 md:overflow-visible
-                            md:grid md:grid-cols-3 md:gap-8'
+            className='flex flex-row gap-4 sm:gap-6 md:gap-8 overflow-x-auto pb-4
+               snap-x snap-mandatory scroll-pl-4
+               -mx-4 px-4
+               [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
+               sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0
+               lg:grid-cols-3'
           >
             <ComponentFirst />
             <ComponentSecond />
@@ -185,7 +184,27 @@ export function Scholarship() {
             <ComponentSix />
           </div>
 
-          {/* Left arrow — mobile only, centered on the card */}
+          {/* Arrows — mobile/tablet only, hidden once grid takes over */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scrollByCard('left')}
+              className='sm:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10
+                 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md'
+              aria-label='Scroll left'
+            >
+              <ChevronLeft className='h-5 w-5' />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={() => scrollByCard('right')}
+              className='sm:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10
+                 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md'
+              aria-label='Scroll right'
+            >
+              <ChevronRight className='h-5 w-5' />
+            </button>
+          )}
         </div>
       </div>
     </section>

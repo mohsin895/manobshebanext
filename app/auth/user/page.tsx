@@ -10,13 +10,6 @@ import { AdmissionNotice } from '@/components/AdmissionNotice'
 import { useSchoolSetting } from '@/app/context/SchoolSettingContext'
 import { isApplicationOpen, isAdmitCardOpen } from '@/lib/applicationWindow'
 
-const CLASSES = [
-  { className: 'ষষ্ঠ শ্রেণি', seatInfo: '১/৬ জন আবেদন সম্পন্ন করেছেন', href: '/class/6' },
-  { className: 'অষ্টম শ্রেণি', seatInfo: '১/৬ জন আবেদন সম্পন্ন করেছেন', href: '/class/8' },
-  { className: 'নবম শ্রেণি', seatInfo: '১/৬ জন আবেদন সম্পন্ন করেছেন', href: '/class/9' },
-  { className: 'দশম শ্রেণি', seatInfo: '১/৬ জন আবেদন সম্পন্ন করেছেন', href: '/class/10' },
-]
-
 type Division = { id: number; bn_name: string; details: string }
 type District = { id: number; bn_name: string; details: string }
 type Upazila = { id: number; bn_name: string; details: string }
@@ -35,11 +28,27 @@ type School = {
   zone?: Zone
 }
 
+type ClassSummary = {
+  class_id: number
+  class_name: string
+  applied: number
+  capacity: number
+  label: string
+}
+
+type RegistrationSummary = {
+  classes: ClassSummary[]
+  total_applied: number
+  total_capacity: number
+  remaining_seats: number
+  total_label: string
+}
+
 function formatAddress(school: School): string {
   const parts: string[] = []
 
   if (school.address) parts.push(`গ্রাম: ${school.address}`)
-  if (school.zone?.bn_name) parts.push(`ইউনিয়ন: ${school.zone.bn_name}`)
+  if (school.zone?.bn_name) parts.push(`ইউনিয়ন: ${school.zone.bn_name}`)
   if (school.upazila?.bn_name) parts.push(`উপজেলা: ${school.upazila.bn_name}`)
   if (school.district?.bn_name) parts.push(`জেলা: ${school.district.bn_name}`)
 
@@ -50,15 +59,16 @@ function formatAddress(school: School): string {
 }
 
 export default function Page() {
-  // Local state for the /user/school fetch
   const [school, setSchool] = useState<School | null>(null)
   const [schoolLoading, setSchoolLoading] = useState(true)
   const [schoolError, setSchoolError] = useState<string | null>(null)
 
-  // Global school-setting context — renamed to avoid clashing with local state
+  const [summary, setSummary] = useState<RegistrationSummary | null>(null)
+  const [summaryLoading, setSummaryLoading] = useState(true)
+  const [summaryError, setSummaryError] = useState<string | null>(null)
+
   const { setting, loading: settingLoading, error: settingError } = useSchoolSetting()
 
-  // Derived value — must come AFTER `setting` is declared above
   const applicationOpen = isApplicationOpen(setting)
   const admitCardOpen = isAdmitCardOpen(setting)
 
@@ -112,8 +122,45 @@ export default function Page() {
     return () => controller.abort()
   }, [])
 
-  // All hooks are declared above this line — safe to branch now
-  if (schoolLoading || settingLoading) {
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const fetchSummary = async () => {
+      try {
+        const token = localStorage.getItem('token')
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/registration/summery`, {
+          headers: {
+            Accept: 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          signal: controller.signal,
+        })
+
+        if (!res.ok) throw new Error('Failed to load registration summary')
+
+        const json = await res.json()
+
+        if (!json.status) {
+          setSummaryError(json.message ?? 'আবেদন সারাংশ পাওয়া যায়নি')
+          return
+        }
+
+        setSummary(json.data)
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') return
+        console.error('Failed to fetch registration summary:', err)
+        setSummaryError('আবেদন সারাংশ লোড করা যায়নি')
+      } finally {
+        setSummaryLoading(false)
+      }
+    }
+
+    fetchSummary()
+    return () => controller.abort()
+  }, [])
+
+  if (schoolLoading || settingLoading || summaryLoading) {
     return (
       <main className='w-full bg-[#F7F8FC]'>
         <Navbar />
@@ -155,15 +202,26 @@ export default function Page() {
           ))}
         </div>
 
-        <div className='mt-6 grid grid-cols-1 gap-8 md:grid-cols-2'>
-          {CLASSES.map(cls => (
-            <ClassCard key={cls.className} {...cls} />
-          ))}
-        </div>
+        {summaryError && <div className='mt-6 rounded-lg bg-red-50 p-4 text-red-600'>{summaryError}</div>}
 
-        <div className='mt-6 grid grid-cols-1 gap-0 md:grid-cols-2'>
-          <AdmissionNotice admittedCount='১০/১৬' totalSeats='১৬' seatsRemaining='৬' />
-        </div>
+        {summary && (
+          <>
+            <div className='mt-6 grid grid-cols-1 gap-8 md:grid-cols-2'>
+              {summary.classes.map(cls => (
+                <ClassCard key={cls.class_id} className={cls.class_name} seatInfo={cls.label} href={`/class/${cls.class_id}`} isFull={cls.applied >= cls.capacity} />
+              ))}
+            </div>
+
+            <div className='mt-6 grid grid-cols-1 gap-0 md:grid-cols-2'>
+              <AdmissionNotice
+                admittedCount={String(summary.total_applied)}
+                totalSeats={String(summary.total_capacity)}
+                seatsRemaining={String(summary.remaining_seats)}
+                isFull={summary.total_applied >= summary.total_capacity}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <Footer />

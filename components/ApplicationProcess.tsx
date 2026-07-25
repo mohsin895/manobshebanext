@@ -2,11 +2,9 @@
 
 import { useRef, useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
+import { useSchoolSetting, getYouTubeId } from '@/app/context/SchoolSettingContext'
 import { UserCircle2, ClipboardList, IdCard, HourglassIcon, Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
-
-// Replace with the real YouTube video ID
-const YOUTUBE_VIDEO_ID = 'dQw4w9WgXcQ'
 
 const steps = [
   {
@@ -53,7 +51,10 @@ const steps = [
 
 export function ApplicationProcess() {
   const { t } = useLanguage()
+  const { setting } = useSchoolSetting()
   const [isPlaying, setIsPlaying] = useState(false)
+
+  const videoId = getYouTubeId(setting?.url)
 
   const sliderRef = useRef<HTMLDivElement>(null)
   const CARD_WIDTH = 300 // matches the inline width on the card
@@ -235,34 +236,36 @@ p-5
           </div>
         </div>
 
-        {/* Video Section */}
-        <div className='relative mx-auto max-w-4xl overflow-hidden rounded-2xl shadow-lg'>
-          <div className='relative aspect-video bg-gray-900'>
-            {isPlaying ? (
-              <iframe
-                className='h-[800px] w-full'
-                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1`}
-                title={t('process.videoCaption')}
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              />
-            ) : (
-              <>
-                {/* Replace src with the actual thumbnail image */}
-                <img src='/image20.jpg' alt={t('process.videoCaption')} className='h-full w-full object-cover' />
-                <button type='button' aria-label={t('process.playVideo')} onClick={() => setIsPlaying(true)} className='absolute inset-0 flex items-center justify-center'>
-                  <span className='flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform hover:scale-105'>
-                    <Play className='h-7 w-7 fill-orange-500 text-orange-500' />
-                  </span>
-                </button>
-                <div className='absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-black/70 px-4 py-1.5 text-xs font-medium text-white md:text-sm'>
-                  <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-                  {t('process.videoCaption')}
-                </div>
-              </>
-            )}
+        {/* Video Section - only rendered if the admin has set a video URL */}
+        {videoId && (
+          <div className='relative mx-auto max-w-4xl overflow-hidden rounded-2xl shadow-lg'>
+            <div className='relative aspect-video bg-gray-900'>
+              {isPlaying ? (
+                <iframe
+                  className='h-[800px] w-full'
+                  src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                  title={t('process.videoCaption')}
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                />
+              ) : (
+                <>
+                  {/* Replace src with the actual thumbnail image */}
+                  <img src='/image20.jpg' alt={t('process.videoCaption')} className='h-full w-full object-cover' />
+                  <button type='button' aria-label={t('process.playVideo')} onClick={() => setIsPlaying(true)} className='absolute inset-0 flex items-center justify-center'>
+                    <span className='flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform hover:scale-105'>
+                      <Play className='h-7 w-7 fill-orange-500 text-orange-500' />
+                    </span>
+                  </button>
+                  <div className='absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-black/70 px-4 py-1.5 text-xs font-medium text-white md:text-sm'>
+                    <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
+                    {t('process.videoCaption')}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   )

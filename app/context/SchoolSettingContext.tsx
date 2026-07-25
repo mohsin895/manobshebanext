@@ -11,6 +11,7 @@ type SchoolSetting = {
   examStart: string
   maxStudents: number | null
   examTime: string | null
+  url: string | null
   created_at: string
   updated_at: string
 } & {
@@ -92,4 +93,13 @@ export function useSchoolSetting() {
   const ctx = useContext(SchoolSettingContext)
   if (!ctx) throw new Error('useSchoolSetting must be used within a SchoolSettingProvider')
   return ctx
+}
+
+// Pulls the 11-char video id out of any common YouTube URL shape
+// (watch?v=, youtu.be/, embed/, shorts/) so callers can build their own
+// embed/thumbnail URLs from whatever the admin pasted into `url`.
+export function getYouTubeId(url: string | null | undefined): string | null {
+  if (!url) return null
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/)
+  return match ? match[1] : null
 }
