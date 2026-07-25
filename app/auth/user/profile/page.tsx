@@ -251,7 +251,7 @@ export default function ProfilePage() {
               ))}
 
               <div className='flex items-center justify-between border-t border-[#0B3D2E]/15 pt-6'>
-                <span className='text-xs text-[#6B6B63]'>Last updated {new Date((profile.updated_at as unknown as string) || Date.now()).toLocaleDateString()}</span>
+                <span className='text-xs text-[#6B6B63]'></span>
                 <button type='submit' disabled={saving} className='bg-[#0B3D2E] px-7 py-2.5 text-sm font-medium tracking-wide text-white transition hover:bg-[#0B3D2E]/90 disabled:opacity-50'>
                   {saving ? 'Saving…' : 'Save changes'}
                 </button>
