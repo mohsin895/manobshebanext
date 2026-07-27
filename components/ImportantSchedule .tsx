@@ -22,11 +22,30 @@ const timelineItems: TimelineItem[] = [
   { dateField: 'timeline6_date', labelKey: 'schedule.label6', status: 'upcoming' },
 ]
 
+const bnMonths = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর']
+
+function toBengaliNum(n: number) {
+  const d = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  return String(n)
+    .padStart(2, '0')
+    .split('')
+    .map(c => d[+c] ?? c)
+    .join('')
+}
+
 function formatFullDate(dateStr: string | null, isBn: boolean) {
   if (!dateStr) return ''
   const d = new Date(dateStr)
   if (Number.isNaN(d.getTime())) return ''
-  return new Intl.DateTimeFormat(isBn ? 'bn-BD' : 'en-US', {
+
+  if (isBn) {
+    const day = toBengaliNum(d.getDate())
+    const month = bnMonths[d.getMonth()]
+    const year = toBengaliNum(d.getFullYear())
+    return `${day} ${month} ${year}`
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -40,22 +59,24 @@ function formatExamTime(timeStr: string | null, isBn: boolean) {
   const m = Number(mStr)
   if (Number.isNaN(h) || Number.isNaN(m)) return ''
 
+  const h12 = h % 12 === 0 ? 12 : h % 12
+
+  if (isBn) {
+    const hh = toBengaliNum(h12)
+    const mm = toBengaliNum(m)
+    // Period word (সকাল/দুপুর/বিকাল/রাত) is expected to come from the
+    // 'schedule.countdown_footer_time' translation string itself, so it's
+    // intentionally NOT added here to avoid duplication like "সকাল সকাল".
+    return `${hh}:${mm} মিনিট`
+  }
+
   const d = new Date()
   d.setHours(h, m, 0, 0)
-
-  return new Intl.DateTimeFormat(isBn ? 'bn-BD' : 'en-US', {
+  return new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: '2-digit',
     hour12: true,
   }).format(d)
-}
-function toBengaliNum(n: number) {
-  const d = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
-  return String(n)
-    .padStart(2, '0')
-    .split('')
-    .map(c => d[+c] ?? c)
-    .join('')
 }
 
 // manually assign per index
@@ -72,11 +93,17 @@ function formatDate(dateStr: string | null, isBn: boolean) {
   if (!dateStr) return ''
   const d = new Date(dateStr)
   if (Number.isNaN(d.getTime())) return ''
-  const formatted = new Intl.DateTimeFormat(isBn ? 'bn-BD' : 'en-US', {
+
+  if (isBn) {
+    const day = toBengaliNum(d.getDate())
+    const month = bnMonths[d.getMonth()]
+    return `${day} ${month}`
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
-    month: 'short',
+    month: 'long',
   }).format(d)
-  return formatted
 }
 
 export function ImportantSchedule() {
@@ -259,7 +286,7 @@ export function ImportantSchedule() {
                     item.status === 'done' ? 'border-[#8497F5]' : 'border-[#fff]'
                   }`}
                 >
-                  <Image src={iconsByIndex[idx](item.status)} width={28} height={28} alt='' className='h-5 w-5 md:h-7 md:w-7' />
+                  <Image src={iconsByIndex[idx](item.status)} width={24} height={24} alt='' className='h-5 w-5 md:h-6 md:w-6' />
                 </div>
 
                 {/* Right line */}
@@ -408,7 +435,6 @@ export function ImportantSchedule() {
                 ))}
               </div>
 
-              {/* Footer */}
               {/* Footer */}
               <p
                 className='

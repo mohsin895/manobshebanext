@@ -74,7 +74,7 @@ export function ExamStructure() {
         {/* Two-column grid */}
         <div className='mb-8 grid gap-6 lg:grid-cols-2'>
           {/* Left card: question pattern rules */}
-          <div className='rounded-xl bg-white p-6 h-[392px] shadow-sm md:p-8'>
+          <div className='rounded-xl bg-white p-6 h-[440px] md:h-[392px] shadow-sm md:p-8'>
             <h3
               className='
     mb-5
@@ -132,7 +132,26 @@ export function ExamStructure() {
                   {t('structure.rule2')}
                 </p>
               </li>
-
+              <li className='flex gap-3'>
+                <span className='flex items-center justify-center'>
+                  <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
+                </span>
+                <p
+                  className='
+        font-bn-serif
+        font-normal
+        text-[16px]
+        leading-[24px]
+        tracking-[0]
+        text-[#545959]
+        md:text-[20px]
+        md:leading-[32px]
+        md:tracking-[-0.02em]
+      '
+                >
+                  {t('structure.rule4')}
+                </p>
+              </li>
               <li className='flex gap-3'>
                 <span className='flex items-center justify-center'>
                   <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
