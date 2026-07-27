@@ -54,7 +54,6 @@ const FIELD_GROUPS: FieldGroup[] = [
       { key: 'mobile', label: 'Mobile Number', type: 'tel' },
       { key: 'email', label: 'Email', type: 'email' },
       { key: 'postcode', label: 'Postcode' },
-      { key: 'address', label: 'Address', type: 'textarea' },
     ],
   },
 ]
@@ -169,10 +168,34 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className='w-full bg-white'>
+    <main className=' w-full bg-gray-50  px-[18px] pt-[76px] pb-10  md:px-[60px] md:pt-[50px] '>
       <Navbar />
 
-      <div className='mx-auto max-w-3xl px-4 py-12' style={{ fontFamily: 'Inter, "Noto Sans Bengali", sans-serif' }}>
+      <div
+        className='
+    mx-auto
+    w-full
+    max-w-3xl
+
+    rounded-[20px]
+    border
+    border-transparent
+
+    p-3
+    md:p-8
+
+    backdrop-blur-[10px]
+
+    [background:linear-gradient(#fff,#fff)_padding-box,linear-gradient(279.83deg,#FFDACD_0%,#FFB59A_100%)_border-box]
+
+    flex
+    flex-col
+    gap-6
+
+    md:rounded-[28px]
+  '
+        style={{ fontFamily: 'font-poppins, "font-poppins", sans-serif' }}
+      >
         {loading && <p className='text-sm text-[#6B6B63]'>Loading the school profile…</p>}
 
         {error && <div className='mb-6 border border-[#B8121A]/30 bg-[#B8121A]/5 px-4 py-3 text-sm text-[#B8121A]'>{error}</div>}
@@ -250,9 +273,9 @@ export default function ProfilePage() {
                 </section>
               ))}
 
-              <div className='flex items-center justify-between border-t border-[#0B3D2E]/15 pt-6'>
+              <div className='flex items-center justify-between border-t border-[#2B2D7E]/15 pt-6'>
                 <span className='text-xs text-[#6B6B63]'></span>
-                <button type='submit' disabled={saving} className='bg-[#0B3D2E] px-7 py-2.5 text-sm font-medium tracking-wide text-white transition hover:bg-[#0B3D2E]/90 disabled:opacity-50'>
+                <button type='submit' disabled={saving} className='bg-[#2B2D7E] px-7 py-2.5 text-sm font-medium tracking-wide text-white transition hover:bg-[#0B3D2E]/90 disabled:opacity-50'>
                   {saving ? 'Saving…' : 'Save changes'}
                 </button>
               </div>

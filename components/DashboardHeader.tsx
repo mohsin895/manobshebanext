@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { User } from 'lucide-react'
 
 type DashboardHeaderProps = {
   schoolName: string
@@ -63,36 +64,23 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
       '
     >
       {/* Logout Button */}
-      <button
-        onClick={handleLogout}
-        disabled={loggingOut}
-        type='button'
-        className='
-    absolute
-    left-5 top-6
-    md:left-10
-    z-10
-    flex items-center gap-2
-    px-4 py-2
-  '
-      >
-        <div className='relative h-4 w-4 md:h-6 md:w-6 shrink-0'>
-          <Image src='/logout.svg' alt='Logout' fill className='object-contain' />
-        </div>
+      <div className='absolute left-5 top-6 md:left-10 z-10 flex items-center gap-10'>
+        <button onClick={handleLogout} disabled={loggingOut} type='button' className='flex items-center gap-2 px-4 py-2'>
+          <div className='relative h-4 w-4 md:h-6 md:w-6 shrink-0'>
+            <Image src='/logout.svg' alt='Logout' fill className='object-contain' />
+          </div>
 
-        <span
-          className='
-      font-poppins
-      font-normal
-      text-[14px] md:text-[16px]
-      leading-none
-      text-[#4A4DE1] md:text-[#1C1D4A]
-      text-center
-    '
-        >
-          Logout
-        </span>
-      </button>
+          <span className='font-poppins font-normal text-[14px] md:text-[16px] leading-none text-[#4A4DE1] md:text-[#1C1D4A]'>Logout</span>
+        </button>
+
+        <a href='/auth/user/profile' className='flex items-center gap-2 px-4 py-2'>
+          <div className='relative h-4 w-4 md:h-6 md:w-6 shrink-0'>
+            <User className='h-5 w-5 text-[#4A4DE1]' />
+          </div>
+
+          <span className='font-poppins font-normal text-[14px] md:text-[16px] leading-none text-[#4A4DE1] md:text-[#1C1D4A]'>Update Profile</span>
+        </a>
+      </div>
 
       <div className='flex h-full flex-col items-center justify-between gap-6 md:flex-row md:gap-0'>
         {/* Left Content */}
