@@ -44,7 +44,7 @@ export function ReasonAttendance() {
     mx-auto
     w-full
 p-5
-    h-[684px]
+    h-[730px]
     overflow-hidden
     bg-[url('/bg3.png')]
     bg-cover
@@ -134,7 +134,7 @@ p-5
         grid grid-cols-2
         absolute inset-x-0 bottom-0
         rounded-[10px]
-        top-[-250px]
+        top-[-280px]
         md:top-0
         m-4
         bg-[#00000080] backdrop-blur-[2px]

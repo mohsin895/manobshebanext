@@ -33,7 +33,7 @@ const poppins = Poppins({
 })
 export const metadata: Metadata = {
   title: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
-  description: 'বিশ্বমানের শিক্ষা এবং নির্দেশনা - Online Classes, Test Series, Study Material',
+  description: "শিক্ষা ও সেবায় আমরা গড়তে চাই একটি মানবিক মুন্সিগঞ্জ। 'এসো মানবতার হাত বাড়িয়ে, সুন্দর সমাজ বিনির্মাণে'",
   generator: 'v0.app',
   icons: {
     icon: [

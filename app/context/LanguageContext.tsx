@@ -56,7 +56,7 @@ const translations: Record<Language, Record<string, string>> = {
     'achievements.scholarshipRecipients.value': '৩০০ জন',
     'achievements.generalGrade.label': 'সাধারণ গ্রেড',
     'achievements.generalGrade.value': '১০ জন',
-    'achievements.certificates.label': 'উদযাপনপূর্ণ',
+    'achievements.certificates.label': 'ট্যালেন্টপুল',
     'achievements.certificates.value': '৩০০ জন',
     'loginProcess.tooltip': 'কিভাবে লগইন করবেন?',
     'partner.title': 'আমাদের পৃষ্ঠপোষক সমূহ',
@@ -195,20 +195,20 @@ const translations: Record<Language, Record<string, string>> = {
     'process.title': 'ধাপভেদে অনলাইনে আবেদন প্রক্রিয়া',
     'process.subtitle': 'নিচের ধাপগুলো অনুসরণ করে সহজেই আপনার আবেদন সম্পন্ন করুন',
 
-    'process.register.title': 'রেজিস্ট্রেশন বা প্রোফাইল তৈরি',
-    'process.register.desc': 'আপনার মৌলিক তথ্য দিয়ে দ্রুত একটি অ্যাকাউন্ট খুলুন এবং প্রোফাইল সম্পন্ন করুন।',
+    'process.register.title': 'লগইন বা প্রবেশ করুন',
+    'process.register.desc': 'আবেদন অপশনে ক্লিক করে পত্রে উল্লিখিত প্রাতিষ্ঠানিক ই-মেইল এবং পাসওয়ার্ড ব্যবহার করে পোর্টালে ড্যাশবোর্ডে প্রবেশ করুন।',
     'process.register.step': '১ম ধাপ',
 
-    'process.fillForm.title': 'নতুন আবেদন ফর্ম পূরণ',
-    'process.fillForm.desc': 'প্রয়োজনীয় তথ্য সহ আবেদন ফর্মটি সঠিকভাবে পূরণ করুন এবং প্রয়োজনীয় কাগজপত্র যুক্ত করুন।',
+    'process.fillForm.title': 'নতুন আবেদন করুন',
+    'process.fillForm.desc': 'লগইন সম্পন্ন হওয়ার পর ড্যাশবোর্ড প্যানেল থেকে "আবেদন" রিদমে ক্লিক করে আবেদন ফরম স্ক্রিনে চলে যান।',
     'process.fillForm.step': '২য় ধাপ',
 
-    'process.verify.title': 'তথ্য পূরণ ও সংশোধনী',
-    'process.verify.desc': 'প্রদত্ত তথ্য যাচাই করে নিশ্চিত করুন যে সকল তথ্য সঠিক এবং সম্পূর্ণ রয়েছে।',
+    'process.verify.title': 'তথ্য পূরণ ও সাবমিট',
+    'process.verify.desc': 'সেখানে ফরম পুরন করে বাটনে ট্যাপ করে একে একে প্রতিটি শিক্ষার্থীর সঠিক তথ্য নির্ভুল অনুবাদে টাইপ করে সাবমিট করুন।',
     'process.verify.step': '৩য় ধাপ',
 
-    'process.confirm.title': 'প্রেরণসহ সংরক্ষণ',
-    'process.confirm.desc': 'নিশ্চিতকরণ বার্তা পাওয়ার পর আবেদনপত্রের একটি অনুলিপি সংরক্ষণ করুন।',
+    'process.confirm.title': 'প্রবেশপত্র সংগ্রহ',
+    'process.confirm.desc': 'নির্দিষ্ট তারিখের পর পোর্টাল থেকে প্রবেশপত্র রঙ্গিন প্রিন্ট করে সংগ্রহ করুন। পরীক্ষার আগের দিন বিকেলবেলা ওয়েবসাইট থেকে আসন বিন্যাস চেক করে নিন।',
     'process.confirm.step': '৪র্থ ধাপ',
 
     'process.details': 'বিস্তারিত',
@@ -253,9 +253,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     'categories.tiersTitle': 'বৃত্তির শ্রেণি বিভাগ',
     'categories.tier1.title': 'মাধ্যমিক বিদ্যালয় স্তর - ৭ম এবং ৮ম শ্রেণি',
-    'categories.tier1.fee': 'নসাধারণ গ্রেড ২,৫০০৳ / ট্যালেন্টপুল ৩,৫০০৳',
+    'categories.tier1.fee': 'সাধারণ গ্রেড ২,৫০০৳ / ট্যালেন্টপুল ৩,৫০০৳',
     'categories.tier2.title': 'মাধ্যমিক বিদ্যালয় স্তর - ৯ম এবং ১০ম শ্রেণি',
-    'categories.tier2.fee': 'নিসাধারণ গ্রেড ৩,০০০৳ / ট্যালেন্টপুল ৪,০০০৳',
+    'categories.tier2.fee': 'সাধারণ গ্রেড ৩,০০০৳ / ট্যালেন্টপুল ৪,০০০৳',
     'categories.tier3.title': 'জেলার সেরা শিক্ষার্থী',
     'categories.tier3.fee': 'প্রতি শ্রেণি থেকে একজন করে মোট ৪ জন শিক্ষার্থী পাবে ৫,০০০৳',
 
@@ -359,7 +359,7 @@ const translations: Record<Language, Record<string, string>> = {
     'achievements.scholarshipRecipients.value': '300',
     'achievements.generalGrade.label': 'General grade',
     'achievements.generalGrade.value': '10',
-    'achievements.certificates.label': 'Certificates awarded',
+    'achievements.certificates.label': 'Talentpool Scholarship',
     'achievements.certificates.value': '300',
 
     // Events
@@ -472,17 +472,17 @@ const translations: Record<Language, Record<string, string>> = {
     'process.title': 'Step-by-step online application process',
     'process.subtitle': 'Follow the steps below to complete your application easily',
 
-    'process.register.title': 'Register or create a profile',
-    'process.register.desc': 'Quickly create an account with your basic information and complete your profile.',
+    'process.register.title': 'Log In to the Portal',
+    'process.register.desc': 'Click on the "Application" option and log in to the portal dashboard using the institutional email address and password mentioned in the official notice.',
 
-    'process.fillForm.title': 'Fill out the application form',
-    'process.fillForm.desc': 'Complete the application form accurately with the required information and attach the necessary documents.',
+    'process.fillForm.title': 'Start a New Application',
+    'process.fillForm.desc': 'After logging in, go to the dashboard and click on the "Application" section to access the application form.',
 
-    'process.verify.title': 'Review and correct information',
-    'process.verify.desc': 'Check the submitted information to confirm everything is correct and complete.',
+    'process.verify.title': 'Complete & Submit the Form',
+    'process.verify.desc': 'Fill out the application form carefully by entering accurate information for each student, then submit the form.',
 
-    'process.confirm.title': 'Submit and save',
-    'process.confirm.desc': 'After receiving the confirmation message, save a copy of your application.',
+    'process.confirm.title': 'Download the Admit Card',
+    'process.confirm.desc': 'After the specified date, download and print the admit card in colour from the portal. Before the examination, check the seating arrangement on the website.',
 
     'process.details': 'Details',
     'process.videoCaption': 'Watch the application process in video',

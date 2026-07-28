@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { useRouter } from 'next/navigation'
 
 interface SchoolProfile {
   id: number
@@ -68,7 +69,7 @@ export default function ProfilePage() {
   const [error, setError] = useState<string | null>(null)
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-
+  const router = useRouter()
   const getToken = () => (typeof window !== 'undefined' ? localStorage.getItem('token') : null)
 
   const fetchProfile = async () => {
@@ -160,6 +161,7 @@ export default function ProfilePage() {
       setForm(updated)
       setLogoFile(null)
       setSuccessMsg('Profile updated.')
+      router.push('/auth/user')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not update the profile')
     } finally {
