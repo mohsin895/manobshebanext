@@ -25,10 +25,10 @@ export function Navbar() {
   const [totalHeight, setTotalHeight] = useState(0)
 
   const menuItems = [
-    { bn: 'অনলাইন আবেদন পরীক্ষা নির্দেশিকা', en: 'Exam Application Guide' },
+    { bn: 'অনলাইন আবেদন', en: 'Exam Application' },
     { bn: 'মেধাবৃত্তি সিলেবাস', en: 'Online Application', href: '/syllabus' },
-    { bn: 'কৃতি শিক্ষার্থী ফলাফল অনুসন্ধান', en: 'Student Result Search', href: '/result' },
-    { bn: 'পরীক্ষার আসন অনুসন্ধান', en: 'Student Result Search', href: '/seat-plan' },
+    { bn: 'ফলাফল অনুসন্ধান', en: ' Result Search', href: '/result' },
+    { bn: 'আসন বিন্যাস', en: 'Student Result Search', href: '/seat-plan' },
     { bn: 'কৃতি শিক্ষার্থী', en: 'Student Result Search', href: '/meritorious-student' },
   ]
 
@@ -160,7 +160,7 @@ export function Navbar() {
         >
           <div className='mx-auto max-w-[1320px]'>
             <div
-              className='flex items-center justify-between h-[64px] transition-[padding] duration-300 ease-in-out'
+              className='flex items-center pl-[12px] pr-[12px] md:pl-0 md:pr-0 justify-between h-[64px] transition-[padding] duration-300 ease-in-out'
               style={isScrolled ? { paddingLeft: 10, paddingRight: 10, paddingTop: 12, paddingBottom: 12 } : undefined}
             >
               {/* Logo */}
@@ -319,7 +319,11 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Panel */}
-          <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-100 ${mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0 border-t-0'}`}>
+          <div
+            className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-100 bg-white ${
+              isScrolled ? 'rounded-b-[16px]' : ''
+            } ${mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0 border-t-0'}`}
+          >
             <div className='flex flex-col px-4 py-3 gap-1'>
               <a href='#' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
                 {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
@@ -357,12 +361,12 @@ export function Navbar() {
 
               {/* CHANGED: mobile conditional Login / Dashboard */}
 
-              <a
-                href={isAuthenticated ? '/auth/user' : '/auth/login'}
-                className='text-[14px] font-bn font-medium text-white bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)] rounded-lg px-3 py-3 text-center'
-              >
-                {isAuthenticated ? (language === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard') : language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}
-              </a>
+              {/*<a*/}
+              {/*  href={isAuthenticated ? '/auth/user' : '/auth/login'}*/}
+              {/*  className='text-[14px] font-bn font-medium text-white bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)] rounded-lg px-3 py-3 text-center'*/}
+              {/*>*/}
+              {/*  {isAuthenticated ? (language === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard') : language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}*/}
+              {/*</a>*/}
 
               <div className='flex items-center gap-3 px-3 pt-2 pb-1'>
                 <div className='relative w-[125px]'>

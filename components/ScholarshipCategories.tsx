@@ -17,7 +17,7 @@ export function ScholarshipCategories() {
     mx-auto
     w-full
 p-3
-    h-[900px]
+    h-[1120px]
     overflow-hidden
     bg-[]
     bg-cover
@@ -159,7 +159,7 @@ p-3
             <ul className='space-y-4'>
               {rules.map(rule => (
                 <li key={rule} className='flex gap-3'>
-                  <span className='mt-1.5 text-base leading-none text-orange-500'>*</span>
+                  <span className=' mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                   <p
                     className='
     font-bn-serif

@@ -80,11 +80,10 @@ export function FAQ() {
 
   return (
     <section
-      className=' px-4 py-[40px] md:py-[40px]'
+      className=' px-4 py-[40px] h-[720px] md:h-[892px] md:py-[40px]'
       style={{
         backgroundImage: "url('/bg2.png')",
 
-        height: '892px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

@@ -55,7 +55,7 @@ export function Achievements() {
         </div>
 
         {/* Stats Grid */}
-        <div className='grid gap-5 sm:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid gap-5 grid-cols-2 lg:grid-cols-3'>
           {achievements.map(item => (
             <div key={item.key} className={`rounded-xl ${item.bg} p-8 text-center transition-transform hover:-translate-y-0.5`}>
               <div className='mb-4 text-4xl'>

@@ -92,8 +92,8 @@ export function ExamStructure() {
             </h3>
             <ul className='space-y-4'>
               <li className='flex gap-3'>
-                <span className='flex items-center justify-center'>
-                  <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
+                <span className='flex '>
+                  <span className=' mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
                 <p
                   className='
@@ -113,8 +113,8 @@ export function ExamStructure() {
               </li>
 
               <li className='flex gap-3'>
-                <span className='flex items-center justify-center'>
-                  <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
+                <span className='flex '>
+                  <span className='h-1 w-1 mt-[10] rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
                 <p
                   className='
@@ -133,8 +133,8 @@ export function ExamStructure() {
                 </p>
               </li>
               <li className='flex gap-3'>
-                <span className='flex items-center justify-center'>
-                  <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
+                <span className='flex '>
+                  <span className='mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
                 <p
                   className='
@@ -153,8 +153,8 @@ export function ExamStructure() {
                 </p>
               </li>
               <li className='flex gap-3'>
-                <span className='flex items-center justify-center'>
-                  <span className='h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
+                <span className='flex '>
+                  <span className='mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                 </span>
                 <p
                   className='
