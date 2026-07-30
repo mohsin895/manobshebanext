@@ -772,7 +772,7 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
           <Field label='ছবি প্রিভিউ দেখুন' optional>
             <div className='flex h-[136px] w-full items-center rounded-lg border border-white px-3 py-2'>
               {photoPreviewUrl ? (
-                <img src={photoPreviewUrl} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
+                <img src={photoPreviewUrl ? photoPreviewUrl : '/placeholder-user.jpg'} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
               ) : (
                 <div className='flex h-full w-full items-center justify-center rounded-lg border border-dashed border-gray-300'>
                   <span className='text-sm text-gray-400'>কোনো ছবি নির্বাচিত হয়নি</span>
