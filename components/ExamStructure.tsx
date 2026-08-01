@@ -52,7 +52,7 @@ export function ExamStructure() {
     tracking-[0]
     text-[#282929]
   '
-            delayPerChar={25}
+            delayPerChar={80}
           />
 
           <FallDownText
@@ -67,14 +67,14 @@ export function ExamStructure() {
     tracking-[0]
     text-[#404545]
   '
-            delayPerChar={25}
+            delayPerChar={40}
           />
         </div>
 
         {/* Two-column grid */}
         <div className='mb-8 grid gap-6 lg:grid-cols-2'>
           {/* Left card: question pattern rules */}
-          <div className='rounded-xl bg-white p-6 h-[440px] md:h-[392px] shadow-sm md:p-8'>
+          <div className='rounded-xl bg-white p-6 h-[540px] md:h-[465px] shadow-sm md:p-8'>
             <h3
               className='
     mb-5

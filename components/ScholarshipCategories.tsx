@@ -17,7 +17,7 @@ export function ScholarshipCategories() {
     mx-auto
     w-full
 p-3
-    h-[1140px]
+    h-[1215px]
     overflow-hidden
     bg-[]
     bg-cover
