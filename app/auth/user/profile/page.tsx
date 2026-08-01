@@ -44,7 +44,8 @@ const FIELD_GROUPS: FieldGroup[] = [
   {
     title: 'Leadership',
     fields: [
-      { key: 'headname', label: 'Head Teacher' },
+      { key: 'headname', label: 'HeadTeacher' },
+      { key: 'mobile', label: 'Mobile Number', type: 'tel' },
       { key: 'assName', label: 'Assistant Teacher' },
       { key: 'assPhone', label: 'Assistant Phone', type: 'tel' },
     ],
@@ -52,7 +53,6 @@ const FIELD_GROUPS: FieldGroup[] = [
   {
     title: 'Contact',
     fields: [
-      { key: 'mobile', label: 'Mobile Number', type: 'tel' },
       { key: 'email', label: 'Email', type: 'email' },
       { key: 'postcode', label: 'Postcode' },
     ],
