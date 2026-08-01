@@ -149,14 +149,14 @@ export default function FormReviewCard({ photoSrc = 'https://i.pravatar.cc/160?i
           >
             সংশোধন করুন
           </button>
-          <button
+          <a
             type='button'
-            onClick={handleConfirm}
-            disabled={submitting}
-            className='flex-1 rounded-xl bg-[color:var(--orange)] py-3 text-[14px] font-semibold text-white shadow-[0_8px_16px_-8px_rgba(221,91,39,0.7)] transition active:scale-[0.98] disabled:opacity-60'
+            href='/auth/student/list'
+
+            className='flex-1 rounded-xl bg-[color:var(--orange)] py-3 text-center text-[14px] font-semibold text-white shadow-[0_8px_16px_-8px_rgba(221,91,39,0.7)] transition active:scale-[0.98] disabled:opacity-60'
           >
             {submitting ? 'অপেক্ষা করুন…' : 'নিশ্চিত করুন'}
-          </button>
+          </a>
         </div>
       </div>
     </div>

@@ -109,15 +109,33 @@ export default function AdmitCard({
                     <span className='rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600'>{student.className}</span>
                   </td>
                   <td className='py-3 pr-3'>{student.mobile}</td>
-                  <td className='py-3 pr-3 text-right'>
-                    <button
-                      type='button'
-                      onClick={() => (actionType === 'edit' ? onEdit?.(student) : onDownload?.(student))}
-                      className='rounded-md p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600'
-                      aria-label={actionType === 'edit' ? 'সম্পাদনা করুন' : 'ডাউনলোড করুন'}
-                    >
-                      {actionType === 'edit' ? <EditIcon /> : <DownloadIcon />}
-                    </button>
+                  <td className='py-3 pr-3'>
+                    <div className='flex justify-center'>
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/admit-card/${student.id}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        aria-label='Download admit card'
+                        className='inline-flex items-center justify-center rounded-md p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600'
+                      >
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
+                          <path
+                            d='M3 17.0002C3 17.9302 3 18.3952 3.10223 18.7767C3.37963 19.8119 4.18827 20.6206 5.22355 20.898C5.60505 21.0002 6.07003 21.0002 7 21.0002H17C17.93 21.0002 18.395 21.0002 18.7765 20.898C19.8117 20.6206 20.6204 19.8119 20.8978 18.7767C21 18.3952 21 17.9302 21 17.0002'
+                            stroke='#141B34'
+                            strokeWidth='1.5'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                          />
+                          <path
+                            d='M16.5 11.5002C16.5 11.5002 13.1858 16.0002 11.9999 16.0002C10.8141 16.0002 7.5 11.5002 7.5 11.5002M11.9999 15.0002V3.00018'
+                            stroke='#141B34'
+                            strokeWidth='1.5'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                          />
+                        </svg>
+                      </a>
+                    </div>
                   </td>
                 </tr>
               ))}

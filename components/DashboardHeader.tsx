@@ -51,7 +51,7 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
         mx-auto
         w-full
         max-w-[1240px]
-        h-[320px]
+        h-[450px] md:h-[320px]
         overflow-hidden
         rounded-[24px]
         bg-[#E1EAFE]
@@ -64,7 +64,7 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
       '
     >
       {/* Logout Button */}
-      <div className='absolute left-5 top-6 md:left-10 z-10 flex items-center gap-10'>
+      <div className='absolute left-5  md:left-10  z-10 flex items-center gap-2 md:gap-10'>
         <button onClick={handleLogout} disabled={loggingOut} type='button' className='flex items-center gap-2 px-4 py-2'>
           <div className='relative h-4 w-4 md:h-6 md:w-6 shrink-0'>
             <Image src='/logout.svg' alt='Logout' fill className='object-contain' />
@@ -82,7 +82,7 @@ export function DashboardHeader({ schoolName, address, eiin, logoSrc = '/navlogo
         </a>
       </div>
 
-      <div className='flex h-full flex-col items-center justify-between gap-6 md:flex-row md:gap-0'>
+      <div className='flex h-full mt-[70px] md:mt-0 flex-col items-center justify-between gap-6 md:flex-row md:gap-0'>
         {/* Left Content */}
         <div className='flex flex-col items-center gap-3 text-center md:flex-row md:items-center md:gap-6 md:text-left'>
           <div className='flex h-[72px] w-[72px] items-center justify-center rounded-[24px] bg-white md:h-[128px] md:w-[128px] md:rounded-[32px]'>

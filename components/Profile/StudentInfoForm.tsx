@@ -102,9 +102,16 @@ function PhotoPickerModal({ onClose, onPick }: { onClose: () => void; onPick: (f
         </button>
 
         <div className='mx-auto mb-5 h-40 w-40 overflow-hidden rounded-xl bg-gray-100'>
-          <img src={`${IMAGE_BASE_URL}profile.webp?w=300&h=300&fit=crop&crop=faces`} alt='নমুনা প্রোফাইল ছবি' className='h-full w-full object-cover' />
+          <img
+            src={IMAGE_BASE_URL ? `${IMAGE_BASE_URL}profile.webp?w=300&h=300&fit=crop&crop=faces` : '/placeholder-user.jpg'}
+            alt='নমুনা প্রোফাইল ছবি'
+            className='h-full w-full object-cover'
+            onError={e => {
+              e.currentTarget.onerror = null
+              e.currentTarget.src = '/placeholder-user.jpg'
+            }}
+          />
         </div>
-
         <ul className='mb-5 space-y-2 text-sm text-gray-600'>
           <li className='flex gap-2'>
             <span className='mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500' />
