@@ -32,14 +32,18 @@ const poppins = Poppins({
 })
 export const metadata: Metadata = {
   title: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
-  description: "শিক্ষা ও সেবায় আমরা গড়তে চাই একটি মানবিক মুন্সিগঞ্জ। 'এসো মানবতার হাত বাড়িয়ে, সুন্দর সমাজ বিনির্মাণে'",
+  description: "শিক্ষা ও সেবায় আমরা গড়তে চাই একটি মানবিক মুন্সিগঞ্জ। 'এসো মানবতার হাত বাড়িয়ে, সুন্দর সমাজ বিনির্মাণে'",
 
   icons: {
-    icon: [{ url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' }, { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' }, { url: '/icon.png' }],
+    icon: [
+      { url: '/icon-light-32x32.png', sizes: '32x32', type: 'image/png', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark-32x32.png', sizes: '32x32', type: 'image/png', media: '(prefers-color-scheme: dark)' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon.png' },
+    ],
     apple: '/apple-icon.png',
   },
 }
-
 export const viewport: Viewport = {
   colorScheme: 'light',
   themeColor: [{ media: '(prefers-color-scheme: light)', color: '#FF5733' }],

@@ -25,7 +25,7 @@ export function Navbar() {
   const [totalHeight, setTotalHeight] = useState(0)
 
   const menuItems = [
-    { bn: 'অনলাইন আবেদন', en: 'Exam Application' },
+    { bn: 'অনলাইন আবেদন', en: 'Exam Application', href: '/auth/login' },
     { bn: 'মেধাবৃত্তি সিলেবাস', en: 'Online Application', href: '/syllabus' },
     { bn: 'ফলাফল অনুসন্ধান', en: ' Result Search', href: '/result' },
     { bn: 'আসন বিন্যাস', en: 'Student Result Search', href: '/seat-plan' },
@@ -351,7 +351,7 @@ export function Navbar() {
                 <div className={`overflow-hidden transition-all duration-200 ease-in-out ${mobileNewsOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}`}>
                   <div className='flex flex-col pl-3'>
                     {menuItems.map((item, i) => (
-                      <a key={i} href='#' className='flex items-center gap-3 px-3 py-3 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-500 transition-colors rounded-lg'>
+                      <a key={i} href={item.href} className='flex items-center gap-3 px-3 py-3 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-500 transition-colors rounded-lg'>
                         <span className='leading-snug font-medium flex-1'>{language === 'bn' ? item.bn : item.en}</span>
                       </a>
                     ))}
