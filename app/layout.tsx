@@ -1,5 +1,4 @@
 // layout.tsx — Add 'light' class to html to force light mode always
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Noto_Sans_Bengali, Noto_Serif_Bengali, Be_Vietnam_Pro, Poppins } from 'next/font/google'
 import './globals.css'
@@ -55,7 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <LanguageProvider>
           <SchoolSettingProvider>
             {children}
-            {process.env.NODE_ENV === 'production' && <Analytics />}
+            {process.env.NODE_ENV === 'production'}
           </SchoolSettingProvider>
         </LanguageProvider>
       </body>

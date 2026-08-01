@@ -693,7 +693,7 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
           </Field>
 
           {classDivisionOptions.length > 0 && (
-            <Field label='গ্রুপ'>
+            <Field label='শাখা'>
               <Select
                 placeholder={classDivisionsLoading ? 'লোড হচ্ছে...' : 'নির্বাচন করুন...'}
                 options={classDivisionOptions.map(o => ({ value: String(o.id), label: o.name }))}

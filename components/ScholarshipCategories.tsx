@@ -26,7 +26,7 @@ p-3
 
 
     md:max-w-none
-    md:h-[800px]
+    md:h-[850px]
     md:bg-[url('/medhabg.svg')]
   "
     >
