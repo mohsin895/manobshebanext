@@ -12,8 +12,16 @@ const achievements = [
   { key: 'achievements.certificates', icon: '/image46.svg', bg: 'bg-[#FFF3EF]', dataKey: 'totalTalentpool' },
 ]
 
+// Converts Western digits (0-9) to Bengali digits (০-৯).
+// Leaves everything else (like '...' while loading) untouched.
+const BENGALI_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+
+function toBengaliDigits(value: string | number): string {
+  return String(value).replace(/[0-9]/g, d => BENGALI_DIGITS[Number(d)])
+}
+
 export function Achievements() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [stats, setStats] = useState<Record<string, number> | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -33,6 +41,11 @@ export function Achievements() {
     }
     fetchAchievements()
   }, [])
+
+  const formatStat = (value: number | undefined) => {
+    const raw = value ?? 0
+    return language === 'bn' ? toBengaliDigits(raw) : String(raw)
+  }
 
   return (
     <section className='px-4 py-5 md:py-20'>
@@ -87,7 +100,7 @@ export function Achievements() {
     text-[#C61D08]
   '
               >
-                {loading ? '...' : stats ? stats[item.dataKey] : 0}
+                {loading ? '...' : formatStat(stats?.[item.dataKey])}
               </h3>
             </div>
           ))}
