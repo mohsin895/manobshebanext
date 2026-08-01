@@ -237,12 +237,13 @@ p-5
         </div>
 
         {/* Video Section - only rendered if the admin has set a video URL */}
+        {/* Video Section - only rendered if the admin has set a video URL */}
         {videoId && (
-          <div className='relative mx-auto max-w-4xl overflow-hidden rounded-2xl shadow-lg'>
-            <div className='relative aspect-video bg-gray-900'>
+          <div className='relative mx-auto w-full max-w-4xl overflow-hidden rounded-2xl shadow-lg'>
+            <div className='relative aspect-video w-full bg-gray-900'>
               {isPlaying ? (
                 <iframe
-                  className='h-[800px] w-full'
+                  className='absolute inset-0 h-full w-full'
                   src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                   title={t('process.videoCaption')}
                   allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
@@ -251,13 +252,13 @@ p-5
               ) : (
                 <>
                   {/* Replace src with the actual thumbnail image */}
-                  <img src='/image20.jpg' alt={t('process.videoCaption')} className='h-full w-full object-cover' />
+                  <img src='/image20.jpg' alt={t('process.videoCaption')} className='absolute inset-0 h-full w-full object-cover' />
                   <button type='button' aria-label={t('process.playVideo')} onClick={() => setIsPlaying(true)} className='absolute inset-0 flex items-center justify-center'>
-                    <span className='flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform hover:scale-105'>
-                      <Play className='h-7 w-7 fill-orange-500 text-orange-500' />
+                    <span className='flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform hover:scale-105 md:h-16 md:w-16'>
+                      <Play className='h-6 w-6 fill-orange-500 text-orange-500 md:h-7 md:w-7' />
                     </span>
                   </button>
-                  <div className='absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-black/70 px-4 py-1.5 text-xs font-medium text-white md:text-sm'>
+                  <div className='absolute bottom-2 left-2 flex items-center gap-2 rounded-full bg-black/70 px-3 py-1 text-[11px] font-medium text-white md:bottom-4 md:left-4 md:px-4 md:py-1.5 md:text-sm'>
                     <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
                     {t('process.videoCaption')}
                   </div>

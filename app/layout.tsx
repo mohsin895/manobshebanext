@@ -36,11 +36,7 @@ export const metadata: Metadata = {
   description: "শিক্ষা ও সেবায় আমরা গড়তে চাই একটি মানবিক মুন্সিগঞ্জ। 'এসো মানবতার হাত বাড়িয়ে, সুন্দর সমাজ বিনির্মাণে'",
 
   icons: {
-    icon: [
-      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
-      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
+    icon: [{ url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' }, { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' }, { url: '/icon.png' }],
     apple: '/apple-icon.png',
   },
 }
