@@ -153,7 +153,7 @@ p-5
             type='button'
             aria-label={t('process.prevStep') || 'Previous'}
             onClick={() => scrollByCard(-1)}
-            className='absolute left-0 top-1/2 z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
+            className='absolute left-0 top-[40%] z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
           >
             <ChevronLeft className='h-5 w-5' />
           </button>
@@ -161,7 +161,7 @@ p-5
             type='button'
             aria-label={t('process.nextStep') || 'Next'}
             onClick={() => scrollByCard(1)}
-            className='absolute right-0 top-1/2 z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
+            className='absolute right-0 top-[40%] z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
           >
             <ChevronRight className='h-5 w-5' />
           </button>

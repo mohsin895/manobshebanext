@@ -51,10 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       {/* FIX 2: Remove bg-white from body — let each section own its background */}
       <body className=' antialiased'>
         <LanguageProvider>
-          <SchoolSettingProvider>
-            {children}
-            {process.env.NODE_ENV === 'production'}
-          </SchoolSettingProvider>
+          <SchoolSettingProvider>{children}</SchoolSettingProvider>
         </LanguageProvider>
       </body>
     </html>

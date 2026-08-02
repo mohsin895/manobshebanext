@@ -310,7 +310,7 @@ export function ExamStructure() {
           {/* Right Button */}
           <div className='flex justify-end md:block shrink-0'>
             <a
-              href='#'
+              href='/syllabus'
               className='
     inline-flex
     items-center

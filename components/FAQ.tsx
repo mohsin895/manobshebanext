@@ -114,7 +114,7 @@ export function FAQ() {
     text-[14px]
     leading-[22px]
     tracking-[0]
-    mt-[60px]
+
     text-[#404545]
     md:text-[16px]
     md:leading-[24px]
