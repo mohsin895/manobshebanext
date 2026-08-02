@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useMemo, useState } from 'react'
 
 export type MeritoriousStudent = {
   id: string
@@ -15,6 +16,7 @@ export type MeritoriousStudent = {
   photo: string
   meritPosition: string
   marks: string
+  year: string // e.g. '২০২৬'
 }
 
 const STUDENTS: MeritoriousStudent[] = Array.from({ length: 12 }).map((_, i) => ({
@@ -30,7 +32,18 @@ const STUDENTS: MeritoriousStudent[] = Array.from({ length: 12 }).map((_, i) => 
   photo: '/student.png',
   meritPosition: 'প্রথম',
   marks: '৬৭',
+  year: i % 2 === 0 ? '২০২৬' : '২০২৫',
 }))
+
+// ---- Filter option lists (derived from data, plus an "all" option) ----
+const ALL_VALUE = 'all'
+
+function useUniqueOptions(list: MeritoriousStudent[], key: keyof MeritoriousStudent) {
+  return useMemo(() => {
+    const values = Array.from(new Set(list.map(s => String(s[key]))))
+    return values
+  }, [list, key])
+}
 
 function InfoBadge({ icon, label }: { icon: string; label: string }) {
   return (
@@ -241,17 +254,127 @@ function StudentCard({ student }: { student: MeritoriousStudent }) {
   )
 }
 
+// ---- Filter select (styled to match the pill dropdown look in the screenshot) ----
+function FilterSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
+  return (
+    <div className='relative flex-1 min-w-[140px]'>
+      <select
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className='
+          font-bn
+          w-full
+          appearance-none
+          rounded-[8px]
+          border
+          border-[#E5E7EB]
+          bg-white
+          px-4
+          py-2.5
+          pr-8
+          text-[13px]
+          text-[#1C1D4A]
+          outline-none
+          focus:border-[#4A4DE1]
+          sm:text-[14px]
+        '
+      >
+        <option value={ALL_VALUE}>{label}</option>
+        {options.map(opt => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      {/* chevron */}
+      <svg className='pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#1C1D4A]' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+        <path d='M6 9l6 6 6-6' strokeLinecap='round' strokeLinejoin='round' />
+      </svg>
+    </div>
+  )
+}
+
+function CategorySearchBar({
+  students,
+  classValue,
+  categoryValue,
+  schoolValue,
+  yearValue,
+  onClassChange,
+  onCategoryChange,
+  onSchoolChange,
+  onYearChange,
+}: {
+  students: MeritoriousStudent[]
+  classValue: string
+  categoryValue: string
+  schoolValue: string
+  yearValue: string
+  onClassChange: (v: string) => void
+  onCategoryChange: (v: string) => void
+  onSchoolChange: (v: string) => void
+  onYearChange: (v: string) => void
+}) {
+  const classOptions = useUniqueOptions(students, 'className').map(v => ({ value: v, label: v }))
+  const schoolOptions = useUniqueOptions(students, 'institutionName').map(v => ({ value: v, label: v }))
+  const yearOptions = useUniqueOptions(students, 'year').map(v => ({ value: v, label: v }))
+  const categoryOptions = [
+    { value: 'talent-pool', label: 'ট্যালেন্টপুল' },
+    { value: 'general', label: 'সাধারণ' },
+  ]
+
+  return (
+    <div className='mb-8 flex flex-wrap justify-center gap-2 sm:gap-3'>
+      <FilterSelect label='শ্রেণি নির্বাচন' value={classValue} onChange={onClassChange} options={classOptions} />
+      <FilterSelect label='বৃত্তি নির্বাচন' value={categoryValue} onChange={onCategoryChange} options={categoryOptions} />
+      <FilterSelect label='বিদ্যালয় নির্বাচন' value={schoolValue} onChange={onSchoolChange} options={schoolOptions} />
+      <FilterSelect label='সাল নির্বাচন' value={yearValue} onChange={onYearChange} options={yearOptions} />
+    </div>
+  )
+}
+
 export function MeritoriousStudentGrid() {
+  const [classValue, setClassValue] = useState(ALL_VALUE)
+  const [categoryValue, setCategoryValue] = useState(ALL_VALUE)
+  const [schoolValue, setSchoolValue] = useState(ALL_VALUE)
+  const [yearValue, setYearValue] = useState(ALL_VALUE)
+
+  const filteredStudents = useMemo(() => {
+    return STUDENTS.filter(s => {
+      if (classValue !== ALL_VALUE && s.className !== classValue) return false
+      if (categoryValue !== ALL_VALUE && s.category !== categoryValue) return false
+      if (schoolValue !== ALL_VALUE && s.institutionName !== schoolValue) return false
+      if (yearValue !== ALL_VALUE && s.year !== yearValue) return false
+      return true
+    })
+  }, [classValue, categoryValue, schoolValue, yearValue])
+
   return (
     <section className='w-full py-8 sm:py-10 md:py-14'>
       <div className='mx-auto w-full max-w-[1320px] px-4 md:px-0'>
-        <div className='flex justify-center'>
-          <div className='grid grid-cols-2 justify-items-center gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-6'>
-            {STUDENTS.map(student => (
-              <StudentCard key={student.id} student={student} />
-            ))}
+        <CategorySearchBar
+          students={STUDENTS}
+          classValue={classValue}
+          categoryValue={categoryValue}
+          schoolValue={schoolValue}
+          yearValue={yearValue}
+          onClassChange={setClassValue}
+          onCategoryChange={setCategoryValue}
+          onSchoolChange={setSchoolValue}
+          onYearChange={setYearValue}
+        />
+
+        {filteredStudents.length === 0 ? (
+          <p className='font-bn py-10 text-center text-[14px] text-[#1C1D4A]'>কোনো তথ্য পাওয়া যায়নি</p>
+        ) : (
+          <div className='flex justify-center'>
+            <div className='grid grid-cols-2 justify-items-center gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-6'>
+              {filteredStudents.map(student => (
+                <StudentCard key={student.id} student={student} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className='mt-6 sm:mt-8 flex justify-center'>
           <button

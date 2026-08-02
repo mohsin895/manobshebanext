@@ -87,9 +87,9 @@ export function MeritoriousStudentHero() {
 
   // TODO: replace with real counts from your API.
   const stats = {
-    talentPool: 6,
-    generalGrade: 149,
-    totalAwarded: 197,
+    talentPool: 18,
+    generalGrade: 405,
+    totalAwarded: 423,
   }
 
   return (
