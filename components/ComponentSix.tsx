@@ -55,10 +55,10 @@ export function ComponentSix() {
           </div>
 
           <div className='flex h-full justify-end items-end mt-[30px]'>
-            <button className='inline-flex text-[12px] items-center justify-center gap-2 rounded-[99px] bg-[#3FC2AC] px-4 py-2 text-white'>
+            <a href='/achievement' className='inline-flex text-[12px] items-center justify-center gap-2 rounded-[99px] bg-[#3FC2AC] px-4 py-2 text-white'>
               {t('scholarship.see_more')}
               <ArrowUpRight className='h-4 w-4' />
-            </button>
+            </a>
           </div>
         </div>
       </div>

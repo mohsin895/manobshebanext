@@ -97,6 +97,13 @@ export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isMobile, setIsMobile] = useState(false)
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const hasToken = document.cookie.split('; ').some(c => c.startsWith('token='))
+    setIsAuthenticated(hasToken)
+  }, [])
+
   // Tiers: <768 mobile | 768-1024 tablet | 1025-1300 desktop | 1301+ large desktop
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -268,7 +275,7 @@ mt-2
                 </div>
                 <div className='flex flex-col min-[768px]:flex-row min-[1301px]:flex-row gap-3  mt-0 md:mt-[10px] justify-center min-[768px]:justify-start min-[1301px]:justify-start items-center'>
                   <a
-                    href='/auth/login'
+                    href={isAuthenticated ? '/auth/student/registration' : '/auth/login'}
                     className='
                   w-[155px] h-[40px]
                   px-4 py-2

@@ -3,11 +3,25 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 import Image from 'next/image'
 import { Mail } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export function Footer() {
   const { t } = useLanguage()
   const currentYear = new Date().getFullYear()
-
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const desktopSocials = [
+    { icon: '/telephone-d.svg', href: 'https://wa.me/8801643552015', external: true, label: 'WhatsApp' },
+    { icon: '/mail-d.svg', href: 'mailto:org.bmsf@gmail.com', external: false, label: 'Email' },
+    { icon: '/location-d.svg', href: '#', external: false, label: 'Location' }, // no address link given yet
+    { icon: '/youtube-d.svg', href: 'https://youtube.com/@org.bmsf2018?si=McGVKiGNLOtjr8X7', external: true, label: 'YouTube' },
+    { icon: '/instagram-d.svg', href: 'https://www.instagram.com/info.bmsf?igsh=cjlteGo4dThmcDl0', external: true, label: 'Instagram' },
+    { icon: '/facebook-d.svg', href: 'https://www.facebook.com/share/1Cqg2Xp1cF/?mibextid=wwXIfr', external: true, label: 'Facebook' },
+    { icon: '/linkedin-d.svg', href: 'https://x.com/infobmsf?s=21', external: true, label: 'X (Twitter)' }, // no LinkedIn URL given — using the X link here; swap if this icon should actually stay LinkedIn
+  ]
+  useEffect(() => {
+    const hasToken = document.cookie.split('; ').some(c => c.startsWith('token='))
+    setIsAuthenticated(hasToken)
+  }, [])
   return (
     <footer className='w-full mb-[40px] mt-[80px] '>
       {/* Ellipse glow background - positioned at center bottom */}
@@ -127,22 +141,22 @@ export function Footer() {
 
               <ul className='list-inside list-disc space-y-2 pl-5 font-bn-serif text-[16px] font-normal leading-6 text-[#FFFFFF]'>
                 <li>
-                  <a href='#' className='transition-colors hover:text-orange-400'>
-                    আবেদন
+                  <a href={isAuthenticated ? '/auth/student/registration' : '/auth/login'} className='transition-colors hover:text-orange-400'>
+                    আবেদন করুন
                   </a>
                 </li>
                 <li>
-                  <a href='#' className='transition-colors hover:text-orange-400'>
+                  <a href='/syllabus' className='transition-colors hover:text-orange-400'>
                     সিলেবাস
                   </a>
                 </li>
                 <li>
-                  <a href='#' className='transition-colors hover:text-orange-400'>
+                  <a href='/seat-plan' className='transition-colors hover:text-orange-400'>
                     আসন বিন্যাস
                   </a>
                 </li>
                 <li>
-                  <a href='#' className='transition-colors hover:text-orange-400'>
+                  <a href='/result' className='transition-colors hover:text-orange-400'>
                     ফলাফল
                   </a>
                 </li>
@@ -181,22 +195,22 @@ export function Footer() {
 
                   <ul className='list-inside list-disc text-left space-y-2 pl-5 font-bn-serif text-[16px] font-normal leading-6 text-[#FFFFFF]'>
                     <li>
-                      <a href='#' className='transition-colors hover:text-orange-400'>
-                        আবেদন
+                      <a href={isAuthenticated ? '/auth/student/registration' : '/auth/login'} className='transition-colors hover:text-orange-400'>
+                        আবেদন করুন
                       </a>
                     </li>
                     <li>
-                      <a href='#' className='transition-colors hover:text-orange-400'>
+                      <a href='/syllabus' className='transition-colors hover:text-orange-400'>
                         সিলেবাস
                       </a>
                     </li>
                     <li>
-                      <a href='#' className='transition-colors hover:text-orange-400'>
+                      <a href='/seat-plan' className='transition-colors hover:text-orange-400'>
                         আসন বিন্যাস
                       </a>
                     </li>
                     <li>
-                      <a href='#' className='transition-colors hover:text-orange-400'>
+                      <a href='/result' className='transition-colors hover:text-orange-400'>
                         ফলাফল
                       </a>
                     </li>
@@ -211,10 +225,17 @@ export function Footer() {
               {/* Mobile */}
               <div className='md:hidden'>
                 <div className='mb-2 flex justify-center gap-3'>
-                  {['/telephone.svg', '/mail-01.svg', '/location-03.svg'].map((icon, index) => (
+                  {[
+                    { icon: '/telephone.svg', href: 'https://wa.me/8801643552015', external: true, label: 'WhatsApp' },
+                    { icon: '/mail-01.svg', href: 'mailto:org.bmsf@gmail.com', external: false, label: 'Email' },
+                    { icon: '/location-03.svg', href: '#', external: false, label: 'Location' },
+                  ].map(({ icon, href, external, label }, index) => (
                     <a
                       key={index}
-                      href='#'
+                      href={href}
+                      title={label}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener noreferrer' : undefined}
                       className='
                     flex
                     h-12
@@ -228,18 +249,26 @@ export function Footer() {
                     p-1
                     transition-all
                     hover:bg-[#3335A0]
-                '
+                    '
                     >
-                      <Image src={icon} width={24} height={24} alt='' className='h-6 w-6 object-contain' />
+                      <Image src={icon} width={24} height={24} alt={label} className='h-6 w-6 object-contain' />
                     </a>
                   ))}
                 </div>
 
                 <div className='flex justify-center gap-3'>
-                  {['/youtube.svg', '/instagram.svg', '/linkedin-01.svg', '/instagram.svg'].map((icon, index) => (
+                  {[
+                    { icon: '/youtube.svg', href: 'https://youtube.com/@org.bmsf2018?si=McGVKiGNLOtjr8X7', external: true, label: 'YouTube' },
+                    { icon: '/instagram.svg', href: 'https://www.instagram.com/info.bmsf?igsh=cjlteGo4dThmcDl0', external: true, label: 'Instagram' },
+                    { icon: '/facebook.svg', href: 'https://www.facebook.com/share/1Cqg2Xp1cF/?mibextid=wwXIfr', external: true, label: 'Facebook' },
+                    { icon: '/linkedin-01.svg', href: 'https://x.com/infobmsf?s=21', external: true, label: 'X (Twitter)' },
+                  ].map(({ icon, href, external, label }, index) => (
                     <a
                       key={index}
-                      href='#'
+                      href={href}
+                      title={label}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener noreferrer' : undefined}
                       className='
                     flex
                     h-12
@@ -253,9 +282,9 @@ export function Footer() {
                     p-3
                     transition-all
                     hover:bg-[#3335A0]
-                '
+                    '
                     >
-                      <Image src={icon} width={24} height={24} alt='' className='h-6 w-6 object-contain' />
+                      <Image src={icon} width={24} height={24} alt={label} className='h-6 w-6 object-contain' />
                     </a>
                   ))}
                 </div>
@@ -263,28 +292,30 @@ export function Footer() {
 
               {/* Desktop */}
               <div className='hidden md:grid md:grid-cols-3 gap-4'>
-                {['/telephone-d.svg', '/mail-d.svg', '/location-d.svg', '/youtube-d.svg', '/instagram-d.svg', '/facebook-d.svg', '/linkedin-d.svg'].map((icon, index) => (
+                {desktopSocials.map(({ icon, href, external, label }, index) => (
                   <a
                     key={index}
-                    href='#'
-                    title='icon'
+                    href={href}
+                    title={label}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
                     className='
-                flex
-                h-[68px]
-                w-[76px]
-                items-center
-                justify-center
-                rounded-[9px]
-                border
-                border-[#4A4DE166]
-                bg-[#3335A03D]
-                px-[20px]
-                py-[16px]
-                transition-colors
-                hover:bg-[#3335A0]
-            '
+                  flex
+                  h-[68px]
+                  w-[76px]
+                  items-center
+                  justify-center
+                  rounded-[9px]
+                  border
+                  border-[#4A4DE166]
+                  bg-[#3335A03D]
+                  px-[20px]
+                  py-[16px]
+                  transition-colors
+                  hover:bg-[#3335A0]
+                  '
                   >
-                    <Image src={icon} width={36} height={36} alt='' className='h-[36px] w-[36px] object-contain' />
+                    <Image src={icon} width={36} height={36} alt={label} className='h-[36px] w-[36px] object-contain' />
                   </a>
                 ))}
               </div>

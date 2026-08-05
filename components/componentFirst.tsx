@@ -1,8 +1,16 @@
 import { ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '@/app/context/LanguageContext'
+import { useState, useEffect } from 'react'
 
 export function ComponentFirst() {
   const { t } = useLanguage()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const hasToken = document.cookie.split('; ').some(c => c.startsWith('token='))
+    setIsAuthenticated(hasToken)
+  }, [])
+
   return (
     <div className='group w-[100%] shrink-0 snap-start sm:w-full sm:shrink sm:min-w-0' data-card>
       <div>
@@ -32,7 +40,10 @@ export function ComponentFirst() {
           </div>
 
           <div className=' self-end justify-end flex h-full items-end mt-[12px] md:mt-[40px]'>
-            <a href='/auth/login' className='inline-flex text-[12px] items-center justify-center gap-2 rounded-[99px] bg-[#4A4DE1] px-4 py-2 text-white'>
+            <a
+              href={isAuthenticated ? '/auth/student/registration' : '/auth/login'}
+              className='inline-flex text-[12px] items-center justify-center gap-2 rounded-[99px] bg-[#4A4DE1] px-4 py-2 text-white'
+            >
               {t('scholarship.see_more')}
               <ArrowUpRight className='h-4 w-4' />
             </a>

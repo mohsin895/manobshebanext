@@ -37,7 +37,7 @@ function StatPill({ label, value }: StatPillProps) {
         md:max-w-[424px]
         md:h-[140px]
         md:justify-center
-        md:gap-[32px]
+        md:gap-[10px]
         md:rounded-[24px]
         md:px-[24px]
         md:py-[24px]
@@ -48,20 +48,6 @@ function StatPill({ label, value }: StatPillProps) {
         background: 'linear-gradient(180deg, rgba(128,128,128,0.5) 0%, rgba(26,26,26,0.5) 90.19%)',
       }}
     >
-      <p
-        className='
-          font-bn
-          text-[16px]
-          font-bold
-          leading-[100%]
-          text-[#FF6B35]
-
-          md:text-[48px]
-        '
-      >
-        {toBnDigits(value)}
-      </p>
-
       <p
         className='
           text-center
@@ -76,6 +62,19 @@ function StatPill({ label, value }: StatPillProps) {
         '
       >
         {label}
+      </p>
+      <p
+        className='
+          font-bn
+          text-[16px]
+          font-bold
+          leading-[100%]
+          text-[#FF6B35]
+
+          md:text-[48px]
+        '
+      >
+        {toBnDigits(value)}
       </p>
     </div>
   )

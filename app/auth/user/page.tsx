@@ -87,7 +87,7 @@ export default function Page() {
       disabled: !admitCardOpen,
       disabledMessage: 'এডমিট কার্ড ডাউনলোডের সময় এখনও শুরু হয়নি',
     },
-    { icon: '/image57.svg', label: 'অর্জনসমূহ', href: '/admissions' },
+    { icon: '/image57.svg', label: 'অর্জনসমূহ', href: '/auth/achievement' },
   ]
 
   useEffect(() => {
@@ -187,7 +187,7 @@ export default function Page() {
     )
   }
 
-  const logoSrc = `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${school.logo}`
+  const logoSrc = school.logo ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${school.logo}` : '/navlogo.png'
 
   return (
     <main className='w-full bg-[#F7F8FC]'>

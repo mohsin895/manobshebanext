@@ -103,12 +103,12 @@ function PhotoPickerModal({ onClose, onPick }: { onClose: () => void; onPick: (f
 
         <div className='mx-auto mb-5 h-40 w-40 overflow-hidden rounded-xl bg-gray-100'>
           <img
-            src={IMAGE_BASE_URL ? `${IMAGE_BASE_URL}profile.webp?w=300&h=300&fit=crop&crop=faces` : '/placeholder-user.jpg'}
+            src={IMAGE_BASE_URL ? `${IMAGE_BASE_URL}profile.webp?w=300&h=300&fit=crop&crop=faces` : '/demo.jpeg'}
             alt='নমুনা প্রোফাইল ছবি'
             className='h-full w-full object-cover'
             onError={e => {
               e.currentTarget.onerror = null
-              e.currentTarget.src = '/placeholder-user.jpg'
+              e.currentTarget.src = '/demo.jpeg'
             }}
           />
         </div>
@@ -779,7 +779,7 @@ export default function StudentInfoForm({ schoolId = 1 }: { schoolId?: number })
           <Field label='ছবি প্রিভিউ দেখুন' optional>
             <div className='flex h-[136px] w-full items-center rounded-lg border border-white px-3 py-2'>
               {photoPreviewUrl ? (
-                <img src={photoPreviewUrl ? photoPreviewUrl : '/placeholder-user.jpg'} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
+                <img src={photoPreviewUrl ? photoPreviewUrl : '/demo.jpeg'} alt='ছবি প্রিভিউ' className='h-28 w-28 rounded-lg object-cover' />
               ) : (
                 <div className='flex h-full w-full items-center justify-center rounded-lg border border-dashed border-gray-300'>
                   <span className='text-sm text-gray-400'>কোনো ছবি নির্বাচিত হয়নি</span>
