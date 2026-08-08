@@ -260,7 +260,7 @@ export function Footer() {
                   {[
                     { icon: '/youtube.svg', href: 'https://youtube.com/@org.bmsf2018?si=McGVKiGNLOtjr8X7', external: true, label: 'YouTube' },
                     { icon: '/instagram.svg', href: 'https://www.instagram.com/info.bmsf?igsh=cjlteGo4dThmcDl0', external: true, label: 'Instagram' },
-                    { icon: '/facebook.svg', href: 'https://www.facebook.com/share/1Cqg2Xp1cF/?mibextid=wwXIfr', external: true, label: 'Facebook' },
+                    { icon: '/facebook-01.svg', href: 'https://www.facebook.com/share/1Cqg2Xp1cF/?mibextid=wwXIfr', external: true, label: 'Facebook' },
                     { icon: '/linkedin-01.svg', href: 'https://x.com/infobmsf?s=21', external: true, label: 'X (Twitter)' },
                   ].map(({ icon, href, external, label }, index) => (
                     <a
@@ -335,7 +335,7 @@ export function Footer() {
 
               <span>|</span>
 
-              <a href='#' className='transition-colors hover:text-gray-300'>
+              <a href='/page/term-condition' className='transition-colors hover:text-gray-300'>
                 শর্তাবলী
               </a>
             </div>

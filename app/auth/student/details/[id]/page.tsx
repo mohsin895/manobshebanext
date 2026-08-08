@@ -71,7 +71,7 @@ function mapToFields(student: StudentInfo): ReviewField[] {
     { label: 'জন্ম সনদ নম্বর', value: student.birth_certificate_no || '-' },
     { label: 'রোল নম্বর', value: student.roll_number != null ? String(student.roll_number) : '-' },
     { label: 'শ্রেণি', value: student.student_class?.name || '-' },
-    ...(student.student_division?.name ? [{ label: 'গ্রুপ', value: student.student_division.name }] : []),
+    ...(student.student_division?.name ? [{ label: 'শাখা', value: student.student_division.name }] : []),
     { label: 'মোবাইল', value: student.mobile_no || '-' },
     { label: 'লিঙ্গ', value: student.gender || '-' },
     { label: 'রক্তের গ্রুপ', value: student.blood_group || '-' },

@@ -297,7 +297,7 @@ mt-2
                   </a>
 
                   <a
-                    href='/about-us'
+                    href='/page/about-details'
 
                     className='
                 w-[140px]

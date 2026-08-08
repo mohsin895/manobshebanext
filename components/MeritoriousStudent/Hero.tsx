@@ -136,6 +136,7 @@ export function MeritoriousStudentHero() {
             '
               >
                 <Image src='/meritorias.svg' alt='মেধাবৃত্তি' width={250} height={150} className='h-[100px] w-[150px] md:h-[150px] md:w-[250px]' />
+                <span className='font-bn text-[24px] font-normal leading-[32px] text-[#FF6B35] md:text-[48px] md:leading-[64px] mt-[22px]'>-2026</span>
               </div>
 
               {/* Title */}
