@@ -149,8 +149,6 @@ export function Hero() {
           <div className='absolute ml-5 mr-5 min-[768px]:m-0 min-[1301px]:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl'>
             {/* Background Image */}
             {/* Desktop */}
-            {/* Background Image */}
-            {/* Desktop */}
             <div className='absolute inset-0 hidden min-[768px]:block'>
               <Image src='/hero.jpg' alt='' fill priority sizes='100vw' className='object-cover object-center' />
               <div
@@ -275,7 +273,7 @@ mt-2
         '
                   >
                     {isBn
-                      ? 'মেধা বিকাশের অনন্য সুযোগ! বিক্রমপুর মানব সেবা ফাউন্ডেশনের উদ্যোগে সপ্তম থেকে দশম শ্রেণির শিক্ষার্থীদের জন্য ‘মেধাবৃত্তি-২০২৬’। বিনামূল্যে অনলাইনের মাধ্যমে আগ্রহী শিক্ষার্থীরা সরাসরি নিজ নিজ বিদ্যালয়ের সহায়তায় আবেদন প্রক্রিয়া সম্পন্ন করুন।'
+                      ? 'মেধা বিকাশের অনন্য সুযোগ! বিক্রমপুর মানব সেবা ফাউন্ডেশনের উদ্যোগে সপ্তম থেকে দশম শ্রেণির শিক্ষার্থীদের জন্য ‘মেধাবৃত্তি-২০২৬’। বিনামূল্যে অনলাইনের মাধ্যমে আগ্রহী শিক্ষার্থীরা সরাসরি নিজ নিজ বিদ্যালয়ের সহায়তায় আবেদন প্রক্রিয়া সম্পন্ন করুন।'
                       : 'Our scholarship program is specially designed for successful students.'}
                   </p>
                 </div>
@@ -455,7 +453,7 @@ mt-2
                 }}
               >
                 <div className='relative h-[40px] w-[40px] min-[768px]:h-[80px] min-[768px]:w-[90px] min-[1301px]:h-[108px] min-[1301px]:w-[108px]'>
-                  <Image src='/hero2.png' alt='hero' fill className='object-scale-down' />
+                  <Image src='/hero2.png' alt='hero' fill priority className='object-scale-down' />
                 </div>
               </div>
             </div>
