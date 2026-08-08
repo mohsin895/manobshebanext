@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Search, UserPlus } from 'lucide-react'
 
 export type Student = {
   id: string
@@ -79,10 +80,36 @@ export default function StudentList({
   return (
     <div className='w-full bg-gray-50 px-4 py-10'>
       <div className='mx-auto max-w-5xl rounded-2xl bg-white p-6 shadow-sm'>
-        <div className='flex justify-between'>
+        <div className='flex items-center justify-between'>
           <h1 className='mb-4 text-sm text-gray-500'>শিক্ষার্থীদের তালিকা</h1>
-          <a href='/auth/student/registration' className='mb-4 text-sm text-gray-500'>
-            নতুন শিক্ষার্থী যোগকরুন
+
+          <a
+            href='/auth/student/registration'
+            className='
+          font-bn
+          flex
+          w-fit
+          items-center
+          justify-center
+          gap-2
+          h-[40px] md:h-[48px]
+          px-4
+          rounded-[8px]
+          border border-[#FF6B35]
+          bg-transparent
+          text-[14px] md:text-[16px]
+          font-medium
+          leading-[24px]
+          text-[#FF6B35]
+          transition-colors
+          hover:bg-[#FF6B35]/10
+          focus:outline-none
+          focus:ring-2
+          focus:ring-[#FF6B35]/50
+          '
+          >
+            <UserPlus className='h-4 w-4' />
+            নতুন শিক্ষার্থী যোগ করুন
           </a>
         </div>
 

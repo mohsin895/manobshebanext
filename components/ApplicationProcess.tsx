@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
 import { useSchoolSetting, getYouTubeId } from '@/app/context/SchoolSettingContext'
 import { UserCircle2, ClipboardList, IdCard, HourglassIcon, Play, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -59,6 +59,20 @@ export function ApplicationProcess() {
   const sliderRef = useRef<HTMLDivElement>(null)
   const CARD_WIDTH = 300 // matches the inline width on the card
   const CARD_GAP = 40 // matches gap-10
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const updateScrollButtons = () => {
+    const el = sliderRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 4)
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+  }
+
+  useEffect(() => {
+    updateScrollButtons()
+  }, [])
 
   const scrollByCard = (direction: number) => {
     const el = sliderRef.current
@@ -149,25 +163,30 @@ p-5
         {/* Steps Grid / Mobile Slider */}
         <div className='relative mb-12 pt-1'>
           {/* Prev / Next arrows - mobile only, vertically centered over the slider */}
-          <button
-            type='button'
-            aria-label={t('process.prevStep') || 'Previous'}
-            onClick={() => scrollByCard(-1)}
-            className='absolute left-0 top-[40%] z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
-          >
-            <ChevronLeft className='h-5 w-5' />
-          </button>
-          <button
-            type='button'
-            aria-label={t('process.nextStep') || 'Next'}
-            onClick={() => scrollByCard(1)}
-            className='absolute right-0 top-[40%] z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
-          >
-            <ChevronRight className='h-5 w-5' />
-          </button>
+          {canScrollLeft && (
+            <button
+              type='button'
+              aria-label={t('process.prevStep') || 'Previous'}
+              onClick={() => scrollByCard(-1)}
+              className='absolute left-0 top-[40%] z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
+            >
+              <ChevronLeft className='h-5 w-5' />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              type='button'
+              aria-label={t('process.nextStep') || 'Next'}
+              onClick={() => scrollByCard(1)}
+              className='absolute right-0 top-[40%] z-30 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] md:hidden'
+            >
+              <ChevronRight className='h-5 w-5' />
+            </button>
+          )}
 
           <div
             ref={sliderRef}
+            onScroll={updateScrollButtons}
             className='flex gap-10 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-[7.5%] scrollbar-hide md:grid md:gap-10 md:overflow-visible md:snap-none md:pb-0 md:mx-0 md:px-0 md:grid-cols-2 lg:grid-cols-4'
           >
             {steps.map((step, idx) => (
@@ -228,7 +247,7 @@ p-5
 
                   <button className='mt-auto self-end inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium ' style={{ backgroundColor: step.buttonBg, color: step.textColor }}>
                     {t(step.step)}
-                    <ArrowRight className='h-4 w-4' />
+                    {idx !== steps.length - 1 && <ArrowRight className='h-4 w-4' />}
                   </button>
                 </div>
               </div>

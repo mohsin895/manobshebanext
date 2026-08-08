@@ -11,6 +11,23 @@ const contactItems = [
   { key: 'address', icon: MapPin },
 ]
 
+// Builds the right href for each contact type from its translated value.
+// call/whatsapp values are expected to be phone numbers, email is an email address.
+const getContactHref = (key: string, value: string) => {
+  const digitsOnly = value.replace(/[^\d+]/g, '')
+
+  switch (key) {
+    case 'call':
+      return `tel:${digitsOnly}`
+    case 'whatsapp':
+      return `https://wa.me/${digitsOnly.replace('+', '')}`
+    case 'email':
+      return `mailto:${value}`
+    default:
+      return null
+  }
+}
+
 export function HelpBanner() {
   const { t } = useLanguage()
 
@@ -93,50 +110,52 @@ export function HelpBanner() {
             </p>
             <div className='flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-start'>
               <a
-                href='#'
+                href={getContactHref('whatsapp', '+8801643552015') ?? '#'}
+                target='_blank'
+                rel='noopener noreferrer'
                 className='
-                                    inline-flex
-                                    w-full sm:w-auto
-                                    max-w-[260px] sm:max-w-none
-                                    items-center justify-center gap-2
-                                    rounded-full
-                                    bg-white
-                                    px-5 py-2.5
-                                    font-bn
-                                    font-medium
-                                    text-[16px]
-                                    leading-[24px]
-                                    tracking-[0]
-                                    text-center
-                                    text-[#3335A0]
-                                    transition-colors
-                                    hover:bg-gray-100
-                                '
+              inline-flex
+              w-full sm:w-auto
+              max-w-[260px] sm:max-w-none
+              items-center justify-center gap-2
+              rounded-full
+              bg-white
+              px-5 py-2.5
+              font-bn
+              font-medium
+              text-[16px]
+              leading-[24px]
+              tracking-[0]
+              text-center
+              text-[#3335A0]
+              transition-colors
+              hover:bg-gray-100
+              '
               >
                 <Phone className='h-4 w-4' />
                 {t('helpBanner.callButton')}
               </a>
 
               <a
-                href='#'
+                href={getContactHref('email', t('helpBanner.email.value')) ?? '#'}
                 className='
-                                    inline-flex
-                                    w-full sm:w-auto
-                                    max-w-[260px] sm:max-w-none
-                                    items-center justify-center gap-2
-                                    rounded-full
-                                    border border-white/30
-                                    px-5 py-2.5
-                                    font-bn
-                                    font-medium
-                                    text-[16px]
-                                    leading-[24px]
-                                    tracking-[0]
-                                    text-center
-                                    text-[#FFFFFF]
-                                    transition-colors
-                                    hover:bg-white/10
-                                '
+            inline-flex
+            w-full sm:w-auto
+            max-w-[260px] sm:max-w-none
+            items-center justify-center gap-2
+            rounded-full
+            border border-white/30
+            px-5 py-2.5
+            font-bn
+            font-medium
+            text-[16px]
+            leading-[24px]
+            tracking-[0]
+            text-center
+            text-[#FFFFFF]
+            transition-colors
+            hover:bg-white/10
+            '
               >
                 <Mail className='h-4 w-4' />
                 {t('helpBanner.emailButton')}
@@ -148,8 +167,11 @@ export function HelpBanner() {
           <div className='relative z-10 grid grid-cols-1 gap-3 p-6 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-1 lg:p-8'>
             {contactItems.map(item => {
               const Icon = item.icon
-              return (
-                <div key={item.key} className='flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm'>
+              const value = t(`helpBanner.${item.key}.value`)
+              const href = getContactHref(item.key, value)
+
+              const content = (
+                <>
                   <Icon className='mt-0.5 h-5 w-5 flex-shrink-0 text-indigo-200' strokeWidth={1.75} />
                   <div>
                     <p
@@ -175,9 +197,25 @@ export function HelpBanner() {
                                                 text-[#FFFFFF]
                                             '
                     >
-                      {t(`helpBanner.${item.key}.value`)}
+                      {value}
                     </p>
                   </div>
+                </>
+              )
+
+              return href ? (
+                <a
+                  key={item.key}
+                  href={getContactHref('whatsapp', '+8801643552015') ?? '#'}
+                  target={item.key === 'whatsapp' ? '_blank' : undefined}
+                  rel={item.key === 'whatsapp' ? 'noopener noreferrer' : undefined}
+                  className='flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:bg-white/10'
+                >
+                  {content}
+                </a>
+              ) : (
+                <div key={item.key} className='flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm'>
+                  {content}
                 </div>
               )
             })}

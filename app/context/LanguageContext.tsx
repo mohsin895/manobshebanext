@@ -275,7 +275,7 @@ const translations: Record<Language, Record<string, string>> = {
     'helpBanner.call.label': 'কল করুন',
     'helpBanner.call.value': '+৮৮০ ১৯৮০-৪৬২৪৫৮',
     'helpBanner.whatsapp.label': 'হোয়াটসঅ্যাপ',
-    'helpBanner.whatsapp.value': '+8801643552015',
+    'helpBanner.whatsapp.value': '+৮৮০১৬৪৩৫৫২০১৫',
     'helpBanner.email.label': 'ই-মেইল',
     'helpBanner.email.value': 'org.bmsf@gmail.com',
     'helpBanner.address.label': 'ঠিকানা',

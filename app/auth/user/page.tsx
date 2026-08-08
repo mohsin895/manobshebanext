@@ -45,6 +45,14 @@ type RegistrationSummary = {
   total_label: string
 }
 
+// Converts English digits (0-9) to Bengali numerals (০-৯) for display.
+// Backend summary labels/counts arrive with plain digits, but the rest
+// of the UI is in Bangla, so we normalize before rendering.
+const toBengaliDigits = (value: string) => {
+  const bnDigits = '০১২৩৪৫৬৭৮৯'
+  return value.replace(/[0-9]/g, d => bnDigits[Number(d)])
+}
+
 function formatAddress(school: School): string {
   const parts: string[] = []
 
@@ -209,7 +217,7 @@ export default function Page() {
           <>
             <div className='mt-6 grid grid-cols-1 gap-8 md:grid-cols-2'>
               {summary.classes.map(cls => (
-                <ClassCard key={cls.class_id} className={cls.class_name} seatInfo={cls.label} href={`/class/${cls.numericNumber}`} isFull={cls.applied >= cls.capacity} />
+                <ClassCard key={cls.class_id} className={cls.class_name} seatInfo={toBengaliDigits(cls.label)} href={`/class/${cls.numericNumber}`} isFull={cls.applied >= cls.capacity} />
               ))}
             </div>
 
