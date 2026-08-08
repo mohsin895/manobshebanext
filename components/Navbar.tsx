@@ -28,8 +28,9 @@ export function Navbar() {
     { bn: 'অনলাইন আবেদন', en: 'Exam Application', href: '/auth/login' },
     { bn: 'মেধাবৃত্তি সিলেবাস', en: 'Online Application', href: '/syllabus' },
     { bn: 'ফলাফল অনুসন্ধান', en: ' Result Search', href: '/result' },
-    { bn: 'আসন বিন্যাস', en: 'Student Result Search', href: '/seat-plan' },
-    { bn: 'কৃতি শিক্ষার্থী', en: 'Student Result Search', href: '/meritorious-student' },
+    { bn: 'আসন বিন্যাস', en: 'Seat Plan', href: '/seat-plan' },
+    { bn: 'কৃতি শিক্ষার্থী', en: 'Meritorious student', href: '/meritorious-student' },
+    { bn: 'শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ', en: 'Institutions Achievements', href: '/achievement' },
   ]
 
   // NEW: check auth on mount (client-only, since localStorage isn't available during SSR)

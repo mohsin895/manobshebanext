@@ -22,7 +22,7 @@ function StatPill({ label, value }: StatPillProps) {
     <div
       className='
         flex
-        w-[89px]
+        w-[100%]
         h-[78px]
         flex-col
         items-center
@@ -52,7 +52,7 @@ function StatPill({ label, value }: StatPillProps) {
         className='
           text-center
           font-bn
-          text-[8px]
+          text-[14px]
           font-normal
           leading-[100%]
           text-white
@@ -66,7 +66,7 @@ function StatPill({ label, value }: StatPillProps) {
       <p
         className='
           font-bn
-          text-[16px]
+          text-[24px]
           font-bold
           leading-[100%]
           text-[#FF6B35]
@@ -116,13 +116,12 @@ export function MeritoriousStudentHero() {
           >
             {/* Background Image + Gradient */}
             <div
-              className='absolute inset-0 bg-cover bg-center bg-no-repeat'
-              style={{
-                backgroundImage: `
-            
-              url('/meritorious.svg')
-            `,
-              }}
+              className="
+    absolute inset-0
+    bg-cover bg-center bg-no-repeat
+    bg-[url('/meritoriousm.svg')]
+    md:bg-[url('/meritorious.svg')]
+  "
             />
 
             {/* Content */}
@@ -136,12 +135,11 @@ export function MeritoriousStudentHero() {
             '
               >
                 <Image src='/meritorias.svg' alt='মেধাবৃত্তি' width={250} height={150} className='h-[100px] w-[150px] md:h-[150px] md:w-[250px]' />
-                <span className='font-bn text-[24px] font-normal leading-[32px] text-[#FF6B35] md:text-[48px] md:leading-[64px] mt-[22px]'>-2026</span>
               </div>
-
               {/* Title */}
-              <h1 className='font-bn text-[24px] font-normal leading-[32px] text-[#FF6B35] md:text-[48px] md:leading-[64px]'>{isBn ? 'কৃতি শিক্ষার্থী' : 'Meritorious Students'}</h1>
-
+              <h1 className='font-bn text-[24px] font-normal leading-[32px] text-[#FF6B35] md:text-[48px] md:leading-[64px]'>
+                {isBn ? 'কৃতি শিক্ষার্থী' : 'Meritorious Students'}-{isBn ? '২০২৫' : '2025'}
+              </h1>{' '}
               {/* Stats */}
               <div className='mt-auto mb-0 w-full'>
                 <div className='grid grid-cols-3 place-items-center gap-2 md:gap-3'>

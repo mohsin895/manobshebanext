@@ -71,20 +71,23 @@ export function ResultHero() {
       overflow-hidden
       rounded-[20px]
       shadow-xl
-
+ h-[570px]
+       md:h-auto
       md:rounded-[32px]
     '
           >
             {/* Background Image */}
             <div
-              className='absolute inset-0 bg-cover  bg-no-repeat'
-              style={{
-                backgroundImage: 'linear-gradient(270deg, rgba(255,255,255,0) -15.39%, rgba(120,120,120,0.2) 13.46%, rgb(0 3 23 / 0%) 100%), url("/loginbg.png")',
-              }}
+              className="
+    absolute inset-0
+    bg-cover bg-center bg-no-repeat
+    bg-[url('/resultm.svg')]
+    md:bg-[url('/result.svg')]
+  "
             />
 
             {/* Text Content */}
-            <div className=' relative z-10 mt-2 p-5  flex flex-col items-center text-center '>
+            <div className='relative z-10 flex h-full flex-col items-center justify-between p-5 text-center md:mt-2 md:h-auto md:justify-start'>
               {/* Badge */}
 
               {/* Title */}
@@ -109,6 +112,7 @@ export function ResultHero() {
             tracking-[0]
             text-[#FF6B35]
             md:text-[64px]
+                   mt-[86px] md:mt-0
             md:leading-[80px]
         '
                   >
@@ -148,7 +152,7 @@ export function ResultHero() {
               </div>
 
               {/* Search form */}
-              <div className='mt-8 flex justify-center'>
+              <div className='mt-0 flex justify-center md:mt-8   mb-[40px] md:mb-0'>
                 <div
                   className='
 flex
@@ -188,7 +192,7 @@ md:p-[24px]
     text-[16px]
     font-normal
     leading-[24px]
-    text-white
+    text-black
     placeholder:text-[#8F8F8F]
     outline-none
     focus:border-[#FF6B35]

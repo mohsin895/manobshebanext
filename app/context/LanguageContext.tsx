@@ -544,7 +544,7 @@ const translations: Record<Language, Record<string, string>> = {
     'scholarship.final_result': 'Result Search',
     'scholarship.final_result_desc': 'Check the merit list here',
 
-    'scholarship.merit_list': 'Top Students',
+    'scholarship.merit_list': 'Meritorious student',
     'scholarship.merit_list_desc': 'Best students from previous years',
 
     'scholarship.achievements': " Institutions' Achievements",
