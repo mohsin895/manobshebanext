@@ -149,36 +149,42 @@ export function Hero() {
           <div className='absolute ml-5 mr-5 min-[768px]:m-0 min-[1301px]:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl'>
             {/* Background Image */}
             {/* Desktop */}
-            <div
-              className='absolute inset-0 hidden min-[768px]:block bg-cover bg-center'
-              style={{
-                backgroundImage: `
-      linear-gradient(
-        270deg,
-        rgba(255, 255, 255, 0) -15.39%,
-        rgba(120, 120, 120, 0.2) 13.46%,
-        rgba(0, 3, 23, 0.8) 100%
-      ),
-      url("/hero.jpg")
-    `,
-              }}
-            />
+            {/* Background Image */}
+            {/* Desktop */}
+            <div className='absolute inset-0 hidden min-[768px]:block'>
+              <Image src='/hero.jpg' alt='' fill priority sizes='100vw' className='object-cover object-center' />
+              <div
+                className='absolute inset-0'
+                style={{
+                  backgroundImage: `
+        linear-gradient(
+          270deg,
+          rgba(255, 255, 255, 0) -15.39%,
+          rgba(120, 120, 120, 0.2) 13.46%,
+          rgba(0, 3, 23, 0.8) 100%
+        )
+      `,
+                }}
+              />
+            </div>
 
             {/* Mobile */}
-            <div
-              className='absolute inset-0 block min-[768px]:hidden bg-cover bg-center'
-              style={{
-                backgroundImage: `
-      linear-gradient(
-        270deg,
-        rgba(255, 255, 255, 0) -15.39%,
-        rgba(120, 120, 120, 0.2) 13.46%,
-        rgba(0, 3, 23, 0.8) 100%
-      ),
-      url("/mobileh.png")
-    `,
-              }}
-            />
+            <div className='absolute inset-0 block min-[768px]:hidden'>
+              <Image src='/mobileh.png' alt='' fill priority sizes='100vw' className='object-cover object-center' />
+              <div
+                className='absolute inset-0'
+                style={{
+                  backgroundImage: `
+        linear-gradient(
+          270deg,
+          rgba(255, 255, 255, 0) -15.39%,
+          rgba(120, 120, 120, 0.2) 13.46%,
+          rgba(0, 3, 23, 0.8) 100%
+        )
+      `,
+                }}
+              />
+            </div>
 
             {/* Text Content */}
             <div
