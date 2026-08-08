@@ -174,7 +174,7 @@ export function FamousQuotes() {
     mx-auto
     w-full
 
-    h-[980px]
+    min-h-[1000px]
     overflow-hidden
     bg-[url('/bgm2.png')]
     bg-cover
@@ -197,7 +197,7 @@ export function FamousQuotes() {
     mx-auto
     w-full
 
-    min:h-[980px]
+    min:h-[1050px]
     overflow-hidden
     bg-[url('/bgm2.png')]
     bg-cover

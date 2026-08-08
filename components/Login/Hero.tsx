@@ -72,20 +72,23 @@ export function LoginHero() {
       inset-0
       overflow-hidden
       rounded-[20px]
-
+ h-[570px]
+       md:h-auto
       md:rounded-[32px]
     '
           >
             {/* Background Image */}
             <div
-              className='absolute inset-0   bg-no-repeat'
-              style={{
-                backgroundImage: 'linear-gradient(270deg, rgba(255,255,255,0) -15.39%, rgba(120,120,120,0.2) 13.46%, rgb(0 3 23 / 0%) 100%), url("/loginbg.png")',
-              }}
+              className="
+    absolute inset-0
+    bg-cover bg-center bg-no-repeat
+    bg-[url('/loginm.svg')]
+    md:bg-[url('/loginbg.png')]
+  "
             />
 
             {/* Text Content */}
-            <div className=' relative z-10   p-5  flex flex-col items-center text-center '>
+            <div className='relative z-10 flex h-full flex-col items-center justify-between p-5 text-center md:mt-2 md:h-auto md:justify-start'>
               {/* Badge */}
               {/*<div className='inline-flex items-center gap-2  px-4 py-2  text-white  w-fit'>*/}
               {/*  <span className='flex items-center justify-center'>*/}
@@ -159,7 +162,7 @@ export function LoginHero() {
                 </div>
               </div>
 
-              <div className=' flex justify-center md:justify-center'>
+              <div className='mt-0 flex justify-center md:mt-8   mb-[40px] md:mb-0'>
                 <div
                   className='
 flex
