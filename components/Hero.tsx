@@ -29,7 +29,7 @@ function CascadeText({ text, className }: { text: string; className?: string }) 
     // This keeps Bengali conjuncts/matras attached to their base letter.
     const segmenter = typeof Intl !== 'undefined' && 'Segmenter' in Intl ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null
 
-    const graphemes = segmenter ? Array.from(segmenter.segment(text), seg => seg.segment) : Array.from(text) // fallback: at least respects surrogate pairs
+    const graphemes = segmenter ? Array.from(segmenter.segment(text), seg => seg.segment) : Array.from(text)
 
     const chars = graphemes.map(ch => {
       const span = document.createElement('span')
@@ -88,9 +88,16 @@ function CascadeText({ text, className }: { text: string; className?: string }) 
     return () => cancelAnimationFrame(raf)
   }, [text])
 
-  return <h1 ref={containerRef} className={className} />
+  // Render the real text immediately so the browser reserves the correct
+  // box height on first paint. The effect above replaces this with
+  // animated character spans without changing the element's size,
+  // eliminating the CLS caused by growing from an empty heading.
+  return (
+    <h1 ref={containerRef} className={className}>
+      {text}
+    </h1>
+  )
 }
-
 export function Hero() {
   const { t } = useLanguage()
   const { setting } = useSchoolSetting()
