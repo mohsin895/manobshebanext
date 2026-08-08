@@ -168,7 +168,7 @@ export function Navbar() {
               <div className='flex items-center gap-2'>
                 <div className='flex h-[40px] w-[50px] items-center justify-center rounded-full'>
                   <a href='/'>
-                    <Image src='/navlogo.png' height={40} width={50} style={{ height: '40px', width: '40px' }} alt='logo' />
+                    <Image src='/navlogo.png' height={40} width={50} priority style={{ height: '40px', width: '40px' }} alt='logo' />
                   </a>
                 </div>
               </div>
@@ -264,28 +264,28 @@ export function Navbar() {
                   <a
                     href={isAuthenticated ? '/auth/user' : '/auth/login'}
                     className='
-          flex
-          w-[146px]
-          h-10
-          items-center
-          justify-center
-          gap-2
-          rounded-full
-          px-4
-          py-2
-          font-bn
-          text-[16px]
-          font-bold
-          text-white
-          bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)]
-          shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
-          transition-all
-          duration-300
-          hover:bg-[linear-gradient(270deg,#FF865A_0%,#FF5A28_100%)]
-          hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.35),0px_4px_12px_rgba(254,71,17,0.35)]
-          active:scale-[0.98]
-          cursor-pointer
-          '
+                    flex
+                    w-[146px]
+                    h-10
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-full
+                    px-4
+                    py-2
+                    font-bn
+                    text-[16px]
+                    font-bold
+                    text-white
+                    bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)]
+                    shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.28)]
+                    transition-all
+                    duration-300
+                    hover:bg-[linear-gradient(270deg,#FF865A_0%,#FF5A28_100%)]
+                    hover:shadow-[inset_0px_6px_6px_0px_rgba(255,255,255,0.35),0px_4px_12px_rgba(254,71,17,0.35)]
+                    active:scale-[0.98]
+                    cursor-pointer
+                    '
                   >
                     <Image src='/login.svg' width={15} height={15} alt='login' />
                     <span>{isAuthenticated ? (language === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard') : language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}</span>
