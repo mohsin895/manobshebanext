@@ -30,6 +30,7 @@ type School = {
 
 type ClassSummary = {
   class_id: number
+  numericNumber: number
   class_name: string
   applied: number
   capacity: number
@@ -208,7 +209,7 @@ export default function Page() {
           <>
             <div className='mt-6 grid grid-cols-1 gap-8 md:grid-cols-2'>
               {summary.classes.map(cls => (
-                <ClassCard key={cls.class_id} className={cls.class_name} seatInfo={cls.label} href={`/class/${cls.class_id}`} isFull={cls.applied >= cls.capacity} />
+                <ClassCard key={cls.class_id} className={cls.class_name} seatInfo={cls.label} href={`/class/${cls.numericNumber}`} isFull={cls.applied >= cls.capacity} />
               ))}
             </div>
 

@@ -1,7 +1,8 @@
-// app/.../student/list/page.tsx
+// app/.../class/[id]/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import StudentList, { Student } from '@/components/Profile/student/page'
@@ -23,12 +24,19 @@ type ApiClass = {
 }
 
 export default function Page() {
+  const params = useParams<{ id: string }>()
+  const classId = params?.id
+
   const [students, setStudents] = useState<Student[] | null>(null)
   const [classOptions, setClassOptions] = useState<string[]>(['সব শ্রেণী'])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!classId) return
+
+    const controller = new AbortController()
+
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token')
@@ -38,8 +46,14 @@ export default function Page() {
         }
 
         const [studentsRes, classesRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/student/list`, { headers }),
-          fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/student/class`, { headers }),
+          fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/student/class/${classId}`, {
+            headers,
+            signal: controller.signal,
+          }),
+          fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/student/class`, {
+            headers,
+            signal: controller.signal,
+          }),
         ])
 
         if (!studentsRes.ok || !classesRes.ok) throw new Error('Failed to load data')
@@ -64,7 +78,8 @@ export default function Page() {
         setStudents(mapped)
         setClassOptions(['সব শ্রেণী', ...apiClasses.sort((a, b) => a.numericNumber - b.numericNumber).map(c => c.name)])
       } catch (err) {
-        console.error('Failed to fetch student list:', err)
+        if ((err as Error).name === 'AbortError') return
+        console.error('Failed to fetch class-wise student list:', err)
         setError('শিক্ষার্থীদের তথ্য লোড করা যায়নি')
       } finally {
         setLoading(false)
@@ -72,7 +87,9 @@ export default function Page() {
     }
 
     fetchData()
-  }, [])
+
+    return () => controller.abort()
+  }, [classId])
 
   return (
     <main className='w-full'>
