@@ -193,7 +193,7 @@ export function Navbar() {
                   </a>
 
                   <a
-                    href='#'
+                    href='/activity'
                     className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
                     style={isScrolled ? { color: '#FFFFFF' } : undefined}
                   >
@@ -332,7 +332,7 @@ export function Navbar() {
               <a href='/about-us' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
                 {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
               </a>
-              <a href='#' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
+              <a href='/activity' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
                 {language === 'bn' ? 'কার্যক্রম' : 'Training'}
               </a>
 

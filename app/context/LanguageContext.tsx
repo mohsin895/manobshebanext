@@ -273,7 +273,7 @@ const translations: Record<Language, Record<string, string>> = {
     'helpBanner.emailButton': 'ই-মেইল করুন',
 
     'helpBanner.call.label': 'কল করুন',
-    'helpBanner.call.value': '+৮৮০ ১৯৮০-৪৬২৪৫৮',
+    'helpBanner.call.value': '+৮৮০ ১৯৯২-২১১৩০৭  ',
     'helpBanner.whatsapp.label': 'হোয়াটসঅ্যাপ',
     'helpBanner.whatsapp.value': '+৮৮০১৬৪৩৫৫২০১৫',
     'helpBanner.email.label': 'ই-মেইল',
@@ -679,7 +679,7 @@ const translations: Record<Language, Record<string, string>> = {
     'helpBanner.emailButton': 'Send an email',
 
     'helpBanner.call.label': 'Call us',
-    'helpBanner.call.value': '+880 1980-462458',
+    'helpBanner.call.value': '+880 1992-211307',
     'helpBanner.whatsapp.label': 'WhatsApp',
     'helpBanner.whatsapp.value': '+8801643552015',
     'helpBanner.email.label': 'Email',

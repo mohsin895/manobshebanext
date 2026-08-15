@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-import { AboutHero } from '@/components/about/hero'
-import { AboutUs } from '@/components/about/about-us'
+import { AboutHero } from '@/components/page/about/hero'
+import { AboutUs } from '@/components/page/about/about-us'
 
 export default function Page() {
   return (
