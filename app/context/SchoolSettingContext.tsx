@@ -12,6 +12,7 @@ type SchoolSetting = {
   maxStudents: number | null
   examTime: string | null
   url: string | null
+  secondUrl: string | null
   created_at: string
   updated_at: string
 } & {

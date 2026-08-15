@@ -300,3 +300,59 @@
         @apply cursor-not-allowed;
     }
 }
+
+/* Play button animations */
+@keyframes ping-slow {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    75%, 100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+@keyframes ping-slower {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    75%, 100% {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-ping-slow {
+    animation: ping-slow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-ping-slower {
+    animation: ping-slower 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation-delay: 0.4s;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+}
+
+.animate-scale-in {
+    animation: scale-in 0.25s ease-out;
+}
