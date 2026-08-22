@@ -268,26 +268,7 @@
     transform-origin: center;
 }
 
-@media print {
-    body * {
-        visibility: hidden;
-    }
 
-    #result-print-area,
-    #result-print-area * {
-        visibility: visible;
-    }
-
-    #result-print-area {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        box-shadow: none;
-        border: none;
-    }
-}
 @layer base {
 
 
@@ -355,4 +336,23 @@
 
 .animate-scale-in {
     animation: scale-in 0.25s ease-out;
+}
+
+@media print {
+    body * {
+        display: none !important;
+    }
+
+    #result-print-area,
+    #result-print-area * {
+        display: revert !important;
+    }
+
+    #result-print-area {
+        position: absolute !important;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+    }
 }

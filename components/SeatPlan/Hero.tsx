@@ -5,23 +5,9 @@ import { Search } from 'lucide-react'
 import { useLanguage } from '@/app/context/LanguageContext'
 import { SeatCard, SeatResult } from '@/components/SeatPlan/SeatCard'
 
-// TODO: replace this with your real lookup (API route / server action).
-// Keyed by roll number so the demo has something to show.
-const MOCK_RESULTS: Record<string, SeatResult> = {
-  '9050': {
-    name: 'সুমাইয়া ইসলাম',
-    rollNumber: '9050',
-    seatNumber: '৪৪',
-    roomNumber: '২০৩',
-    examTime: 'সকাল ১০টা',
-    examDate: '৩০ জুলাই',
-    institutionName: 'লক্ষ্মী মাধ্যমিক বিদ্যালয়',
-    centerName: 'চান্দিনা সরকারি কলেজ',
-    centerAddress: 'চান্দিনা, কুমিল্লা',
-    orgName: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
-    year: '২০২৬',
-  },
-}
+// Set this in .env.local / .env.production, e.g.:
+// NEXT_PUBLIC_SEAT_API_BASE_URL=https://admin.manabseba.org/api
+const SEAT_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
 
 // Users typing on a Bangla keyboard/IME often enter Bangla numerals (০-৯).
 // Normalize those to English digits (0-9) before we look anything up,
@@ -30,6 +16,8 @@ const toEnglishDigits = (value: string) => {
   const bnDigits = '০১২৩৪৫৬৭৮৯'
   return value.replace(/[০-৯]/g, d => String(bnDigits.indexOf(d)))
 }
+
+type SeatSearchResponse = { found: true; data: SeatResult } | { found: false; message?: string }
 
 export function SeatPlanHero() {
   const { t } = useLanguage()
@@ -40,24 +28,35 @@ export function SeatPlanHero() {
   const [result, setResult] = useState<SeatResult | null>(null)
   const [notFound, setNotFound] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSearching(true)
     setNotFound(false)
-
-    // Simulate lookup latency; swap for a real fetch to your API.
-    await new Promise(resolve => setTimeout(resolve, 400))
+    setErrorMsg(null)
 
     const normalizedRoll = toEnglishDigits(rollNumber.trim())
-    const match = MOCK_RESULTS[normalizedRoll]
-    if (match) {
-      setResult(match)
-    } else {
+
+    try {
+      const res = await fetch(`${SEAT_API_BASE_URL}/seat-plan/search?roll_number=${encodeURIComponent(normalizedRoll)}`, { headers: { Accept: 'application/json' } })
+
+      // 404 is an expected "not found" response, not a network failure
+      const json: SeatSearchResponse = await res.json()
+
+      if (res.ok && json.found) {
+        setResult(json.data)
+      } else {
+        setResult(null)
+        setNotFound(true)
+      }
+    } catch (err) {
       setResult(null)
       setNotFound(true)
+      setErrorMsg(isBn ? 'সার্ভারে সংযোগ করা যায়নি। আবার চেষ্টা করুন।' : 'Could not reach the server. Please try again.')
+    } finally {
+      setIsSearching(false)
     }
-    setIsSearching(false)
   }
 
   return (
@@ -98,8 +97,6 @@ export function SeatPlanHero() {
 
             {/* Text Content */}
             <div className='relative z-10 flex h-full flex-col items-center justify-between p-5 text-center md:mt-2 md:h-auto md:justify-start'>
-              {/* Badge */}
-
               {/* Title */}
               <div>
                 <div
@@ -244,7 +241,7 @@ md:p-[24px]
                       <span className='font-bn text-[16px] md:text-[18px] font-semibold leading-[24px] text-white'>{isSearching ? 'খোঁজা হচ্ছে...' : 'অনুসন্ধান'}</span>
                     </button>
 
-                    {notFound && <p className='font-bn text-[13px] leading-5 text-[#FFD7C9] text-left'>এই রোল নাম্বারে কোনো আসন পাওয়া যায়নি। রোল নম্বর যাচাই করুন।</p>}
+                    {notFound && <p className='font-bn text-[13px] leading-5 text-[#FFD7C9] text-left'>{errorMsg ?? 'এই রোল নাম্বারে কোনো আসন পাওয়া যায়নি। রোল নম্বর যাচাই করুন।'}</p>}
                   </form>
                 </div>
               </div>
