@@ -340,12 +340,12 @@
 
 @media print {
     body * {
-        display: none !important;
+        visibility: hidden !important;
     }
 
     #result-print-area,
     #result-print-area * {
-        display: revert !important;
+        visibility: visible !important;
     }
 
     #result-print-area {

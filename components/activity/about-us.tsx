@@ -40,7 +40,7 @@ export function ActivityUs() {
             const Icon = stat.icon
 
             return (
-              <div key={stat.id} className='flex h-[167px] w-[312px] flex-col items-center gap-3 rounded-[16px] border border-[#FFEBE5] bg-white p-6 text-center'>
+              <div key={stat.id} className='flex h-auto w-full min-h-[140px] sm:min-h-[167px] flex-col items-center gap-3 rounded-[16px] border border-[#FFEBE5] bg-white p-4 sm:p-6 text-center'>
                 <span className='flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 text-white'>
                   <Icon className='h-4.5 w-4.5' />
                 </span>

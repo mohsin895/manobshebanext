@@ -60,7 +60,7 @@ export function SeatPlanHero() {
   }
 
   return (
-    <section className=' p-1 print:hidden'>
+    <section className=' p-1'>
       <div className='relative mx-auto w-full md:max-w-[1400px] '>
         <div
           className='
@@ -68,6 +68,7 @@ export function SeatPlanHero() {
     mx-auto
     w-full
     min-h-[570px]
+    print:hidden
 
     md:w-[1320px]
     md:min-h-[460px]

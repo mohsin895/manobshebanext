@@ -13,16 +13,16 @@ type VideoItem = {
 
 const mainVideo: VideoItem = {
   id: 'v0',
-  thumbnail: '/images/gallery/video-main.jpg',
+  thumbnail: '/video.png',
   title: 'শ্রেণিকক্ষে শিক্ষা কার্যক্রম',
   duration: '৫:৩২',
   views: '১২,০০০ বার দেখা হয়েছে',
 }
 
 const recentVideos: VideoItem[] = [
-  { id: 'v1', thumbnail: '/images/gallery/video-1.jpg', title: 'বৃক্ষরোপণ কর্মসূচি ২০২৪', duration: '৩:১৮', views: '৮,৪০০ বার দেখা হয়েছে' },
-  { id: 'v2', thumbnail: '/images/gallery/video-2.jpg', title: 'শিক্ষাবৃত্তি প্রদান অনুষ্ঠান', duration: '৪:০৫', views: '৬,২০০ বার দেখা হয়েছে' },
-  { id: 'v3', thumbnail: '/images/gallery/video-3.jpg', title: 'স্বেচ্ছাসেবক দলের গল্প', duration: '২:৪৭', views: '৪,৯০০ বার দেখা হয়েছে' },
+  { id: 'v1', thumbnail: '/image112.png', title: 'বৃক্ষরোপণ কর্মসূচি ২০২৪', duration: '৩:১৮', views: '৮,৪০০ বার দেখা হয়েছে' },
+  { id: 'v2', thumbnail: '/image112.png', title: 'শিক্ষাবৃত্তি প্রদান অনুষ্ঠান', duration: '৪:০৫', views: '৬,২০০ বার দেখা হয়েছে' },
+  { id: 'v3', thumbnail: '/image112.png', title: 'স্বেচ্ছাসেবক দলের গল্প', duration: '২:৪৭', views: '৪,৯০০ বার দেখা হয়েছে' },
 ]
 
 export function ActivityVideo() {

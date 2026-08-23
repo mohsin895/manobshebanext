@@ -67,18 +67,40 @@ export function RunningProjects() {
   const visible = projects.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   return (
-    <section className='w-full bg-white py-16 md:py-24'>
-      <div className='mx-auto max-w-[1440px] px-4'>
+    <section
+      className="
+    relative
+    mx-auto
+    w-full
+    p-5
+    h-auto
+    overflow-hidden
+    bg-[url('/bg3.png')]
+    bg-cover
+    bg-center
+    bg-no-repeat
+    pb-[60px]
+    md:pb-2
+
+    md:max-w-none
+    md:h-[1026px]
+    md:bg-[url('/bg2.png')]
+  "
+    >
+      <div className='mx-auto max-w-[1440px] mt-6 px-4'>
         <div className='mb-10 text-center'>
-          <h2 className='text-2xl font-bold text-slate-800 md:text-3xl'>চলমান প্রকল্পসমূহ</h2>
+          <h2 className='font-bn text-[20px] font-bold leading-normal text-[#4A4DE1] md:text-[40px] md:font-semibold md:leading-[52px] md:text-[#282929]'>চলমান প্রকল্পসমূহ</h2>
           <p className='mt-2 text-sm text-slate-500 md:text-base'>প্রতিটি প্রকল্প একটি স্বপ্ন পূরণের গল্প — আপনিও সরাসরি অবদান রাখতে পারেন এতে যোগ দিয়ে</p>
         </div>
 
-        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
+        <div className='grid grid-cols-1 gap-6 mt-16 sm:grid-cols-2'>
           {visible.map(project => (
-            <article key={project.id} className='group flex h-[318px] overflow-hidden rounded-2xl bg-rose-50/60 shadow-sm ring-1 ring-rose-100 transition-shadow hover:shadow-md'>
+            <article
+              key={project.id}
+              className='group flex flex-col h-auto overflow-hidden rounded-2xl bg-rose-50/60 shadow-sm ring-1 ring-rose-100 transition-shadow hover:shadow-md sm:h-[318px] sm:flex-row'
+            >
               {/* Image */}
-              <div className='relative h-full w-1/2 overflow-hidden'>
+              <div className='relative h-[200px] w-full overflow-hidden sm:h-full sm:w-1/2'>
                 <Image src={project.image} alt={project.title} fill className='object-cover transition-transform duration-500 group-hover:scale-105' sizes='(min-width: 640px) 50vw, 100vw' />
 
                 <span className='absolute left-3 top-3 flex items-center gap-1 rounded-full bg-orange-500 px-3 py-1 text-xs font-medium text-white shadow'>

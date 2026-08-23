@@ -1,13 +1,15 @@
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-import { AboutHero } from '@/components/about/Hero'
+
+import Details from '@/components/about/Details'
+import AboutTabs from '@/components/about/Hero'
 
 export default function Page() {
   return (
     <main className='w-full'>
       <Navbar />
-      <AboutHero />
-
+      <AboutTabs />
+      <Details />
       <Footer />
     </main>
   )
