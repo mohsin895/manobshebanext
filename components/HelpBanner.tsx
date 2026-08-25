@@ -109,11 +109,12 @@ export function HelpBanner() {
               {t('helpBanner.description')}
             </p>
             <div className='flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-start'>
-              <a
-                href={getContactHref('whatsapp', '+8801643552015') ?? '#'}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='
+              <div>
+                <a
+                  href={getContactHref('whatsapp', '+8801643552015') ?? '#'}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='
               inline-flex
               w-full sm:w-auto
               max-w-[260px] sm:max-w-none
@@ -121,6 +122,7 @@ export function HelpBanner() {
               rounded-full
               bg-white
               px-5 py-2.5
+              mr-[10px]
               font-bn
               font-medium
               text-[16px]
@@ -131,14 +133,14 @@ export function HelpBanner() {
               transition-colors
               hover:bg-gray-100
               '
-              >
-                <Phone className='h-4 w-4' />
-                {t('helpBanner.callButton')}
-              </a>
+                >
+                  <Phone className='h-4 w-4' />
+                  {t('helpBanner.callButton')}
+                </a>
 
-              <a
-                href={getContactHref('email', t('helpBanner.email.value')) ?? '#'}
-                className='
+                <a
+                  href={getContactHref('email', t('helpBanner.email.value')) ?? '#'}
+                  className='
             inline-flex
             w-full sm:w-auto
             max-w-[260px] sm:max-w-none
@@ -147,6 +149,8 @@ export function HelpBanner() {
             border border-white/30
             px-5 py-2.5
             font-bn
+            mt-[10px]
+            md:mt-0
             font-medium
             text-[16px]
             leading-[24px]
@@ -156,10 +160,12 @@ export function HelpBanner() {
             transition-colors
             hover:bg-white/10
             '
-              >
-                <Mail className='h-4 w-4' />
-                {t('helpBanner.emailButton')}
-              </a>
+                >
+                  <Mail className='h-4 w-4' />
+                  {t('helpBanner.emailButton')}
+                </a>
+              </div>
+              <div className='text-white'>সরকারি নিবন্ধন নং: S-15264/2026</div>
             </div>
           </div>
 
