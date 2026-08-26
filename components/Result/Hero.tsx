@@ -5,21 +5,18 @@ import { Search } from 'lucide-react'
 import { useLanguage } from '@/app/context/LanguageContext'
 import { ResultCard, ScholarshipResult } from './ResultCard'
 
-// TODO: replace this with your real lookup (API route / server action).
-// Keyed by roll number so the demo has something to show.
-const MOCK_RESULTS: Record<string, ScholarshipResult> = {
-  '9050': {
-    name: 'সুমাইয়া ইসলাম',
-    fatherName: 'সবুজ মিয়া',
-    motherName: 'সুমা আক্তার',
-    meritPosition: '১ম',
-    rollNumber: '9050',
-    obtainedMarks: '৮৮',
-    institutionName: 'লক্ষ্মী মাধ্যমিক বিদ্যালয়',
-    orgName: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
-    year: '২০২৬',
-  },
+// Set this in .env.local / .env.production, e.g.:
+// NEXT_PUBLIC_RESULT_API_BASE_URL=https://admin.manabseba.org/api
+const RESULT_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// Users typing on a Bangla keyboard/IME often enter Bangla numerals (০-৯).
+// Normalize those to English digits (0-9) before we look anything up.
+const toEnglishDigits = (value: string) => {
+  const bnDigits = '০১২৩৪৫৬৭৮৯'
+  return value.replace(/[০-৯]/g, d => String(bnDigits.indexOf(d)))
 }
+
+type ResultSearchResponse = { found: true; data: ScholarshipResult } | { found: false; message?: string }
 
 export function ResultHero() {
   const { t } = useLanguage()
@@ -31,23 +28,39 @@ export function ResultHero() {
   const [result, setResult] = useState<ScholarshipResult | null>(null)
   const [notFound, setNotFound] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSearching(true)
     setNotFound(false)
+    setErrorMsg(null)
 
-    // Simulate lookup latency; swap for a real fetch to your API.
-    await new Promise(resolve => setTimeout(resolve, 400))
+    const normalizedRoll = toEnglishDigits(rollNumber.trim())
 
-    const match = MOCK_RESULTS[rollNumber.trim()]
-    if (match) {
-      setResult({ ...match, year: year || match.year })
-    } else {
+    try {
+      const params = new URLSearchParams({ roll_number: normalizedRoll })
+      if (year) params.set('year', year)
+
+      const res = await fetch(`${RESULT_API_BASE_URL}/result/search?${params.toString()}`, {
+        headers: { Accept: 'application/json' },
+      })
+
+      const json: ResultSearchResponse = await res.json()
+
+      if (res.ok && json.found) {
+        setResult(json.data)
+      } else {
+        setResult(null)
+        setNotFound(true)
+      }
+    } catch (err) {
       setResult(null)
       setNotFound(true)
+      setErrorMsg(isBn ? 'সার্ভারে সংযোগ করা যায়নি। আবার চেষ্টা করুন।' : 'Could not reach the server. Please try again.')
+    } finally {
+      setIsSearching(false)
     }
-    setIsSearching(false)
   }
 
   return (
@@ -88,8 +101,6 @@ export function ResultHero() {
 
             {/* Text Content */}
             <div className='relative z-10 flex h-full flex-col items-center justify-between p-5 text-center md:mt-2 md:h-auto md:justify-start'>
-              {/* Badge */}
-
               {/* Title */}
               <div>
                 <div
@@ -266,7 +277,7 @@ md:p-[24px]
                       <span className='font-bn text-[16px] md:text-[18px] font-semibold leading-[24px] text-white'>{isSearching ? 'খোঁজা হচ্ছে...' : 'খুঁজুন'}</span>
                     </button>
 
-                    {notFound && <p className='font-bn text-[13px] leading-5 text-[#FFD7C9] text-left'>এই রোল নাম্বারে কোনো ফলাফল পাওয়া যায়নি। রোল ও সাল যাচাই করুন।</p>}
+                    {notFound && <p className='font-bn text-[13px] leading-5 text-[#FFD7C9] text-left'>{errorMsg ?? 'এই রোল নাম্বারে কোনো ফলাফল পাওয়া যায়নি। রোল ও সাল যাচাই করুন।'}</p>}
                   </form>
                 </div>
               </div>
