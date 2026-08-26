@@ -82,6 +82,28 @@ export function ApplicationProcess() {
     el.scrollBy({ left: direction * amount, behavior: 'smooth' })
   }
 
+  // Auto-play the video once its section scrolls into view
+  const videoSectionRef = useRef<HTMLDivElement>(null)
+  const hasAutoPlayed = useRef(false)
+
+  useEffect(() => {
+    if (!videoId || !videoSectionRef.current) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAutoPlayed.current) {
+          hasAutoPlayed.current = true
+          setIsPlaying(true)
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    observer.observe(videoSectionRef.current)
+
+    return () => observer.disconnect()
+  }, [videoId])
+
   return (
     <section
       className="
@@ -256,9 +278,8 @@ p-5
         </div>
 
         {/* Video Section - only rendered if the admin has set a video URL */}
-        {/* Video Section - only rendered if the admin has set a video URL */}
         {videoId && (
-          <div className='relative mx-auto w-full max-w-4xl overflow-hidden rounded-2xl shadow-lg'>
+          <div ref={videoSectionRef} className='relative mx-auto w-full max-w-4xl overflow-hidden rounded-2xl shadow-lg'>
             <div className='relative aspect-video w-full bg-gray-900'>
               {isPlaying ? (
                 <iframe

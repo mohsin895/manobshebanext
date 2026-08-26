@@ -165,7 +165,6 @@ export function HelpBanner() {
                   {t('helpBanner.emailButton')}
                 </a>
               </div>
-              <div className='text-white'>সরকারি নিবন্ধন নং: S-15264/2026</div>
             </div>
           </div>
 

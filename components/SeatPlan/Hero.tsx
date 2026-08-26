@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { Search } from 'lucide-react'
+import Image from 'next/image'
 import { useLanguage } from '@/app/context/LanguageContext'
 import { SeatCard, SeatResult } from '@/components/SeatPlan/SeatCard'
 
@@ -86,15 +87,10 @@ export function SeatPlanHero() {
       md:rounded-[32px]
     '
           >
-            {/* Background Image */}
-            <div
-              className="
-    absolute inset-0
-    bg-cover bg-center bg-no-repeat
-    bg-[url('/seatplanm.svg')]
-    md:bg-[url('/seat.svg')]
-  "
-            />
+            {/* Background Image (mobile) */}
+            <Image src='/seatplanm.svg' alt='' fill priority sizes='100vw' className='object-cover object-center md:hidden' />
+            {/* Background Image (desktop) */}
+            <Image src='/seat.svg' alt='' fill priority sizes='100vw' className='hidden object-cover object-center md:block' />
 
             {/* Text Content */}
             <div className='relative z-10 flex h-full flex-col items-center justify-between p-5 text-center md:mt-2 md:h-auto md:justify-start'>

@@ -109,6 +109,7 @@ export function Footer() {
                     সাবস্ক্রাইব করুন →
                   </button>
                 </div>
+                <div className='text-white mt-5'>সরকারি নিবন্ধন নং: S-15264/2026</div>
               </div>
             </div>
 

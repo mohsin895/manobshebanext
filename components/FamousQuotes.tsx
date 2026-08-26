@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import { useState, useEffect, useCallback, useRef, Fragment } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface ApiReviewItem {
   id: number
@@ -136,6 +137,12 @@ export function FamousQuotes() {
     goTo(idx, 'right')
   }, [current, goTo, quotes.length])
 
+  const prev = useCallback(() => {
+    if (quotes.length === 0) return
+    const idx = (current - 1 + quotes.length) % quotes.length
+    goTo(idx, 'left')
+  }, [current, goTo, quotes.length])
+
   // Auto slide (pauses while a quote is expanded so people can keep reading)
   useEffect(() => {
     if (expanded || quotes.length <= 1) return
@@ -238,6 +245,18 @@ export function FamousQuotes() {
 
         {/* Slider */}
         <div className='relative flex mt-[30px] items-center gap-4'>
+          {/* Prev arrow */}
+          {quotes.length > 1 && (
+            <button
+              type='button'
+              aria-label={t('quotes.prev') || 'Previous quote'}
+              onClick={prev}
+              className='absolute left-2 top-1/2 z-20 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] hover:bg-gray-50 transition-colors md:-left-5'
+            >
+              <ChevronLeft className='h-5 w-5' />
+            </button>
+          )}
+
           <div
             className={`  flex
     flex-col
@@ -329,6 +348,18 @@ export function FamousQuotes() {
               </div>
             </div>
           </div>
+
+          {/* Next arrow */}
+          {quotes.length > 1 && (
+            <button
+              type='button'
+              aria-label={t('quotes.next') || 'Next quote'}
+              onClick={next}
+              className='absolute right-2 top-1/2 z-20 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#282929] hover:bg-gray-50 transition-colors md:-right-5'
+            >
+              <ChevronRight className='h-5 w-5' />
+            </button>
+          )}
         </div>
 
         {/* Dots */}

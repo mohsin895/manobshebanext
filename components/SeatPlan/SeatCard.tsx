@@ -5,6 +5,8 @@ import Image from 'next/image'
 
 export type SeatResult = {
   name: string
+  fname: string
+  mname: string
   rollNumber: string
   seatNumber: string
   roomNumber: string
@@ -68,12 +70,13 @@ function InfoItem({ icon, label, value }: InfoItemProps) {
         className='
           flex
           h-[42px]
-          w-[42px]
+          w-[38px]
           shrink-0
           items-center
           justify-center
           rounded-[8px]
-          bg-white
+          bg-[#E1EAFE]
+          p-[7px]
         '
       >
         {icon}
@@ -81,6 +84,7 @@ function InfoItem({ icon, label, value }: InfoItemProps) {
 
       <div className='flex flex-col justify-center overflow-hidden'>
         <p className='font-bn font-normal text-[14px] leading-[20px] text-[#545959]'>{label}</p>
+
         <p className='mt-1 font-bn font-semibold text-[16px] leading-[24px] text-[#1F2937] truncate'>{value}</p>
       </div>
     </div>
@@ -166,19 +170,25 @@ export function SeatCard({ result }: { result: SeatResult }) {
 
         <span
           className='
-            font-bn
+
             shrink-0
-            rounded-full
-            bg-[#FF6B35]
+
             px-3
             py-[6px]
-            text-[11px]
-            font-medium
-            text-white
-            md:text-[13px]
+
           '
         >
-          আসন বিবরণ
+          <Image
+            src='/meritorias.svg'
+            alt='logo'
+            width={100}
+            height={80}
+            className='
+                h-[48px] w-[58px]
+                md:h-[80px] md:w-[100px]
+                object-contain
+              '
+          />
         </span>
       </div>
 
@@ -193,18 +203,20 @@ export function SeatCard({ result }: { result: SeatResult }) {
       {/* Name / room, institution / center */}
       <div className='mt-3 grid grid-cols-1 gap-3 px-6 sm:grid-cols-2 md:px-10'>
         <InfoItem icon={<Image src='/result1.svg' alt='name' width={42} height={42} />} label='নাম' value={result.name} />
+        <InfoItem icon={<Image src='/f.svg' alt='name' width={42} height={42} />} label='পিতার নাম' value={result.fname} />
 
-        <InfoItem icon={<Image src='/result5.svg' alt='room' width={42} height={42} />} label='কক্ষ নম্বর' value={result.roomNumber} />
+        <InfoItem icon={<Image src='/m.svg' alt='name' width={42} height={42} />} label='মাতার নাম' value={result.mname} />
 
         <InfoItem icon={<Image src='/result7.svg' alt='institution' width={42} height={42} />} label='শিক্ষা প্রতিষ্ঠানের নাম' value={result.institutionName} />
 
-        <InfoItem icon={<Image src='/result4.svg' alt='center' width={42} height={42} />} label='কেন্দ্রের নাম' value={result.centerName} />
+        <InfoItem icon={<Image src='/result122.svg' alt='center' width={42} height={42} />} label='কেন্দ্রের নাম' value={result.centerName} />
+        <InfoItem icon={<Image src='/address123.svg' alt='address' width={42} height={42} />} label='পরীক্ষার কেন্দ্রের ঠিকানা' value={result.centerAddress} />
       </div>
 
       {/* Center address */}
-      <div className='mt-3 px-6 md:px-10'>
-        <InfoItem icon={<Image src='/result3.svg' alt='address' width={42} height={42} />} label='পরীক্ষার কেন্দ্রের ঠিকানা' value={result.centerAddress} />
-      </div>
+      {/*<div className='mt-3 px-6 md:px-10'>*/}
+
+      {/*</div>*/}
 
       {/* Download button (hidden on the printed page itself) */}
       <div className='p-6 pt-5 md:p-10 md:pt-5 print:hidden'>
