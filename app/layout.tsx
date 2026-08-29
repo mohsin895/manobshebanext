@@ -4,6 +4,7 @@ import { Noto_Sans_Bengali, Noto_Serif_Bengali, Be_Vietnam_Pro, Poppins } from '
 import './globals.css'
 import { LanguageProvider } from './context/LanguageContext'
 import { SchoolSettingProvider } from './context/SchoolSettingContext'
+import { MobileNavBar } from '@/components/MobileNavBar'
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ['bengali'],
@@ -51,7 +52,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       {/* FIX 2: Remove bg-white from body — let each section own its background */}
       <body className=' antialiased'>
         <LanguageProvider>
-          <SchoolSettingProvider>{children}</SchoolSettingProvider>
+          <SchoolSettingProvider>
+            {children}
+            <MobileNavBar />
+          </SchoolSettingProvider>
         </LanguageProvider>
       </body>
     </html>

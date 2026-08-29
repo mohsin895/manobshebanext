@@ -356,3 +356,13 @@
         margin: 0;
     }
 }
+
+/* globals.css */
+body {
+    padding-bottom: 64px;
+}
+@media (min-width: 768px) {
+    body {
+        padding-bottom: 0;
+    }
+}
