@@ -60,6 +60,7 @@ export function Footer() {
                 <p className='max-w-[320px] font-bn-serif text-[14px] font-normal leading-6 text-[#FFFFFF] md:text-[16px]'>
                   মেধাবী শিক্ষার্থীদের স্বীকৃতি ও উৎসাহ প্রদানে নিবেদিত একটি শিক্ষা সহায়তা কার্যক্রম।
                 </p>
+                <div className='max-w-[320px] font-bn-serif text-[14px] font-normal leading-6 text-[#FFFFFF] md:text-[16px]'>সরকারি নিবন্ধন নং: S-15264/2026</div>
               </div>
 
               {/* Email input */}
@@ -109,7 +110,6 @@ export function Footer() {
                     সাবস্ক্রাইব করুন →
                   </button>
                 </div>
-                <div className='text-white mt-5'>সরকারি নিবন্ধন নং: S-15264/2026</div>
               </div>
             </div>
 
