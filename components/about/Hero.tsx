@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Sparkles, GraduationCap, HeartHandshake, PackageOpen, BookOpenCheck, Briefcase, ShieldPlus, HandCoins, HandHeart, Users } from 'lucide-react'
+import Image from 'next/image'
 
 type TabId = 'mission' | 'vision' | 'values'
 
@@ -123,8 +124,20 @@ export function AboutTabs() {
       <div className='mx-auto w-full max-w-[1320px] px-4'>
         {/* Eyebrow badge */}
         <div className='flex justify-center'>
-          <span className='inline-flex items-center gap-1.5 rounded-full border border-[#E7E9FE] bg-white px-4 py-1.5 text-xs font-medium text-indigo-600'>
-            <Sparkles className='h-3.5 w-3.5' />
+          <span
+            className='
+      inline-flex items-center gap-1.5
+
+
+      px-4 py-1.5
+      font-bn
+      text-[24px]
+      font-semibold
+      leading-[32px]
+      text-[#4A4DE1]
+    '
+          >
+            <Image src='/aboutus.svg' alt='About Us icon' width={24} height={24} className='h-5 w-5 shrink-0 md:h-6 md:w-6' />
             আমাদের সম্পর্কে
           </span>
         </div>
@@ -158,13 +171,51 @@ export function AboutTabs() {
 
         {/* About / description box */}
         <div className='mt-5 rounded-2xl border border-indigo-100 bg-white p-5'>
-          <span className='inline-block rounded-full bg-indigo-600 px-3 py-1 text-xs font-bold text-white'>{content.tagText}</span>
-          <p className='mt-3 text-sm leading-relaxed text-slate-600'>{content.aboutDescription}</p>
+          <span
+            className='
+    inline-block
+    rounded-full
+    bg-indigo-600
+    px-3 py-1
+    font-bn
+    text-[16px]
+    font-semibold
+    leading-normal
+    text-white
+  '
+          >
+            {content.tagText}
+          </span>
+          <p
+            className='
+    mt-3
+    font-bn
+    text-[24px]
+    font-normal
+    leading-[32px]
+    text-[#545959]
+  '
+          >
+            {content.aboutDescription}
+          </p>
         </div>
 
         {/* Key goals / objectives */}
         <div className='mt-8'>
-          <h2 className='text-base font-bold text-indigo-600 md:text-lg'>{content.goalsTitle}</h2>
+          <h2
+            className='
+    font-bn
+    text-[20px]
+    font-bold
+    leading-normal
+    text-[#4A4DE1]
+    md:text-[28px]
+    md:font-semibold
+    md:leading-[36px]
+  '
+          >
+            {content.goalsTitle}
+          </h2>
 
           <div className='mt-4 flex flex-col gap-4'>
             {content.goals.map((goal, i) => {
@@ -175,8 +226,34 @@ export function AboutTabs() {
                     <Icon className='h-4.5 w-4.5' />
                   </span>
                   <div>
-                    <h4 className='text-sm font-bold text-slate-800'>{goal.title}</h4>
-                    <p className='mt-1 text-xs leading-relaxed text-slate-500'>{goal.description}</p>
+                    <h4
+                      className='
+    font-bn
+    text-[16px]
+    font-bold
+    leading-normal
+    text-[#282929]
+    md:text-[20px]
+    md:font-semibold
+    md:leading-[28px]
+  '
+                    >
+                      {goal.title}
+                    </h4>
+                    <p
+                      className='
+    mt-1
+    font-bn
+    text-[13px]
+    font-normal
+    leading-[18px]
+    text-[#545959]
+    md:text-[16px]
+    md:leading-[24px]
+  '
+                    >
+                      {goal.description}
+                    </p>
                   </div>
                 </div>
               )
@@ -186,8 +263,31 @@ export function AboutTabs() {
 
         {/* Gallery */}
         <div className='mt-8'>
-          <h2 className='text-base font-bold text-indigo-600 md:text-lg'>{content.galleryTitle}</h2>
-          <p className='mt-1 text-xs text-slate-500'>{content.gallerySubtitle}</p>
+          <h2
+            className='
+    font-bn
+    text-[20px]
+    font-bold
+    leading-normal
+    text-[#4A4DE1]
+    md:text-[28px]
+  '
+          >
+            {content.galleryTitle}
+          </h2>
+          <p
+            className='
+    mt-1
+    font-bn
+    text-[13px]
+    font-normal
+    leading-normal
+    text-[#545959]
+    md:text-[16px]
+  '
+          >
+            {content.gallerySubtitle}
+          </p>
 
           <div className='mt-4 grid grid-cols-2 gap-3'>
             {content.gallery.map((src, i) => (

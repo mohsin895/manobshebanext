@@ -218,14 +218,18 @@ const generalMembers: GeneralMember[] = [
 // Founders / Advisory / Executive card — photo on the left, text left-aligned
 function MemberCard({ member }: { member: Member }) {
   return (
-    <div className='flex items-start gap-3 rounded-2xl border border-[#FFEBE5] bg-white p-4'>
-      <img src={member.photo} alt={member.name} className='h-14 w-14 shrink-0 rounded-full object-cover' />
+    <div className='flex flex-col items-start gap-5 self-stretch rounded-[24px] border-[1.5px] border-[#F0EAE1] bg-white p-8 shadow-[0_12px_24px_0_rgba(30,30,36,0.03)]'>
+      <div className='flex items-center gap-3'>
+        <img src={member.photo} alt={member.name} className='h-14 w-14 shrink-0 rounded-full object-cover' />
 
-      <div className='flex flex-col items-start text-left'>
-        <h4 className='text-sm font-bold text-slate-800'>{member.name}</h4>
-        <span className='mt-0.5 text-xs font-medium text-orange-600'>{member.role}</span>
-        <p className='mt-1.5 text-xs leading-relaxed text-slate-500'>{member.description}</p>
+        <div className='flex flex-col items-start'>
+          <h4 className='font-bn text-sm font-bold text-slate-800'>{member.name}</h4>
+
+          <span className='mt-1 rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-semibold text-orange-600'>{member.role}</span>
+        </div>
       </div>
+
+      <p className='font-bn text-xs leading-relaxed text-slate-500'>{member.description}</p>
     </div>
   )
 }
@@ -255,13 +259,13 @@ export function Details() {
       <div className='mx-auto max-w-[1320px] px-4'>
         {/* Tab bar */}
         <div className='flex justify-center'>
-          <div className='flex w-full max-w-full flex-wrap justify-center gap-1.5 rounded-full border border-[#FFEBE5] bg-white/70 p-1.5 sm:w-auto sm:flex-nowrap'>
+          <div className='flex w-full max-w-full flex-wrap justify-center gap-1.5 rounded-full  p-1.5 sm:w-auto sm:flex-nowrap'>
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium transition-colors sm:px-5 sm:text-sm ${
-                  activeTab === tab.id ? 'bg-orange-500 text-white shadow-sm' : 'text-slate-600 hover:bg-white'
+                className={`whitespace-nowrap rounded-full px-3 py-2 font-bn text-[14px] font-semibold leading-normal transition-colors md:px-5 md:text-[18px] ${
+                  activeTab === tab.id ? 'rounded-[8px] bg-[#FF6B35] text-white' : 'text-[#00] bg-white'
                 }`}
               >
                 {tab.label}
@@ -273,8 +277,23 @@ export function Details() {
         {/* Constitution tab (screenshot 1) */}
         {activeTab === 'constitution' && (
           <div className='mt-10'>
-            <h2 className='text-lg font-bold text-slate-800 md:text-xl'>গঠনতন্ত্র</h2>
-            <p className='mt-2 max-w-2xl text-sm leading-relaxed text-slate-500'>আমাদের সংগঠনের গঠনতান্ত্রিক বিধি, পরিচালনার নিয়মাবলি ও দায়িত্ব বণ্টনের সংক্ষিপ্ত বিবরণ নিচে তুলে ধরা হলো।</p>
+            <h2
+              className='
+    font-bn
+    text-[14px]
+    font-semibold
+    leading-normal
+    text-[#545959]
+    md:text-[28px]
+    md:font-bold
+    md:text-[#263238]
+  '
+            >
+              গঠনতন্ত্র
+            </h2>
+            <p className='mt-2 max-w-2xl font-bn text-[14px] font-medium leading-[150%] text-[#64748B]'>
+              আমাদের সংগঠনের গঠনতান্ত্রিক বিধি, পরিচালনার নিয়মাবলি ও দায়িত্ব বণ্টনের সংক্ষিপ্ত বিবরণ নিচে তুলে ধরা হলো।
+            </p>
 
             <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               {featureCards.map(card => {
@@ -284,8 +303,8 @@ export function Details() {
                     <span className='flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 text-white'>
                       <Icon className='h-4.5 w-4.5' />
                     </span>
-                    <h3 className='text-sm font-bold text-slate-800'>{card.title}</h3>
-                    <p className='text-xs leading-relaxed text-slate-500'>{card.description}</p>
+                    <h3 className='font-bn text-[16px] font-bold leading-normal text-[#263238] md:text-[18px]'>{card.title}</h3>
+                    <p className='font-bn text-[13px] font-medium leading-[18px] text-[#545959] md:text-[14px] md:leading-[150%] md:text-[#263238]'>{card.description}</p>
                   </div>
                 )
               })}
@@ -298,7 +317,7 @@ export function Details() {
           <div className='mt-10'>
             <h2 className='text-center text-lg font-bold text-slate-800 md:text-xl'>প্রতিষ্ঠাতা সদস্য</h2>
 
-            <div className='mx-auto mt-6 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2'>
+            <div className='mx-auto mt-6 grid max-w-[1320px] grid-cols-1 gap-4 sm:grid-cols-2'>
               {founders.map(member => (
                 <MemberCard key={member.id} member={member} />
               ))}
@@ -316,7 +335,7 @@ export function Details() {
 
             <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
               {advisoryCommittee.map(member => (
-                <MemberCard key={member.id} member={member} />
+                <GeneralMemberCard key={member.id} member={member} />
               ))}
             </div>
           </div>
@@ -330,7 +349,7 @@ export function Details() {
 
             <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               {executiveCommittee.map(member => (
-                <MemberCard key={member.id} member={member} />
+                <GeneralMemberCard key={member.id} member={member} />
               ))}
             </div>
           </div>
