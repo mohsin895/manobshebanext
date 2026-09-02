@@ -1,7 +1,10 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useLanguage } from '@/app/context/LanguageContext'
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
 
 const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
 
@@ -10,6 +13,12 @@ const toBnDigits = (num: number | string) => {
     .split('')
     .map(d => bnDigits[Number(d)] ?? d)
     .join('')
+}
+
+type Stats = {
+  talentPool: number
+  generalGrade: number
+  totalAwarded: number
 }
 
 type StatPillProps = {
@@ -84,12 +93,18 @@ export function MeritoriousStudentHero() {
   const { t } = useLanguage()
   const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
 
-  // TODO: replace with real counts from your API.
-  const stats = {
-    talentPool: 18,
-    generalGrade: 405,
-    totalAwarded: 423,
-  }
+  const [stats, setStats] = useState<Stats>({ talentPool: 0, generalGrade: 0, totalAwarded: 0 })
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/meritorious-students/stats`, { headers: { Accept: 'application/json' } })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (json) setStats(json)
+      })
+      .catch(() => {
+        // keep zeros on failure rather than breaking the page
+      })
+  }, [])
 
   return (
     <section className='p-1'>

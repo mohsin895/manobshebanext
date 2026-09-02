@@ -1,7 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { useMemo, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+const ALL_VALUE = 'all'
 
 export type MeritoriousStudent = {
   id: string
@@ -10,40 +13,16 @@ export type MeritoriousStudent = {
   motherName: string
   institutionName: string
   rollNumber: string
-  className: string // e.g. '৮'
-  upazila: string // e.g. 'সিরাজদিখান'
+  className: string
+  upazila: string
   category: 'talent-pool' | 'general'
   photo: string
   meritPosition: string
   marks: string
-  year: string // e.g. '২০২৬'
+  year: string
 }
 
-const STUDENTS: MeritoriousStudent[] = Array.from({ length: 12 }).map((_, i) => ({
-  id: String(i + 1),
-  name: 'সুমাইয়া ইসলাম',
-  fatherName: 'সবুজ মিয়া',
-  motherName: 'সুমা আক্তার',
-  institutionName: 'লক্ষ্মী মাধ্যমিক বিদ্যালয়',
-  rollNumber: String(9050 + i),
-  className: '৮',
-  upazila: 'সিরাজদিখান',
-  category: i % 3 === 0 ? 'talent-pool' : 'general',
-  photo: '/student.png',
-  meritPosition: 'প্রথম',
-  marks: '৬৭',
-  year: i % 2 === 0 ? '২০২৬' : '২০২৫',
-}))
-
-// ---- Filter option lists (derived from data, plus an "all" option) ----
-const ALL_VALUE = 'all'
-
-function useUniqueOptions(list: MeritoriousStudent[], key: keyof MeritoriousStudent) {
-  return useMemo(() => {
-    const values = Array.from(new Set(list.map(s => String(s[key]))))
-    return values
-  }, [list, key])
-}
+type FilterOption = { id: number; name: string }
 
 function InfoBadge({ icon, label }: { icon: string; label: string }) {
   return (
@@ -96,6 +75,7 @@ function InfoBadgeCategory({ icon, label }: { icon: string; label: string }) {
     </div>
   )
 }
+
 function DetailLine({ label, value }: { label: string; value: string }) {
   return (
     <p
@@ -254,7 +234,6 @@ function StudentCard({ student }: { student: MeritoriousStudent }) {
   )
 }
 
-// ---- Filter select (styled to match the pill dropdown look in the screenshot) ----
 function FilterSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
   return (
     <div className='relative flex-1 min-w-[140px]'>
@@ -286,7 +265,6 @@ function FilterSelect({ label, value, onChange, options }: { label: string; valu
           </option>
         ))}
       </select>
-      {/* chevron */}
       <svg className='pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#1C1D4A]' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
         <path d='M6 9l6 6 6-6' strokeLinecap='round' strokeLinejoin='round' />
       </svg>
@@ -295,7 +273,9 @@ function FilterSelect({ label, value, onChange, options }: { label: string; valu
 }
 
 function CategorySearchBar({
-  students,
+  classOptions,
+  schoolOptions,
+  yearOptions,
   classValue,
   categoryValue,
   schoolValue,
@@ -305,7 +285,9 @@ function CategorySearchBar({
   onSchoolChange,
   onYearChange,
 }: {
-  students: MeritoriousStudent[]
+  classOptions: { value: string; label: string }[]
+  schoolOptions: { value: string; label: string }[]
+  yearOptions: { value: string; label: string }[]
   classValue: string
   categoryValue: string
   schoolValue: string
@@ -315,9 +297,6 @@ function CategorySearchBar({
   onSchoolChange: (v: string) => void
   onYearChange: (v: string) => void
 }) {
-  const classOptions = useUniqueOptions(students, 'className').map(v => ({ value: v, label: v }))
-  const schoolOptions = useUniqueOptions(students, 'institutionName').map(v => ({ value: v, label: v }))
-  const yearOptions = useUniqueOptions(students, 'year').map(v => ({ value: v, label: v }))
   const categoryOptions = [
     { value: 'talent-pool', label: 'ট্যালেন্টপুল' },
     { value: 'general', label: 'সাধারণ' },
@@ -337,23 +316,75 @@ export function MeritoriousStudentGrid() {
   const [classValue, setClassValue] = useState(ALL_VALUE)
   const [categoryValue, setCategoryValue] = useState(ALL_VALUE)
   const [schoolValue, setSchoolValue] = useState(ALL_VALUE)
+
+  const [classOptions, setClassOptions] = useState<FilterOption[]>([])
+  const [schoolOptions, setSchoolOptions] = useState<FilterOption[]>([])
+  const [yearOptions, setYearOptions] = useState<number[]>([])
   const [yearValue, setYearValue] = useState(ALL_VALUE)
 
-  const filteredStudents = useMemo(() => {
-    return STUDENTS.filter(s => {
-      if (classValue !== ALL_VALUE && s.className !== classValue) return false
-      if (categoryValue !== ALL_VALUE && s.category !== categoryValue) return false
-      if (schoolValue !== ALL_VALUE && s.institutionName !== schoolValue) return false
-      if (yearValue !== ALL_VALUE && s.year !== yearValue) return false
-      return true
-    })
+  const [students, setStudents] = useState<MeritoriousStudent[]>([])
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  // Load class/school filter options once
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/meritorious-students/filters`, { headers: { Accept: 'application/json' } })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (json) {
+          setClassOptions(json.classes ?? [])
+          setSchoolOptions(json.schools ?? [])
+          setYearOptions(json.years ?? [])
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  const fetchStudents = useCallback(
+    async (targetPage: number, replace: boolean) => {
+      setLoading(true)
+      try {
+        const params = new URLSearchParams({ page: String(targetPage), per_page: '12' })
+        if (classValue !== ALL_VALUE) params.set('class_id', classValue)
+        if (categoryValue !== ALL_VALUE) params.set('category', categoryValue)
+        if (schoolValue !== ALL_VALUE) params.set('school_id', schoolValue)
+        if (yearValue !== ALL_VALUE) params.set('year', yearValue)
+
+        const res = await fetch(`${API_BASE_URL}/meritorious-students?${params.toString()}`, {
+          headers: { Accept: 'application/json' },
+        })
+        const json = await res.json()
+
+        setStudents(prev => (replace ? json.data : [...prev, ...json.data]))
+        setHasMore(Boolean(json.hasMore))
+        setPage(targetPage)
+      } catch (err) {
+        // keep whatever was already loaded on failure
+      } finally {
+        setLoading(false)
+      }
+    },
+    [classValue, categoryValue, schoolValue, yearValue]
+  )
+
+  // Refetch from page 1 whenever a filter changes
+  useEffect(() => {
+    fetchStudents(1, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classValue, categoryValue, schoolValue, yearValue])
+
+  const classSelectOptions = classOptions.map(c => ({ value: String(c.id), label: c.name }))
+  const schoolSelectOptions = schoolOptions.map(s => ({ value: String(s.id), label: s.name }))
+  const yearSelectOptions = yearOptions.map(y => ({ value: String(y), label: String(y) }))
 
   return (
     <section className='w-full py-8 sm:py-10 md:py-14'>
       <div className='mx-auto w-full max-w-[1320px] px-4 md:px-0'>
         <CategorySearchBar
-          students={STUDENTS}
+          classOptions={classSelectOptions}
+          schoolOptions={schoolSelectOptions}
+          yearOptions={yearSelectOptions}
           classValue={classValue}
           categoryValue={categoryValue}
           schoolValue={schoolValue}
@@ -364,44 +395,50 @@ export function MeritoriousStudentGrid() {
           onYearChange={setYearValue}
         />
 
-        {filteredStudents.length === 0 ? (
+        {students.length === 0 && !loading ? (
           <p className='font-bn py-10 text-center text-[14px] text-[#1C1D4A]'>কোনো তথ্য পাওয়া যায়নি</p>
         ) : (
           <div className='flex justify-center'>
             <div className='grid grid-cols-2 justify-items-center gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-6'>
-              {filteredStudents.map(student => (
+              {students.map(student => (
                 <StudentCard key={student.id} student={student} />
               ))}
             </div>
           </div>
         )}
 
-        <div className='mt-6 sm:mt-8 flex justify-center'>
-          <button
-            type='button'
-            className='
-              font-bn
-              rounded-full
-              bg-[#FF6B35]
-              px-6
-              py-2.5
-              text-[13px]
-              font-medium
-              text-white
-              transition-colors
-              hover:bg-[#e95d2d]
-              focus:outline-none
-              focus:ring-2
-              focus:ring-[#FF6B35]/50
+        {hasMore && (
+          <div className='mt-6 sm:mt-8 flex justify-center'>
+            <button
+              type='button'
+              disabled={loading}
+              onClick={() => fetchStudents(page + 1, false)}
+              className='
+                font-bn
+                rounded-full
+                bg-[#FF6B35]
+                px-6
+                py-2.5
+                text-[13px]
+                font-medium
+                text-white
+                transition-colors
+                hover:bg-[#e95d2d]
+                disabled:cursor-not-allowed
+                disabled:opacity-70
+                focus:outline-none
+                focus:ring-2
+                focus:ring-[#FF6B35]/50
 
-              sm:px-8
-              sm:py-3
-              sm:text-[14px]
-            '
-          >
-            আরও দেখুন
-          </button>
-        </div>
+                sm:px-8
+                sm:py-3
+                sm:text-[14px]
+              '
+            >
+              {loading ? 'লোড হচ্ছে...' : 'আরও দেখুন'}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )

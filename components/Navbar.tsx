@@ -293,106 +293,13 @@ export function Navbar() {
                 )}
 
                 {/* Mobile Hamburger Button */}
-                <button
-                  type='button'
-                  aria-label='Toggle menu'
-                  aria-expanded={mobileMenuOpen}
-                  onClick={() => setMobileMenuOpen(prev => !prev)}
-                  className='
-  flex md:hidden
-  h-10 w-10
-  items-center justify-center
-  rounded-lg
-
-  text-[#8497F5]
-'
-                >
-                  {mobileMenuOpen ? (
-                    <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
-                    </svg>
-                  ) : (
-                    <Image src='/manu.svg' height={28} width={28} alt='location' />
-                  )}
-                </button>
               </div>
             </div>
           </div>
 
           {/* Mobile Menu Panel */}
-          <div
-            className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-100 bg-white ${
-              isScrolled ? 'rounded-b-[16px]' : ''
-            } ${mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0 border-t-0'}`}
-          >
-            <div className='flex flex-col px-4 py-3 gap-1'>
-              <a href='#' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
-                {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
-              </a>
-              <a href='/about-us' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
-                {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Exam Schedule'}
-              </a>
-              <a href='/activity' className='text-[14px] font-bn font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'>
-                {language === 'bn' ? 'কার্যক্রম' : 'Training'}
-              </a>
-
-              <div>
-                <button
-                  type='button'
-                  onClick={() => setMobileNewsOpen(prev => !prev)}
-                  aria-expanded={mobileNewsOpen}
-                  className='w-full flex items-center justify-between text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg px-3 py-3'
-                >
-                  <span>{language === 'bn' ? 'মেধাবৃত্তি' : 'News'}</span>
-                  <svg className={`w-4 h-4 transition-transform duration-200 ${mobileNewsOpen ? 'rotate-180' : ''}`} fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
-                  </svg>
-                </button>
-
-                <div className={`overflow-hidden transition-all duration-200 ease-in-out ${mobileNewsOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <div className='flex flex-col pl-3'>
-                    {menuItems.map((item, i) => (
-                      <a key={i} href={item.href} className='flex items-center gap-3 px-3 py-3 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-500 transition-colors rounded-lg'>
-                        <span className='leading-snug font-medium flex-1'>{language === 'bn' ? item.bn : item.en}</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* CHANGED: mobile conditional Login / Dashboard */}
-
-              {/*<a*/}
-              {/*  href={isAuthenticated ? '/auth/user' : '/auth/login'}*/}
-              {/*  className='text-[14px] font-bn font-medium text-white bg-[linear-gradient(270deg,#FF713E_0%,#FE4711_100%)] rounded-lg px-3 py-3 text-center'*/}
-              {/*>*/}
-              {/*  {isAuthenticated ? (language === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard') : language === 'bn' ? 'লগ ইন করুন' : 'Join Us'}*/}
-              {/*</a>*/}
-
-              <div className='flex items-center gap-3 px-3 pt-2 pb-1'>
-                <div className='relative w-[125px]'>
-                  <select
-                    value={language}
-                    onChange={e => setLanguage(e.target.value as Language)}
-                    className='h-7 w-[125px] appearance-none rounded-[4px] bg-[#EEF3FF] pl-2 pr-8 text-sm font-medium text-[#374151] outline-none cursor-pointer'
-                  >
-                    <option value='bn'>বাংলা</option>
-                    <option value='en'>EN</option>
-                  </select>
-
-                  <div className='pointer-events-none absolute right-0 top-0 flex h-7 w-8 items-center justify-center rounded-r-[4px] bg-[#8497F5]'>
-                    <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-
-      <div style={{ height: isScrolled ? totalHeight - topBarHeight : totalHeight }} />
     </>
   )
 }

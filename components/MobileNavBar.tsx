@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Home, Droplets, GraduationCap, User, Grid2X2 } from 'lucide-react'
 import { useState } from 'react'
 import { MobileMenuDrawer } from '@/components/MobileMenuDrawer'
+import Image from 'next/image'
 
 const navItems = [
   { key: 'home', label: 'হোম', href: '/', icon: Home },
@@ -44,7 +45,9 @@ export function MobileNavBar({ onMenuClick }: { onMenuClick?: () => void }) {
 
           {/* Menu — opens drawer instead of navigating */}
           <button type='button' onClick={() => setMenuOpen(true)} className='flex flex-1 flex-col items-center justify-center gap-1 py-2'>
-            <Grid2X2 size={22} strokeWidth={1.75} className={menuActive ? 'text-[#FE4711]' : 'text-gray-500'} />
+            {/*<Grid2X2 size={22} strokeWidth={1.75} className={menuActive ? 'text-[#FE4711]' : 'text-gray-500'} />*/}
+
+            <Image src='/manu.svg' height={28} width={28} alt='location' className={menuActive ? 'text-[#FE4711]' : 'text-gray-500'} />
             <span className={`font-bn text-[11px] leading-4 ${menuActive ? 'text-[#FE4711] font-medium' : 'text-gray-500'}`}>মেনু</span>
           </button>
         </div>
