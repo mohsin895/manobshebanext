@@ -195,7 +195,8 @@ export function SeatCard({ result }: { result: SeatResult }) {
       {/* Roll / seat / time / date stats */}
       <div className='mt-5 grid grid-cols-2 gap-3 px-6 sm:grid-cols-4 md:px-10'>
         <StatItem label='রোল নম্বর' value={result.rollNumber} />
-        <StatItem label='আসন নম্বর' value={result.seatNumber} />
+        <StatItem label='কক্ষ  নম্বর' value={result.roomNumber} />
+        {/*<StatItem label='আসন নম্বর' value={result.seatNumber} />*/}
         <StatItem label='পরীক্ষার সময়' value={result.examTime} />
         <StatItem label='পরীক্ষার তারিখ' value={result.examDate} />
       </div>

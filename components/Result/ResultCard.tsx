@@ -74,7 +74,7 @@ function InfoItem({ icon, label, value }: InfoItemProps) {
     font-bn
     font-medium
     text-[20px]
-    leading-[100%]
+
     tracking-[0]
     align-middle
     text-[#0C447C]

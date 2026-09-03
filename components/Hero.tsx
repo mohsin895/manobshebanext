@@ -150,7 +150,7 @@ export function Hero() {
 
   return (
     <section className=' p-1'>
-      <div className='relative  mx-auto w-full  min-[768px]:max-w-[1400px] min-[1301px]:max-w-[1400px]'>
+      <div className='relative  mx-auto w-full mt-[65px]  md:mt-[115px] min-[768px]:max-w-[1400px] min-[1301px]:max-w-[1400px]'>
         <div className='relative  h-[570px] min-[768px]:h-[832px] min-[1301px]:h-[832px]'>
           {/* Full-width Hero Image */}
           <div className='absolute ml-5 mr-5 min-[768px]:m-0 min-[1301px]:m-0 inset-0 rounded-2xl overflow-hidden shadow-xl'>
