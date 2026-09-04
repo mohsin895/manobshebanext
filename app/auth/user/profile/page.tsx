@@ -170,7 +170,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className=' w-full bg-gray-50  px-[18px] pt-[76px] pb-10  md:px-[60px] md:pt-[50px] '>
+    <main className=' w-full bg-gray-50  px-[18px] pt-[76px] pb-10  md:px-[60px]  md:pt-[50px] '>
       <Navbar />
 
       <div
@@ -178,7 +178,7 @@ export default function ProfilePage() {
     mx-auto
     w-full
     max-w-3xl
-
+mt-[65px]  md:mt-[115px]
     rounded-[20px]
     border
     border-transparent

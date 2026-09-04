@@ -64,7 +64,7 @@ export function ResultHero() {
   }
 
   return (
-    <section className=' p-1 print:hidden'>
+    <section className=' p-1 print:hidden mt-[65px]  md:mt-[115px] '>
       <div className='relative mx-auto w-full md:max-w-[1400px] '>
         <div
           className='

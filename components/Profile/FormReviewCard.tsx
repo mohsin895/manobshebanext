@@ -79,7 +79,7 @@ export default function FormReviewCard({ photoSrc = 'https://i.pravatar.cc/160?i
 
   return (
     <div
-      className='mx-auto w-full max-w-[560px] font-body'
+      className='mx-auto mt-[65px]  md:mt-[115px]  w-full max-w-[560px] font-body'
       style={
         {
           '--paper': '#F3F1EB',

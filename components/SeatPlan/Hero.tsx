@@ -61,7 +61,7 @@ export function SeatPlanHero() {
   }
 
   return (
-    <section className=' p-1'>
+    <section className=' p-1 mt-[65px]  md:mt-[115px] '>
       <div className='relative mx-auto w-full md:max-w-[1400px] '>
         <div
           className='

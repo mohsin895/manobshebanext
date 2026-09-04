@@ -8,7 +8,7 @@ export default function Page() {
     <main className='w-full'>
       <Navbar />
 
-      <div className='pt-16 pb-16'>
+      <div className='pt-16 pb-16   md:mt-[40px] '>
         <AchievementHero />
       </div>
 

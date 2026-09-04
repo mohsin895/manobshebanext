@@ -120,7 +120,7 @@ export function AboutTabs() {
   const content = tabsContent.find(tab => tab.id === activeTab)!
 
   return (
-    <section className='w-full bg-[#FFF8F5] py-8'>
+    <section className='w-full bg-[#FFF8F5] py-8 mt-[65px]  md:mt-[115px] '>
       <div className='mx-auto w-full max-w-[1320px] px-4'>
         {/* Eyebrow badge */}
         <div className='flex justify-center'>

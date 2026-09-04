@@ -101,7 +101,7 @@ export function Navbar() {
   return (
     <>
       <div
-        className='fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out will-change-transform'
+        className='fixed top-0 left-0 right-0 z-50  transition-transform duration-300 ease-in-out will-change-transform'
         style={{ transform: `translateY(${showTopBar || isScrolled ? 0 : -topBarHeight}px)` }}
       >
         {!isScrolled && (

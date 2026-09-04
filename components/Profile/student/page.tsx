@@ -78,7 +78,7 @@ export default function StudentList({
   }
 
   return (
-    <div className='w-full bg-gray-50 px-4 py-10'>
+    <div className='w-full bg-gray-50 px-4 py-10 mt-[65px]  md:mt-[115px] '>
       <div className='mx-auto max-w-5xl rounded-2xl bg-white p-6 shadow-sm'>
         <div className='flex items-center justify-between'>
           <h1 className='mb-4 text-sm text-gray-500'>শিক্ষার্থীদের তালিকা</h1>

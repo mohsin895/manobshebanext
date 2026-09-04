@@ -723,7 +723,7 @@ export default function StudentInfoFormEdit({ schoolId = 1 }: { schoolId?: numbe
     px-[18px]
     pt-[76px]
     pb-10
-
+mt-[65px]  md:mt-[115px]
     md:px-[60px]
     md:pt-[50px]
   '

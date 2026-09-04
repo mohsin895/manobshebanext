@@ -202,7 +202,7 @@ export default function Page() {
     <main className='w-full bg-[#F7F8FC]'>
       <Navbar />
 
-      <div className='mx-auto w-full max-w-[1240px] px-4 py-6 md:py-10'>
+      <div className='mx-auto w-full mt-[65px]  md:mt-[115px]  max-w-[1240px] px-4 py-6 md:py-10'>
         <DashboardHeader schoolName={school.name} address={formatAddress(school)} eiin={String(school.id)} logoSrc={logoSrc} />
 
         <div className='mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4'>

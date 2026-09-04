@@ -1,17 +1,50 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useLanguage } from '@/app/context/LanguageContext'
 import Image from 'next/image'
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// bn -> language_id 1, en -> language_id 2
+const LANGUAGE_ID_MAP: Record<string, number> = {
+  bn: 1,
+  en: 2,
+}
+
+type AboutData = {
+  quote: string | null
+  paragraphs: string[]
+  imageUrl: string | null
+}
+
 export function AboutUs() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const languageId = LANGUAGE_ID_MAP[language] ?? 1
+
+  const [about, setAbout] = useState<AboutData | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const params = new URLSearchParams({ language_id: String(languageId) })
+    fetch(`${API_BASE_URL}/scholarship-info?${params.toString()}`, { headers: { Accept: 'application/json' } })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (!cancelled && json?.about) setAbout(json.about)
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [languageId])
 
   return (
     <section
       className=' p-1 py-5 mt-[70px] md:py-10'
       style={{
         backgroundImage: "url('/bg2.png')",
-
         height: '800px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -22,7 +55,6 @@ export function AboutUs() {
         <div className='mb-8   flex justify-center'>
           <div className='inline-flex items-center gap-2  py-1.5 font-bn text-[10px] md:text-[14px] font-medium leading-[22px] text-[#4A4DE1] md:text-[16px] md:leading-6'>
             <Image src='/about1.png' width={20} height={20} alt={t('about.photo_alt')} />
-
             <p
               className='
     font-bn
@@ -37,12 +69,11 @@ export function AboutUs() {
             >
               {t('about.notification')}
             </p>
-
             <Image src='/about2.png' width={24} height={24} alt={t('about.photo_alt')} />
           </div>
         </div>
 
-        {/* Large quote */}
+        {/* Large quote — from API, falls back to translation keys while loading */}
         <blockquote
           className='
     mb-12
@@ -58,17 +89,17 @@ export function AboutUs() {
     md:indent-[88px]
   '
         >
-          " {t('about.quote_start')} <span className='text-[#3335A0]'>{t('about.quote_highlight')}</span> {t('about.quote_end')}&rdquo;
+          {about?.quote ?? `"${t('about.quote_start')} ${t('about.quote_highlight')} ${t('about.quote_end')}"`}
         </blockquote>
 
         {/* Two-column: photo + text */}
         <div className='grid grid-cols-1 gap-8 md:grid-cols-2 md:items-start'>
-          {/* Left: event photo */}
+          {/* Left: event photo — from API if available, else static fallback */}
           <div className='overflow-hidden rounded-lg'>
-            <Image src='/aboutus.png' alt={t('about.photo_alt')} width={600} height={400} className='h-full w-full object-cover' />
+            <Image src={about?.imageUrl || '/aboutus.png'} alt={t('about.photo_alt')} width={600} height={400} className='h-full w-full object-cover' />
           </div>
 
-          {/* Right: paragraphs */}
+          {/* Right: paragraphs — from API if available, else static fallback */}
           <div
             className='
     space-y-4
@@ -83,8 +114,14 @@ export function AboutUs() {
     md:leading-[24px]
   '
           >
-            <p>{t('about.para_1')}</p>
-            <p>{t('about.para_2')}</p>
+            {about && about.paragraphs.length > 0 ? (
+              about.paragraphs.map((p, i) => <p key={i}>{p}</p>)
+            ) : (
+              <>
+                <p>{t('about.para_1')}</p>
+                <p>{t('about.para_2')}</p>
+              </>
+            )}
           </div>
         </div>
       </div>

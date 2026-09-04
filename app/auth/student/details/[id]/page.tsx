@@ -189,7 +189,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   return (
     <main className='w-full'>
       <Navbar />
-      <div className='bg-[#EDEAE2] px-4 py-8'>
+      <div className='bg-[#EDEAE2]  px-4 py-8'>
         {loading && <p className='mx-auto max-w-[560px] py-10 text-center text-[14px] text-[#6E7580]'>লোড হচ্ছে…</p>}
 
         {!loading && error && <p className='mx-auto max-w-[560px] py-10 text-center text-[14px] text-red-600'>{error}</p>}
