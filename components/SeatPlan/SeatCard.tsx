@@ -203,12 +203,16 @@ export function SeatCard({ result }: { result: SeatResult }) {
 
       {/* Name / room, institution / center */}
       <div className='mt-3 grid grid-cols-1 gap-3 px-6 sm:grid-cols-2 md:px-10'>
-        <InfoItem icon={<Image src='/result1.svg' alt='name' width={42} height={42} />} label='নাম' value={result.name} />
+        <InfoItem icon={<Image src='/result1.svg' alt='name' width={42} height={42} className='!h-[42px] !w-[42px] !max-h-[42px] !max-w-[42px] object-contain' />} label='নাম' value={result.name} />
         <InfoItem icon={<Image src='/f.svg' alt='name' width={42} height={42} />} label='পিতার নাম' value={result.fname} />
 
         <InfoItem icon={<Image src='/m.svg' alt='name' width={42} height={42} />} label='মাতার নাম' value={result.mname} />
 
-        <InfoItem icon={<Image src='/result7.svg' alt='institution' width={42} height={42} />} label='শিক্ষা প্রতিষ্ঠানের নাম' value={result.institutionName} />
+        <InfoItem
+          icon={<Image src='/result7.svg' alt='institution' width={42} height={42} className='!h-[42px] !w-[42px] !max-h-[42px] !max-w-[42px] object-contain' />}
+          label='শিক্ষা প্রতিষ্ঠানের নাম'
+          value={result.institutionName}
+        />
 
         <InfoItem icon={<Image src='/result122.svg' alt='center' width={42} height={42} />} label='কেন্দ্রের নাম' value={result.centerName} />
         <InfoItem icon={<Image src='/address123.svg' alt='address' width={42} height={42} />} label='পরীক্ষার কেন্দ্রের ঠিকানা' value={result.centerAddress} />

@@ -89,7 +89,7 @@ export function AboutUs() {
     md:indent-[88px]
   '
         >
-          {about?.quote ?? `"${t('about.quote_start')} ${t('about.quote_highlight')} ${t('about.quote_end')}"`}
+          " {t('about.quote_start')} <span className='text-[#3335A0]'>{t('about.quote_highlight')}</span> {t('about.quote_end')}&rdquo;
         </blockquote>
 
         {/* Two-column: photo + text */}

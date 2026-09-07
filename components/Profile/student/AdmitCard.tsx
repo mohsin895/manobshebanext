@@ -39,7 +39,34 @@ function DownloadIcon() {
   )
 }
 
+function CloseIcon() {
+  return (
+    <svg className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
+      <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+    </svg>
+  )
+}
+
 type ActionType = 'edit' | 'download'
+
+// Popup shown before the admit card actually downloads.
+function DownloadConfirmModal({ onClose, onConfirm }: { onClose: () => void; onConfirm: () => void }) {
+  return (
+    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4' onClick={onClose}>
+      <div className='relative w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-lg' onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} aria-label='Close' className='absolute right-3 top-3 rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600'>
+          <CloseIcon />
+        </button>
+
+        <p className='mb-6 text-sm leading-relaxed text-gray-700'>রঙিন প্রবেশপত্র ডাউনলোড করে প্রিন্ট করুন। পরবর্তীতে বিদ্যালয়ে প্রধান শিক্ষকের স্বাক্ষর ও সিল সংযুক্ত করে নিন।</p>
+
+        <button onClick={onConfirm} className='w-full rounded-lg bg-orange-500 py-2.5 text-sm font-medium text-white transition hover:bg-orange-600'>
+          ডাউনলোড করুন
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export default function AdmitCard({
   students = MOCK_STUDENTS,
@@ -57,10 +84,30 @@ export default function AdmitCard({
   const allLabel = classOptions[0] ?? 'সব শ্রেণী'
   const [selectedClass, setSelectedClass] = useState(allLabel)
 
+  // Track which student's admit card is pending confirmation in the popup.
+  const [pendingStudent, setPendingStudent] = useState<Student | null>(null)
+
   const filtered = selectedClass === allLabel ? students : students.filter(s => s.className === selectedClass)
 
+  function handleDownloadClick(e: React.MouseEvent, student: Student) {
+    e.preventDefault()
+    setPendingStudent(student)
+  }
+
+  function handleConfirmDownload() {
+    if (!pendingStudent) return
+
+    onDownload?.(pendingStudent)
+
+    // Actually navigate to the download link after confirmation.
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/admit-card/${pendingStudent.id}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+
+    setPendingStudent(null)
+  }
+
   return (
-    <div className='w-full bg-gray-50 px-4 py-10'>
+    <div className='w-full bg-gray-50 px-4 py-10 mt-[65px]  md:mt-[115px]'>
       <div className='mx-auto max-w-5xl rounded-2xl bg-white p-6 shadow-sm'>
         <h1 className='mb-4 text-sm text-gray-500'>শিক্ষার্থীদের তালিকা</h1>
 
@@ -90,7 +137,7 @@ export default function AdmitCard({
                 <th className='py-3 pr-3'>নাম</th>
                 <th className='py-3 pr-3'>শ্রেণি</th>
                 <th className='py-3 pr-3'>মোবাইল</th>
-                <th className='py-3 pr-3 text-right'>{actionType === 'edit' ? 'এডিট' : 'রেফারেন্সপত্র'}</th>
+                <th className='py-3 pr-3 text-right'>{actionType === 'edit' ? 'ডাউনলোড' : 'রেফারেন্সপত্র'}</th>
               </tr>
             </thead>
             <tbody>
@@ -113,8 +160,7 @@ export default function AdmitCard({
                     <div className='flex justify-center'>
                       <a
                         href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/admit-card/${student.id}`}
-                        target='_blank'
-                        rel='noopener noreferrer'
+                        onClick={e => handleDownloadClick(e, student)}
                         aria-label='Download admit card'
                         className='inline-flex items-center justify-center rounded-md p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600'
                       >
@@ -143,6 +189,8 @@ export default function AdmitCard({
           </table>
         </div>
       </div>
+
+      {pendingStudent && <DownloadConfirmModal onClose={() => setPendingStudent(null)} onConfirm={handleConfirmDownload} />}
     </div>
   )
 }
