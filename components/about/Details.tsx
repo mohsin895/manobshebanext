@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useLanguage } from '@/app/context/LanguageContext'
 import { Target, UsersRound, Settings2, Wallet } from 'lucide-react'
 
 type TabId = 'constitution' | 'founders' | 'advisory' | 'executive' | 'members'
@@ -47,8 +48,37 @@ const featureCards: FeatureCard[] = [
   },
 ]
 
-// Shared type for founders / advisory / executive — all three tabs use the
-// same left-aligned photo card (see screenshots 2, 3, 4)
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// bn -> language_id 1, en -> language_id 2
+const LANGUAGE_ID_MAP: Record<string, number> = {
+  bn: 1,
+  en: 2,
+}
+
+// Generates a clean initials-avatar for members with no photoUrl
+const fallbackAvatar = (name: string) => `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=FFEBE5&color=FF6B35`
+
+/* --------------------------------------------------------------------- */
+/* API shape (GET /committee-members?category=&language_id=)             */
+/* --------------------------------------------------------------------- */
+
+type ApiCategory = 'advisory' | 'executive' | 'general' | 'lifetime'
+
+type ApiMember = {
+  id: number
+  category: ApiCategory
+  photoUrl: string | null
+  name: string
+  designation: string | null
+  description: string | null
+  memberCode: string | null
+}
+
+/* --------------------------------------------------------------------- */
+/* Founders / Advisory / Executive — photo-left card (screenshot 2)      */
+/* --------------------------------------------------------------------- */
+
 type Member = {
   id: string
   name: string
@@ -57,6 +87,7 @@ type Member = {
   photo: string
 }
 
+// Founders isn't a category the API supports, so it stays static.
 const founders: Member[] = [
   {
     id: 'fd1',
@@ -110,7 +141,50 @@ const founders: Member[] = [
   },
 ]
 
-const advisoryCommittee: Member[] = [
+function MemberCard({ member }: { member: Member }) {
+  return (
+    <div className='flex flex-col items-start gap-5 self-stretch rounded-[24px] border-[1.5px] border-[#F0EAE1] bg-white p-8 shadow-[0_12px_24px_0_rgba(30,30,36,0.03)]'>
+      <div className='flex items-center gap-3'>
+        <img src={member.photo} alt={member.name} className='h-14 w-14 shrink-0 rounded-full object-cover' />
+
+        <div className='flex flex-col items-start'>
+          <h4 className='font-bn text-sm font-bold text-slate-800'>{member.name}</h4>
+          {member.role && <span className='mt-1 rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-semibold text-orange-600'>{member.role}</span>}
+        </div>
+      </div>
+
+      {member.description && <p className='font-bn text-xs leading-relaxed text-slate-500'>{member.description}</p>}
+    </div>
+  )
+}
+
+/* --------------------------------------------------------------------- */
+/* Advisory / Executive / General / Lifetime — centered card              */
+/* (screenshots 3, 4, 5 — same shape, different badge + sub-label)       */
+/* --------------------------------------------------------------------- */
+
+type CardBadge = { label: string; tone: 'sky' | 'orange' }
+
+function CenteredMemberCard({ name, photo, badge, subLabel }: { name: string; photo: string; badge?: CardBadge; subLabel?: string }) {
+  return (
+    <div className='flex flex-col items-center rounded-2xl border border-[#FFEBE5] bg-white p-5 text-center'>
+      <img src={photo} alt={name} className='h-16 w-16 rounded-full object-cover' />
+
+      <h4 className='mt-3 text-sm font-bold text-slate-800'>{name}</h4>
+
+      {badge && <span className={`mt-2 rounded-full px-3 py-1 text-[11px] font-medium ${badge.tone === 'sky' ? 'bg-sky-50 text-sky-600' : 'bg-orange-50 text-orange-600'}`}>{badge.label}</span>}
+
+      {subLabel && <span className='mt-2 text-xs text-slate-400'>{subLabel}</span>}
+    </div>
+  )
+}
+
+/* --------------------------------------------------------------------- */
+/* Static fallback content — used while loading / if the API fails       */
+/* or returns nothing for a given category                               */
+/* --------------------------------------------------------------------- */
+
+const advisoryCommitteeFallback: Member[] = [
   {
     id: 'ad1',
     name: 'ড. শ্রাবণ-অর-রশিদ',
@@ -155,7 +229,7 @@ const advisoryCommittee: Member[] = [
   },
 ]
 
-const executiveCommittee: Member[] = [
+const executiveCommitteeFallback: Member[] = [
   { id: 'ex1', name: 'মো: আব্দুল ইসলাম', role: 'সভাপতি', description: 'সাংগঠনিক নেতৃত্ব ও সিদ্ধান্ত গ্রহণ প্রক্রিয়ার সমন্বয় করে থাকেন।', photo: 'https://randomuser.me/api/portraits/men/17.jpg' },
   { id: 'ex2', name: 'রোমানা নাফিস সুলতানা', role: 'সহ-সভাপতি', description: 'কার্যক্রমের তদারকি ও সাংগঠনিক সমন্বয়ে সহায়তা করেন।', photo: 'https://randomuser.me/api/portraits/women/28.jpg' },
   {
@@ -190,8 +264,6 @@ const executiveCommittee: Member[] = [
   },
 ]
 
-// Members tab uses a different, centered card shape (see screenshot 5):
-// photo -> name -> membership-type badge -> ID number
 type GeneralMember = {
   id: string
   name: string
@@ -200,7 +272,7 @@ type GeneralMember = {
   idNo: string
 }
 
-const generalMembers: GeneralMember[] = [
+const generalMembersFallback: GeneralMember[] = [
   { id: 'gm1', name: 'মো: আসিফুর ইসলাম', photo: 'https://randomuser.me/api/portraits/men/32.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০১' },
   { id: 'gm2', name: 'ফা: জাহারা ইয়াসমিন', photo: 'https://randomuser.me/api/portraits/women/44.jpg', membershipType: 'আজীবন সদস্য', idNo: '৩০২' },
   { id: 'gm3', name: 'আব্দুর রহমান চৌধুরী', photo: 'https://randomuser.me/api/portraits/men/65.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০৩' },
@@ -215,44 +287,68 @@ const generalMembers: GeneralMember[] = [
   { id: 'gm12', name: 'খায়রুন বুক নেওয়াজ', photo: 'https://randomuser.me/api/portraits/women/33.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩১২' },
 ]
 
-// Founders / Advisory / Executive card — photo on the left, text left-aligned
-function MemberCard({ member }: { member: Member }) {
-  return (
-    <div className='flex flex-col items-start gap-5 self-stretch rounded-[24px] border-[1.5px] border-[#F0EAE1] bg-white p-8 shadow-[0_12px_24px_0_rgba(30,30,36,0.03)]'>
-      <div className='flex items-center gap-3'>
-        <img src={member.photo} alt={member.name} className='h-14 w-14 shrink-0 rounded-full object-cover' />
+/* --------------------------------------------------------------------- */
+/* API -> UI mappers                                                      */
+/* --------------------------------------------------------------------- */
 
-        <div className='flex flex-col items-start'>
-          <h4 className='font-bn text-sm font-bold text-slate-800'>{member.name}</h4>
-
-          <span className='mt-1 rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-semibold text-orange-600'>{member.role}</span>
-        </div>
-      </div>
-
-      <p className='font-bn text-xs leading-relaxed text-slate-500'>{member.description}</p>
-    </div>
-  )
+function toMember(m: ApiMember): Member {
+  return {
+    id: String(m.id),
+    name: m.name,
+    role: m.designation ?? '',
+    description: m.description ?? '',
+    photo: m.photoUrl ?? fallbackAvatar(m.name),
+  }
 }
 
-// General members card — centered column, photo -> name -> badge -> ID
-function GeneralMemberCard({ member }: { member: GeneralMember }) {
-  const isLifetime = member.membershipType === 'আজীবন সদস্য'
-
-  return (
-    <div className='flex flex-col items-center rounded-2xl border border-[#FFEBE5] bg-white p-5 text-center'>
-      <img src={member.photo} alt={member.name} className='h-16 w-16 rounded-full object-cover' />
-
-      <h4 className='mt-3 text-sm font-bold text-slate-800'>{member.name}</h4>
-
-      <span className={`mt-2 rounded-full px-3 py-1 text-[11px] font-medium ${isLifetime ? 'bg-sky-50 text-sky-600' : 'bg-orange-50 text-orange-600'}`}>{member.membershipType}</span>
-
-      <span className='mt-2 text-xs text-slate-400'>আইডি: {member.idNo}</span>
-    </div>
-  )
+function toGeneralMember(m: ApiMember): GeneralMember {
+  return {
+    id: String(m.id),
+    name: m.name,
+    photo: m.photoUrl ?? fallbackAvatar(m.name),
+    membershipType: m.category === 'lifetime' ? 'আজীবন সদস্য' : 'সাধারণ সদস্য',
+    idNo: m.memberCode ?? '—',
+  }
 }
+
+/* --------------------------------------------------------------------- */
+/* Main component                                                         */
+/* --------------------------------------------------------------------- */
 
 export function Details() {
   const [activeTab, setActiveTab] = useState<TabId>('constitution')
+  const { language } = useLanguage()
+  const languageId = LANGUAGE_ID_MAP[language] ?? 1
+
+  const [apiMembers, setApiMembers] = useState<ApiMember[] | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const params = new URLSearchParams({ language_id: String(languageId) })
+    fetch(`${API_BASE_URL}/committee-members?${params.toString()}`, {
+      headers: { Accept: 'application/json' },
+    })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (!cancelled && Array.isArray(json?.members)) {
+          setApiMembers(json.members)
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [languageId])
+
+  const advisoryFromApi = apiMembers?.filter(m => m.category === 'advisory').map(toMember) ?? []
+  const executiveFromApi = apiMembers?.filter(m => m.category === 'executive').map(toMember) ?? []
+  const generalFromApi = apiMembers?.filter(m => m.category === 'general' || m.category === 'lifetime').map(toGeneralMember) ?? []
+
+  const advisoryCommittee = advisoryFromApi.length > 0 ? advisoryFromApi : advisoryCommitteeFallback
+  const executiveCommittee = executiveFromApi.length > 0 ? executiveFromApi : executiveCommitteeFallback
+  const generalMembers = generalFromApi.length > 0 ? generalFromApi : generalMembersFallback
 
   return (
     <section className='w-full bg-[#FFF8F5] py-10'>
@@ -335,7 +431,7 @@ export function Details() {
 
             <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
               {advisoryCommittee.map(member => (
-                <GeneralMemberCard key={member.id} member={member} />
+                <CenteredMemberCard key={member.id} name={member.name} photo={member.photo} badge={member.role ? { label: member.role, tone: 'orange' } : undefined} />
               ))}
             </div>
           </div>
@@ -349,7 +445,7 @@ export function Details() {
 
             <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               {executiveCommittee.map(member => (
-                <GeneralMemberCard key={member.id} member={member} />
+                <CenteredMemberCard key={member.id} name={member.name} photo={member.photo} badge={member.role ? { label: member.role, tone: 'orange' } : undefined} />
               ))}
             </div>
           </div>
@@ -365,7 +461,13 @@ export function Details() {
 
             <div className='mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
               {generalMembers.map(member => (
-                <GeneralMemberCard key={member.id} member={member} />
+                <CenteredMemberCard
+                  key={member.id}
+                  name={member.name}
+                  photo={member.photo}
+                  badge={{ label: member.membershipType, tone: member.membershipType === 'আজীবন সদস্য' ? 'sky' : 'orange' }}
+                  subLabel={`আইডি: ${member.idNo}`}
+                />
               ))}
             </div>
           </div>

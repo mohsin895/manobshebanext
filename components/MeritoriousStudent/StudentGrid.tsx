@@ -124,7 +124,7 @@ function StudentCard({ student }: { student: MeritoriousStudent }) {
         md:aspect-auto
         md:h-[600px]
         md:p-[12px]
-        md:gap-6
+        md:gap-2
         md:rounded-tl-[24px]
         md:rounded-tr-[999px]
         md:rounded-br-[24px]
@@ -219,10 +219,8 @@ function StudentCard({ student }: { student: MeritoriousStudent }) {
 
       {/* Details */}
       <div className='mt-1 sm:mt-2 md:mt-3 flex flex-col gap-0.5 sm:gap-1 text-left'>
-        <div className='flex flex-wrap items-center gap-1 sm:gap-2 md:gap-4'>
-          <DetailLine label='রোল নম্বর' value={student.rollNumber} />
-          <DetailLine label='শ্রেণি' value={student.className} />
-        </div>
+        <DetailLine label='রোল নম্বর' value={student.rollNumber} />
+        <DetailLine label='শ্রেণি' value={student.className} />
 
         <DetailLine label='পিতা' value={student.fatherName} />
 

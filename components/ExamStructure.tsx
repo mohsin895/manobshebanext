@@ -1,9 +1,10 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
-import { BookOpen, BellRing, Languages, Sigma, MonitorSmartphone, Globe2, Trees, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { FallDownText } from '@/components/FallDownText'
+import { useEffect, useState } from 'react'
 
 const subjects = [
   { key: 'bengali', icon: '/image91.svg', color: 'text-red-500', bg: 'bg-red-50' },
@@ -14,8 +15,47 @@ const subjects = [
   { key: 'treePlantation', icon: '/image96.svg', color: 'text-green-600', bg: 'bg-green-50' },
 ]
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// bn -> language_id 1, en -> language_id 2
+const LANGUAGE_ID_MAP: Record<string, number> = {
+  bn: 1,
+  en: 2,
+}
+
+// The API's examFormat field is a flat array of plain strings, e.g.:
+// ["MCQ: ... 90 questions ...", "Tree Plantation (10 Marks): ...", ...]
+type ExamFormatItem = string
+
 export function ExamStructure() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const languageId = LANGUAGE_ID_MAP[language] ?? 1
+
+  const [examFormat, setExamFormat] = useState<ExamFormatItem[] | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const params = new URLSearchParams({ language_id: String(languageId) })
+    fetch(`${API_BASE_URL}/scholarship-info?${params.toString()}`, {
+      headers: { Accept: 'application/json' },
+    })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (!cancelled && Array.isArray(json?.examFormat)) {
+          setExamFormat(json.examFormat)
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [languageId])
+
+  // Fallback to static i18n rules if fetch hasn't resolved yet / failed / empty
+  const fallbackRules = [t('structure.rule1'), t('structure.rule2'), t('structure.rule4'), t('structure.rule3')]
+  const rulesToRender = examFormat && examFormat.length > 0 ? examFormat : fallbackRules
 
   return (
     <section className='px-4 py-5 md:py-10 '>
@@ -91,12 +131,13 @@ export function ExamStructure() {
               {t('structure.patternTitle')}
             </h3>
             <ul className='space-y-4'>
-              <li className='flex gap-3'>
-                <span className='flex '>
-                  <span className=' mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
-                </span>
-                <p
-                  className='
+              {rulesToRender.map((rule, i) => (
+                <li key={i} className='flex gap-3'>
+                  <span className='flex '>
+                    <span className='mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
+                  </span>
+                  <p
+                    className='
         font-bn-serif
         font-normal
         text-[16px]
@@ -107,71 +148,11 @@ export function ExamStructure() {
         md:leading-[32px]
         md:tracking-[-0.02em]
       '
-                >
-                  {t('structure.rule1')}
-                </p>
-              </li>
-
-              <li className='flex gap-3'>
-                <span className='flex '>
-                  <span className='h-1 w-1 mt-[10] rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
-                </span>
-                <p
-                  className='
-        font-bn-serif
-        font-normal
-        text-[16px]
-        leading-[24px]
-        tracking-[0]
-        text-[#545959]
-        md:text-[20px]
-        md:leading-[32px]
-        md:tracking-[-0.02em]
-      '
-                >
-                  {t('structure.rule2')}
-                </p>
-              </li>
-              <li className='flex gap-3'>
-                <span className='flex '>
-                  <span className='mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
-                </span>
-                <p
-                  className='
-        font-bn-serif
-        font-normal
-        text-[16px]
-        leading-[24px]
-        tracking-[0]
-        text-[#545959]
-        md:text-[20px]
-        md:leading-[32px]
-        md:tracking-[-0.02em]
-      '
-                >
-                  {t('structure.rule4')}
-                </p>
-              </li>
-              <li className='flex gap-3'>
-                <span className='flex '>
-                  <span className='mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
-                </span>
-                <p
-                  className='
-        font-bn-serif
-        font-normal
-        text-[16px]
-        leading-[24px]
-        tracking-[0]
-        text-[#545959]
-        md:text-[20px]
-        md:leading-[32px]
-        md:tracking-[-0.02em]
-      '
-                >
-                  {t('structure.rule3')}
-                </p>
-              </li>
+                  >
+                    {rule}
+                  </p>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -312,25 +293,25 @@ export function ExamStructure() {
             <a
               href='/syllabus'
               className='
-    inline-flex
-    items-center
-    gap-2
-    rounded-full
-    bg-gradient-to-r
-    from-[#9AA5FF]
-    to-[#4457F9]
-    px-5
-    py-2.5
-    font-bn
-    font-medium
-    text-[16px]
-    leading-[24px]
-    tracking-[0]
-    text-center
-    text-[#FFFFFF]
-    transition-opacity
-    hover:opacity-90
-  '
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-full
+                        bg-gradient-to-r
+                        from-[#9AA5FF]
+                        to-[#4457F9]
+                        px-5
+                        py-2.5
+                        font-bn
+                        font-medium
+                        text-[16px]
+                        leading-[24px]
+                        tracking-[0]
+                        text-center
+                        text-[#FFFFFF]
+                        transition-opacity
+                        hover:opacity-90
+                        '
             >
               {t('structure.ctaButton')}
               <ArrowRight className='h-4 w-4' />

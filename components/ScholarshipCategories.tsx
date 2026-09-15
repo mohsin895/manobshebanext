@@ -3,12 +3,91 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 import { GraduationCap } from 'lucide-react'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 const tiers = ['tier1', 'tier2', 'tier3'] as const
 const rules = ['rule1', 'rule2', 'rule3', 'rule4'] as const
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+
+// bn -> language_id 1, en -> language_id 2
+const LANGUAGE_ID_MAP: Record<string, number> = {
+  bn: 1,
+  en: 2,
+}
+
+// Detect Bengali script so we can filter API strings that come back
+// interleaved (bn/en pairs) regardless of what language_id was requested.
+const isBengali = (str: string) => /[\u0980-\u09FF]/.test(str)
+
+type ClassGroup = {
+  title: string
+  subtitle: string
+}
+
+type PrizeCategories = {
+  classGroups: ClassGroup[]
+  districtBest: ClassGroup[]
+}
+
+type ScholarshipInfo = {
+  awardRules?: string[]
+  prizeCategories?: PrizeCategories
+}
+
 export function ScholarshipCategories() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const languageId = LANGUAGE_ID_MAP[language] ?? 1
+
+  const [awardRules, setAwardRules] = useState<string[] | null>(null)
+  const [prizeCategories, setPrizeCategories] = useState<PrizeCategories | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const params = new URLSearchParams({ language_id: String(languageId) })
+    fetch(`${API_BASE_URL}/scholarship-info?${params.toString()}`, {
+      headers: { Accept: 'application/json' },
+    })
+      .then(res => (res.ok ? res.json() : null))
+      .then((json: ScholarshipInfo | null) => {
+        if (cancelled || !json) return
+
+        if (Array.isArray(json.awardRules)) {
+          const filtered = json.awardRules.filter(rule => (language === 'bn' ? isBengali(rule) : !isBengali(rule)))
+          setAwardRules(filtered.length > 0 ? filtered : json.awardRules)
+        }
+
+        if (json.prizeCategories) {
+          const { classGroups = [], districtBest = [] } = json.prizeCategories
+          const matches = (item: ClassGroup) => (language === 'bn' ? isBengali(item.title) : !isBengali(item.title))
+
+          const filteredClassGroups = classGroups.filter(matches)
+          const filteredDistrictBest = districtBest.filter(matches)
+
+          setPrizeCategories({
+            classGroups: filteredClassGroups.length > 0 ? filteredClassGroups : classGroups,
+            districtBest: filteredDistrictBest.length > 0 ? filteredDistrictBest : districtBest,
+          })
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [languageId, language])
+
+  // Fallback to static i18n content if the fetch hasn't resolved / failed / empty
+  const rulesToRender: string[] = awardRules && awardRules.length > 0 ? awardRules : rules.map(rule => t(`categories.${rule}`))
+
+  const tiersToRender: { title: string; fee: string }[] =
+    prizeCategories && (prizeCategories.classGroups.length > 0 || prizeCategories.districtBest.length > 0)
+      ? [...prizeCategories.classGroups.map(g => ({ title: g.title, fee: g.subtitle })), ...prizeCategories.districtBest.map(g => ({ title: g.title, fee: g.subtitle }))]
+      : tiers.map(tier => ({
+          title: t(`categories.${tier}.title`),
+          fee: t(`categories.${tier}.fee`),
+        }))
 
   return (
     <section
@@ -104,8 +183,8 @@ p-3
               {t('categories.tiersTitle')}
             </h3>
             <div className='space-y-3'>
-              {tiers.map(tier => (
-                <div key={tier} className='flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm'>
+              {tiersToRender.map((tier, i) => (
+                <div key={i} className='flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm'>
                   <span className='relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-blue-50'>
                     <Image src='/image81.svg' alt='test' width={24} height={24} className='h-5 w-5 md:h-6 md:w-6' />
                   </span>
@@ -120,7 +199,7 @@ p-3
     text-[#282929]
   '
                     >
-                      {t(`categories.${tier}.title`)}
+                      {tier.title}
                     </h4>
                     <p
                       className='
@@ -133,7 +212,7 @@ p-3
     text-[#545959]
   '
                     >
-                      {t(`categories.${tier}.fee`)}
+                      {tier.fee}
                     </p>
                   </div>
                 </div>
@@ -157,8 +236,8 @@ p-3
               {t('categories.rulesTitle')}
             </h3>
             <ul className='space-y-4'>
-              {rules.map(rule => (
-                <li key={rule} className='flex gap-3'>
+              {rulesToRender.map((rule, i) => (
+                <li key={i} className='flex gap-3'>
                   <span className=' mt-[10] h-1 w-1 rounded-full bg-orange-500 ring-2 p-1 ring-white animate-pulse' />
                   <p
                     className='
@@ -170,7 +249,7 @@ p-3
     text-[#545959]
   '
                   >
-                    {t(`categories.${rule}`)}
+                    {rule}
                   </p>
                 </li>
               ))}
