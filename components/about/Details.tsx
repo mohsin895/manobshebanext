@@ -60,7 +60,10 @@ const LANGUAGE_ID_MAP: Record<string, number> = {
 const fallbackAvatar = (name: string) => `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=FFEBE5&color=FF6B35`
 
 /* --------------------------------------------------------------------- */
-/* API shape (GET /committee-members?category=&language_id=)             */
+/* API shape (GET /committee-members?language_id=)                       */
+/*   category: 'advisory' | 'executive' | 'general' | 'lifetime'          */
+/*   'lifetime' = founding members (designation is "প্রতিষ্ঠাতা সদস্য")   */
+/*   'general'  = general members (screenshot 5 tab)                      */
 /* --------------------------------------------------------------------- */
 
 type ApiCategory = 'advisory' | 'executive' | 'general' | 'lifetime'
@@ -87,8 +90,50 @@ type Member = {
   photo: string
 }
 
-// Founders isn't a category the API supports, so it stays static.
-const founders: Member[] = [
+function MemberCard({ member }: { member: Member }) {
+  return (
+    <div className='flex flex-col items-start gap-5 self-stretch rounded-[24px] border-[1.5px] border-[#F0EAE1] bg-white p-8 shadow-[0_12px_24px_0_rgba(30,30,36,0.03)]'>
+      <div className='flex items-center gap-3'>
+        <img src={member.photo} alt={member.name} className='h-14 w-14 shrink-0 rounded-full object-cover' />
+
+        <div className='flex flex-col items-start'>
+          <h4 className='font-bn text-sm font-bold text-slate-800'>{member.name}</h4>
+          {member.role && <span className='mt-1 rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-semibold text-orange-600'>{member.role}</span>}
+        </div>
+      </div>
+
+      {member.description && <p className='font-bn text-xs leading-relaxed text-slate-500'>{member.description}</p>}
+    </div>
+  )
+}
+
+/* --------------------------------------------------------------------- */
+/* Advisory / Executive / General — centered card                         */
+/* (screenshots 3, 4, 5 — same shape, different badge + sub-label)       */
+/* --------------------------------------------------------------------- */
+
+type CardBadge = { label: string; tone: 'sky' | 'orange' }
+
+function CenteredMemberCard({ name, photo, badge, subLabel }: { name: string; photo: string; badge?: CardBadge; subLabel?: string }) {
+  return (
+    <div className='flex flex-col items-center rounded-2xl border border-[#FFEBE5] bg-white p-5 text-center'>
+      <img src={photo} alt={name} className='h-16 w-16 rounded-full object-cover' />
+
+      <h4 className='mt-3 text-sm font-bold text-slate-800'>{name}</h4>
+
+      {badge && <span className={`mt-2 rounded-full px-3 py-1 text-[11px] font-medium ${badge.tone === 'sky' ? 'bg-sky-50 text-sky-600' : 'bg-orange-50 text-orange-600'}`}>{badge.label}</span>}
+
+      {subLabel && <span className='mt-2 text-xs text-slate-400'>{subLabel}</span>}
+    </div>
+  )
+}
+
+/* --------------------------------------------------------------------- */
+/* Static fallback content — used while loading / if the API fails       */
+/* or returns nothing for a given category                               */
+/* --------------------------------------------------------------------- */
+
+const foundersFallback: Member[] = [
   {
     id: 'fd1',
     name: 'ড. মাহবুবুর রহমান',
@@ -117,72 +162,7 @@ const founders: Member[] = [
     description: 'যোগাযোগ ও স্বেচ্ছাসেবক সমন্বয়ের কাজে দীর্ঘদিন যুক্ত আছেন।',
     photo: 'https://randomuser.me/api/portraits/women/45.jpg',
   },
-  {
-    id: 'fd5',
-    name: 'ড. জাকির হাসান',
-    role: 'কার্যনির্বাহী সদস্য',
-    description: 'শিক্ষা প্রকল্পের পরিকল্পনা ও তদারকিতে সক্রিয় ভূমিকা পালন করেন।',
-    photo: 'https://randomuser.me/api/portraits/men/56.jpg',
-  },
-  {
-    id: 'fd6',
-    name: 'নাফিস সুলতানা',
-    role: 'নারী ও শিশু বিষয়ক সম্পাদক',
-    description: 'নারীর ক্ষমতায়ন ও শিশু কল্যাণমূলক কার্যক্রম বাস্তবায়নে নিয়োজিত।',
-    photo: 'https://randomuser.me/api/portraits/women/67.jpg',
-  },
-  { id: 'fd7', name: 'কামরুল হাসান চৌধুরী', role: 'দপ্তর সম্পাদক', description: 'সাংগঠনিক দলিলপত্র ও যোগাযোগ ব্যবস্থাপনার দায়িত্বে আছেন।', photo: 'https://randomuser.me/api/portraits/men/78.jpg' },
-  {
-    id: 'fd8',
-    name: 'যারিফুল ইসলাম আল-আমিন',
-    role: 'প্রচার সম্পাদক',
-    description: 'সংগঠনের কার্যক্রম প্রচার ও গণসংযোগের দায়িত্ব পালন করেন।',
-    photo: 'https://randomuser.me/api/portraits/men/89.jpg',
-  },
 ]
-
-function MemberCard({ member }: { member: Member }) {
-  return (
-    <div className='flex flex-col items-start gap-5 self-stretch rounded-[24px] border-[1.5px] border-[#F0EAE1] bg-white p-8 shadow-[0_12px_24px_0_rgba(30,30,36,0.03)]'>
-      <div className='flex items-center gap-3'>
-        <img src={member.photo} alt={member.name} className='h-14 w-14 shrink-0 rounded-full object-cover' />
-
-        <div className='flex flex-col items-start'>
-          <h4 className='font-bn text-sm font-bold text-slate-800'>{member.name}</h4>
-          {member.role && <span className='mt-1 rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-semibold text-orange-600'>{member.role}</span>}
-        </div>
-      </div>
-
-      {member.description && <p className='font-bn text-xs leading-relaxed text-slate-500'>{member.description}</p>}
-    </div>
-  )
-}
-
-/* --------------------------------------------------------------------- */
-/* Advisory / Executive / General / Lifetime — centered card              */
-/* (screenshots 3, 4, 5 — same shape, different badge + sub-label)       */
-/* --------------------------------------------------------------------- */
-
-type CardBadge = { label: string; tone: 'sky' | 'orange' }
-
-function CenteredMemberCard({ name, photo, badge, subLabel }: { name: string; photo: string; badge?: CardBadge; subLabel?: string }) {
-  return (
-    <div className='flex flex-col items-center rounded-2xl border border-[#FFEBE5] bg-white p-5 text-center'>
-      <img src={photo} alt={name} className='h-16 w-16 rounded-full object-cover' />
-
-      <h4 className='mt-3 text-sm font-bold text-slate-800'>{name}</h4>
-
-      {badge && <span className={`mt-2 rounded-full px-3 py-1 text-[11px] font-medium ${badge.tone === 'sky' ? 'bg-sky-50 text-sky-600' : 'bg-orange-50 text-orange-600'}`}>{badge.label}</span>}
-
-      {subLabel && <span className='mt-2 text-xs text-slate-400'>{subLabel}</span>}
-    </div>
-  )
-}
-
-/* --------------------------------------------------------------------- */
-/* Static fallback content — used while loading / if the API fails       */
-/* or returns nothing for a given category                               */
-/* --------------------------------------------------------------------- */
 
 const advisoryCommitteeFallback: Member[] = [
   {
@@ -206,27 +186,6 @@ const advisoryCommitteeFallback: Member[] = [
     description: 'সংগঠনের আইনি কাঠামো ও নিয়মনীতি প্রণয়নে সহায়তা করে থাকেন।',
     photo: 'https://randomuser.me/api/portraits/men/36.jpg',
   },
-  {
-    id: 'ad4',
-    name: 'এ. কাদিরুল ইসলাম',
-    role: 'প্রযুক্তি ও উন্নয়ন উপদেষ্টা',
-    description: 'ডিজিটাল প্রযুক্তি ব্যবহার করে সংগঠনের কার্যক্রম আধুনিকায়নে পরামর্শ দিয়ে থাকেন।',
-    photo: 'https://randomuser.me/api/portraits/men/47.jpg',
-  },
-  {
-    id: 'ad5',
-    name: 'ফাহমিদা পারভীন',
-    role: 'আর্থিক উপদেষ্টা',
-    description: 'আর্থিক পরিকল্পনা ও নিরীক্ষা বিষয়ে সংগঠনকে পরামর্শ দিয়ে থাকেন।',
-    photo: 'https://randomuser.me/api/portraits/women/58.jpg',
-  },
-  {
-    id: 'ad6',
-    name: 'ড. ফারুকী কামাল',
-    role: 'স্বাস্থ্য ও পরিবেশ উপদেষ্টা',
-    description: 'স্বাস্থ্যসেবা ও পরিবেশ বিষয়ক প্রকল্পে কারিগরি পরামর্শ প্রদান করেন।',
-    photo: 'https://randomuser.me/api/portraits/men/69.jpg',
-  },
 ]
 
 const executiveCommitteeFallback: Member[] = [
@@ -240,28 +199,6 @@ const executiveCommitteeFallback: Member[] = [
     photo: 'https://randomuser.me/api/portraits/men/39.jpg',
   },
   { id: 'ex4', name: 'কামরুল হাসান সবিন', role: 'কোষাধ্যক্ষ', description: 'আর্থিক হিসাব সংরক্ষণ ও বাজেট ব্যবস্থাপনার দায়িত্ব পালন করেন।', photo: 'https://randomuser.me/api/portraits/men/41.jpg' },
-  { id: 'ex5', name: 'পাভিন বিদ্যা বেগ', role: 'দপ্তর সম্পাদক', description: 'সাংগঠনিক নথি ও যোগাযোগ ব্যবস্থাপনার দায়িত্বে নিয়োজিত।', photo: 'https://randomuser.me/api/portraits/women/52.jpg' },
-  {
-    id: 'ex6',
-    name: 'মাহবুবুর রহমান বিদ্যুৎ',
-    role: 'প্রচার সম্পাদক',
-    description: 'গণসংযোগ ও সংগঠনের কার্যক্রম প্রচারের দায়িত্ব পালন করেন।',
-    photo: 'https://randomuser.me/api/portraits/men/63.jpg',
-  },
-  {
-    id: 'ex7',
-    name: 'ফাহিমা আফরিন নিরা',
-    role: 'নারী বিষয়ক সম্পাদক',
-    description: 'নারী উন্নয়নমূলক কার্যক্রম বাস্তবায়নে সক্রিয় ভূমিকা রাখেন।',
-    photo: 'https://randomuser.me/api/portraits/women/74.jpg',
-  },
-  {
-    id: 'ex8',
-    name: 'প্রবাসী সাদ্দাম বাদী',
-    role: 'ক্রীড়া ও সংস্কৃতি সম্পাদক',
-    description: 'ক্রীড়া ও সাংস্কৃতিক কার্যক্রমের পরিকল্পনা ও আয়োজন করে থাকেন।',
-    photo: 'https://randomuser.me/api/portraits/men/85.jpg',
-  },
 ]
 
 type GeneralMember = {
@@ -274,17 +211,9 @@ type GeneralMember = {
 
 const generalMembersFallback: GeneralMember[] = [
   { id: 'gm1', name: 'মো: আসিফুর ইসলাম', photo: 'https://randomuser.me/api/portraits/men/32.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০১' },
-  { id: 'gm2', name: 'ফা: জাহারা ইয়াসমিন', photo: 'https://randomuser.me/api/portraits/women/44.jpg', membershipType: 'আজীবন সদস্য', idNo: '৩০২' },
+  { id: 'gm2', name: 'ফা: জাহারা ইয়াসমিন', photo: 'https://randomuser.me/api/portraits/women/44.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০২' },
   { id: 'gm3', name: 'আব্দুর রহমান চৌধুরী', photo: 'https://randomuser.me/api/portraits/men/65.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০৩' },
-  { id: 'gm4', name: 'মোছা: রাকসানা আক্তার', photo: 'https://randomuser.me/api/portraits/women/68.jpg', membershipType: 'আজীবন সদস্য', idNo: '৩০৪' },
-  { id: 'gm5', name: 'আওলাদ আলী রুইদ্দা', photo: 'https://randomuser.me/api/portraits/men/12.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০৫' },
-  { id: 'gm6', name: 'বাহারিন সুলতানা', photo: 'https://randomuser.me/api/portraits/women/21.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০৬' },
-  { id: 'gm7', name: 'মো: রাসেল রানা', photo: 'https://randomuser.me/api/portraits/men/54.jpg', membershipType: 'আজীবন সদস্য', idNo: '৩০৭' },
-  { id: 'gm8', name: 'পারিসা নাফরিন', photo: 'https://randomuser.me/api/portraits/women/56.jpg', membershipType: 'আজীবন সদস্য', idNo: '৩০৮' },
-  { id: 'gm9', name: 'বিজয়ের রহমান', photo: 'https://randomuser.me/api/portraits/men/76.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০৯' },
-  { id: 'gm10', name: 'তানিয়া সুলতানা চৌধুরী', photo: 'https://randomuser.me/api/portraits/women/12.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩১০' },
-  { id: 'gm11', name: 'মো: হাসান আলী', photo: 'https://randomuser.me/api/portraits/men/22.jpg', membershipType: 'আজীবন সদস্য', idNo: '৩১১' },
-  { id: 'gm12', name: 'খায়রুন বুক নেওয়াজ', photo: 'https://randomuser.me/api/portraits/women/33.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩১২' },
+  { id: 'gm4', name: 'মোছা: রাকসানা আক্তার', photo: 'https://randomuser.me/api/portraits/women/68.jpg', membershipType: 'সাধারণ সদস্য', idNo: '৩০৪' },
 ]
 
 /* --------------------------------------------------------------------- */
@@ -306,7 +235,7 @@ function toGeneralMember(m: ApiMember): GeneralMember {
     id: String(m.id),
     name: m.name,
     photo: m.photoUrl ?? fallbackAvatar(m.name),
-    membershipType: m.category === 'lifetime' ? 'আজীবন সদস্য' : 'সাধারণ সদস্য',
+    membershipType: 'সাধারণ সদস্য',
     idNo: m.memberCode ?? '—',
   }
 }
@@ -342,10 +271,14 @@ export function Details() {
     }
   }, [languageId])
 
+  // 'lifetime' = founding members (photo-left card w/ quote, screenshot 2)
+  const foundersFromApi = apiMembers?.filter(m => m.category === 'lifetime').map(toMember) ?? []
   const advisoryFromApi = apiMembers?.filter(m => m.category === 'advisory').map(toMember) ?? []
   const executiveFromApi = apiMembers?.filter(m => m.category === 'executive').map(toMember) ?? []
-  const generalFromApi = apiMembers?.filter(m => m.category === 'general' || m.category === 'lifetime').map(toGeneralMember) ?? []
+  // 'general' = general members (centered badge card, screenshot 5)
+  const generalFromApi = apiMembers?.filter(m => m.category === 'general').map(toGeneralMember) ?? []
 
+  const founders = foundersFromApi.length > 0 ? foundersFromApi : foundersFallback
   const advisoryCommittee = advisoryFromApi.length > 0 ? advisoryFromApi : advisoryCommitteeFallback
   const executiveCommittee = executiveFromApi.length > 0 ? executiveFromApi : executiveCommitteeFallback
   const generalMembers = generalFromApi.length > 0 ? generalFromApi : generalMembersFallback
@@ -408,7 +341,7 @@ export function Details() {
           </div>
         )}
 
-        {/* Founding members tab (screenshot 2) — 2 columns, left-aligned photo card */}
+        {/* Founding members tab (screenshot 2) — 2 columns, left-aligned photo card, from category 'lifetime' */}
         {activeTab === 'founders' && (
           <div className='mt-10'>
             <h2 className='text-center text-lg font-bold text-slate-800 md:text-xl'>প্রতিষ্ঠাতা সদস্য</h2>
@@ -451,23 +384,17 @@ export function Details() {
           </div>
         )}
 
-        {/* General members tab (screenshot 5) — centered photo card, 4 columns, badge + ID */}
+        {/* General members tab (screenshot 5) — centered photo card, 4 columns, badge + ID, from category 'general' */}
         {activeTab === 'members' && (
           <div className='mt-10'>
-            <h2 className='text-center text-lg font-bold text-slate-800 md:text-xl'>সাধারণ ও আজীবন সদস্যবৃন্দ</h2>
+            <h2 className='text-center text-lg font-bold text-slate-800 md:text-xl'>সাধারণ সদস্যবৃন্দ</h2>
             <p className='mx-auto mt-2 max-w-2xl text-center text-sm leading-relaxed text-slate-500'>
-              আমাদের সংগঠনের সাথে যুক্ত সাধারণ ও আজীবন সদস্যবৃন্দ, যাঁরা সংগঠনের বিভিন্ন কার্যক্রমে নিয়মিত অংশগ্রহণ করে থাকেন।
+              আমাদের সংগঠনের সাথে যুক্ত সাধারণ সদস্যবৃন্দ, যাঁরা সংগঠনের বিভিন্ন কার্যক্রমে নিয়মিত অংশগ্রহণ করে থাকেন।
             </p>
 
             <div className='mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
               {generalMembers.map(member => (
-                <CenteredMemberCard
-                  key={member.id}
-                  name={member.name}
-                  photo={member.photo}
-                  badge={{ label: member.membershipType, tone: member.membershipType === 'আজীবন সদস্য' ? 'sky' : 'orange' }}
-                  subLabel={`আইডি: ${member.idNo}`}
-                />
+                <CenteredMemberCard key={member.id} name={member.name} photo={member.photo} badge={{ label: member.membershipType, tone: 'orange' }} subLabel={`আইডি: ${member.idNo}`} />
               ))}
             </div>
           </div>

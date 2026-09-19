@@ -1,11 +1,18 @@
 'use client'
 
 import { useLanguage } from '@/app/context/LanguageContext'
+import { useFeaturedCampaign } from '@/hooks/useFeaturedCampaign'
 
 export function ActivityHero() {
-  const { t } = useLanguage()
+  const { language } = useLanguage()
+  const { campaign } = useFeaturedCampaign(language)
 
-  const isBn = t('hero.title') === 'আপনার স্বপ্নের পথে এগিয়ে যান'
+  // Fallbacks keep the original static copy until the fetch resolves / if it fails
+  const title = campaign?.title ?? 'ছায়াপথ — বৃক্ষরোপণ প্রকল্প'
+  const description = campaign?.description ?? 'সবুজে ও উন্নয়নের নামে প্রতিটি সুবিধাবঞ্চিত এলাকায় সহযোগে পরিবেশ সংরক্ষণে ধাপে ধাপে সবুজ বনায়ন কার্যক্রম।'
+  const heroImage = campaign?.imageUrl ?? '/abouthero.png'
+  const sectionBadge = campaign?.sectionTitle ?? 'পরিবেশ রক্ষা'
+  const locationBadge = campaign?.stats?.find(s => s.label.includes('অবস্থান'))?.value ?? 'টুংগিবাড়ী'
 
   return (
     <section className=' p-1'>
@@ -53,7 +60,7 @@ export function ActivityHero() {
 
           <span className='font-bn text-gray-400'>&gt;</span>
 
-          <span className='font-bn text-gray-400'>ছায়াপথ — বৃক্ষরোপণ প্রকল্প</span>
+          <span className='font-bn text-gray-400'>{title}</span>
         </nav>
 
         <div className='relative mx-auto w-[351px] rounded-[24px] bg-[#EBECFF] p-0 md:w-[1320px] md:h-[621px] md:rounded-[24px]'>
@@ -71,7 +78,7 @@ export function ActivityHero() {
               rgba(120,120,120,0.2) 13.46%,
               rgba(0,3,23,0) 100%
             ),
-            url('/abouthero.png')
+            url('${heroImage}')
           `,
                 }}
               />
@@ -85,15 +92,15 @@ export function ActivityHero() {
             {/* Project Information */}
             <div className='relative mx-auto flex h-[177px] w-[351px] flex-col gap-4 pb-10 md:w-[1320px] md:pl-10 md:pr-10'>
               <div className='flex items-center gap-2'>
-                <span className='rounded-full bg-orange-500 px-3 py-1 text-xs font-medium text-white'>পরিবেশ রক্ষা</span>
+                <span className='rounded-full bg-orange-500 px-3 py-1 text-xs font-medium text-white'>{sectionBadge}</span>
 
-                <span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600'>টুংগিবাড়ী</span>
+                <span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600'>{locationBadge}</span>
               </div>
 
               {/* Title */}
-              <h1 className='text-2xl font-bold text-slate-800 md:text-3xl'>ছায়াপথ — বৃক্ষরোপণ প্রকল্প</h1>
+              <h1 className='text-2xl font-bold text-slate-800 md:text-3xl'>{title}</h1>
 
-              <p className='text-sm text-slate-500 md:text-base'>সবুজে ও উন্নয়নের নামে প্রতিটি সুবিধাবঞ্চিত এলাকায় সহযোগে পরিবেশ সংরক্ষণে ধাপে ধাপে সবুজ বনায়ন কার্যক্রম।</p>
+              <p className='line-clamp-2 whitespace-pre-line text-sm text-slate-500 md:text-base'>{description}</p>
             </div>
           </div>
         </div>
