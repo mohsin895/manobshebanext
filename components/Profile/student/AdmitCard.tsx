@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 
 export type Student = {
   id: string
@@ -266,9 +267,9 @@ export default function AdmitCard({
                     <img src={student.photoUrl} alt={student.name} className='h-[60px] w-[60px] rounded-[8px] object-cover' />
                   </td>
                   <td className='py-3 pr-3'>
-                    <a href='#' className='font-medium text-teal-600 hover:underline'>
+                    <Link href={`/auth/student/registration/${student.id}`} className='font-medium text-teal-600 hover:underline'>
                       {student.formNo}
-                    </a>
+                    </Link>
                   </td>
                   <td className='py-3 pr-3'>{student.name}</td>
                   <td className='py-3 pr-3'>
