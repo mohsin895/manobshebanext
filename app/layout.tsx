@@ -31,6 +31,8 @@ const poppins = Poppins({
   variable: '--font-poppins',
   display: 'swap',
 })
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'বিক্রমপুর মানব সেবা ফাউন্ডেশন',
   description: "শিক্ষা ও সেবায় আমরা গড়তে চাই একটি মানবিক মুন্সিগঞ্জ। 'এসো মানবতার হাত বাড়িয়ে, সুন্দর সমাজ বিনির্মাণে'",
