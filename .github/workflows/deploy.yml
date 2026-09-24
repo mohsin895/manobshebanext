@@ -18,8 +18,15 @@ jobs:
           script: |
             set -e
             cd /root/apps/medhabritti
+
             git fetch origin main
             git reset --hard origin/main
+
+            cat > .env.production <<EOF
+            NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+            NEXT_PUBLIC_IMAGE_BASE_URL=${{ secrets.NEXT_PUBLIC_IMAGE_BASE_URL }}
+            EOF
+
             pnpm install --frozen-lockfile
             pnpm build
-            pm2 restart medhabritti
+            pm2 restart medhabritti --update-env
