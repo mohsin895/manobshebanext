@@ -65,6 +65,15 @@ function DownloadConfirmModal({ onClose, onConfirm }: { onClose: () => void; onC
           <CloseIcon />
         </button>
 
+        <div className='mb-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-left'>
+          <p className='mb-2 text-sm font-semibold text-amber-800'>⚠️ জরুরি বিজ্ঞপ্তি: শিক্ষার্থীদের ছবি পুনরায় আপলোড প্রসঙ্গ</p>
+          <p className='text-sm leading-relaxed text-amber-900'>
+            প্রিয় শিক্ষকবৃন্দ, কারিগরি ত্রুটি ও সার্ভার ক্রাশ করার কারণে ডাটাবেজ থেকে কিছু শিক্ষার্থীর ছবি মুছে গেছে, যার ফলে এডমিট কার্ডে তাদের ছবি প্রদর্শিত হচ্ছে না। এই অনাকাঙ্ক্ষিত অনভিপ্রেত
+            পরিস্থিতির জন্য বিক্রমপুর মানব সেবা ফাউন্ডেশন আন্তরিকভাবে দুঃখ প্রকাশ করছে। এডমিট কার্ড ডাউনলোড নিশ্চিত করতে অনুগ্রহ করে যে সকল শিক্ষার্থীর ছবি বাদ পড়েছে, তাদের ছবি পুনরায় সিস্টেমে
+            আপলোড/সংযুক্ত করার জন্য বিনীত অনুরোধ করা হচ্ছে।
+          </p>
+        </div>
+
         <p className='mb-6 text-sm leading-relaxed text-gray-700'>রঙিন প্রবেশপত্রটি ডাউনলোড করে প্রিন্ট করুন। পরবর্তীতে বিদ্যালয়ে প্রধান শিক্ষকের স্বাক্ষর ও সিল সংযুক্ত করে নিন।</p>
 
         <button onClick={onConfirm} className='w-full rounded-lg bg-orange-500 py-2.5 text-sm font-medium text-white transition hover:bg-orange-600'>
