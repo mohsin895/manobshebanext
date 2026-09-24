@@ -22,10 +22,4 @@ jobs:
             git reset --hard origin/main
             pnpm install --frozen-lockfile
             pnpm build
-
-            # copy the build output to the live folder
-            TARGET=/home/mohsin/web/medhabritti.manabseba.org/public_html
-            rsync -a --delete \
-              --exclude='.well-known' --exclude='cgi-bin' \
-              dist/ "$TARGET"/
-            chown -R mohsin:mohsin "$TARGET"
+            pm2 restart medhabritti --update-env
