@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/app/context/LanguageContext'
 import type { Language } from '@/app/context/LanguageContext'
-
+import { clearAuth } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
@@ -36,8 +36,43 @@ export function Navbar() {
   // NEW: check auth on mount (client-only, since localStorage isn't available during SSR)
   useEffect(() => {
     const token = localStorage.getItem('token')
-    setIsAuthenticated(!!token)
-    setAuthChecked(true)
+
+    if (!token) {
+      setIsAuthenticated(false)
+      setAuthChecked(true)
+      return
+    }
+
+    const controller = new AbortController()
+
+    const verify = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/me`, {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          signal: controller.signal,
+        })
+
+        if (res.status === 401) {
+          // সেশন শেষ বা টোকেন বাতিল
+          clearAuth()
+          setIsAuthenticated(false)
+        } else {
+          setIsAuthenticated(res.ok)
+        }
+      } catch (err: any) {
+        if (err.name === 'AbortError') return
+        // নেটওয়ার্ক সমস্যা হলে লগআউট করবেন না, সংরক্ষিত টোকেনের উপর ভরসা করুন
+        setIsAuthenticated(true)
+      } finally {
+        if (!controller.signal.aborted) setAuthChecked(true)
+      }
+    }
+
+    verify()
+    return () => controller.abort()
   }, [])
 
   // Measure real heights once, and again on resize — never guessed.
