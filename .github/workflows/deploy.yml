@@ -7,19 +7,77 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - name: Deploy over SSH
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Create env
+        run: |
+          cat > .env.production <<EOF
+          NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          NEXT_PUBLIC_IMAGE_BASE_URL=${{ secrets.NEXT_PUBLIC_IMAGE_BASE_URL }}
+          EOF
+
+      - name: Build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Pack build
+        run: |
+          FILES=".next package.json pnpm-lock.yaml .env.production"
+          [ -d public ] && FILES="$FILES public"
+          for f in next.config.js next.config.mjs next.config.ts; do
+            [ -f "$f" ] && FILES="$FILES $f"
+          done
+          tar -czf build.tar.gz $FILES
+
+      - name: Upload to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: manabseba
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          source: "build.tar.gz"
+          target: /home/manabseba/web/medhabritti.manabseba.org/private
+          overwrite: true
+
+      - name: Install and restart
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: root
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          host: ${{ secrets.VPS_HOST }}
+          username: manabseba
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          timeout: 120s
+          command_timeout: 20m
+          script_stop: true
           script: |
-            set -e
-            cd /root/apps/medhabritti
-            git fetch origin main
-            git reset --hard origin/main
-            pnpm install --frozen-lockfile
-            pnpm build
-            pm2 restart medhabritti --update-env
+            set -ex
+            export PATH="$PATH:/usr/local/bin:/usr/bin"
+            export PM2_HOME=/home/manabseba/web/medhabritti.manabseba.org/private/.pm2
+
+            APP=/home/manabseba/web/medhabritti.manabseba.org/private/nextapp
+            mkdir -p "$APP"
+            cd "$APP"
+
+            rm -rf .next
+            tar -xzf ../build.tar.gz -C "$APP"
+            rm -f ../build.tar.gz
+
+            pnpm install --prod --frozen-lockfile
+
+            if pm2 describe medhabritti > /dev/null 2>&1; then
+              PORT=3003 pm2 restart medhabritti --update-env
+            else
+              PORT=3003 pm2 start npm --name medhabritti -- start
+            fi
+            pm2 save
