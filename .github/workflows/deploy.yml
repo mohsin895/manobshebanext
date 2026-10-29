@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -38,7 +40,6 @@ jobs:
             [ -f "$f" ] && FILES="$FILES $f"
           done
           tar -czf build.tar.gz $FILES
-          ls -lh build.tar.gz
 
       - name: Upload to server
         uses: appleboy/scp-action@v0.1.7
@@ -66,16 +67,18 @@ jobs:
             export PATH="$PATH:/usr/local/bin:/usr/bin"
             export PM2_HOME=/home/manabseba/web/manabseba.org/private/.pm2
 
-            APP=/home/manabseba/web/medhabritti.manabseba.org/private/nextapp
-            mkdir -p "$APP"
+            APP=/home/manabseba/web/medhabritti.manabseba.org/private/app
             cd "$APP"
 
             rm -rf .next
             tar -xzf ../build.tar.gz -C "$APP"
             rm -f ../build.tar.gz
 
-            pnpm install --prod --frozen-lockfile
+            pnpm install --frozen-lockfile
 
-            pm2 delete medhabritti || true
-            PORT=3003 pm2 start npm --name medhabritti -- start
+            if pm2 describe medhabritti > /dev/null 2>&1; then
+              PORT=3003 pm2 restart medhabritti --update-env
+            else
+              PORT=3003 pm2 start pnpm --name medhabritti -- start
+            fi
             pm2 save
