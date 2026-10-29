@@ -38,14 +38,15 @@ jobs:
             [ -f "$f" ] && FILES="$FILES $f"
           done
           tar -czf build.tar.gz $FILES
+          ls -lh build.tar.gz
 
       - name: Upload to server
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: manabseba
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           source: "build.tar.gz"
           target: /home/manabseba/web/medhabritti.manabseba.org/private
           overwrite: true
@@ -53,17 +54,17 @@ jobs:
       - name: Install and restart
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: manabseba
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           timeout: 120s
           command_timeout: 20m
           script_stop: true
           script: |
             set -ex
             export PATH="$PATH:/usr/local/bin:/usr/bin"
-            export PM2_HOME=/home/manabseba/web/medhabritti.manabseba.org/private/.pm2
+            export PM2_HOME=/home/manabseba/web/manabseba.org/private/.pm2
 
             APP=/home/manabseba/web/medhabritti.manabseba.org/private/nextapp
             mkdir -p "$APP"
@@ -75,9 +76,6 @@ jobs:
 
             pnpm install --prod --frozen-lockfile
 
-            if pm2 describe medhabritti > /dev/null 2>&1; then
-              PORT=3003 pm2 restart medhabritti --update-env
-            else
-              PORT=3003 pm2 start npm --name medhabritti -- start
-            fi
+            pm2 delete medhabritti || true
+            PORT=3003 pm2 start npm --name medhabritti -- start
             pm2 save
