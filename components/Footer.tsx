@@ -327,8 +327,14 @@ export function Footer() {
           <div className='relative border-t border-[#4A4DE1] pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 font-[Noto_Serif_Bengali] text-[12px] font-normal leading-[20px] text-white'>
             <p className='relative z-10 font-bn-serif text-center text-[12px] font-normal leading-5 text-[#FFFFFF] sm:text-left md:text-[16px] md:leading-6'>
               © {currentYear} বিক্রমপুর মানব সেবা ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত। Powered By{' '}
-              <a href='https://deltanexsolutions.com/' target='_blank' rel='noopener noreferrer'>
+              <a
+                href='https://deltanexsolutions.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='group relative inline-block font-semibold text-white transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:text-white'
+              >
                 DeltaNex Solutions
+                <span className='absolute bottom-0 left-0 h-[1.5px] w-0 bg-[#FFD700] transition-all duration-300 ease-out group-hover:w-full' />
               </a>
             </p>
 
