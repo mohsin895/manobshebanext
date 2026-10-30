@@ -3,7 +3,7 @@
 import { useLanguage } from '@/app/context/LanguageContext'
 import type { Language } from '@/app/context/LanguageContext'
 import Image from 'next/image'
-import { X, ChevronDown, LogIn, LayoutDashboard, Home, Info, Activity, GraduationCap } from 'lucide-react'
+import { X, ChevronDown, LogIn, LayoutDashboard, Home, Info, Activity, GraduationCap, Heart } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -21,9 +21,9 @@ const scholarshipItems: MenuLink[] = [
   { bn: 'কৃতি শিক্ষার্থী', en: 'Meritorious student', href: '/meritorious-student' },
   { bn: 'শিক্ষা প্রতিষ্ঠানের অর্জন সমূহ', en: 'Institutions Achievements', href: '/achievement' },
 ]
-
 const menuEntries: MenuEntry[] = [
   { bn: 'প্রচ্ছদ', en: 'Home', href: '/', icon: Home },
+  { bn: 'মানবসেবা', en: 'Manabseba', href: 'https://manabseba.org/', icon: Heart },
   { bn: 'আমাদের সম্পর্কে', en: 'About Us', href: '/about-us', icon: Info },
   { bn: 'কার্যক্রম', en: 'Activities', href: '/activity', icon: Activity },
   { bn: 'মেধাবৃত্তি', en: 'Merit Scholarship', children: scholarshipItems, icon: GraduationCap },

@@ -218,7 +218,13 @@ export function Navbar() {
                   >
                     {language === 'bn' ? 'প্রচ্ছদ' : 'Home'}
                   </a>
-
+                  <a
+                    href='https://manabseba.org/'
+                    className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
+                    style={isScrolled ? { color: '#FFFFFF' } : undefined}
+                  >
+                    {language === 'bn' ? 'মানবসেবা' : 'Manabseba'}
+                  </a>
                   <a
                     href='/about-us'
                     className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
