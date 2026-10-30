@@ -23,7 +23,7 @@ const scholarshipItems: MenuLink[] = [
 ]
 const menuEntries: MenuEntry[] = [
   { bn: 'প্রচ্ছদ', en: 'Home', href: '/', icon: Home },
-  { bn: 'মানবসেবা', en: 'Manabseba', href: 'https://manabseba.org/', icon: Heart },
+  { bn: 'মূলপাতা', en: 'Manabseba', href: 'https://manabseba.org/', icon: Heart },
   { bn: 'আমাদের সম্পর্কে', en: 'About Us', href: '/about-us', icon: Info },
   { bn: 'কার্যক্রম', en: 'Activities', href: '/activity', icon: Activity },
   { bn: 'মেধাবৃত্তি', en: 'Merit Scholarship', children: scholarshipItems, icon: GraduationCap },

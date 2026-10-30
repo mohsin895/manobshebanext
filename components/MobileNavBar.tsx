@@ -9,7 +9,7 @@ import Image from 'next/image'
 
 const navItems = [
   { key: 'home', label: 'হোম', href: '/', icon: Home },
-  { key: 'মানবসেবা', label: 'Manabseba', href: 'https://manabseba.org/', icon: Heart },
+  { key: 'মানবসেবা', label: 'মূলপাতা', href: 'https://manabseba.org/', icon: Heart },
   { key: 'donor', label: 'রক্তদাতা', href: '/blood-donor', icon: Droplets },
 
   { key: 'profile', label: 'প্রোফাইল', href: '/auth/user', icon: User },

@@ -223,7 +223,7 @@ export function Navbar() {
                     className='flex h-10 items-center justify-center px-4 py-2 font-bn text-base font-medium leading-6 text-[#374151] transition-colors duration-200 hover:text-[#3B3BC7]'
                     style={isScrolled ? { color: '#FFFFFF' } : undefined}
                   >
-                    {language === 'bn' ? 'মানবসেবা' : 'Manabseba'}
+                    {language === 'bn' ? 'মূলপাতা' : 'Manabseba'}
                   </a>
                   <a
                     href='/about-us'
