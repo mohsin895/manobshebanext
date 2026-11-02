@@ -120,7 +120,7 @@ p-5
         <div className='relative rounded-xl'>
           {/* Background photo - desktop/laptop */}
           <div className='relative hidden h-[430px] w-full sm:block md:h-[560px]'>
-            <Image src='/images/image3.png' alt={t('reasons.image_alt')} fill className='object-cover' priority />
+            <Image src='/images/image31.png' alt={t('reasons.image_alt')} fill className='object-cover' priority />
           </div>
 
           {/* Background photo - mobile */}
